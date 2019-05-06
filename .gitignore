@@ -53,3 +53,10 @@ war/WEB-INF/classes/
 /.settings
 /.gwt
 /.metadata/
+shopIt/war/WEB-INF/deploy/
+shopIt/war/WEB-INF/classes/
+shopIt/.factorypath
+shopIt/.svn/
+shopIt/.settings
+shopIt/.gwt
+shopIt/.metadata/
