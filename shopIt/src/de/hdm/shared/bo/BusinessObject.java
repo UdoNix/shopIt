@@ -8,7 +8,7 @@ public abstract class BusinessObject implements Serializable{
 	  
 	  //Eindeutige Id einer Instanz der Klasse.
 	  private int id = 0;
-	  //Auslese der Id.
+	  //Auslesen der Id.
 	  public int getId() {
 	    return this.id;
 	  }
