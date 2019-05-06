@@ -50,7 +50,7 @@ public class ListMapper {
 			        List l = new List();
 			        l.setId(rs.getInt("id"));
 			        l.setName(rs.getString("name"));
-			        l.setEstellungsDatum(rs.getDate("erstellungsDatum"));
+			        l.setCreationDate(rs.getDate("creationDate"));
 			        return l;
 			      }
 			    }
@@ -84,7 +84,7 @@ public class ListMapper {
 	      List l = new List();
 	      l.setId(rs.getInt("id"));
 	      l.setName(rs.getString("name"));
-	      l.setEstellungsDatum(rs.getDate("erstellungsDatum");
+	      l.setCreationDate(rs.getDate("creationDate");
 
 	      // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
 	      result.addElement(l);
@@ -126,8 +126,8 @@ public class ListMapper {
 	      stmt = con.createStatement();
 
 	      // Es erfolgt die tatsächliche Einfuegeoperation
-	      stmt.executeUpdate("INSERT INTO list (id, name, erstellungsDatum) " + "VALUES ("
-	          + l.getId() + "," + l.getName() + "," + l.getErstellungsDatum() +")");
+	      stmt.executeUpdate("INSERT INTO list (id, name, creationDate) " + "VALUES ("
+	          + l.getId() + "," + l.getName() + "," + l.getCreationDate() +")");
 	    }
 	  }
 	  catch (SQLException e2) {
@@ -144,8 +144,8 @@ public class ListMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      stmt.executeUpdate("UPDATE list " + "SET name=\"" + l.getName()
-          + "\" " + "," + "erstellungDatum=\"" + l.getErstellungsDatum() + "WHERE id=" + l.getId());
+	      stmt.executeUpdate("UPDATE list " + "SET creationDate=\"" + l.getCreationDate()
+          + "\" " + "," + "WHERE id=" + l.getId());
 
 	    }
 	    catch (SQLException e2) {

@@ -50,6 +50,7 @@ public Salesman findByKey (int id) {
 		        Salesman s = new Salesman();
 		        s.setId(rs.getInt("id"));
 		        s.setName(rs.getString("name"));
+		        s.setCreationDate(rs.getString("creationDate"));
 		        return s;
 		      }
 		    }
@@ -83,7 +84,8 @@ public Vector<Salesman> findAll() {
       Salesman s = new Salesman();
       s.setId(rs.getInt("id"));
       s.setName(rs.getString("name"));
-
+      s.setCreationDate(rs.getString("creationDate"));
+      
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
       result.addElement(s);
     }
@@ -124,8 +126,8 @@ public Salesman insert(Salesman s) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO Salesman (id, name, erstellungsdatum) " + "VALUES ("
-	          + s.getId() + "," + s.getName() + "," + s.getErstellungsDatum() +")");
+      stmt.executeUpdate("INSERT INTO Salesman (id, name, creationDate) " + "VALUES ("
+	          + s.getId() + "," + s.getName() + "," + s.getCreationDate() +")");
   
     }
   }
@@ -145,7 +147,7 @@ public Salesman insert(Salesman s) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE list " + "SET name=\"" + s.getName()
-      + "\" " + "," + "erstellungDatum=\"" + s.getErstellungsDatum() + "WHERE id=" + s.getId());
+      + "\" " + "," + "creationDate=\"" + s.getCreationDate() + "WHERE id=" + s.getId());
 
     }
     catch (SQLException e2) {

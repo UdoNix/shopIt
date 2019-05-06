@@ -49,7 +49,8 @@ public UnitOfMeasure findByKey (int id) {
 		        // Ergebnis-Tupel in Objekt umwandeln
 			   UnitOfMeasure u = new UnitOfMeasure();
 		        u.setId(rs.getInt("id"));
-		        u.setName(rs.getString("name"));
+		        u.setUnit(rs.getString("unit"));
+		        u.setQuantity(rs.getString("quantity"));
 		        return u;
 		      }
 		    }
@@ -81,8 +82,10 @@ public Vector<UnitOfMeasure> findAll() {
     // Für jeden Eintrag im Suchergebnis wird nun ein Salesman-Objekt erstellt.
     while (rs.next()) {
     	UnitOfMeasure u = new UnitOfMeasure();
-      u.setId(rs.getInt("id"));
-      u.setName(rs.getString("name"));
+    	u.setId(rs.getInt("id"));
+        u.setUnit(rs.getString("unit"));
+        u.setQuantity(rs.getString("quantity"));
+       
 
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
       result.addElement(u);
@@ -124,8 +127,8 @@ public UnitOfMeasure insert(UnitOfMeasure u) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO UnitOfMeasure (id, menge, groeße) " + "VALUES ("
-	          + u.getId() + "," + u.getMenge() + "," + u.getGroeße() +")");
+      stmt.executeUpdate("INSERT INTO UnitOfMeasure (id, unit, quantity) " + "VALUES ("
+	          + u.getId() + "," + u.getUnit() + "," + u.getQuantity() +")");
   
     }
   }
@@ -144,8 +147,8 @@ public UnitOfMeasure insert(UnitOfMeasure u) {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE list " + "SET menge=\"" + u.getMenge()
-      + "\" " + "," + "große=\"" + u.getGroeße() + "WHERE id=" + u.getId());
+      stmt.executeUpdate("UPDATE list " + "SET unit=\"" + u.getUnit()
+      + "\" " + "," + "quantity=\"" + u.getQuantity() + "WHERE id=" + u.getId());
 
     }
     catch (SQLException e2) {

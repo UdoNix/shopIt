@@ -49,7 +49,8 @@ public Item findByKey (int id) {
 		        // Ergebnis-Tupel in Objekt umwandeln
 		        Item i = new Item();
 		        i.setId(rs.getInt("id"));
-		        i.setName(rs.getString("name"));
+		        i.setUnit(rs.getString("creationDate"));
+		        i.setQuantity(rs.getString("changeDate"));
 		        return i;
 		      }
 		    }
@@ -80,9 +81,11 @@ public Vector<Item> findAll() {
 
     // Für jeden Eintrag im Suchergebnis wird nun ein Item-Objekt erstellt.
     while (rs.next()) {
-      Item s = new Item();
+      Item i = new Item();
       i.setId(rs.getInt("id"));
-      i.setName(rs.getString("name"));
+      i.setUnit(rs.getString("creationDate"));
+      i.setQuantity(rs.getString("changeDate"));
+      
 
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
       result.addElement(i);
@@ -124,8 +127,8 @@ public Item insert(Item i) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO Item (id, aenderungsdatum, erstellungsdatum) " + "VALUES ("
-	          + i.getId() + "," +i.getName() + "," + i.getErstellungsDatum() +")");
+      stmt.executeUpdate("INSERT INTO Item (id, changeDate, creationDate) " + "VALUES ("
+	          + i.getId() + "," +i.getChangeDate() + "," + i.getCreationDate() +")");
   
     }
   }
@@ -144,8 +147,8 @@ public Item insert(Item i) {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE list " + "SET eintragsdatum=\"" + i.getName()
-      + "\" " + "," + "erstellungDatum=\"" + i.getErstellungsDatum() + "WHERE id=" + i.getId());
+      stmt.executeUpdate("UPDATE list " + "SET creationDate=\"" + i.getCreationDate()
+      + "\" " + "," + "changeDate=\"" + i.getChangeDate() +"WHERE id=" + i.getId());
 
     }
     catch (SQLException e2) {
