@@ -39,7 +39,7 @@ proguard/
 ################################################################################
 
 # gwt caches and compiled units #
-war/gwt_bree/
+war/shopIt/
 gwt-unitCache/
 
 # boilerplate generated classes #
