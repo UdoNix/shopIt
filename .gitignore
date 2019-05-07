@@ -39,6 +39,8 @@ proguard/
 ################################################################################
 
 # gwt caches and compiled units #
+shopIt/war/shopit/
+war/shopit/
 war/shopIt/
 gwt-unitCache/
 
@@ -55,6 +57,7 @@ war/WEB-INF/classes/
 /.metadata/
 shopIt/war/WEB-INF/deploy/
 shopIt/war/WEB-INF/classes/
+shopIt/war/WEB-INF/lib/
 shopIt/.factorypath
 shopIt/.svn/
 shopIt/.settings
