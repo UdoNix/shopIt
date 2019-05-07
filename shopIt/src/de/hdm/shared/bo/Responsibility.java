@@ -2,19 +2,19 @@ package de.hdm.shared.bo;
 public class Responsibility {
 //Die Klasse Responsibility/Verantwortlichkeit dient dazu, festzulegen, welcher User für welchen Eintrag zuständig ist.
 
-	private User user;
+	private Person person;
 	
 	private Item item;
 	
 	private Salesman salesman;
 
 	//Auslesen des Anwenders.
-	public User getUser() {
-		return user;
+	public Person getPerson() {
+		return person;
 	}
 	//Setzen des Anwenders.
-	public void setUser(User user) {
-		this.user = user;
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 	//Auslesen des Eintrags.
 	public Item getItem() {
