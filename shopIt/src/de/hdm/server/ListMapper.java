@@ -20,8 +20,8 @@ public class ListMapper {
 	protected ListMapper() {
 	}
 
-	//Aufruf der statischen Methode durch <code>GroupMapper.groupMapper()</code>. Singleton: Es kann nur eine 
-	//Instanz von <code>GroupMapper</code> existieren
+	//Aufruf der statischen Methode durch <code>ListMapper.groupMapper()</code>. Singleton: Es kann nur eine 
+	//Instanz von <code>ListMapper</code> existieren
 	//@return listMapper
 
 	public static ListMapper listMapper() {
@@ -98,6 +98,24 @@ public class ListMapper {
 
 	  //Der Ergebnisvektor wird zurueckgegeben
 	  return result;
+	}
+	
+	public Vector<List> findByGroup(int groupID) {
+		Connection con = DBConnection.connection();
+		
+		Vector<List> result = new Vector<List>();
+		
+		try {
+			Statement stmt = con.createStatement();
+
+		      ResultSet rs = stmt.executeQuery("SELECT id, name FROM list "
+		          + "WHERE goup=" + groupID + " ORDER BY id");
+		}
+		catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		
+		return result;
 	}
 
 
