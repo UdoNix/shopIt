@@ -1,6 +1,9 @@
 package de.hdm.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import com.ibm.icu.text.DateFormat;
+
+import de.hdm.shared.bo.List;
 import de.hdm.shared.bo.Person;
 
 public class EditorImpl extends RemoteServiceServlet implements Editor{
@@ -93,4 +96,19 @@ public class EditorImpl extends RemoteServiceServlet implements Editor{
 	   * ***************************************************************************
 	   */
 	
+	  /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Beginn: Methoden für Liste @author Ilona
+	   * ***************************************************************************
+	   */
+	
+		public List createList(String name) throws IllegalArgumentException{
+			List l = new List();
+			l.setCreationDate();//aktuelles Datum einfügen
+			l.setId(1);
+			return this.lMapper.insert(l);
+		}
+		public List getListById(int id) throws IllegalArgumentException{
+			return this.lMapper.insert(l);
+		}
 }
