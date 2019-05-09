@@ -18,6 +18,18 @@ public class Group extends BusinessObject{
 	public void setName(String name) {
 		this.name = name;
 	}
+	public Person getPerson() {
+		return person;
+	}
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+	public List getList() {
+		return list;
+	}
+	public void setList(List list) {
+		this.list = list;
+	}
 
 
 
