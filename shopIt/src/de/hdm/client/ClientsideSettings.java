@@ -64,6 +64,7 @@ public class ClientsideSettings extends CommonSettings {
 	/*
 	 * Anlegen und Auslesen des Editor Service
 	 */
+
 	public static EditorServiceAsync getEditorServiceAsync() {
 		//Prüfung ob eine EditorService-Instanz existiert
 		if (EditorService == null) {
@@ -71,7 +72,7 @@ public class ClientsideSettings extends CommonSettings {
 			EditorService = GWT.create(de.hdm.shared.EditorService.class); //?!
 		}
 		
-		//Rueckgabe des EditorService
+		//Rueckgabe des Editor Service
 		return EditorService;
 	}
 	
