@@ -5,7 +5,9 @@ import java.sql.Connection;
 	import java.sql.SQLException;
 	import java.sql.Statement;
 	import java.util.Vector;
-	
+
+import de.hdm.shared.bo.UnitOfMeasure;
+
 public class UnitOfMeasureMapper {
 	
 	// Klasse UnitOfMeasureMapper als Singleton
@@ -50,7 +52,7 @@ public UnitOfMeasure findByKey (int id) {
 			   UnitOfMeasure u = new UnitOfMeasure();
 		        u.setId(rs.getInt("id"));
 		        u.setUnit(rs.getString("unit"));
-		        u.setQuantity(rs.getString("quantity"));
+		        u.setQuantity(rs.getFloat("quantity"));
 		        return u;
 		      }
 		    }
@@ -84,7 +86,7 @@ public Vector<UnitOfMeasure> findAll() {
     	UnitOfMeasure u = new UnitOfMeasure();
     	u.setId(rs.getInt("id"));
         u.setUnit(rs.getString("unit"));
-        u.setQuantity(rs.getString("quantity"));
+        u.setQuantity(rs.getFloat("quantity"));
        
 
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
@@ -134,13 +136,14 @@ public UnitOfMeasure insert(UnitOfMeasure u) {
   }
 
   catch (SQLException e2) {
-    e2.printStackTrace(); 
+    e2.printStackTrace();
   }
-
+  return u;
+}
  // Schreiben eines Objekts in die Datenbank.
   // @param u  Objekt, das in die Datenbank geschrieben werden soll
   //@return das als Parameter übergebene Objekt
-   */
+   
   public UnitOfMeasure update(UnitOfMeasure u) {
     Connection con = DBConnection.connection();
 
