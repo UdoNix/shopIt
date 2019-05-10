@@ -1,9 +1,13 @@
 package de.hdm.server;
 
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import java.util.Vector;
+
+import de.hdm.shared.ShopITAdministration;
+import de.hdm.shared.bo.Group;
+import de.hdm.shared.bo.List;
 import de.hdm.shared.bo.Person;
 
-public class EditorImpl extends RemoteServiceServlet implements Editor{
+public class EditorImpl extends RemoteServiceServlet implements ShopITAdministration {
 	
 	//Referenz auf die MapperKlassen, um die Objekte mit der Datenbank abzugleichen.
 	private PersonMapper pMapper = null;
@@ -92,5 +96,84 @@ public class EditorImpl extends RemoteServiceServlet implements Editor{
 	   * ABSCHNITT, Ende: Methoden fÃ¼r Anwender-Objekte
 	   * ***************************************************************************
 	   */
+	
+	   /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Beginn: Methoden für Gruppe-Objekte
+	   * ***************************************************************************
+	   */
+	
+	//Erstellen einer Gruppe mit Name, Anwender und Einkaufsliste 
+	public Group createGroup(String name, Person p, List l) throws IllegalArgumentException {
+		Group g = new Group(); 
+		g.setName(name);
+		g.setPerson(p); 
+		g.setList(l);
+		
+		//Setzen einer vorlÃ¤ufigen Gruppe-Id, welche nach Kommunikation mit DB auf den nÃ¤chsthhÃ¶heren Wert gesetzt wird.
+		p.setId(1);
+				
+		//Speichern des Gruppe-Objekts in der DB.
+		return this.gMapper.insert(g); 
+	}
+	
+	//Auslesen einer Gruppe anhand seiner Gruppe-Id.
+		public Group getGroupById(int id) throws IllegalArgumentException{
+			return this.gMapper.findByKey(id);
+		}
+		
+		//Auslesen aller Gruppen.
+		public Vector<Group> getAllGroups() throws IllegalArgumentException{
+			return this.gMapper.findAll();
+		}
+		
+		//Speichern einer Gruppe.
+		public void save(Group g) throws IllegalArgumentException{
+			gMapper.update(g);
+		}
+		
+		//Löschen einer Gruppe.
+		
+		public void deleteGroup(Group g) throws IllegalArgumentException {
+		/*
+		 * Zunächst werden alle Anwender und Einkaufslisten der Gruppe aus
+		 * der Datenbank entfernt.	
+		 */
+		
+		Vector<Person> persons = this.getPersonsOf(g); 
+		
+		if (persons != null) {
+			for (Person p: persons) {
+				this.delete(p);
+			}
+		}
+		
+		Vector<List> lists = this.getListsOf(g);
+		
+		if (lists != null) {
+			for (List l: lists) {
+				this.delete(l);
+			}
+		}
+		/*
+		 * Anschließend die Gruppe entfernen
+		 */
+		this.gMapper.delete(g);
+		
+		 
+		
+		}
+
+	
+
+	
+	
+	
+	   /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden für Gruppe-Objekte
+	   * ***************************************************************************
+	   */
+	
 	
 }
