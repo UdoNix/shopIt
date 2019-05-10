@@ -2,13 +2,12 @@ package de.hdm.server;
 
 import java.util.Vector;
 
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
+import de.hdm.shared.ShopITAdministration;
 import de.hdm.shared.bo.Group;
 import de.hdm.shared.bo.List;
 import de.hdm.shared.bo.Person;
 
-public class EditorImpl extends RemoteServiceServlet implements Editor{
+public class EditorImpl extends RemoteServiceServlet implements ShopITAdministration {
 	
 	//Referenz auf die MapperKlassen, um die Objekte mit der Datenbank abzugleichen.
 	private PersonMapper pMapper = null;
@@ -161,7 +160,8 @@ public class EditorImpl extends RemoteServiceServlet implements Editor{
 		 */
 		this.gMapper.delete(g);
 		
-			
+		 
+		
 		}
 
 	
