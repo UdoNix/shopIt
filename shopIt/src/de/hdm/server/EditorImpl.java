@@ -9,7 +9,7 @@ import java.util.Vector;
 
 import de.hdm.shared.ShopITAdministration;
 import de.hdm.shared.bo.Group;
->>>>>>> refs/remotes/origin/Larisa
+import de.hdm.shared.bo.Item;
 import de.hdm.shared.bo.List;
 import de.hdm.shared.bo.Person;
 
@@ -132,40 +132,32 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	/*
 	 * alle Listen aufzeigen
 	 */
-	public Vector<List> getAllLists() throws IllegalArgumentException{
-		return this.lMapper.findAll();
+	public Vector<Item> getAllItemsOf(List l) throws IllegalArgumentException{
+		return this.iMapper.findByList(l); //muss in der Mapperklasse erstellt werden
 	}
 	/*
 	 * eine Liste ändern
 	 */
-	public void update(List l, Article a, ) throws IllegalArgumentException{
-		lMapper.update(l);
+	public void update(List l) throws IllegalArgumentException{
+		lMapper.update(l); // noch nicht fertig
 	}
 	/*
 	 * eine Liste löschen
 	 */
 	public void delete(List l) throws IllegalArgumentException{
-		 ArrayList<Item> debits = this.getDebitsOf(a);
-		 ArrayList<Transaction> credits = this.getCreditsOf(a);
-
-		    if (debits != null) {
-		      for (Transaction t : debits) {
-		        this.delete(t);
-		      }
-		    }
-
-		    if (credits != null) {
-		      for (Transaction t : credits) {
-		        this.delete(t);
+		 ArrayList<Item> items = this.getAllItemsOf(l); // muss noch erstellt werden, siehe oben
+		 
+		    if (items != null) {
+		      for (Item item : items) {
+		        this.delete(item);
 		      }
 		    }
 
 		    // Account aus der DB entfernen
-		    this.aMapper.delete(a);
+		    this.lMapper.delete(l);
 		  }
 		
-		lMapper.delete(l);
-	}
+		
 	/*
 	   * ***************************************************************************
 	   * ABSCHNITT, Ende: Methoden für Liste
@@ -179,10 +171,11 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	/*
 	 * neuen Eintrag erstellen
 	 */
-	public List createItem(String name) throws IllegalArgumentException{
+	public List createItem(List l, String name) throws IllegalArgumentException{
 		Item i = new Item();
 		i.setCreationDate();//aktuelles Datum einfügen
 		i.setId(1);
+		i.setList(l);
 		return this.iMapper.insert(i);
 	}
 	/*
