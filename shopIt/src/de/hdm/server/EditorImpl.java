@@ -1,5 +1,10 @@
 package de.hdm.server;
 
+
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import com.ibm.icu.text.DateFormat;
+
+import java.util.ArrayList;
 import java.util.Vector;
 
 import de.hdm.shared.ShopITAdministration;
@@ -99,6 +104,107 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	   * ***************************************************************************
 	   */
 	
+
+	  /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Beginn: Methoden für Liste @author Ilona
+	   * ***************************************************************************
+	   */
+	
+	/*
+	 * neue Liste erstellen
+	 */
+	public List createListFor(Group g, String name) throws IllegalArgumentException{
+		List l = new List();
+		//creationDate + modification Date noch hinzufügen
+		l.setId(1);
+		l.setName(name);
+		l.setGroup(g);
+		
+		return this.iMapper.insert(l);
+		
+	}
+	/*
+	 * Liste anhand der Id finden
+	 */
+	public List getListById(int id) throws IllegalArgumentException{
+		return this.lMapper.findByKey(id);
+	}
+	/*
+	 * alle Listen aufzeigen
+	 */
+	public Vector<Item> getAllItemsOf(List l) throws IllegalArgumentException{
+		return this.iMapper.findByList(l); //muss in der Mapperklasse erstellt werden
+	}
+	/*
+	 * eine Liste ändern
+	 */
+	public void update(List l) throws IllegalArgumentException{
+		lMapper.update(l); // noch nicht fertig
+	}
+	/*
+	 * eine Liste löschen
+	 */
+	public void delete(List l) throws IllegalArgumentException{
+		 ArrayList<Item> items = this.getAllItemsOf(l); // muss noch erstellt werden, siehe oben
+		 
+		    if (items != null) {
+		      for (Item item : items) {
+		        this.delete(item);
+		      }
+		    }
+
+		    // Account aus der DB entfernen
+		    this.lMapper.delete(l);
+		  }
+		
+		
+	/*
+	   * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden für Liste
+	   * ***************************************************************************
+	   */
+	/*
+	   * ***************************************************************************
+	   * ABSCHNITT, Beginn: Methoden für Eintrag @author Ilona
+	   * ***************************************************************************
+	   */
+	/*
+	 * neuen Eintrag erstellen
+	 */
+	public List createItem(List l, String name) throws IllegalArgumentException{
+		Item i = new Item();
+		i.setCreationDate();//aktuelles Datum einfügen
+		i.setId(1);
+		i.setList(l);
+		return this.iMapper.insert(i);
+	}
+	/*
+	 * Eintrag anhand der Id finden
+	 */
+	public Item getItemById(int id) throws IllegalArgumentException{
+		return this.iMapper.findByKey(id);
+	}
+	/*
+	 * alle Einträge aufzeigen
+	 */
+	public Vector<Item> getAllItems() throws IllegalArgumentException{
+		return this.iMapper.findAll();
+	}
+	/*
+	 * einen Eintrag ändern
+	 */
+	public void update(Item i) throws IllegalArgumentException{
+		iMapper.update(i);
+	}
+	/*
+	 * einen Eintrag löschen
+	 */
+	public void delete(Item i) throws IllegalArgumentException{
+		iMapper.delete(i);
+	}
+
+
 	   /*
 	   * ***************************************************************************
 	   * ABSCHNITT, Beginn: Methoden für Gruppe-Objekte
@@ -255,4 +361,5 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		
 	
 	
+
 }

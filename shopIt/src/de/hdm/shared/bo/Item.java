@@ -8,6 +8,8 @@ public class Item extends BusinessObject{
 	
 	private Article article;
 	
+	private List list;
+	
 	//Favorit zeigt an, ob Item Standartartikel ist bzw. favorisiert wurde.
 	private boolean favorit;
 	
@@ -46,7 +48,14 @@ public class Item extends BusinessObject{
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-
+	//Auslesen der Liste
+	public List getList() {
+		return list;
+	}
+	//Setzen der Liste
+	public void setList(List list) {
+		this.list = list;
+	}
 
 	
 }
