@@ -45,6 +45,8 @@ public interface ShopITAdministration extends RemoteService {
 	
 	
 	
+	
+	
 
 
 }

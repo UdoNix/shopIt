@@ -7,7 +7,7 @@ public class Salesman extends BusinessObject{
 	
 	private String street = "";
 	
-	private int plz = 0;
+	private String postalCode = "";
 	
 	private String city = "";
 
@@ -28,12 +28,12 @@ public class Salesman extends BusinessObject{
 		this.street = street;
 	}
 	//Auslesen der Postleitzahl des Händlers.
-	public int getPlz() {
-		return plz;
+	public String getPostalCode() {
+		return postalCode;
 	}
 	//Setzen der Postleitzahl des Händlers.
-	public void setPlz(int plz) {
-		this.plz = plz;
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 	//Auslesen, in welcher Stadt der Händler ist.
 	public String getCity() {

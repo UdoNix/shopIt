@@ -121,7 +121,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		l.setName(name);
 		l.setGroup(g);
 		
-		return this.iMapper.insert(l);
+		return this.lMapper.insert(l);
 		
 	}
 	/*
@@ -207,11 +207,11 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 
 	   /*
 	   * ***************************************************************************
-	   * ABSCHNITT, Beginn: Methoden für Gruppe-Objekte
+	   * ABSCHNITT, Beginn: Methoden für Gruppe-Objekte @author Larisa
 	   * ***************************************************************************
 	   */
 	
-	//Erstellen einer Gruppe mit Name, Anwender und Einkaufsliste 
+	//Erstellen einer Gruppe mit Name, Anwender 
 	public Group createGroup(String name, Person p) throws IllegalArgumentException {
 		Group g = new Group(); 
 		g.setName(name);
@@ -220,8 +220,11 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		//Setzen einer vorlÃ¤ufigen Gruppe-Id, welche nach Kommunikation mit DB auf den nÃ¤chsthhÃ¶heren Wert gesetzt wird.
 		p.setId(1);
 		
-		//Einen Anwender hinzufügen
+		//Einen Anwender zu der Gruppe hinzufügen
 		g.addPerson(p); 
+		
+		//Eine Liste zu der Gruppe hinzufügen
+		g.addList(l); 
 				
 		//Speichern des Gruppe-Objekts in der DB.
 		return this.gMapper.insert(g); 
@@ -291,18 +294,18 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	   * ***************************************************************************
 	   */
 	
-	public Salesman createSalesman(String name, String street, int plz, String city) throws IllegalArgumentException {
+	public Salesman createSalesman(String name, String street, String postalCode, String city) throws IllegalArgumentException {
 		Salesman s = new Salesman();
 		s.setCity(city);
 		s.setStreet(street);
-		s.setPlz(plz);
+		s.setPostalCode(postalCode);
 		s.setName(name);
 		
 		/* Setzen einer vorlÃ¤ufigen Händler-Id, welche nach Kommunikation 
 		*mit DB auf den nÃ¤chsthhÃ¶heren Wert gesetzt wird.
 		*
 		*/
-		s.setId(id);
+		s.setId(1);
 		
 		//Objekt in der DB speichern.
 		return this.sMapper.insert(s); 
@@ -312,7 +315,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	/*
 	 * Auslesen einer Händler anhand seiner Händler-Id.
 	 */
-	public Vector<Salesman> getSalesmanById(int id) throws IllegalArgumentException {
+	public Salesman getSalesmanById(int id) throws IllegalArgumentException {
 		return this.sMapper.findByKey(id); 
 	}
 	
@@ -326,7 +329,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	/*
 	 * Speichern eines Händlers.
 	 */
-	public void save(Salesman c) thros IllegalArgumentException {
+	public void save(Salesman s) throws IllegalArgumentException {
 		sMapper.update(s); 
 	}
 	
