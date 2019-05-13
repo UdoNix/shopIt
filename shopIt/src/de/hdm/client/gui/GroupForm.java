@@ -1,16 +1,18 @@
 package de.hdm.client.gui;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
+
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.hdm.shared.bo.Group;
 import de.hdm.shared.bo.List;
-import de.hdm.shared.bo.Item;
 
-public class ListForm extends Form{
-	
+
+public class GroupForm extends Form {
 	/**
 	 * Erstellung verschiedener Panels
 	 */
@@ -24,11 +26,10 @@ public class ListForm extends Form{
 	
 	private Label name = new Label();
 	private Label creationTime = new Label();
-	private Label NumberOfItems = new Label();
+	private Label NumberOfMembers = new Label();
 	
-	private Button EditListBtn = new Button("Gruppe bearbeiten");
-	private Button DeleteListBtn = new Button("Gruppe löschen");
-	
+	private Button EditGroupBtn = new Button("Gruppe bearbeiten");
+	private Button DeleteGroupBtn = new Button("Gruppe löschen");
 
 	/*
 	 * 
@@ -36,30 +37,29 @@ public class ListForm extends Form{
 
 	private DateTimeFormat dtf = DateTimeFormat.getFormat("dd.MM.yyyy k:mm");
 
-	private List list = new List();
+	private Group group = new Group();
 	
 	/*
 	 * 
 	 */
 
-	public ListForm(long serializableID) {
+	private GroupForm(long serializableID) {
 
-		List l = new List();
+		Group g = new Group();
 		
-		l.setSerializableID(serializableID);
+		g.setSerializableID(serializableID);
 
-		this.addStyleName("listForm");
+		this.addStyleName("groupForm");
+		
+		ListForm listForm = new ListForm(serializableID);
 
-		ItemForm itemForm = new ItemForm(serializableID);
-
-		this.add(itemForm);
+		this.add(listForm);
 
 		super.onLoad();
 
-}
-	public ListForm() {
-		
 	}
 
-	
-}
+	public GroupForm() {
+		// TODO Auto-generated constructor stub
+	}
+}	
