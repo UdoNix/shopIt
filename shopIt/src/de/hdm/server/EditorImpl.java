@@ -4,8 +4,10 @@ import java.util.Vector;
 
 import de.hdm.shared.ShopITAdministration;
 import de.hdm.shared.bo.Group;
+import de.hdm.shared.bo.Item;
 import de.hdm.shared.bo.List;
 import de.hdm.shared.bo.Person;
+import de.hdm.shared.bo.Salesman;
 
 public class EditorImpl extends RemoteServiceServlet implements ShopITAdministration {
 	
@@ -104,37 +106,40 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	   */
 	
 	//Erstellen einer Gruppe mit Name, Anwender und Einkaufsliste 
-	public Group createGroup(String name, Person p, List l) throws IllegalArgumentException {
+	public Group createGroup(String name, Person p) throws IllegalArgumentException {
 		Group g = new Group(); 
 		g.setName(name);
 		g.setPerson(p); 
-		g.setList(l);
 		
 		//Setzen einer vorlÃ¤ufigen Gruppe-Id, welche nach Kommunikation mit DB auf den nÃ¤chsthhÃ¶heren Wert gesetzt wird.
 		p.setId(1);
+		
+		//Einen Anwender hinzufügen
+		g.addPerson(p); 
 				
 		//Speichern des Gruppe-Objekts in der DB.
 		return this.gMapper.insert(g); 
 	}
 	
 	//Auslesen einer Gruppe anhand seiner Gruppe-Id.
-		public Group getGroupById(int id) throws IllegalArgumentException{
+	public Group getGroupById(int id) throws IllegalArgumentException{
 			return this.gMapper.findByKey(id);
-		}
+	}
 		
-		//Auslesen aller Gruppen.
-		public Vector<Group> getAllGroups() throws IllegalArgumentException{
-			return this.gMapper.findAll();
-		}
+	//Auslesen aller Gruppen.
+	public Vector<Group> getAllGroups() throws IllegalArgumentException{
+		return this.gMapper.findAll();
+	}
 		
-		//Speichern einer Gruppe.
-		public void save(Group g) throws IllegalArgumentException{
-			gMapper.update(g);
-		}
+	//Speichern einer Gruppe.
+	public void save(Group g) throws IllegalArgumentException{
+		gMapper.update(g);
+	}
 		
-		//Löschen einer Gruppe.
 		
-		public void deleteGroup(Group g) throws IllegalArgumentException {
+	//Löschen einer Gruppe.
+		
+	public void delete(Group g) throws IllegalArgumentException {
 		/*
 		 * Zunächst werden alle Anwender und Einkaufslisten der Gruppe aus
 		 * der Datenbank entfernt.	
@@ -160,9 +165,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		 */
 		this.gMapper.delete(g);
 		
-		 
-		
-		}
+	}
 
 	
 
@@ -174,6 +177,82 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	   * ABSCHNITT, Ende: Methoden für Gruppe-Objekte
 	   * ***************************************************************************
 	   */
+		
+
+	   /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Beginn: Methoden für Händler-Objekte
+	   * ***************************************************************************
+	   */
+	
+	public Salesman createSalesman(String name, String street, int plz, String city) throws IllegalArgumentException {
+		Salesman s = new Salesman();
+		s.setCity(city);
+		s.setStreet(street);
+		s.setPlz(plz);
+		s.setName(name);
+		
+		/* Setzen einer vorlÃ¤ufigen Händler-Id, welche nach Kommunikation 
+		*mit DB auf den nÃ¤chsthhÃ¶heren Wert gesetzt wird.
+		*
+		*/
+		s.setId(id);
+		
+		//Objekt in der DB speichern.
+		return this.sMapper.insert(s); 
+		
+	}
+	
+	/*
+	 * Auslesen einer Händler anhand seiner Händler-Id.
+	 */
+	public Vector<Salesman> getSalesmanById(int id) throws IllegalArgumentException {
+		return this.sMapper.findByKey(id); 
+	}
+	
+	/*
+	 * Auslesen aller Händler.
+	 */
+	public Vector<Salesman> getAllSalesman() throws IllegalArgumentException {
+		return this.sMapper.findAll(); 
+	}
+	
+	/*
+	 * Speichern eines Händlers.
+	 */
+	public void save(Salesman c) thros IllegalArgumentException {
+		sMapper.update(s); 
+	}
+	
+	/*
+	 * Löschen eines Händlers. 
+	 */
+	
+	public void delete(Salesman s) throws IllegalArgumentException {
+		/*
+		 * Zunächst werden alle Einträge dieses Händler gelöscht werden.
+		 */
+		Vector<Item> items = this.getItemsOf(s); 
+		
+		if (items != null) {
+			for (Item i : items) {
+				this.delete(i); 
+			}
+		}
+		
+		//Anschließend den Händler entfernen
+		this.sMapper.delete(s); 
+		
+	}
+		
+		
+	   /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden für Händler-Objekte
+	   * ***************************************************************************
+	   */
+	
+		
 	
 	
 }
