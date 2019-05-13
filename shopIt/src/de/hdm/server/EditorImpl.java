@@ -1,9 +1,19 @@
 package de.hdm.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import com.ibm.icu.text.DateFormat;
+
+import java.util.ArrayList;
+import java.util.Vector;
+
+import de.hdm.shared.ShopITAdministration;
+import de.hdm.shared.bo.Group;
+import de.hdm.shared.bo.Item;
+import de.hdm.shared.bo.List;
 import de.hdm.shared.bo.Person;
 
-public class EditorImpl extends RemoteServiceServlet implements EditorService{
+public class EditorImpl extends RemoteServiceServlet implements ShopITAdministration {
+
 	
 	//Referenz auf die MapperKlassen, um die Objekte mit der Datenbank abzugleichen.
 	private PersonMapper pMapper = null;
@@ -93,4 +103,185 @@ public class EditorImpl extends RemoteServiceServlet implements EditorService{
 	   * ***************************************************************************
 	   */
 	
+
+	  /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Beginn: Methoden f�r Liste @author Ilona
+	   * ***************************************************************************
+	   */
+	
+	/*
+	 * neue Liste erstellen
+	 */
+	public List createListFor(Group g, String name) throws IllegalArgumentException{
+		List l = new List();
+		//creationDate + modification Date noch hinzuf�gen
+		l.setId(1);
+		l.setName(name);
+		l.setGroup(g);
+		
+		return this.iMapper.insert(l);
+		
+	}
+	/*
+	 * Liste anhand der Id finden
+	 */
+	public List getListById(int id) throws IllegalArgumentException{
+		return this.lMapper.findByKey(id);
+	}
+	/*
+	 * alle Listen aufzeigen
+	 */
+	public Vector<Item> getAllItemsOf(List l) throws IllegalArgumentException{
+		return this.iMapper.findByList(l); //muss in der Mapperklasse erstellt werden
+	}
+	/*
+	 * eine Liste �ndern
+	 */
+	public void update(List l) throws IllegalArgumentException{
+		lMapper.update(l); // noch nicht fertig
+	}
+	/*
+	 * eine Liste l�schen
+	 */
+	public void delete(List l) throws IllegalArgumentException{
+		 ArrayList<Item> items = this.getAllItemsOf(l); // muss noch erstellt werden, siehe oben
+		 
+		    if (items != null) {
+		      for (Item item : items) {
+		        this.delete(item);
+		      }
+		    }
+
+		    // Account aus der DB entfernen
+		    this.lMapper.delete(l);
+		  }
+		
+		
+	/*
+	   * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden f�r Liste
+	   * ***************************************************************************
+	   */
+	/*
+	   * ***************************************************************************
+	   * ABSCHNITT, Beginn: Methoden f�r Eintrag @author Ilona
+	   * ***************************************************************************
+	   */
+	/*
+	 * neuen Eintrag erstellen
+	 */
+	public List createItem(List l, String name) throws IllegalArgumentException{
+		Item i = new Item();
+		i.setCreationDate();//aktuelles Datum einf�gen
+		i.setId(1);
+		i.setList(l);
+		return this.iMapper.insert(i);
+	}
+	/*
+	 * Eintrag anhand der Id finden
+	 */
+	public Item getItemById(int id) throws IllegalArgumentException{
+		return this.iMapper.findByKey(id);
+	}
+	/*
+	 * alle Eintr�ge aufzeigen
+	 */
+	public Vector<Item> getAllItems() throws IllegalArgumentException{
+		return this.iMapper.findAll();
+	}
+	/*
+	 * einen Eintrag �ndern
+	 */
+	public void update(Item i) throws IllegalArgumentException{
+		iMapper.update(i);
+	}
+	/*
+	 * einen Eintrag l�schen
+	 */
+	public void delete(Item i) throws IllegalArgumentException{
+		iMapper.delete(i);
+	}
+
+
+	   /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Beginn: Methoden f�r Gruppe-Objekte
+	   * ***************************************************************************
+	   */
+	
+	//Erstellen einer Gruppe mit Name, Anwender und Einkaufsliste 
+	public Group createGroup(String name, Person p, List l) throws IllegalArgumentException {
+		Group g = new Group(); 
+		g.setName(name);
+		g.setPerson(p); 
+		g.setList(l);
+		
+		//Setzen einer vorläufigen Gruppe-Id, welche nach Kommunikation mit DB auf den nächsthhöheren Wert gesetzt wird.
+		p.setId(1);
+				
+		//Speichern des Gruppe-Objekts in der DB.
+		return this.gMapper.insert(g); 
+	}
+	
+	//Auslesen einer Gruppe anhand seiner Gruppe-Id.
+		public Group getGroupById(int id) throws IllegalArgumentException{
+			return this.gMapper.findByKey(id);
+		}
+		
+		//Auslesen aller Gruppen.
+		public Vector<Group> getAllGroups() throws IllegalArgumentException{
+			return this.gMapper.findAll();
+		}
+		
+		//Speichern einer Gruppe.
+		public void save(Group g) throws IllegalArgumentException{
+			gMapper.update(g);
+		}
+		
+		//L�schen einer Gruppe.
+		
+		public void deleteGroup(Group g) throws IllegalArgumentException {
+		/*
+		 * Zun�chst werden alle Anwender und Einkaufslisten der Gruppe aus
+		 * der Datenbank entfernt.	
+		 */
+		
+		Vector<Person> persons = this.getPersonsOf(g); 
+		
+		if (persons != null) {
+			for (Person p: persons) {
+				this.delete(p);
+			}
+		}
+		
+		Vector<List> lists = this.getListsOf(g);
+		
+		if (lists != null) {
+			for (List l: lists) {
+				this.delete(l);
+			}
+		}
+		/*
+		 * Anschlie�end die Gruppe entfernen
+		 */
+		this.gMapper.delete(g);
+		
+		 
+		
+		}
+
+	
+
+	
+	
+	
+	   /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden f�r Gruppe-Objekte
+	   * ***************************************************************************
+	   */
+	
+	
+
 }
