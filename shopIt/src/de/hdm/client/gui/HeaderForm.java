@@ -20,7 +20,7 @@ package de.hdm.client.gui;
 	public class HeaderForm extends HorizontalPanel {
 
 		/**
-		 * Erzeugen eines PinnwandVerwaltung-Objekts um eine Applikationsverwaltung zu
+		 * Erzeugen eines Listenverwaltung-Objekts um die Applikationsverwaltung zu
 		 * initialisieren.
 		 */
 		EditorServiceAsync listenVerwaltung = ClientsideSettings.getEditorServiceAsync();
@@ -34,7 +34,7 @@ package de.hdm.client.gui;
 		private GroupForm group = new GroupForm();
 		private ListForm list = new ListForm();
 		private AccountForm account = new AccountForm();
-		private searchField SearchField = new searchField();
+		private SearchField SearchField = new SearchField();
 		private VerticalPanel logoutEditPanel = new VerticalPanel();
 
 		private Button logoutButton = new Button("Logout");
@@ -52,9 +52,9 @@ package de.hdm.client.gui;
 			this.add(SearchField);
 			this.add(logoutEditPanel);
 
-			//group.setHorizontalAlignment(ALIGN_LEFT);
-			SearchField.setHorizontalAlignment(ALIGN_CENTER);
-			logoutEditPanel.setHorizontalAlignment(ALIGN_RIGHT);
+//			list.setHorizontalAlignment(ALIGN_LEFT);
+//			SearchField.setHorizontalAlignment(ALIGN_CENTER);
+//			logoutEditPanel.setHorizontalAlignment(ALIGN_RIGHT);
 
 			logoutEditPanel.add(logoutButton);
 			
