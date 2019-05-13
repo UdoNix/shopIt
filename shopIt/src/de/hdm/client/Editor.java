@@ -1,6 +1,10 @@
 package de.hdm.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
+
+import de.hdm.client.gui.Navigation;
 
 
 /**
@@ -8,11 +12,15 @@ import com.google.gwt.core.client.EntryPoint;
  */
 public class Editor implements EntryPoint {
 	
+	private Navigation navbar;
+	
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
 		
+		navbar = new Navigation();
+		navbar.loadEditor();
 	
 		
 	}
