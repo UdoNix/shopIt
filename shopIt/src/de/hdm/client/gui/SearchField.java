@@ -60,6 +60,7 @@ public class SearchField extends HorizontalPanel {
 		this.add(searchField);
 
 		searchField.add(searchButton);
+		
 		/**
 		 * Die Methode dient dem Zurückgeben der resultierenden Suchergebnisse
 		 */

@@ -69,6 +69,7 @@ package de.hdm.client.gui;
 		/**
 		 * Nested Class für den Logout-Button, der den Clickhandler zum Ausloggen aus dem System implementiert
 		 */
+		
 		class LogoutClickHandler implements ClickHandler {
 
 			
