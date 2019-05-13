@@ -134,7 +134,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	 * alle Listen aufzeigen
 	 */
 	public Vector<Item> getAllItemsOf(List l) throws IllegalArgumentException{
-		return this.iMapper.findByList(l); //muss in der Mapperklasse erstellt werden
+		return this.iMapper.findByList(l);
 	}
 	/*
 	 * eine Liste ändern
