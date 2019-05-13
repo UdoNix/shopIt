@@ -3,7 +3,7 @@ package de.hdm.server;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import de.hdm.shared.bo.Person;
 
-public class EditorImpl extends RemoteServiceServlet implements Editor{
+public class EditorImpl extends RemoteServiceServlet implements EditorService{
 	
 	//Referenz auf die MapperKlassen, um die Objekte mit der Datenbank abzugleichen.
 	private PersonMapper pMapper = null;
