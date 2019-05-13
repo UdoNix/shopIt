@@ -11,7 +11,10 @@ public class List extends BusinessObject{
 	private String name = "";
 	
 	//Änderungsdatum der letzten Veränderung der Liste.
-	private Date creationDate;
+	//private Date creationDate;
+
+	//Zugeh�rigkeit zur Gruppe
+	private Group group;
 
 	//Auslesen des Listennamen.
 	public String getName() {
@@ -23,13 +26,13 @@ public class List extends BusinessObject{
 	}
 	
 	//Auslesen des Erstellungsdatum.
-	public Date getCreationDate() {
-		return creationDate;
-	}
+	//public Date getCreationDate() {
+	//	return creationDate;
+	//}
 	//Setzen des Erstellungsdatum.
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
+	//public void setCreationDate(Date creationDate) {
+	//	this.creationDate = creationDate;
+	//}
 	
 	//Auslesen des Listeneintrags.
 	public Item getItem() {
@@ -39,6 +42,13 @@ public class List extends BusinessObject{
 	public void setItem(Item item) {
 		this.item = item;
 	}
-
+	//Auslesen der Gruppe
+	public Group getGroup() {
+		return group;
+	}
+	//Setzen der Gruppe
+	public void setGroup(Group group) {
+		this.group = group;
+	}
 
 }
