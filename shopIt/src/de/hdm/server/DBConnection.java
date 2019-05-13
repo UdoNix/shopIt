@@ -4,6 +4,8 @@ package de.hdm.server;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+// import com.google.appengine.api.utils.SystemProperty;
+
 
 // Verwalten der DB-Verbindung 
 
@@ -18,7 +20,7 @@ public class DBConnection {
     // Die URL, um die Datenbank anzusprechen
      
     private static String googleUrl = "";
-    private static String localUrl = "";
+    private static String localUrl = "jdbc:mysql://127.0.0.1:3306/shopit?user=user&password=demo";
 
    // statische Methode --> Aufrufbr durch
    // <code>DBConnection.connection()</code>. Sie stellt die
@@ -31,15 +33,15 @@ public class DBConnection {
         if (con == null) {
             String url = null;
             try {
-                if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
-                    
-                    Class.forName("");
-                    url = googleUrl;
-                } else {
+//                if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
+//                    
+//                    Class.forName("");
+//                    url = googleUrl;
+//                } else {
                     // Local MySQL instance to use during development.
-                    Class.forName("");
+                    Class.forName("com.mysql.jdbc.Driver");
                     url = localUrl;
-                }
+//                }
                 
                  // Erst dann kann uns der DriverManager eine Verbindung mit den
                  //oben in der Variable url angegebenen Verbindungsinformationen
