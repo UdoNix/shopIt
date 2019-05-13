@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
+
+import de.hdm.shared.bo.Responsibility;
+
 public class ResponsibilityMapper {
 
 	
@@ -50,7 +53,9 @@ public Responsibility findByKey (int id) {
 		        // Ergebnis-Tupel in Objekt umwandeln
 			   Responsibility r = new Responsibility();
 		        r.setId(rs.getInt("id"));
-		        r.setName(rs.getString("name"));
+		        r.setPersonId(rs.getInt("personId"));
+		        r.setItemId(rs.getInt("itemId"));
+		        r.setSalesmanId(rs.getInt("salesmanId"));
 		        return r;
 		      }
 		    }
@@ -83,7 +88,9 @@ public Vector<Responsibility> findAll() {
     while (rs.next()) {
     	Responsibility r = new Responsibility();
       r.setId(rs.getInt("id"));
-      r.setName(rs.getString("name"));
+      r.setPersonId(rs.getInt("personId"));
+      r.setItemId(rs.getInt("itemId"));
+      r.setSalesmanId(rs.getInt("salesmanId"));
 
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
       result.addElement(r);
@@ -125,26 +132,28 @@ public Responsibility insert(Responsibility r) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO responsibility (id, name) " + "VALUES ("
-          + r.getId() + "," + r.getName() + ")");
+      stmt.executeUpdate("INSERT INTO responsibility (id, personId, itemId, salesmanId) " + "VALUES ("
+          + r.getId() + "," +r.getPersonId() + "," +r.getItemId() + "," +r.getSalesmanId() + "," + r.getName() + ")");
     }
   }
   catch (SQLException e2) {
     e2.printStackTrace();
   }
+  return r;
+}
 
  // Schreiben eines Objekts in die Datenbank.
   // @param r  Objekt, das in die Datenbank geschrieben werden soll
   //@return das als Parameter übergebene Objekt
-   */
+   
   public Responsibility update(Responsibility r) {
     Connection con = DBConnection.connection();
 
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE Responsibility " + "SET name=\"" + r.getName()
-          + "\" " + "WHERE id=" + r.getId());
+      stmt.executeUpdate("UPDATE list " + "SET id=\"" + r.getId()
+      + "\" " + "," + "personId=\"" + r.getPersonId() + "itemId=\"" + r.getItemId()+ "salesmanId=\"" + r.getSalesmanId() +"WHERE id=" + r.getId());
 
     }
     catch (SQLException e2) {

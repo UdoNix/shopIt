@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 
+import de.hdm.shared.bo.Person;
+
+
 public class PersonMapper {	
 	// Klasse PersonMapper als Singleton
 	//Variable durch <code> static </code> nur einmal für Instanzen der Klassen vorhanden
@@ -48,7 +51,9 @@ public Person findByKey (int id) {
 		        // Ergebnis-Tupel in Objekt umwandeln
 		        Person p = new Person();
 		        p.setId(rs.getInt("id"));
-		        p.setName(rs.getString("name"));
+		        p.setFirstName(rs.getString("firstName"));
+		        p.setLastName(rs.getString("lastName"));
+		        p.setEmail(rs.getString("email"));
 		
 		        return p;
 		      }
@@ -82,7 +87,9 @@ public Vector<Person> findAll() {
     while (rs.next()) {
       Person p = new Person();
       p.setId(rs.getInt("id"));
-      p.setName(rs.getString("name"));
+      p.setFirstName(rs.getString("firstName"));
+      p.setLastName(rs.getString("lastName"));
+      p.setEmail(rs.getString("email"));
 
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
       result.addElement(p);
@@ -124,13 +131,15 @@ public Person insert(Person p) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO person (id, name) " + "VALUES ("
-          + p.getId() + "," + p.getName() + ")");
+      stmt.executeUpdate("INSERT INTO person (id, firstName, lastName, email) " + "VALUES ("
+          + p.getId() + ","+ p.getFirstName() + ","+ p.getEmail() + "," + p.getLastName() + ")");
     }
   }
   catch (SQLException e2) {
     e2.printStackTrace();
   }
+  return p;
+}
 
  // Schreiben eines Objekts in die Datenbank.
   // @param p  Objekt, das in die Datenbank geschrieben werden soll
@@ -142,15 +151,15 @@ public Person insert(Person p) {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE accounts " + "SET name=\"" + p.getName()
-      + "\" " + "WHERE id=" + p.getId());
+      stmt.executeUpdate("UPDATE accounts " + "SET namide=\"" + p.getId()
+      + "\" " + "," + "firstName=\"" + p.getFirstName() + "," + "lastName=\"" + p.getLastName()+ "," + "email=\"" + p.getEmail()+ "WHERE id=" + p.getId());
 
     }
     catch (SQLException e2) {
       e2.printStackTrace();
     }
 
-    // l zueruck geben
+    // p zueruck geben
     return p;
   }
    

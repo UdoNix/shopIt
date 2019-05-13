@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 
+import de.hdm.shared.bo.Article;
+
 public class ArticleMapper {
 	
 	// Klasse ArticleMapper als Singleton
@@ -132,10 +134,13 @@ public Article insert(Article a) {
     e2.printStackTrace();
   }
 
+	return a;
+	}
+
  // Schreiben eines Objekts in die Datenbank.
   // @param a  Objekt, das in die Datenbank geschrieben werden soll
   //@return das als Parameter übergebene Objekt
-   */
+   
   public Article update(Article a) {
     Connection con = DBConnection.connection();
 

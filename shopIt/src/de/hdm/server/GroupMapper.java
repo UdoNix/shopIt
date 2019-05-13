@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 
+import de.hdm.shared.bo.Group;
+
 public class GroupMapper {
 	
 	// Klasse GroupMapper als Singleton
@@ -132,11 +134,13 @@ public Group insert(Group g) {
   catch (SQLException e2) {
     e2.printStackTrace();
   }
+  return g;
+}
 
  // Schreiben eines Objekts in die Datenbank.
   // @param g  Objekt, das in die Datenbank geschrieben werden soll
   //@return das als Parameter übergebene Objekt
-   */
+  
   public Group update(Group g) {
     Connection con = DBConnection.connection();
 

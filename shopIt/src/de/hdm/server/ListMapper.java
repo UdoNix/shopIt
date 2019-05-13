@@ -6,7 +6,9 @@ package de.hdm.server;
 	import java.sql.SQLException;
 	import java.sql.Statement;
 	import java.util.Vector;
-	
+
+import de.hdm.shared.bo.List;
+
 public class ListMapper {	
 		// Klasse ListMapper als Singleton
 		//Variable durch <code> static </code> nur einmal für Instanzen der Klassen vorhanden
@@ -18,8 +20,8 @@ public class ListMapper {
 	protected ListMapper() {
 	}
 
-	//Aufruf der statischen Methode durch <code>GroupMapper.groupMapper()</code>. Singleton: Es kann nur eine 
-	//Instanz von <code>GroupMapper</code> existieren
+	//Aufruf der statischen Methode durch <code>ListMapper.groupMapper()</code>. Singleton: Es kann nur eine 
+	//Instanz von <code>ListMapper</code> existieren
 	//@return listMapper
 
 	public static ListMapper listMapper() {
@@ -84,7 +86,7 @@ public class ListMapper {
 	      List l = new List();
 	      l.setId(rs.getInt("id"));
 	      l.setName(rs.getString("name"));
-	      l.setCreationDate(rs.getDate("creationDate");
+	      l.setCreationDate(rs.getDate("creationDate"));
 
 	      // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
 	      result.addElement(l);
@@ -96,6 +98,24 @@ public class ListMapper {
 
 	  //Der Ergebnisvektor wird zurueckgegeben
 	  return result;
+	}
+	
+	public Vector<List> findByGroup(int groupID) {
+		Connection con = DBConnection.connection();
+		
+		Vector<List> result = new Vector<List>();
+		
+		try {
+			Statement stmt = con.createStatement();
+
+		      ResultSet rs = stmt.executeQuery("SELECT id, name FROM list "
+		          + "WHERE goup=" + groupID + " ORDER BY id");
+		}
+		catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		
+		return result;
 	}
 
 
@@ -133,6 +153,8 @@ public class ListMapper {
 	  catch (SQLException e2) {
 	    e2.printStackTrace();
 	  }
+	  return l;
+	}
 
 	 // Schreiben eines Objekts in die Datenbank.
 	  // @param l  Objekt, das in die Datenbank geschrieben werden soll
