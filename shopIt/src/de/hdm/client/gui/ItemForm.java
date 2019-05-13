@@ -49,7 +49,7 @@ public class ItemForm extends Form{
 
 		this.addStyleName("itemForm");
 		
-//		Widget articleForm = new ArticleForm();
+//		 articleForm = new ArticleForm();
 //
 //		this.add(articleForm);
 
