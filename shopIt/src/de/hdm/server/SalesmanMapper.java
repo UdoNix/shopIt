@@ -5,6 +5,9 @@ import java.sql.Connection;
 	import java.sql.SQLException;
 	import java.sql.Statement;
 	import java.util.Vector;
+
+import de.hdm.shared.bo.Salesman;
+
 	
 public class SalesmanMapper {
 	
@@ -51,6 +54,10 @@ public Salesman findByKey (int id) {
 		        s.setId(rs.getInt("id"));
 		        s.setName(rs.getString("name"));
 		        s.setCreationDate(rs.getString("creationDate"));
+		        s.setStreet(rs.getString("street"));
+		        s.setPlz(rs.getString("plz"));
+		        s.setCity(rs.getString("city"));
+		    	
 		        return s;
 		      }
 		    }
@@ -85,6 +92,10 @@ public Vector<Salesman> findAll() {
       s.setId(rs.getInt("id"));
       s.setName(rs.getString("name"));
       s.setCreationDate(rs.getString("creationDate"));
+      s.setStreet(rs.getString("street"));
+      s.setPlz(rs.getString("plz"));
+      s.setCity(rs.getString("city"));
+  	
       
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
       result.addElement(s);
@@ -126,8 +137,11 @@ public Salesman insert(Salesman s) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO Salesman (id, name, creationDate) " + "VALUES ("
-	          + s.getId() + "," + s.getName() + "," + s.getCreationDate() +")");
+      stmt.executeUpdate("INSERT INTO Salesman (id, name, creationDate, street, plz, city) " + "VALUES ("
+	          + s.getId() + "," + s.getName() + ","+ s.getPlz() + "," + s.getCity() + ","+ s.getStreet() + ","+ s.getCreationDate() +")");
+      
+  
+  	
   
     }
   }
@@ -135,11 +149,13 @@ public Salesman insert(Salesman s) {
   catch (SQLException e2) {
     e2.printStackTrace(); 
   }
+  return s;
+  }
 
  // Schreiben eines Objekts in die Datenbank.
   // @param s  Objekt, das in die Datenbank geschrieben werden soll
   //@return das als Parameter übergebene Objekt
-   */
+   
   public Salesman update(Salesman s) {
     Connection con = DBConnection.connection();
 
@@ -147,7 +163,7 @@ public Salesman insert(Salesman s) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE list " + "SET name=\"" + s.getName()
-      + "\" " + "," + "creationDate=\"" + s.getCreationDate() + "WHERE id=" + s.getId());
+      + "\" " + "," + "creationDate=\"" + s.getCreationDate() + "plz=\"" + s.getPlz()+ "city=\"" + s.getCity() + "street=\"" + s.getStreet()+"WHERE id=" + s.getId());
 
     }
     catch (SQLException e2) {
@@ -162,7 +178,7 @@ public Salesman insert(Salesman s) {
    // Daten eines <code>Salesman</code>-Objekts aus der Datenbank loeschen.
     // @param s das aus der DB zu loeschende "Objekt"
    
-   public void delete(Salesman g) {
+   public void delete(Salesman s) {
      Connection con = DBConnection.connection();
 
      try {

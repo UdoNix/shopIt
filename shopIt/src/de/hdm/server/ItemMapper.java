@@ -5,6 +5,11 @@ import java.sql.Connection;
 	import java.sql.SQLException;
 	import java.sql.Statement;
 	import java.util.Vector;
+
+import de.hdm.shared.bo.Article;
+import de.hdm.shared.bo.Item;
+import de.hdm.shared.bo.Salesman;
+
 	
 public class ItemMapper {
 	
@@ -49,8 +54,13 @@ public Item findByKey (int id) {
 		        // Ergebnis-Tupel in Objekt umwandeln
 		        Item i = new Item();
 		        i.setId(rs.getInt("id"));
-		        i.setUnit(rs.getString("creationDate"));
-		        i.setQuantity(rs.getString("changeDate"));
+		        i.setCreationDate(rs.getString("creationDate"));
+		        i.setChangeDate(rs.getString("changeDate"));
+		        i.setSalesmanId(rs.getInt("salesmanId"));
+		        i.setArticleId(rs.getInt("articleId"));
+		        i.setFavorit(rs.getBoolean("favorit"));
+		        i.setStatus(rs.getBoolean("status"));
+		    	
 		        return i;
 		      }
 		    }
@@ -83,8 +93,12 @@ public Vector<Item> findAll() {
     while (rs.next()) {
       Item i = new Item();
       i.setId(rs.getInt("id"));
-      i.setUnit(rs.getString("creationDate"));
-      i.setQuantity(rs.getString("changeDate"));
+      i.setCreationDate(rs.getString("creationDate"));
+      i.setChangeDate(rs.getString("changeDate"));
+      i.setSalesmanId(rs.getInt("salesmanId"));
+      i.setArticleId(rs.getInt("articleId"));
+      i.setFavorit(rs.getBoolean("favorit"));
+      i.setStatus(rs.getBoolean("status"));
       
 
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
@@ -127,8 +141,8 @@ public Item insert(Item i) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO Item (id, changeDate, creationDate) " + "VALUES ("
-	          + i.getId() + "," +i.getChangeDate() + "," + i.getCreationDate() +")");
+      stmt.executeUpdate("INSERT INTO Item (id, changeDate, creationDate, salesmanId, articleId, favorit,status) " + "VALUES ("
+	          + i.getId() + "," +i.getSalesmanId()+ "," +i.getChangeDate() + "," +i.getArticleId()+ "," +i.isStatus()+ ","+i.isFavorit()+ ","+ i.getCreationDate() +")");
   
     }
   }
@@ -136,19 +150,21 @@ public Item insert(Item i) {
   catch (SQLException e2) {
     e2.printStackTrace(); 
   }
+  return i;
+}
 
  // Schreiben eines Objekts in die Datenbank.
   // @param i  Objekt, das in die Datenbank geschrieben werden soll
   //@return das als Parameter übergebene Objekt
-   */
+   
   public Item update(Item i) {
     Connection con = DBConnection.connection();
 
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE list " + "SET creationDate=\"" + i.getCreationDate()
-      + "\" " + "," + "changeDate=\"" + i.getChangeDate() +"WHERE id=" + i.getId());
+      stmt.executeUpdate("UPDATE list " + "SET id=\"" + i.getId()
+      + "\" " + "," + "changeDate=\"" + i.getChangeDate() + "," + "creationDate=\"" + i.getCreationDate()+ "," + "salesmanId=\"" + i.getSalesmanId()++ "," + "articleId=\"" + i.getArticleId()+ "," + "istStatus=\"" + i.isStatus()+ "," + "isFavorit=\"" + i.isFavorit()+"WHERE id=" + i.getId());
 
     }
     catch (SQLException e2) {
