@@ -72,8 +72,6 @@ public class SearchField extends HorizontalPanel {
 		 */
 		//listenVerwaltung.getAllNutzer(new SearchCallback()); getPersonsOf(Group g)
 		//listenVerwaltung.getAllResults(new SearchCallback());
-
-		
 		
 		
 		super.onLoad();

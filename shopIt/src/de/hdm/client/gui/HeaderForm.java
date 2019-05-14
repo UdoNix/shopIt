@@ -39,7 +39,7 @@ package de.hdm.client.gui;
 		private Button logoutButton = new Button("Logout");
 		private Button AccountEditButton = new Button("Account bearbeiten");
 
-
+		
 	
 		public HeaderForm() {
 
