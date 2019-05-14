@@ -43,8 +43,8 @@ public class SearchField extends HorizontalPanel {
 	private Button searchButton = new Button("Ergebnisse anzeigen");
 	
 	/*
-	 * Erzeugen eines MultiWordSuggestOracle-Objekts, das die Rückgabe potenzieller Ergebnisse ermöglichen
-	 * soll
+	 * Erzeugen eines MultiWordSuggestOracle-Objekts, das die Rückgabe potenzieller Ergebnisse
+	 * ermöglichen soll
 	 */
 
 	MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();

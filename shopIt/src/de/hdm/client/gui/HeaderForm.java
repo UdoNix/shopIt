@@ -29,7 +29,6 @@ package de.hdm.client.gui;
 		 * Instanziierung gewünschter Elemente
 		 */
 
-
 		//private ItemForm item = new ItemForm();
 		private GroupForm group = new GroupForm();
 		private ListForm list = new ListForm();
