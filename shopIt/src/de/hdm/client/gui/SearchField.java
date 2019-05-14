@@ -41,10 +41,16 @@ public class SearchField extends HorizontalPanel {
 
 	private HorizontalPanel searchField = new HorizontalPanel();
 	private Button searchButton = new Button("Ergebnisse anzeigen");
+	
+	/*
+	 * Erzeugen eines MultiWordSuggestOracle-Objekts, das die Rückgabe potenzieller Ergebnisse ermöglichen
+	 * soll
+	 */
 
-	MultiWordSuggestOracle oracle = new MultiWordSuggestOracle(); //Googeln!!
-	private TextBox suggestTextBox = new TextBox(); //auch!
-	private SuggestBox txtBox = new SuggestBox(oracle, suggestTextBox);//auch!
+	MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
+	
+	private TextBox suggestTextBox = new TextBox(); 
+	private SuggestBox txtBox = new SuggestBox(oracle, suggestTextBox);
 	
 	public SearchField() {
 
@@ -56,7 +62,7 @@ public class SearchField extends HorizontalPanel {
 
 	//	suggestTextBox.addClickHandler(new SuggestClickhandler());
 
-		this.addStyleName("suchleistePanel");
+		this.addStyleName("suchFeldPanel");
 		this.add(searchField);
 
 		searchField.add(searchButton);

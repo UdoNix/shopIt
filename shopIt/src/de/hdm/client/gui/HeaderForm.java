@@ -38,7 +38,7 @@ package de.hdm.client.gui;
 		private VerticalPanel logoutEditPanel = new VerticalPanel();
 
 		private Button logoutButton = new Button("Logout");
-		private Button profilEditButton = new Button("Account bearbeiten");
+		private Button AccountEditButton = new Button("Account bearbeiten");
 
 
 	
@@ -52,9 +52,9 @@ package de.hdm.client.gui;
 			this.add(SearchField);
 			this.add(logoutEditPanel);
 
-//			list.setHorizontalAlignment(ALIGN_LEFT);
-//			SearchField.setHorizontalAlignment(ALIGN_CENTER);
-//			logoutEditPanel.setHorizontalAlignment(ALIGN_RIGHT);
+			/*
+			 * Anordnung (ALIGN) noch offen
+			 */
 
 			logoutEditPanel.add(logoutButton);
 			
