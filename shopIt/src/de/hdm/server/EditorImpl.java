@@ -213,22 +213,22 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	
 	//Erstellen einer Gruppe mit Name, Anwender 
 	public Group createGroup(String name, Person p) throws IllegalArgumentException {
-		Group g = new Group(); 
-		g.setName(name);
-		g.setPerson(p); 
+		Group g = new Group();
+		g.setName(name); 
 		
 		//Setzen einer vorlÃ¤ufigen Gruppe-Id, welche nach Kommunikation mit DB auf den nÃ¤chsthhÃ¶heren Wert gesetzt wird.
-		p.setId(1);
+		g.setId(1);
 		
-		//Einen Anwender zu der Gruppe hinzufügen
-		g.addPerson(p); 
-		
-		//Eine Liste zu der Gruppe hinzufügen
-		g.addList(l); 
-				
+		Vector<Person> GroupMembers = new Vector(); 
+		GroupMembers.add(p); 
+	  		
 		//Speichern des Gruppe-Objekts in der DB.
 		return this.gMapper.insert(g); 
 	}
+	
+	
+	
+	
 	
 	//Auslesen einer Gruppe anhand seiner Gruppe-Id.
 	public Group getGroupById(int id) throws IllegalArgumentException{
@@ -244,7 +244,16 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	public void save(Group g) throws IllegalArgumentException{
 		gMapper.update(g);
 	}
-		
+	
+	//Auslesen aller Personen einer Gruppe.
+	public Vector<Person> getAllPersonsOf(Group g) throws IllegalArgumentException {
+		return this.pMapper.findByGroup(g.getId()); 
+	}
+	
+	//Auslesen aller Listen einer Gruppe.
+	public Vector<List> getAllListsOf(Group g) throws IllegalArgumentException {
+		return this.lMapper.findByGroup(g.getId()); 
+	}
 		
 	//Löschen einer Gruppe.
 		
@@ -254,7 +263,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		 * der Datenbank entfernt.	
 		 */
 		
-		Vector<Person> persons = this.getPersonsOf(g); 
+		Vector<Person> persons = this.getAllPersonsOf(g); 
 		
 		if (persons != null) {
 			for (Person p: persons) {
@@ -262,7 +271,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 			}
 		}
 		
-		Vector<List> lists = this.getListsOf(g);
+		Vector<List> lists = this.getAllListsOf(g);
 		
 		if (lists != null) {
 			for (List l: lists) {
@@ -338,18 +347,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	 */
 	
 	public void delete(Salesman s) throws IllegalArgumentException {
-		/*
-		 * Zunächst werden alle Einträge dieses Händler gelöscht werden.
-		 */
-		Vector<Item> items = this.getItemsOf(s); 
 		
-		if (items != null) {
-			for (Item i : items) {
-				this.delete(i); 
-			}
-		}
-		
-		//Anschließend den Händler entfernen
 		this.sMapper.delete(s); 
 		
 	}
