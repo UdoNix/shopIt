@@ -53,7 +53,7 @@ public class Item extends BusinessObject{
 		return listId;
 	}
 	//Setzen der Liste
-	public void setList(int listId) {
+	public void setListId(int listId) {
 		this.listId = listId;
 	}
 
