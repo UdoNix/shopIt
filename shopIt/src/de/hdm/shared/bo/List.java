@@ -44,7 +44,7 @@ public class List extends BusinessObject{
 	}
 	//Auslesen der Gruppe
 	public Group getGroup() {
-		return group;
+		return groupid;
 	}
 	//Setzen der Gruppe
 	public void setGroup(Group group) {
