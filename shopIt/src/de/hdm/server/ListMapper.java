@@ -110,13 +110,21 @@ public class ListMapper {
 
 		      ResultSet rs = stmt.executeQuery("SELECT id, name FROM list "
 		          + "WHERE goup=" + groupID + " ORDER BY id");
-		}
-		catch (SQLException e2) {
-			e2.printStackTrace();
-		}
+		      while (rs.next()) {
+		    	  List l = new List();
+			        l.setId(rs.getInt("id"));
+			        l.setName(rs.getString("name"));
+			        result.addElement(l);
+		      }
+		    }
+		    catch (SQLException e2) {
+		      e2.printStackTrace();
+		    }
+
+		    // Ergebnisvektor zurückgeben
+		    return result;
+		  }
 		
-		return result;
-	}
 
 
 	 //Einfügen eines <code>List</code>-Objekts in die Datenbank. Es wird
