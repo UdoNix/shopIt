@@ -27,6 +27,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	private SalesmanMapper sMapper = null;
 	private ResponsibilityMapper rMapper = null;
 	private UnitOfMeasureMapper uMapper = null;
+	private MembershipMapper gsMapper = null;
 	
 	//Um die Klasse Ã¼bersichtlicher zu gestalten, wird sie mithilfe von Abschnitten unterteilt.
 	 /*
@@ -49,6 +50,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		this.sMapper = SalesmanMapper.salesmanMapper();
 		this.rMapper = ResponsibilityMapper.responsibilityMapper();
 		this.uMapper = UnitOfMeasureMapper.unitOfMeasureMapper();
+		this.gsMapper = GroupmembershipMapper.membershipMapper();
 		
 	}
 	
@@ -384,11 +386,10 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	 * Zuständigkeit erstellen
 	 */
 	
-	public Responsibility createResponsibility() throws IllegalArgumentException{
+	public Responsibility createResponsibility(Person p, Salesman s) throws IllegalArgumentException{
 		Responsibility r = new Responsibility();
-		Vector<Item> items = new Vector<Item>();
-		Vector<Salesman> salesmen = new Vector<Salesman>();
-		
+		r.setPerson(p);
+		r.setSalesman(s);
 		
 		return this.rMapper.insert(r);
 		
@@ -408,19 +409,72 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	/*
 	 * eine Zuständigkeit ändern
 	 */
-	public void update(Responsibility r)) throws IllegalArgumentException{
+	public void update(Responsibility r) throws IllegalArgumentException{
 		rMapper.update(r);
+		
 	}
 	/*
 	 * eine Zuständigkeit löschen
 	 */
 	public void delete(Responsibility r) throws IllegalArgumentException{
 		 
-		    this.lMapper.delete(l);
+		    this.rMapper.delete(r);
 		  }
 	
+	  /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden für Zuständigkeits-Objekte
+	   * ***************************************************************************
+	   */
+	
+	  /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Begin: Methoden für Gruppenmitgliedschaft-Objekte
+	   * ***************************************************************************
+	   */
+	
+	/*
+	 * Gruppenmitgliedschaft erstellen
+	 */
+	
+	public Groupmembership createGroupmembership(Person p, Group g) throws IllegalArgumentException{
+		Groupmembership gs = new Groupmembership();
+		gs.setPerson(p);
+		gs.setGroup(g);
+		gs.setId(1);
 		
-	
-	
+		return this.gsMapper.insert(gs);
+		
+	}
+	/*
+	 * Gruppenmitgliedschaft anhand der Id finden
+	 */
+	public Groupmembership getGroupmembershipById(int id) throws IllegalArgumentException{
+		return this.gsMapper.findByKey(id);
+	}
+	/*
+	 * alle Gruppen einer Person aufzeigen
+	 */
+	public Vector<Groups> getAllGroupmembershipOfPerson(Person p) throws IllegalArgumentException{
+		return this.gsMapper.findByPerson(p);
+	}
+	/*
+	 * eine Gruppenmitgliedschaft ändern
+	 */
+	public void update(Groupmembership gs) throws IllegalArgumentException{
+		gsMapper.update(gs);
+	}
+	/*
+	 * eine Gruppenmitgliedschaft löschen
+	 */
+	public void delete(Groupmembership gs) throws IllegalArgumentException{
+		 
+		    this.gsMapper.delete(gs);
+		  }
+	  /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden für Gruppenmitgliedschaft-Objekte
+	   * ***************************************************************************
+	   */
 
 }
