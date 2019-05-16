@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.Vector;
 
 import de.hdm.shared.bo.Group;
+import de.hdm.shared.bo.Person;
 
 public class GroupMapper {
 	
@@ -176,6 +177,10 @@ public Group insert(Group g) {
        e2.printStackTrace();
      }
    }
-
    
+   public Vector<Person> getPersonsOf(Group g) {
+ 		//Wir bedienen uns hier einfach des PersonMapper.
+ 		return MembershipMapper.membershipMapper().findByMember(g);
+   
+}
 }
