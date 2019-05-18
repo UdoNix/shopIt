@@ -13,6 +13,7 @@ import de.hdm.shared.bo.Item;
 import de.hdm.shared.bo.List;
 import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Salesman;
+import de.hdm.shared.bo.UnitOfMeasure;
 
 public class EditorImpl extends RemoteServiceServlet implements ShopITAdministration {
 	
@@ -219,9 +220,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		//Setzen einer vorl√§ufigen Gruppe-Id, welche nach Kommunikation mit DB auf den n√§chsthh√∂heren Wert gesetzt wird.
 		g.setId(1);
 		
-		Vector<Person> GroupMembers = new Vector(); 
-		GroupMembers.add(p); 
-	  		
+		
 		//Speichern des Gruppe-Objekts in der DB.
 		return this.gMapper.insert(g); 
 	}
@@ -353,6 +352,43 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	}
 		
 		
+	   /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden f¸r H‰ndler-Objekte
+	   * ***************************************************************************
+	   */
+	
+	   /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Beginn: Methoden f¸r Maﬂeinheit-Objekte
+	   * ***************************************************************************
+	   */
+	
+	public UnitOfMeasure createUnitOfMeasure(float quantity, String unit) throws IllegalArgumentException {
+		UnitOfMeasure u = new UnitOfMeasure(); 
+		u.setQuantity(quantity);
+		u.setUnit(unit);
+		
+		/*
+		 * Setzen einer vorl√§ufigen UnitOfMeasure-Id, welche nach Kommunikation 
+		 * mit DB auf den n√§chsthh√∂heren Wert gesetzt wird.
+		 */
+		
+		u.setId(1);
+		
+		//Objekt in der DB speichern. 
+		return this.uMapper.insert(u); 
+		
+		/*
+		 * Speichern einer Maﬂeinheit. 
+		 */
+		
+		public void save(UnitOfMeasure u) throws IllegalArgumentException {
+			uMapper.update(u);
+		
+		}
+	}
+	
 	   /*
 	   * ***************************************************************************
 	   * ABSCHNITT, Ende: Methoden f¸r H‰ndler-Objekte
