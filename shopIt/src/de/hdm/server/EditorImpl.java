@@ -13,6 +13,8 @@ import de.hdm.shared.bo.List;
 import de.hdm.shared.bo.Person;
 
 import de.hdm.shared.bo.Salesman;
+import de.hdm.shared.bo.UnitOfMeasure;
+
 
 public class EditorImpl extends RemoteServiceServlet implements ShopITAdministration {
 
@@ -125,7 +127,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		l.setName(name);
 		l.setGroup(g);
 		
-		return this.iMapper.insert(l);
+		return this.lMapper.insert(l);
 		
 	}
 	/*
@@ -138,7 +140,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	 * alle Listen aufzeigen
 	 */
 	public Vector<Item> getAllItemsOf(List l) throws IllegalArgumentException{
-		return this.iMapper.findByList(l); //muss in der Mapperklasse erstellt werden
+		return this.iMapper.findByList(l);
 	}
 	/*
 	 * eine Liste �ndern
@@ -211,25 +213,30 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 
 	   /*
 	   * ***************************************************************************
-	   * ABSCHNITT, Beginn: Methoden f�r Gruppe-Objekte
+
+	   * ABSCHNITT, Beginn: Methoden f�r Gruppe-Objekte @author Larisa
 	   * ***************************************************************************
 	   */
 	
-	//Erstellen einer Gruppe mit Name, Anwender und Einkaufsliste 
+	//Erstellen einer Gruppe mit Name, Anwender 
 	public Group createGroup(String name, Person p) throws IllegalArgumentException {
-		Group g = new Group(); 
-		g.setName(name);
-		g.setPerson(p); 
+		Group g = new Group();
+		g.setName(name); 
 		
 		//Setzen einer vorläufigen Gruppe-Id, welche nach Kommunikation mit DB auf den nächsthhöheren Wert gesetzt wird.
-		p.setId(1);
+		g.setId(1);
 		
+
 		//Einen Anwender hinzuf�gen
 		g.addPerson(p); 
-				
+
 		//Speichern des Gruppe-Objekts in der DB.
 		return this.gMapper.insert(g); 
 	}
+	
+	
+	
+	
 	
 	//Auslesen einer Gruppe anhand seiner Gruppe-Id.
 	public Group getGroupById(int id) throws IllegalArgumentException{
@@ -245,8 +252,19 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	public void save(Group g) throws IllegalArgumentException{
 		gMapper.update(g);
 	}
+
 		
 
+	//Auslesen aller Personen einer Gruppe.
+	public Vector<Person> getAllPersonsOf(Group g) throws IllegalArgumentException {
+		return this.pMapper.findByGroup(g.getId()); 
+	}
+	
+	//Auslesen aller Listen einer Gruppe.
+	public Vector<List> getAllListsOf(Group g) throws IllegalArgumentException {
+		return this.lMapper.findByGroup(g.getId()); 
+	}
+		
 	//L�schen einer Gruppe.
 		
 	public void delete(Group g) throws IllegalArgumentException {
@@ -255,7 +273,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		 * der Datenbank entfernt.	
 		 */
 		
-		Vector<Person> persons = this.getPersonsOf(g); 
+		Vector<Person> persons = this.getAllPersonsOf(g); 
 		
 		if (persons != null) {
 			for (Person p: persons) {
@@ -263,7 +281,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 			}
 		}
 		
-		Vector<List> lists = this.getListsOf(g);
+		Vector<List> lists = this.getAllListsOf(g);
 		
 		if (lists != null) {
 			for (List l: lists) {
@@ -295,18 +313,18 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	   * ***************************************************************************
 	   */
 	
-	public Salesman createSalesman(String name, String street, int plz, String city) throws IllegalArgumentException {
+	public Salesman createSalesman(String name, String street, String postalCode, String city) throws IllegalArgumentException {
 		Salesman s = new Salesman();
 		s.setCity(city);
 		s.setStreet(street);
-		s.setPlz(plz);
+		s.setPostalCode(postalCode);
 		s.setName(name);
 		
 		/* Setzen einer vorläufigen H�ndler-Id, welche nach Kommunikation 
 		*mit DB auf den nächsthhöheren Wert gesetzt wird.
 		*
 		*/
-		s.setId(id);
+		s.setId(1);
 		
 		//Objekt in der DB speichern.
 		return this.sMapper.insert(s); 
@@ -316,7 +334,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	/*
 	 * Auslesen einer H�ndler anhand seiner H�ndler-Id.
 	 */
-	public Vector<Salesman> getSalesmanById(int id) throws IllegalArgumentException {
+	public Salesman getSalesmanById(int id) throws IllegalArgumentException {
 		return this.sMapper.findByKey(id); 
 	}
 	
@@ -330,7 +348,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	/*
 	 * Speichern eines H�ndlers.
 	 */
-	public void save(Salesman c) thros IllegalArgumentException {
+	public void save(Salesman s) throws IllegalArgumentException {
 		sMapper.update(s); 
 	}
 	
@@ -343,7 +361,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		 * Zun�chst werden alle Eintr�ge dieses H�ndler gel�scht werden.
 		 */
 		Vector<Item> items = this.getItemsOf(s); 
-		
+
 		if (items != null) {
 			for (Item i : items) {
 				this.delete(i); 
@@ -351,11 +369,49 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		}
 		
 		//Anschlie�end den H�ndler entfernen
+
 		this.sMapper.delete(s); 
 		
 	}
 		
 		
+	   /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden f�r H�ndler-Objekte
+	   * ***************************************************************************
+	   */
+	
+	   /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Beginn: Methoden f�r Ma�einheit-Objekte
+	   * ***************************************************************************
+	   */
+	
+	public UnitOfMeasure createUnitOfMeasure(float quantity, String unit) throws IllegalArgumentException {
+		UnitOfMeasure u = new UnitOfMeasure(); 
+		u.setQuantity(quantity);
+		u.setUnit(unit);
+		
+		/*
+		 * Setzen einer vorläufigen UnitOfMeasure-Id, welche nach Kommunikation 
+		 * mit DB auf den nächsthhöheren Wert gesetzt wird.
+		 */
+		
+		u.setId(1);
+		
+		//Objekt in der DB speichern. 
+		return this.uMapper.insert(u); 
+		
+		/*
+		 * Speichern einer Ma�einheit. 
+		 */
+		
+		public void save(UnitOfMeasure u) throws IllegalArgumentException {
+			uMapper.update(u);
+		
+		}
+	}
+	
 	   /*
 	   * ***************************************************************************
 	   * ABSCHNITT, Ende: Methoden f�r H�ndler-Objekte

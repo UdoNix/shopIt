@@ -10,6 +10,7 @@ public class List extends BusinessObject{
 	//Name der Einkaufsliste.
 	private String name = "";
 	
+
 	//Änderungsdatum der letzten Veränderung der Liste.
 	//private Date creationDate;
 

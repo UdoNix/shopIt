@@ -55,7 +55,7 @@ public Salesman findByKey (int id) {
 		        s.setName(rs.getString("name"));
 		        s.setCreationDate(rs.getString("creationDate"));
 		        s.setStreet(rs.getString("street"));
-		        s.setPlz(rs.getInt("plz"));
+		        s.setPlz(rs.getString("plz"));
 		        s.setCity(rs.getString("city"));
 		    	
 		        return s;
@@ -93,7 +93,7 @@ public Vector<Salesman> findAll() {
       s.setName(rs.getString("name"));
       s.setCreationDate(rs.getString("creationDate"));
       s.setStreet(rs.getString("street"));
-      s.setPlz(rs.getInt("plz"));
+      s.setPlz(rs.getString("plz"));
       s.setCity(rs.getString("city"));
   	
       
