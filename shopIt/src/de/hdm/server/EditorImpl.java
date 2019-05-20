@@ -12,10 +12,12 @@ import de.hdm.shared.bo.Item;
 import de.hdm.shared.bo.List;
 import de.hdm.shared.bo.Person;
 
+import de.hdm.shared.bo.Salesman;
+
 public class EditorImpl extends RemoteServiceServlet implements ShopITAdministration {
 
 	
-	//Referenz auf die MapperKlassen, um die Objekte mit der Datenbank abzugleichen.
+	//Referenz auf die MapperKlassen, um die Objekte mit der Datenbank abzugleichen @autor InesWerner
 	private PersonMapper pMapper = null;
 	private ArticleMapper aMapper = null;
 	private GroupMapper gMapper = null;
@@ -27,7 +29,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	//Um die Klasse übersichtlicher zu gestalten, wird sie mithilfe von Abschnitten unterteilt.
 	 /*
 	   * ***************************************************************************
-	   * ABSCHNITT, Beginn: Initialisierung
+	   * ABSCHNITT, Beginn: Initialisierung @autor InesWerner
 	   * ***************************************************************************
 	   */
 	
@@ -55,21 +57,22 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	
 	  /*
 	   * ***************************************************************************
-	   * ABSCHNITT, Beginn: Methoden für Personen/Anwender-Objekte
+	   * ABSCHNITT, Beginn: Methoden für Personen/Anwender-Objekte @autor InesWerner
 	   * ***************************************************************************
 	   */
 	
-	//Erstellen eines Anwenders-Objekts mit Vorname, Nachname und Email-Adresse.
+	//Erstellen eines neuen Anwender-Objekts mit Vorname, Nachname und Email-Adresse.
+	//Dies führt zu einem Speichern des Anwender-Objekts in der Datenbank.
 	public Person createPerson(String firstName, String lastName, String email) throws IllegalArgumentException{
 		Person p = new Person();
 		p.setFirstName(firstName);
 		p.setLastName(lastName);
 		p.setEmail(email);
 		
-		//Setzen einer vorläufigen Anwenders-Id, welche nach Kommunikation mit DB auf den nächsthhöheren Wert gesetzt wird.
+		//Setzen einer vorläufigen Anwender-Id, welche nach Kommunikation mit DB auf den nächsthhöheren Wert gesetzt wird.
 		p.setId(1);
 		
-		//Speichern des Anwenders-Objekts in der DB.
+		//Speichern des Anwender-Objekts in der DB.
 		return this.pMapper.insert(p);
 	}
 	
@@ -91,11 +94,13 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	//Löschen eines Anwenders.
 	//
 	public void delete(Person p) throws IllegalArgumentException{
-	
+
+		//Methode wird erweitert
+		
+		//Entfernung des Kunden aus der Datenbank.
+		this.pMapper.delete(p);
+		
 	}
-	
-	
-	
 	
 	  /*
 	   * ***************************************************************************
@@ -211,37 +216,40 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	   */
 	
 	//Erstellen einer Gruppe mit Name, Anwender und Einkaufsliste 
-	public Group createGroup(String name, Person p, List l) throws IllegalArgumentException {
+	public Group createGroup(String name, Person p) throws IllegalArgumentException {
 		Group g = new Group(); 
 		g.setName(name);
 		g.setPerson(p); 
-		g.setList(l);
 		
 		//Setzen einer vorläufigen Gruppe-Id, welche nach Kommunikation mit DB auf den nächsthhöheren Wert gesetzt wird.
 		p.setId(1);
+		
+		//Einen Anwender hinzuf�gen
+		g.addPerson(p); 
 				
 		//Speichern des Gruppe-Objekts in der DB.
 		return this.gMapper.insert(g); 
 	}
 	
 	//Auslesen einer Gruppe anhand seiner Gruppe-Id.
-		public Group getGroupById(int id) throws IllegalArgumentException{
+	public Group getGroupById(int id) throws IllegalArgumentException{
 			return this.gMapper.findByKey(id);
-		}
+	}
 		
-		//Auslesen aller Gruppen.
-		public Vector<Group> getAllGroups() throws IllegalArgumentException{
-			return this.gMapper.findAll();
-		}
+	//Auslesen aller Gruppen.
+	public Vector<Group> getAllGroups() throws IllegalArgumentException{
+		return this.gMapper.findAll();
+	}
 		
-		//Speichern einer Gruppe.
-		public void save(Group g) throws IllegalArgumentException{
-			gMapper.update(g);
-		}
+	//Speichern einer Gruppe.
+	public void save(Group g) throws IllegalArgumentException{
+		gMapper.update(g);
+	}
 		
-		//L�schen einer Gruppe.
+
+	//L�schen einer Gruppe.
 		
-		public void deleteGroup(Group g) throws IllegalArgumentException {
+	public void delete(Group g) throws IllegalArgumentException {
 		/*
 		 * Zun�chst werden alle Anwender und Einkaufslisten der Gruppe aus
 		 * der Datenbank entfernt.	
@@ -267,9 +275,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		 */
 		this.gMapper.delete(g);
 		
-		 
-		
-		}
+	}
 
 	
 
@@ -281,6 +287,82 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	   * ABSCHNITT, Ende: Methoden f�r Gruppe-Objekte
 	   * ***************************************************************************
 	   */
+		
+
+	   /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Beginn: Methoden f�r H�ndler-Objekte
+	   * ***************************************************************************
+	   */
+	
+	public Salesman createSalesman(String name, String street, int plz, String city) throws IllegalArgumentException {
+		Salesman s = new Salesman();
+		s.setCity(city);
+		s.setStreet(street);
+		s.setPlz(plz);
+		s.setName(name);
+		
+		/* Setzen einer vorläufigen H�ndler-Id, welche nach Kommunikation 
+		*mit DB auf den nächsthhöheren Wert gesetzt wird.
+		*
+		*/
+		s.setId(id);
+		
+		//Objekt in der DB speichern.
+		return this.sMapper.insert(s); 
+		
+	}
+	
+	/*
+	 * Auslesen einer H�ndler anhand seiner H�ndler-Id.
+	 */
+	public Vector<Salesman> getSalesmanById(int id) throws IllegalArgumentException {
+		return this.sMapper.findByKey(id); 
+	}
+	
+	/*
+	 * Auslesen aller H�ndler.
+	 */
+	public Vector<Salesman> getAllSalesman() throws IllegalArgumentException {
+		return this.sMapper.findAll(); 
+	}
+	
+	/*
+	 * Speichern eines H�ndlers.
+	 */
+	public void save(Salesman c) thros IllegalArgumentException {
+		sMapper.update(s); 
+	}
+	
+	/*
+	 * L�schen eines H�ndlers. 
+	 */
+	
+	public void delete(Salesman s) throws IllegalArgumentException {
+		/*
+		 * Zun�chst werden alle Eintr�ge dieses H�ndler gel�scht werden.
+		 */
+		Vector<Item> items = this.getItemsOf(s); 
+		
+		if (items != null) {
+			for (Item i : items) {
+				this.delete(i); 
+			}
+		}
+		
+		//Anschlie�end den H�ndler entfernen
+		this.sMapper.delete(s); 
+		
+	}
+		
+		
+	   /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden f�r H�ndler-Objekte
+	   * ***************************************************************************
+	   */
+	
+		
 	
 	
 
