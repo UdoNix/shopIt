@@ -6,6 +6,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.client.gui.CellTreeViewModel;
+import de.hdm.client.gui.EditorAdminView;
 import de.hdm.client.gui.Navigation;
 
 
@@ -14,22 +15,18 @@ import de.hdm.client.gui.Navigation;
  */
 public class Editor implements EntryPoint {
 	
-	private CellTreeViewModel ctvModel;
-	private VerticalPanel menu;
+	private EditorAdminView editorAdminView;
 	
-	/**
-	 * This is the entry point method.
-	 */
 	public void onModuleLoad() {
+		editorAdminView = new EditorAdminView();
 		
-		ctvModel = new CellTreeViewModel();
-		
-		menu = new VerticalPanel();
-		
-		menu.add(ctvModel.getStackPanelMenu());
-		
-		RootPanel.get("nav").add(menu);
+		editorAdminView.loadEditor();
 	
-		
+	}
+	
+	public Editor getEditor() {
+		return this;
 	}
 }
+
+

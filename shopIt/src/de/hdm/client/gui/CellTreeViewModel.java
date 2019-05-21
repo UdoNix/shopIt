@@ -19,34 +19,42 @@ import com.google.gwt.view.client.TreeViewModel;
  */
 public class CellTreeViewModel extends VerticalPanel {
 
-	private HorizontalPanel mainPanel;
+	private GroupListView groupListView;
+	
 	private StackPanel menuPanel;
-	String group;
 	
 	
-	public void cellTreeViewModel() {
-		group = "Alle Gruppen";
+	private CellTreeResources groupListRes = GWT.create(CellTreeResources.class);
+	
+	
+	public CellTreeViewModel() {
 		menuPanel = new StackPanel();
-		menuPanel.add(createGroupListView(), "Alle Gruppen");
+		menuPanel.setStyleName("stackMenuPanel");
 		
+		
+		menuPanel.add(showGroupListView());
 	}
-	
-	public StackPanel getStackPanelMenu() {
-		return this.menuPanel;
-	}
-	
+
 	public void onLoad() {
 		this.add(this.menuPanel);
 	}
+	
+	
 
-	private Widget createGroupListView() {
-		// TODO Auto-generated method stub
-		return null;
+	private Widget showGroupListView() {
+		
+		this.groupListView = new GroupListView();
+		CellTree cellTree = new CellTree(groupListView, "Root", groupListRes);
+		cellTree.setAnimationEnabled(true);
+		
+		return cellTree;
 	}
 
+	public StackPanel getStackMenuPanel() {
+		return this.menuPanel;
+	}
 
-
-	static interface CellTreeResource extends CellTree.Resources {
+	static interface CellTreeResources extends CellTree.Resources {
 		@Override
 		@Source("cellTreeClosedItem.jpg")
 		ImageResource cellTreeClosedItem();
