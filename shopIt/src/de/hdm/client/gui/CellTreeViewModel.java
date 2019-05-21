@@ -2,6 +2,7 @@ package de.hdm.client.gui;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -20,11 +21,11 @@ import com.google.gwt.view.client.TreeViewModel;
 public class CellTreeViewModel extends VerticalPanel {
 
 	private GroupListView groupListView;
-	
 	private StackPanel menuPanel;
 	
 	
 	private CellTreeResources groupListRes = GWT.create(CellTreeResources.class);
+	
 	
 	
 	public CellTreeViewModel() {
@@ -32,14 +33,17 @@ public class CellTreeViewModel extends VerticalPanel {
 		menuPanel.setStyleName("stackMenuPanel");
 		
 		
-		menuPanel.add(showGroupListView());
+		//menuPanel.add(showGroupListView(), "Alle Gruppen");
+		menuPanel.add(showGroupListView(), "Alle Gruppen");
 	}
 
 	public void onLoad() {
 		this.add(this.menuPanel);
 	}
 	
-	
+	public void setEditor(EditorAdminView editor) {
+		groupListView.setEditor(editor);
+	}
 
 	private Widget showGroupListView() {
 		
