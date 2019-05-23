@@ -1,5 +1,9 @@
 package de.hdm.server;
 
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import com.ibm.icu.text.DateFormat;
+
+import java.util.ArrayList;
 import java.util.Vector;
 
 import de.hdm.shared.ShopITAdministration;
@@ -10,6 +14,7 @@ import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Salesman;
 
 public class EditorImpl extends RemoteServiceServlet implements ShopITAdministration {
+
 	
 	//Referenz auf die MapperKlassen, um die Objekte mit der Datenbank abzugleichen.
 	private PersonMapper pMapper = null;
@@ -99,9 +104,110 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	   * ***************************************************************************
 	   */
 	
+
+	  /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Beginn: Methoden fï¿½r Liste @author Ilona
+	   * ***************************************************************************
+	   */
+	
+	/*
+	 * neue Liste erstellen
+	 */
+	public List createListFor(Group g, String name) throws IllegalArgumentException{
+		List l = new List();
+		//creationDate + modification Date noch hinzufï¿½gen
+		l.setId(1);
+		l.setName(name);
+		l.setGroup(g);
+		
+		return this.iMapper.insert(l);
+		
+	}
+	/*
+	 * Liste anhand der Id finden
+	 */
+	public List getListById(int id) throws IllegalArgumentException{
+		return this.lMapper.findByKey(id);
+	}
+	/*
+	 * alle Listen aufzeigen
+	 */
+	public Vector<Item> getAllItemsOf(List l) throws IllegalArgumentException{
+		return this.iMapper.findByList(l); //muss in der Mapperklasse erstellt werden
+	}
+	/*
+	 * eine Liste ï¿½ndern
+	 */
+	public void update(List l) throws IllegalArgumentException{
+		lMapper.update(l); // noch nicht fertig
+	}
+	/*
+	 * eine Liste lï¿½schen
+	 */
+	public void delete(List l) throws IllegalArgumentException{
+		 ArrayList<Item> items = this.getAllItemsOf(l); // muss noch erstellt werden, siehe oben
+		 
+		    if (items != null) {
+		      for (Item item : items) {
+		        this.delete(item);
+		      }
+		    }
+
+		    // Account aus der DB entfernen
+		    this.lMapper.delete(l);
+		  }
+		
+		
+	/*
+	   * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden fï¿½r Liste
+	   * ***************************************************************************
+	   */
+	/*
+	   * ***************************************************************************
+	   * ABSCHNITT, Beginn: Methoden fï¿½r Eintrag @author Ilona
+	   * ***************************************************************************
+	   */
+	/*
+	 * neuen Eintrag erstellen
+	 */
+	public List createItem(List l, String name) throws IllegalArgumentException{
+		Item i = new Item();
+		i.setCreationDate();//aktuelles Datum einfï¿½gen
+		i.setId(1);
+		i.setList(l);
+		return this.iMapper.insert(i);
+	}
+	/*
+	 * Eintrag anhand der Id finden
+	 */
+	public Item getItemById(int id) throws IllegalArgumentException{
+		return this.iMapper.findByKey(id);
+	}
+	/*
+	 * alle Eintrï¿½ge aufzeigen
+	 */
+	public Vector<Item> getAllItems() throws IllegalArgumentException{
+		return this.iMapper.findAll();
+	}
+	/*
+	 * einen Eintrag ï¿½ndern
+	 */
+	public void update(Item i) throws IllegalArgumentException{
+		iMapper.update(i);
+	}
+	/*
+	 * einen Eintrag lï¿½schen
+	 */
+	public void delete(Item i) throws IllegalArgumentException{
+		iMapper.delete(i);
+	}
+
+
 	   /*
 	   * ***************************************************************************
-	   * ABSCHNITT, Beginn: Methoden für Gruppe-Objekte
+	   * ABSCHNITT, Beginn: Methoden fï¿½r Gruppe-Objekte
 	   * ***************************************************************************
 	   */
 	
@@ -141,7 +247,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		
 	public void delete(Group g) throws IllegalArgumentException {
 		/*
-		 * Zunächst werden alle Anwender und Einkaufslisten der Gruppe aus
+		 * Zunï¿½chst werden alle Anwender und Einkaufslisten der Gruppe aus
 		 * der Datenbank entfernt.	
 		 */
 		
@@ -161,7 +267,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 			}
 		}
 		/*
-		 * Anschließend die Gruppe entfernen
+		 * Anschlieï¿½end die Gruppe entfernen
 		 */
 		this.gMapper.delete(g);
 		
@@ -174,7 +280,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	
 	   /*
 	   * ***************************************************************************
-	   * ABSCHNITT, Ende: Methoden für Gruppe-Objekte
+	   * ABSCHNITT, Ende: Methoden fï¿½r Gruppe-Objekte
 	   * ***************************************************************************
 	   */
 		
@@ -255,4 +361,5 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		
 	
 	
+
 }

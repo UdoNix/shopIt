@@ -3,13 +3,18 @@ public class Salesman extends BusinessObject{
 
 	private static final long serialVersionUID = 1L;
 
+	//Name des Händlers.
 	private String name = "";
 	
+	//Straßenname des Händlers.
 	private String street = "";
 	
-	private int plz = 0;
+	//Postleitzahl des Händlers.
+	private String postalCode = "";
 	
+	//Stadt des Händlers.
 	private String city = "";
+	
 
 	//Auslesen des Händlernamen.
 	public String getName() {
@@ -27,14 +32,16 @@ public class Salesman extends BusinessObject{
 	public void setStreet(String street) {
 		this.street = street;
 	}
+
 	//Auslesen der Postleitzahl des Händlers.
-	public int getPlz() {
-		return plz;
+	public String getPostalCode() {
+		return postalCode;
 	}
 	//Setzen der Postleitzahl des Händlers.
-	public void setPlz(int plz) {
-		this.plz = plz;
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
+	
 	//Auslesen, in welcher Stadt der Händler ist.
 	public String getCity() {
 		return city;

@@ -3,10 +3,14 @@ public class Item extends BusinessObject{
 
 	private static final long serialVersionUID = 1L;
 
-	//
-	private Salesman salesman;
+	//Fremdschlüsselbeziehung zum Händler.
+	private int salesmanId = 0;
 	
-	private Article article;
+	//Fremdschlüsselbeziehung zum Artikel.
+	private int articleId = 0;
+	
+	//Fremdschlüsselbeziehung zur Liste.
+	private int listId = 0;
 	
 	//Favorit zeigt an, ob Item Standartartikel ist bzw. favorisiert wurde.
 	private boolean favorit;
@@ -14,21 +18,24 @@ public class Item extends BusinessObject{
 	//Status zeigt an, ob Item abgehakt ist oder nicht.
 	private boolean status;
 	
-	//Auslesen des Händlers.
-	public Salesman getSalesman() {
-		return salesman;
+	//
+	public int getSalesmanId() {
+		return salesmanId;
 	}
-	//Setzen des Händlers.
-	public void setSalesman(Salesman salesman) {
-		this.salesman = salesman;
+	public void setSalesmanId(int salesmanId) {
+		this.salesmanId = salesmanId;
 	}
-	//Auslesen des Artikels.
-	public Article getArticle() {
-		return article;
+	public int getArticleId() {
+		return articleId;
 	}
-	//Setzen des Artikels.
-	public void setArticle(Article article) {
-		this.article = article;
+	public void setArticleId(int articleId) {
+		this.articleId = articleId;
+	}
+	public int getListId() {
+		return listId;
+	}
+	public void setListId(int listId) {
+		this.listId = listId;
 	}
 	//Auslesen, ob Artikel ein Standardartikel ist.
 	public boolean isFavorit() {
