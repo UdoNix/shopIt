@@ -216,6 +216,8 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	public void delete(Item i) throws IllegalArgumentException{
 		iMapper.delete(i);
 	}
+	
+	//Eintrag favorit und abhacken
 
 	  /*
 	   * ***************************************************************************
