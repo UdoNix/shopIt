@@ -20,7 +20,9 @@ import de.hdm.shared.bo.Responsibility;
 public class EditorImpl extends RemoteServiceServlet implements ShopITAdministration {
 
 	
-	//Referenz auf die MapperKlassen, um die Objekte mit der Datenbank abzugleichen @autor InesWerner
+	//Referenz auf die MapperKlassen, um die Objekte mit der Datenbank abzugleichen 
+	//@autor InesWerner
+	
 	private PersonMapper pMapper = null;
 	private ArticleMapper aMapper = null;
 	private GroupMapper gMapper = null;
@@ -64,7 +66,8 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	
 	  /*
 	   * ***************************************************************************
-	   * ABSCHNITT, Beginn: Methoden für Personen/Anwender-Objekte @autor InesWerner
+	   * ABSCHNITT, Beginn: Methoden für Personen/Anwender-Objekte 
+	   * @autor InesWerner
 	   * ***************************************************************************
 	   */
 	
