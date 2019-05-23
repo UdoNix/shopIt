@@ -7,13 +7,19 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import de.hdm.shared.ShopITAdministration;
+import de.hdm.shared.bo.Article;
 import de.hdm.shared.bo.Group;
 import de.hdm.shared.bo.Item;
 import de.hdm.shared.bo.List;
 import de.hdm.shared.bo.Person;
+<<<<<<< HEAD
 
 import de.hdm.shared.bo.Salesman;
 import de.hdm.shared.bo.UnitOfMeasure;
+=======
+import de.hdm.shared.bo.Responsibility;
+import de.hdm.shared.bo.Salesman;
+
 
 
 public class EditorImpl extends RemoteServiceServlet implements ShopITAdministration {
@@ -26,7 +32,9 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	private ItemMapper iMapper = null;
 	private ListMapper lMapper = null;
 	private SalesmanMapper sMapper = null;
+	private ResponsibilityMapper rMapper = null;
 	private UnitOfMeasureMapper uMapper = null;
+	private MembershipMapper gsMapper = null;
 	
 	//Um die Klasse übersichtlicher zu gestalten, wird sie mithilfe von Abschnitten unterteilt.
 	 /*
@@ -47,7 +55,9 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		this.iMapper = ItemMapper.itemMapper();
 		this.lMapper = ListMapper.listMapper();
 		this.sMapper = SalesmanMapper.salesmanMapper();
+		this.rMapper = ResponsibilityMapper.responsibilityMapper();
 		this.uMapper = UnitOfMeasureMapper.unitOfMeasureMapper();
+		this.gsMapper = GroupmembershipMapper.membershipMapper();
 		
 	}
 	
@@ -122,14 +132,18 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	 */
 	public List createListFor(Group g, String name) throws IllegalArgumentException{
 		List l = new List();
+
 		//creationDate + modification Date noch hinzuf�gen
+
 		l.setId(1);
 		l.setName(name);
-		l.setGroup(g);
+		l.setGroupId(g.getId());
 		
+
 		return this.lMapper.insert(l);
 		
 	}
+	
 	/*
 	 * Liste anhand der Id finden
 	 */
@@ -137,22 +151,23 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		return this.lMapper.findByKey(id);
 	}
 	/*
-	 * alle Listen aufzeigen
+	 * alle Eintr�ge einer Liste aufzeigen
 	 */
-	public Vector<Item> getAllItemsOf(List l) throws IllegalArgumentException{
+	public Vector<Item> getAllItemsOfList(List l) throws IllegalArgumentException{
 		return this.iMapper.findByList(l);
 	}
 	/*
 	 * eine Liste �ndern
 	 */
 	public void update(List l) throws IllegalArgumentException{
-		lMapper.update(l); // noch nicht fertig
+		lMapper.update(l);
 	}
 	/*
 	 * eine Liste l�schen
 	 */
 	public void delete(List l) throws IllegalArgumentException{
-		 ArrayList<Item> items = this.getAllItemsOf(l); // muss noch erstellt werden, siehe oben
+		 //alle Eintr�ge der Liste suchen und ggf. l�schen
+		Vector<Item> items = this.getAllItemsOf(l);
 		 
 		    if (items != null) {
 		      for (Item item : items) {
@@ -160,30 +175,41 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		      }
 		    }
 
-		    // Account aus der DB entfernen
+		    // Liste aus der DB entfernen
 		    this.lMapper.delete(l);
 		  }
 		
 		
-	/*
+	  /*
 	   * ***************************************************************************
 	   * ABSCHNITT, Ende: Methoden f�r Liste
 	   * ***************************************************************************
 	   */
-	/*
+	  /*
 	   * ***************************************************************************
+<<<<<<< HEAD
 	   * ABSCHNITT, Beginn: Methoden f�r Eintrag @author Ilona
+=======
+	   * ABSCHNITT, Beginn: Methoden f�r Eintrag @author Thies Ilona
+>>>>>>> refs/heads/Ilona
 	   * ***************************************************************************
 	   */
 	/*
 	 * neuen Eintrag erstellen
 	 */
-	public List createItem(List l, String name) throws IllegalArgumentException{
+	public Item createItem(List l, Article a) throws IllegalArgumentException{
 		Item i = new Item();
 		i.setCreationDate();//aktuelles Datum einf�gen
+
 		i.setId(1);
-		i.setList(l);
+		i.setListId(l.getId());
 		return this.iMapper.insert(i);
+	}
+	/*
+	 * Zust�ndigkeit zum Eintrag hinzuf�gen
+	 */
+	public Item addResponsibilityToItem(Responsibility r, Item i) {
+		i.setResponsibility(r);
 	}
 	/*
 	 * Eintrag anhand der Id finden
@@ -210,6 +236,11 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		iMapper.delete(i);
 	}
 
+	  /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden f�r Eintrag 
+	   * ***************************************************************************
+	   */
 
 	   /*
 	   * ***************************************************************************
@@ -418,8 +449,105 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	   * ***************************************************************************
 	   */
 	
+	  /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Beginn: Methoden f�r Zust�ndigkeits-Objekte
+	   * ***************************************************************************
+	   */
 		
+	/*
+	 * Zust�ndigkeit erstellen
+	 */
 	
+	public Responsibility createResponsibility(Person p, Salesman s) throws IllegalArgumentException{
+		Responsibility r = new Responsibility();
+		r.setPerson(p);
+		r.setSalesman(s);
+		
+		return this.rMapper.insert(r);
+		
+	}
+	/*
+	 * Zust�ndigkeit anhand der Id finden
+	 */
+	public Responsibility getResponsibilityById(int id) throws IllegalArgumentException{
+		return this.rMapper.findByKey(id);
+	}
+	/*
+	 * alle Zust�ndigkeiten einer Person aufzeigen
+	 */
+	public Vector<Item> getAllResponsibilityOfPerson(Person p) throws IllegalArgumentException{
+		return this.rMapper.findByPerson(p);
+	}
+	/*
+	 * eine Zust�ndigkeit �ndern
+	 */
+	public void update(Responsibility r) throws IllegalArgumentException{
+		rMapper.update(r);
+		
+	}
+	/*
+	 * eine Zust�ndigkeit l�schen
+	 */
+	public void delete(Responsibility r) throws IllegalArgumentException{
+		 
+		    this.rMapper.delete(r);
+		  }
 	
+	  /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden f�r Zust�ndigkeits-Objekte
+	   * ***************************************************************************
+	   */
+	
+	  /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Begin: Methoden f�r Gruppenmitgliedschaft-Objekte
+	   * ***************************************************************************
+	   */
+	
+	/*
+	 * Gruppenmitgliedschaft erstellen
+	 */
+	
+	public Groupmembership createGroupmembership(Person p, Group g) throws IllegalArgumentException{
+		Groupmembership gs = new Groupmembership();
+		gs.setPerson(p);
+		gs.setGroup(g);
+		gs.setId(1);
+		
+		return this.gsMapper.insert(gs);
+		
+	}
+	/*
+	 * Gruppenmitgliedschaft anhand der Id finden
+	 */
+	public Groupmembership getGroupmembershipById(int id) throws IllegalArgumentException{
+		return this.gsMapper.findByKey(id);
+	}
+	/*
+	 * alle Gruppen einer Person aufzeigen
+	 */
+	public Vector<Groups> getAllGroupmembershipOfPerson(Person p) throws IllegalArgumentException{
+		return this.gsMapper.findByPerson(p);
+	}
+	/*
+	 * eine Gruppenmitgliedschaft �ndern
+	 */
+	public void update(Groupmembership gs) throws IllegalArgumentException{
+		gsMapper.update(gs);
+	}
+	/*
+	 * eine Gruppenmitgliedschaft l�schen
+	 */
+	public void delete(Groupmembership gs) throws IllegalArgumentException{
+		 
+		    this.gsMapper.delete(gs);
+		  }
+	  /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden f�r Gruppenmitgliedschaft-Objekte
+	   * ***************************************************************************
+	   */
 
 }
