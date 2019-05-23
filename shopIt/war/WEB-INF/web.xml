@@ -6,6 +6,8 @@
          xmlns="http://java.sun.com/xml/ns/javaee">
 
   <!-- Servlets -->
+  
+  <!-- ##### Auskommentiert da nicht benötigt ######
   <servlet>
     <servlet-name>greetServlet</servlet-name>
     <servlet-class>de.hdm.server.GreetingServiceImpl</servlet-class>
@@ -14,7 +16,7 @@
   <servlet-mapping>
     <servlet-name>greetServlet</servlet-name>
     <url-pattern>/shopit/greet</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
   
   <!-- Default page to serve -->
   <welcome-file-list>
