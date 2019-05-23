@@ -73,8 +73,23 @@ public class SearchField extends HorizontalPanel {
 		//listenVerwaltung.getAllNutzer(new SearchCallback()); getPersonsOf(Group g)
 		//listenVerwaltung.getAllResults(new SearchCallback());
 		
-		
 		//super.onLoad();
+	}
+	
+	public void loadGroup(){
+		
+		editGroupBtn = new Button("Gruppe bearbeiten");
+		deleteGroupBtn = new Button("Gruppe löschen");
+		abortDeletionButton = new Button("Abbrechen");
+		
+		contentPanel.add(editGroupBtn);
+		contentPanel.add(deleteGroupBtn);
+		contentPanel.add(abortDeletionButton);
+		contentPanel.add(name);
+		//contentPanel.add(idLabel);
+		contentPanel.add(creationTime);
+		RootPanel.get("main").add(contentPanel);
+		
 	}
 }
 	
