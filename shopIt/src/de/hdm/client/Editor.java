@@ -12,7 +12,6 @@ import de.hdm.client.gui.EditorAdminView;
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-//Autor
 public class Editor implements EntryPoint {
 	
 	private EditorAdminView editorAdminView;
