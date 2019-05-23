@@ -53,7 +53,7 @@ public class ItemForm extends Form{
 //
 //		this.add(articleForm);
 
-		super.onLoad();
+		//super.onLoad();
 
 }
 	public ItemForm() {

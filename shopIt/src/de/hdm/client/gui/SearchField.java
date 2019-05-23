@@ -74,7 +74,7 @@ public class SearchField extends HorizontalPanel {
 		//listenVerwaltung.getAllResults(new SearchCallback());
 		
 		
-		super.onLoad();
+		//super.onLoad();
 	}
 }
 	

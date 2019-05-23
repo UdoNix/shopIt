@@ -34,7 +34,7 @@ public class ListForm extends Form{
 	 * 
 	 */
 
-	private DateTimeFormat dtf = DateTimeFormat.getFormat("dd.MM.yyyy k:mm");
+	private DateTimeFormat dateFormat = DateTimeFormat.getFormat("dd.MM.yyyy k:mm");
 
 	private List list = new List();
 	
@@ -54,7 +54,7 @@ public class ListForm extends Form{
 
 		this.add(itemForm);
 
-		super.onLoad();
+		//super.onLoad();
 
 }
 	public ListForm() {

@@ -34,10 +34,10 @@ package de.hdm.client.gui;
 		private ListForm list = new ListForm();
 		private AccountForm account = new AccountForm();
 		private SearchField SearchField = new SearchField();
-		private VerticalPanel logoutEditPanel = new VerticalPanel();
+		private VerticalPanel contentPanel = new VerticalPanel();
 
-		private Button logoutButton = new Button("Logout");
-		private Button AccountEditButton = new Button("Account bearbeiten");
+		private Button logoutBtn = new Button("Logout");
+		private Button settings = new Button("Account bearbeiten");
 
 		
 	
@@ -49,19 +49,19 @@ package de.hdm.client.gui;
 			this.add(list);
 			this.add(account);
 			this.add(SearchField);
-			this.add(logoutEditPanel);
+			this.add(logoutBtn);
 
 			/*
 			 * Anordnung (ALIGN) noch offen
 			 */
 
-			logoutEditPanel.add(logoutButton);
+			contentPanel.add(logoutBtn);
 			
 
 			
-			logoutButton.addClickHandler(new LogoutClickHandler());
+			logoutBtn.addClickHandler(new LogoutClickHandler());
 
-			super.onLoad();
+			//super.onLoad();
 		}
 
 
@@ -74,11 +74,25 @@ package de.hdm.client.gui;
 			
 			public void onClick(ClickEvent event) {
 
-				Anchor signOutLink = new Anchor();
+				Anchor logOutLink = new Anchor();
 
-				signOutLink.setHref(Cookies.getCookie("logout"));
-				Window.open(signOutLink.getHref(), "_self", "");
+				logOutLink.setHref(Cookies.getCookie("logout"));
+				Window.open(logOutLink.getHref(), "_self", "");
 			}
+			
+//			public void loadAccount(){
+//				
+//				
+//				logoutBtn = new Button("Logout");
+//				settings = new Button("Einstellungen");
+//			
+//				contentPanel.add(logoutBtn);
+//				contentPanel.add(settings);
+//			
+//				RootPanel.get().add(contentPanel);
+//				
+//			}
+		
 
 		}
 	

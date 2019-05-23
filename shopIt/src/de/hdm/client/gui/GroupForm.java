@@ -5,6 +5,7 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -28,9 +29,15 @@ public class GroupForm extends Form {
 	private Label creationTime = new Label();
 	private Label NumberOfMembers = new Label();
 	
-	private Button EditGroupBtn = new Button("Gruppe bearbeiten");
-	private Button DeleteGroupBtn = new Button("Gruppe löschen");
+	private Button editGroupBtn = new Button("Gruppe bearbeiten");
+	private Button deleteGroupBtn = new Button("Gruppe löschen");
+	private Button abortDeletionButton = new Button("Abbrechen");
 
+	/*
+	 * 
+	 */
+	
+	
 	/*
 	 * 
 	 */
@@ -43,7 +50,7 @@ public class GroupForm extends Form {
 	 * 
 	 */
 
-	private GroupForm(long serializableID) {
+	GroupForm(long serializableID) {
 
 		Group g = new Group();
 		
@@ -55,11 +62,27 @@ public class GroupForm extends Form {
 
 		this.add(listForm);
 
-		super.onLoad();
+		//super.onLoad();
 
 	}
 
 	public GroupForm() {
 		// TODO Auto-generated constructor stub
 	}
+
+//	public void loadAccount(){
+//		
+//			editGroupBtn = new Button("Gruppe bearbeiten");
+//			deleteGroupBtn = new Button("Gruppe löschen");
+//			abortDeletionButton = new Button("Abbrechen");
+//			
+//			contentPanel.add(editGroupBtn);
+//			contentPanel.add(deleteGroupBtn);
+//			contentPanel.add(abortDeletionButton);
+//			contentPanel.add(name);
+//			//contentPanel.add(idLabel);
+//			contentPanel.add(creationTime);
+//			RootPanel.get().add(contentPanel);
+//			
+//		}
 }	

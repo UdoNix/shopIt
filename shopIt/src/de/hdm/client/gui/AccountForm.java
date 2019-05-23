@@ -6,7 +6,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class AccountForm extends Form {
+public class AccountForm extends HorizontalPanel {
 	
 //	AccountForm account = new AccountForm();
 //	
@@ -26,29 +26,30 @@ public class AccountForm extends Form {
 	private Label idLabel = new Label("Konto: ");
 	private Label creationTime = new Label();
 	
+	private Button editAccountBtn = new Button("Account bearbeiten");
+	private Button deleteButton = new Button("Account löschen");
+	private Button abortDeletionButton = new Button("Abbrechen");
 	
-	private Button editAccountBtn, deleteButton, abortDeletionButton;
-	
-	//private Button editAccountBtn = new Button("Gruppe bearbeiten");
-	//private Button deleteButton = new Button("Account löschen");
-	//private Button abortDeletionButton = new Button("Abbrechen");
-	
-	public void loadAccount(){
+	//public void loadAccount(){
 		
-		editAccountBtn = new Button("Account bearbeiten");
-		deleteButton = new Button("Account löschen");
-		abortDeletionButton = new Button("Abbrechen");
-		
-		contentPanel.add(editAccountBtn);
-		contentPanel.add(deleteButton);
-		contentPanel.add(abortDeletionButton);
-		contentPanel.add(name);
-		contentPanel.add(idLabel);
-		contentPanel.add(creationTime);
-		RootPanel.get().add(contentPanel);
-		
-	}
 	
-
+		
+	//}
+	
+public void onLoad(){
+	
+	editAccountBtn = new Button("Account bearbeiten");
+	deleteButton = new Button("Account löschen");
+	abortDeletionButton = new Button("Abbrechen");
+	
+	contentPanel.add(editAccountBtn);
+	contentPanel.add(deleteButton);
+	contentPanel.add(abortDeletionButton);
+	contentPanel.add(name);
+	contentPanel.add(idLabel);
+	contentPanel.add(creationTime);
+	RootPanel.get().add(contentPanel);
+	
+}
 	
 }
