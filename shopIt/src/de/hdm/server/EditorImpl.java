@@ -16,7 +16,6 @@ import de.hdm.shared.bo.Salesman;
 import de.hdm.shared.bo.UnitOfMeasure;
 import de.hdm.shared.bo.Responsibility;
 
-///TEst
 
 public class EditorImpl extends RemoteServiceServlet implements ShopITAdministration {
 
