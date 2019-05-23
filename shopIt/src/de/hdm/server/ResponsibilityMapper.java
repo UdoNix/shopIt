@@ -181,4 +181,35 @@ public Responsibility insert(Responsibility r) {
        e2.printStackTrace();
      }
    }
+   
+   
+   public Vector<Responsibility> findByPerson(int personId) {
+		Connection con = DBConnection.connection();
+		Vector<Responsibility> result = new Vector<Responsibility>();
+
+		try {
+			Statement stmt = con.createStatement();
+
+			ResultSet rs = stmt.executeQuery("SELECT id, personId " + "FROM responsibility "
+					+ "WHERE personID=" + personId + " ORDER BY id");
+
+			// Für jeden Eintrag im Suchergebnis wird nun ein Customer-Objekt
+			// erstellt.
+			while (rs.next()) {
+				Responsibility r = new Responsibility();
+				r.setId(rs.getInt("id"));
+				r.setPersonId(rs.getPersonId("personId"));
+			
+				// Hinzufügen des neuen Objekts zum Ergebnisvektor
+				result.addElement(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		// Ergebnisvektor zurückgeben
+		return result;
+	}
+
+
 }
