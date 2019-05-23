@@ -15,40 +15,35 @@ public class AccountForm extends HorizontalPanel {
 	/**
 	 * Erstellung verschiedener Panels
 	 */
-	private VerticalPanel contentPanel = new VerticalPanel();
-	private HorizontalPanel buttonPanel = new HorizontalPanel();
-
+	private HorizontalPanel hPanel = new HorizontalPanel();
+		private VerticalPanel contentPanel = new VerticalPanel();
 	/**
 	 * Erstellung benötigter GUI-Elemente
 	 */
 	
-	private Label name = new Label();
+	private Label name = new Label("Name: ");
 	private Label idLabel = new Label("Konto: ");
-	private Label creationTime = new Label();
+	private Label creationTime = new Label("Datum: ");
 	
 	private Button editAccountBtn = new Button("Account bearbeiten");
 	private Button deleteButton = new Button("Account löschen");
 	private Button abortDeletionButton = new Button("Abbrechen");
 	
-	//public void loadAccount(){
+	public void loadAccount(){
 		
-	
-		
-	//}
-	
-public void onLoad(){
 	
 	editAccountBtn = new Button("Account bearbeiten");
 	deleteButton = new Button("Account löschen");
 	abortDeletionButton = new Button("Abbrechen");
 	
-	contentPanel.add(editAccountBtn);
-	contentPanel.add(deleteButton);
+	hPanel.add(editAccountBtn);
+	hPanel.add(deleteButton);
 	contentPanel.add(abortDeletionButton);
 	contentPanel.add(name);
 	contentPanel.add(idLabel);
 	contentPanel.add(creationTime);
-	RootPanel.get().add(contentPanel);
+	RootPanel.get("nav").add(hPanel);
+	RootPanel.get("main").add(contentPanel);
 	
 }
 	

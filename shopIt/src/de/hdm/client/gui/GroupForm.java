@@ -70,19 +70,19 @@ public class GroupForm extends Form {
 		// TODO Auto-generated constructor stub
 	}
 
-//	public void loadAccount(){
-//		
-//			editGroupBtn = new Button("Gruppe bearbeiten");
-//			deleteGroupBtn = new Button("Gruppe löschen");
-//			abortDeletionButton = new Button("Abbrechen");
-//			
-//			contentPanel.add(editGroupBtn);
-//			contentPanel.add(deleteGroupBtn);
-//			contentPanel.add(abortDeletionButton);
-//			contentPanel.add(name);
-//			//contentPanel.add(idLabel);
-//			contentPanel.add(creationTime);
-//			RootPanel.get().add(contentPanel);
-//			
-//		}
+	public void loadGroup(){
+		
+			editGroupBtn = new Button("Gruppe bearbeiten");
+			deleteGroupBtn = new Button("Gruppe löschen");
+			abortDeletionButton = new Button("Abbrechen");
+			
+			contentPanel.add(editGroupBtn);
+			contentPanel.add(deleteGroupBtn);
+			contentPanel.add(abortDeletionButton);
+			contentPanel.add(name);
+			//contentPanel.add(idLabel);
+			contentPanel.add(creationTime);
+			RootPanel.get("main").add(contentPanel);
+			
+		}
 }	

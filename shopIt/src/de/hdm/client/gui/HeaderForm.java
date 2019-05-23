@@ -1,7 +1,7 @@
 package de.hdm.client.gui;
 
-	import com.google.gwt.user.client.ui.HorizontalPanel;
-	import com.google.gwt.event.dom.client.ClickEvent;
+	import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.event.dom.client.ClickEvent;
 	import com.google.gwt.event.dom.client.ClickHandler;
 	import com.google.gwt.user.client.Cookies;
 	import com.google.gwt.user.client.Window;
@@ -17,7 +17,7 @@ package de.hdm.client.gui;
 	 * @author Diba Segmen
 	 */
 
-	public class HeaderForm extends HorizontalPanel {
+	public class HeaderForm extends Form{
 
 		/**
 		 * Erzeugen eines Listenverwaltung-Objekts um die Applikationsverwaltung zu
@@ -32,54 +32,79 @@ package de.hdm.client.gui;
 		//private ItemForm item = new ItemForm();
 		private GroupForm group = new GroupForm();
 		private ListForm list = new ListForm();
-		private AccountForm account = new AccountForm();
-		private SearchField SearchField = new SearchField();
-		private VerticalPanel contentPanel = new VerticalPanel();
-
-		private Button logoutBtn = new Button("Logout");
-		private Button settings = new Button("Account bearbeiten");
-
 		
-	
-		public HeaderForm() {
-
-			this.addStyleName("headerForm");
-
-			this.add(group);
-			this.add(list);
-			this.add(account);
-			this.add(SearchField);
-			this.add(logoutBtn);
-
-			/*
-			 * Anordnung (ALIGN) noch offen
+		public class HeaderGUI implements EntryPoint {
+			
+			/**
+			 * This is the entry point method.
 			 */
+			public void onModuleLoad() {
+				/**
+				 * The Verticals Panel is a gwt standard, it content vertically
+				 */
+				
+				VerticalPanel contentPanel = new VerticalPanel();
 
-			contentPanel.add(logoutBtn);
+				Button logoutBtn = new Button("Logout");
+				
+				 Button settings = new Button("Einstellungen");
 			
-
-			
-			logoutBtn.addClickHandler(new LogoutClickHandler());
-
-			//super.onLoad();
-		}
-
-
-		/**
-		 * Nested Class für den Logout-Button, der den Clickhandler zum Ausloggen aus dem System implementiert
-		 */
-		
-		class LogoutClickHandler implements ClickHandler {
-
-			
-			public void onClick(ClickEvent event) {
-
-				Anchor logOutLink = new Anchor();
-
-				logOutLink.setHref(Cookies.getCookie("logout"));
-				Window.open(logOutLink.getHref(), "_self", "");
+				contentPanel.add(logoutBtn);
+				contentPanel.add(settings);
+				
+				RootPanel.get().add(contentPanel);
 			}
-			
+		
+		
+		
+//		private AccountForm account = new AccountForm();
+//		private SearchField SearchField = new SearchField();
+//		private VerticalPanel contentPanel = new VerticalPanel();
+//
+//		private Button logoutBtn = new Button("Logout");
+//		private Button settings = new Button("Account bearbeiten");
+//		
+//		
+//	
+//		public HeaderForm() {
+//
+//			this.addStyleName("headerForm");
+//
+//			this.add(group);
+//			this.add(list);
+//			this.add(account);
+//			this.add(SearchField);
+//			this.add(logoutBtn);
+//
+//			/*
+//			 * Anordnung (ALIGN) noch offen
+//			 */
+//
+//			contentPanel.add(logoutBtn);
+//			
+//
+//			
+//			logoutBtn.addClickHandler(new LogoutClickHandler());
+//
+//			//super.onLoad();
+//		}
+//
+//
+//		/**
+//		 * Nested Class für den Logout-Button, der den Clickhandler zum Ausloggen aus dem System implementiert
+//		 */
+//		
+//		class LogoutClickHandler implements ClickHandler {
+//
+//			
+//			public void onClick(ClickEvent event) {
+//
+//				Anchor logOutLink = new Anchor();
+//
+//				logOutLink.setHref(Cookies.getCookie("logout"));
+//				Window.open(logOutLink.getHref(), "_self", "");
+//			}
+//			
 //			public void loadAccount(){
 //				
 //				
@@ -92,7 +117,7 @@ package de.hdm.client.gui;
 //				RootPanel.get().add(contentPanel);
 //				
 //			}
-		
+//		
 
 		}
 	
