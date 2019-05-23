@@ -7,7 +7,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.client.gui.CellTreeViewModel;
 import de.hdm.client.gui.EditorAdminView;
-import de.hdm.client.gui.Navigation;
 
 
 /**

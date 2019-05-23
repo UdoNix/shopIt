@@ -32,7 +32,6 @@ public class CellTreeViewModel extends VerticalPanel {
 		menuPanel = new StackPanel();
 		menuPanel.setStyleName("stackMenuPanel");
 		
-		
 		//menuPanel.add(showGroupListView(), "Alle Gruppen");
 		menuPanel.add(showGroupListView(), "Alle Gruppen");
 	}

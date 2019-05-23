@@ -31,11 +31,15 @@ public class EditorAdminView {
 		cellTreeViewModel = new CellTreeViewModel();
 		navigationPanel.add(cellTreeViewModel.getStackMenuPanel());
 		
+		navigationPanel.add(cellTreeViewModel);
+		
+		topPanel.add(navigationPanel);
+		
 		
 	}
 	
 	public void loadEditor() {
-		RootPanel.get("nav").add(navigationPanel);
+		RootPanel.get().add(topPanel);
 	}
  	
 }
