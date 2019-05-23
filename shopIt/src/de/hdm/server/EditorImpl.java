@@ -27,7 +27,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	private SalesmanMapper sMapper = null;
 	private ResponsibilityMapper rMapper = null;
 	private UnitOfMeasureMapper uMapper = null;
-	private MembershipMapper gsMapper = null;
+	private MembershipMapper mMapper = null;
 	
 	//Um die Klasse Ã¼bersichtlicher zu gestalten, wird sie mithilfe von Abschnitten unterteilt.
 	 /*
@@ -50,7 +50,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		this.sMapper = SalesmanMapper.salesmanMapper();
 		this.rMapper = ResponsibilityMapper.responsibilityMapper();
 		this.uMapper = UnitOfMeasureMapper.unitOfMeasureMapper();
-		this.gsMapper = GroupmembershipMapper.membershipMapper();
+		this.mMapper = MembershipMapper.membershipMapper();
 		
 	}
 	
@@ -437,39 +437,39 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	 * Gruppenmitgliedschaft erstellen
 	 */
 	
-	public Groupmembership createGroupmembership(Person p, Group g) throws IllegalArgumentException{
-		Groupmembership gs = new Groupmembership();
-		gs.setPerson(p);
-		gs.setGroup(g);
-		gs.setId(1);
+	public Membership createMembership(Person p, Group g) throws IllegalArgumentException{
+		Membership m = new Membership();
+		m.setPerson(p);
+		m.setGroup(g);
+		m.setId(1);
 		
-		return this.gsMapper.insert(gs);
+		return this.mMapper.insert(m);
 		
 	}
 	/*
 	 * Gruppenmitgliedschaft anhand der Id finden
 	 */
-	public Groupmembership getGroupmembershipById(int id) throws IllegalArgumentException{
-		return this.gsMapper.findByKey(id);
+	public Membership getMembershipById(int id) throws IllegalArgumentException{
+		return this.mMapper.findByKey(id);
 	}
 	/*
 	 * alle Gruppen einer Person aufzeigen
 	 */
-	public Vector<Groups> getAllGroupmembershipOfPerson(Person p) throws IllegalArgumentException{
-		return this.gsMapper.findByPerson(p);
+	public Vector<Group> getAllMembershipOfPerson(Person p) throws IllegalArgumentException{
+		return this.mMapper.findByPerson(p);
 	}
 	/*
 	 * eine Gruppenmitgliedschaft ändern
 	 */
-	public void update(Groupmembership gs) throws IllegalArgumentException{
-		gsMapper.update(gs);
+	public void update(Membership m) throws IllegalArgumentException{
+		mMapper.update(m);
 	}
 	/*
 	 * eine Gruppenmitgliedschaft löschen
 	 */
-	public void delete(Groupmembership gs) throws IllegalArgumentException{
+	public void delete(Membership m) throws IllegalArgumentException{
 		 
-		    this.gsMapper.delete(gs);
+		    this.mMapper.delete(m);
 		  }
 	  /*
 	   * ***************************************************************************
