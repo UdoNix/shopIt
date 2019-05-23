@@ -24,12 +24,6 @@ public class Group extends BusinessObject{
 	public void setPerson(Person person) {
 		this.person = person;
 	}
-	public List getList() {
-		return list;
-	}
-	public void setList(List list) {
-		this.list = list;
-	}
 
 
 
