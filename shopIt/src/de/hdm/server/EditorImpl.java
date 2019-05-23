@@ -12,13 +12,9 @@ import de.hdm.shared.bo.Group;
 import de.hdm.shared.bo.Item;
 import de.hdm.shared.bo.List;
 import de.hdm.shared.bo.Person;
-<<<<<<< HEAD
-
 import de.hdm.shared.bo.Salesman;
 import de.hdm.shared.bo.UnitOfMeasure;
-=======
 import de.hdm.shared.bo.Responsibility;
-import de.hdm.shared.bo.Salesman;
 
 
 
@@ -34,7 +30,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	private SalesmanMapper sMapper = null;
 	private ResponsibilityMapper rMapper = null;
 	private UnitOfMeasureMapper uMapper = null;
-	private MembershipMapper mMapper = null;
+	private MembershipMapper gsMapper = null;
 	
 	//Um die Klasse übersichtlicher zu gestalten, wird sie mithilfe von Abschnitten unterteilt.
 	 /*
@@ -57,7 +53,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		this.sMapper = SalesmanMapper.salesmanMapper();
 		this.rMapper = ResponsibilityMapper.responsibilityMapper();
 		this.uMapper = UnitOfMeasureMapper.unitOfMeasureMapper();
-		this.mMapper = MembershipMapper.membershipMapper();
+		this.gsMapper = GroupmembershipMapper.membershipMapper();
 		
 	}
 	
@@ -510,39 +506,39 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	 * Gruppenmitgliedschaft erstellen
 	 */
 	
-	public Membership createMembership(Person p, Group g) throws IllegalArgumentException{
-		Membership m = new Membership();
-		m.setPerson(p);
-		m.setGroup(g);
-		m.setId(1);
+	public Groupmembership createGroupmembership(Person p, Group g) throws IllegalArgumentException{
+		Groupmembership gs = new Groupmembership();
+		gs.setPerson(p);
+		gs.setGroup(g);
+		gs.setId(1);
 		
-		return this.mMapper.insert(m);
+		return this.gsMapper.insert(gs);
 		
 	}
 	/*
 	 * Gruppenmitgliedschaft anhand der Id finden
 	 */
-	public Membership getMembershipById(int id) throws IllegalArgumentException{
-		return this.mMapper.findByKey(id);
+	public Groupmembership getGroupmembershipById(int id) throws IllegalArgumentException{
+		return this.gsMapper.findByKey(id);
 	}
 	/*
 	 * alle Gruppen einer Person aufzeigen
 	 */
-	public Vector<Group> getAllMembershipOfPerson(Person p) throws IllegalArgumentException{
-		return this.mMapper.findByPerson(p);
+	public Vector<Groups> getAllGroupmembershipOfPerson(Person p) throws IllegalArgumentException{
+		return this.gsMapper.findByPerson(p);
 	}
 	/*
 	 * eine Gruppenmitgliedschaft �ndern
 	 */
-	public void update(Membership m) throws IllegalArgumentException{
-		mMapper.update(m);
+	public void update(Groupmembership gs) throws IllegalArgumentException{
+		gsMapper.update(gs);
 	}
 	/*
 	 * eine Gruppenmitgliedschaft l�schen
 	 */
-	public void delete(Membership m) throws IllegalArgumentException{
+	public void delete(Groupmembership gs) throws IllegalArgumentException{
 		 
-		    this.mMapper.delete(m);
+		    this.gsMapper.delete(gs);
 		  }
 	  /*
 	   * ***************************************************************************
