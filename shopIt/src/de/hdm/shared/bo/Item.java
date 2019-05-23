@@ -11,6 +11,7 @@ public class Item extends BusinessObject{
 	
 	//Fremdschlüsselbeziehung zur Liste.
 	private int listId = 0;
+
 	
 	//Favorit zeigt an, ob Item Standartartikel ist bzw. favorisiert wurde.
 	private boolean favorit;
@@ -53,6 +54,8 @@ public class Item extends BusinessObject{
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
+
+
 
 
 	

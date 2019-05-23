@@ -10,6 +10,7 @@ public class List extends BusinessObject{
 	//Name der Einkaufsliste.
 	private String name = "";
 	
+
 	//Änderungsdatum der letzten Veränderung der Liste.
 	//private Date creationDate;
 
@@ -44,7 +45,7 @@ public class List extends BusinessObject{
 	}
 	//Auslesen der Gruppe
 	public Group getGroup() {
-		return group;
+		return groupid;
 	}
 	//Setzen der Gruppe
 	public void setGroup(Group group) {
