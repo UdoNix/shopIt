@@ -131,7 +131,7 @@ public Responsibility insert(Responsibility r) {
 
       // Es erfolgt die tatsächliche Einfuegeoperation
       stmt.executeUpdate("INSERT INTO responsibility (id, personId, salesmanId) " + "VALUES ("
-          + r.getId() + "," +r.getPersonId() + ","  + "," +r.getSalesmanId() + "," + r.getName() + ")");
+          + r.getId() + "," +r.getPersonId() + ","  + "," +r.getSalesmanId() );
     }
   }
   catch (SQLException e2) {
