@@ -54,7 +54,6 @@ public Responsibility findByKey (int id) {
 			   Responsibility r = new Responsibility();
 		        r.setId(rs.getInt("id"));
 		        r.setPersonId(rs.getInt("personId"));
-		        r.setItemId(rs.getInt("itemId"));
 		        r.setSalesmanId(rs.getInt("salesmanId"));
 		        return r;
 		      }
@@ -89,7 +88,6 @@ public Vector<Responsibility> findAll() {
     	Responsibility r = new Responsibility();
       r.setId(rs.getInt("id"));
       r.setPersonId(rs.getInt("personId"));
-      r.setItemId(rs.getInt("itemId"));
       r.setSalesmanId(rs.getInt("salesmanId"));
 
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
@@ -132,8 +130,8 @@ public Responsibility insert(Responsibility r) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO responsibility (id, personId, itemId, salesmanId) " + "VALUES ("
-          + r.getId() + "," +r.getPersonId() + "," +r.getItemId() + "," +r.getSalesmanId() + "," + r.getName() + ")");
+      stmt.executeUpdate("INSERT INTO responsibility (id, personId, salesmanId) " + "VALUES ("
+          + r.getId() + "," +r.getPersonId() + ","  + "," +r.getSalesmanId() + "," + r.getName() + ")");
     }
   }
   catch (SQLException e2) {
@@ -153,7 +151,7 @@ public Responsibility insert(Responsibility r) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE list " + "SET id=\"" + r.getId()
-      + "\" " + "," + "personId=\"" + r.getPersonId() + "itemId=\"" + r.getItemId()+ "salesmanId=\"" + r.getSalesmanId() +"WHERE id=" + r.getId());
+      + "\" " + "," + "personId=\"" + r.getPersonId() + "salesmanId=\"" + r.getSalesmanId() +"WHERE id=" + r.getId());
 
     }
     catch (SQLException e2) {
