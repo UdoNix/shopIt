@@ -9,7 +9,7 @@ public class HTMLReportWriter extends ReportWriter{
 	private String reportText ="";
 	
 	/* 
-	 * Zurücksetzen der Variable 
+	 * Zurï¿½cksetzen der Variable 
 	 */
 	public void resetReport() {
 		this.reportText = "";
@@ -56,14 +56,14 @@ public class HTMLReportWriter extends ReportWriter{
 		return "</body></html>";
 	}
 	/*
-	 * Prozessieren des übergebenen Reports und Ablage im Zielformat
+	 * Prozessieren des ï¿½bergebenen Reports und Ablage im Zielformat
 	 * Auslesen der Ergebnisse durch getReportText()
 	 */
-	public void process(AllItemsOfPerson r) {
+	public void process(AllItemsOfPersonReport r) {
 		this.resetReportText();
 		//Ergebnisse werden eingetragen
 		StringBuffer result = new StringBuffer();
-		//einzelne Bestandteile des Reports auslesen und in HTML Form übersezten
+		//einzelne Bestandteile des Reports auslesen und in HTML Form ï¿½bersezten
 		result.append("<H1>" + r.getTitle() + "</H1>");
 		result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
 	    result.append("<td valign=\"top\"><b>" + paragraph2HTML(r.getHeaderData())
@@ -109,17 +109,17 @@ public class HTMLReportWriter extends ReportWriter{
 	    
 	}  
 		/*
-	     * Prozessieren des übergebenden Report und Ablage im Zielformat
+	     * Prozessieren des ï¿½bergebenden Report und Ablage im Zielformat
 	     * Auslesen durch getReportText()
 	     * r ist der zu prozessierende Report
 	     */
 	public void process(AllItemsOfAllPersonsReport r) {
-		// Zunächst löschen wir das Ergebnis vorhergehender Prozessierungen
+		// Zunï¿½chst lï¿½schen wir das Ergebnis vorhergehender Prozessierungen
 		this.resetReportText();
 		//Ergebnisse werden in diesen Buffer geschrieben
 		StringBuffer result = new StringBuffer();
 		//Nun werden alle Bestandteile des Reports ausgelesen und in HTML
-		//Form übersetzt
+		//Form ï¿½bersetzt
 		result.append("<H1>" + r.getTitle() + "</H1>");
 	    result.append("<table><tr>");
 
@@ -130,8 +130,8 @@ public class HTMLReportWriter extends ReportWriter{
 	    result.append("<td>" + paragraph2HTML(r.getImprint()) + "</td>");
 	    result.append("</tr><tr><td></td><td>" + r.getCreated().toString()
 	        + "</td></tr></table>");
-	    //für alle Teilreports von AllItemsOfPerson wird processAllItemsOfPersonReport aufgerufen
-	    //Das Ergebnis wird dann in den Buffer hinzugefügt
+	    //fï¿½r alle Teilreports von AllItemsOfPerson wird processAllItemsOfPersonReport aufgerufen
+	    //Das Ergebnis wird dann in den Buffer hinzugefï¿½gt
 	    for (int i = 0; i < r.getNumSubReports(); i++) {
 	    	//Wenn ein Bestandteil des Reports nicht mehr gilt, sollte hier eine 
 	    	// detaillierte Implementierung erfolgen
@@ -140,15 +140,15 @@ public class HTMLReportWriter extends ReportWriter{
 	    	this.process(subReport);
 	    	
 	    	result.append(this.reportText + "\n");
-	    	//nach jeder Änderung eines Teilreport und anschließendem auslesen, sollte die 
-	    	//Ergebnisvariable zurückgesetzt werden
+	    	//nach jeder ï¿½nderung eines Teilreport und anschlieï¿½endem auslesen, sollte die 
+	    	//Ergebnisvariable zurï¿½ckgesetzt werden
 	    	this.resetReport();
 	    }
 	    this.reportText = result.toString();
 	}
 	/*
 	 * auslesen des Ergebnisses der zuletzt aufgerufenen Prozessierungsmetghoden
-	 * ein String im HTML Format wird zurück gegeben
+	 * ein String im HTML Format wird zurï¿½ck gegeben
 	 */
 	public String getReportText() {
 		return this.getHeader() + this.reportText + this.getTrailer();

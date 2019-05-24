@@ -8,7 +8,8 @@ import java.util.Vector;
  * @author InesWerner
  *
  */
-public class PlainTextReportWriter {
+public class PlainTextReportWriter
+{
 	
 	//Variable für das Ergebnis einer Umwandlung.
 	private String reportText = "";

@@ -3,6 +3,9 @@ public class Item extends BusinessObject{
 
 	private static final long serialVersionUID = 1L;
 
+	//Änderungsdatum des Eintrags
+	private changeDate;
+	
 	//Fremdschlüsselbeziehung zum Händler.
 	private int salesmanId = 0;
 	
