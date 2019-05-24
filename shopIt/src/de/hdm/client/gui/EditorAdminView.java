@@ -12,7 +12,8 @@ public class EditorAdminView {
 	
 	private HorizontalPanel topPanel = new HorizontalPanel();
 	private VerticalPanel mainPanel = new VerticalPanel();
-	private VerticalPanel navigationPanel = new VerticalPanel();
+	private HorizontalPanel btnPanel = new HorizontalPanel();
+	private VerticalPanel navPanel = new VerticalPanel();
 	
 	private CellTreeViewModel cellTreeViewModel;
 	
@@ -23,23 +24,24 @@ public class EditorAdminView {
 		createList = new Button("Neue Einkaufsliste");
 		createGroup.addStyleName("menuButton");
 		
-		navigationPanel.add(createGroup);
-		navigationPanel.add(createList);
+		btnPanel.add(createGroup);
+		btnPanel.add(createList);
 		
-		navigationPanel.setStyleName("navigationPanel");
+		btnPanel.setStyleName("navigationPanel");
 		
 		cellTreeViewModel = new CellTreeViewModel();
-		navigationPanel.add(cellTreeViewModel.getStackMenuPanel());
+		navPanel.add(cellTreeViewModel.getStackMenuPanel());
 		
-		navigationPanel.add(cellTreeViewModel);
+		navPanel.add(cellTreeViewModel);
 		
-		topPanel.add(navigationPanel);
+		mainPanel.add(btnPanel);
+		mainPanel.add(navPanel);
 		
 		
 	}
 	
 	public void loadEditor() {
-		RootPanel.get().add(topPanel);
+		RootPanel.get("nav").add(mainPanel);
 	}
  	
 }

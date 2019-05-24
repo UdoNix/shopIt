@@ -42,7 +42,8 @@ public class AccountForm extends HorizontalPanel {
 	contentPanel.add(name);
 	contentPanel.add(idLabel);
 	contentPanel.add(creationTime);
-	RootPanel.get("nav").add(hPanel);
+	RootPanel.get("main").clear();
+	RootPanel.get("main").add(hPanel);
 	RootPanel.get("main").add(contentPanel);
 	
 }

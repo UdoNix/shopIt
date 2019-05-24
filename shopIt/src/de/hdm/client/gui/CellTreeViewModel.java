@@ -24,13 +24,15 @@ public class CellTreeViewModel extends VerticalPanel {
 	private StackPanel menuPanel;
 	
 	
-	private CellTreeResources groupListRes = GWT.create(CellTreeResources.class);
+	//private CellTreeResources groupListRes = GWT.create(CellTreeResources.class);
 	
 	
 	
 	public CellTreeViewModel() {
 		menuPanel = new StackPanel();
 		menuPanel.setStyleName("stackMenuPanel");
+		
+		menuPanel.setWidth("200px");
 		
 		//menuPanel.add(showGroupListView(), "Alle Gruppen");
 		menuPanel.add(showGroupListView(), "Alle Gruppen");
@@ -47,10 +49,11 @@ public class CellTreeViewModel extends VerticalPanel {
 	private Widget showGroupListView() {
 		
 		this.groupListView = new GroupListView();
-		CellTree cellTree = new CellTree(groupListView, "Root", groupListRes);
-		cellTree.setAnimationEnabled(true);
+		groupListView.showList();
 		
-		return cellTree;
+		
+		return groupListView.showList();
+		
 	}
 
 	public StackPanel getStackMenuPanel() {
