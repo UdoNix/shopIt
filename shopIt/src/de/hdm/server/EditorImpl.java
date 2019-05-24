@@ -406,7 +406,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	 * alle Zuständigkeiten einer Person aufzeigen
 	 */
 	public Vector<Item> getAllResponsibilityOfPerson(Person p) throws IllegalArgumentException{
-		return this.rMapper.findByPerson(p);
+		return this.rMapper.findByPerson(p.getId());
 	}
 	/*
 	 * eine Zuständigkeit ändern
