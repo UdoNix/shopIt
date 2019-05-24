@@ -233,6 +233,8 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	public void delete(Item i) throws IllegalArgumentException{
 		iMapper.delete(i);
 	}
+	
+	//Eintrag favorit und abhacken
 
 	  /*
 	   * ***************************************************************************
@@ -475,7 +477,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	 * alle Zust�ndigkeiten einer Person aufzeigen
 	 */
 	public Vector<Item> getAllResponsibilityOfPerson(Person p) throws IllegalArgumentException{
-		return this.rMapper.findByPerson(p);
+		return this.rMapper.findByPerson(p.getId());
 	}
 	/*
 	 * eine Zust�ndigkeit �ndern
