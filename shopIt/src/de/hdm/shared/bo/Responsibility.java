@@ -1,5 +1,9 @@
 package de.hdm.shared.bo;
-public class Responsibility {
+public class Responsibility extends BusinessObject{
+
+	
+	private static final long serialVersionUID = 1L;
+
 //Die Klasse Responsibility/Verantwortlichkeit dient dazu, festzulegen, welcher User für welchen Eintrag zuständig ist.
 
 	//Fremdschlüsselbeziehung zur Person.
