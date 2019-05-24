@@ -1,5 +1,8 @@
 package de.hdm.shared.report;
 import java.util.*;
+/*
+ * @author Thies Ilona
+ */
 
 public class HTMLReportWriter extends ReportWriter{
 
