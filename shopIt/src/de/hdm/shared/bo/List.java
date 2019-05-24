@@ -11,44 +11,49 @@ public class List extends BusinessObject{
 	private String name = "";
 	
 	//Änderungsdatum der letzten Veränderung der Liste.
-	private Date modificationDate;
-	
-	//Zugeh�rigkeit zur Gruppe
-	private Group group;
+	//private Date creationDate;
+
+	//Fremdschlüssel zur Gruppe.
+	private Group groupId;
 
 	//Auslesen des Listennamen.
 	public String getName() {
 		return name;
 	}
+	
 	//Setzen des Listennamen.
 	public void setName(String name) {
 		this.name = name;
 	}
 	
-	//Auslesen des Änderungsdatums.
-	public Date getModificationDate() {
-		return modificationDate;
+	//Auslesen des Erstellungsdatum.
+	//public Date getCreationDate() {
+	//	return creationDate;
+	//}
+	//Setzen des Erstellungsdatum.
+	//public void setCreationDate(Date creationDate) {
+	//	this.creationDate = creationDate;
+	//}
+	
+	//Auslesen des Fremdschlüssels zur GruppenId.
+	public Group getGroupId() {
+		return groupId;
 	}
-	//Setzen des Änderungsdatums.
-	public void setModificationDate(Date modificationDate) {
-		this.modificationDate = modificationDate;
+	
+	//Setzen des Fremdschlüssels zur GruppenId.
+	public void setGroupId(Group groupId) {
+		this.groupId = groupId;
 	}
 	
 	//Auslesen des Listeneintrags.
 	public Item getItem() {
 		return item;
 	}
+	
 	//Setzen eines Listeneintrags.
 	public void setItem(Item item) {
 		this.item = item;
 	}
-	//Auslesen der Gruppe
-	public Group getGroup() {
-		return groupid;
-	}
-	//Setzen der Gruppe
-	public void setGroup(Group group) {
-		this.group = group;
-	}
+
 
 }

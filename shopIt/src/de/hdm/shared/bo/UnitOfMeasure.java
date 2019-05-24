@@ -1,7 +1,7 @@
-
-
 package de.hdm.shared.bo;
 public class UnitOfMeasure extends BusinessObject{
+
+	private static final long serialVersionUID = 1L;
 
 	//Menge/Anzahl 
 	private float quantity;
