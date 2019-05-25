@@ -9,7 +9,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class AccountForm extends HorizontalPanel {
 	
 //	AccountForm account = new AccountForm();
-//	
 //	Account accountToDisplay = null; //Person?!
 //	
 	/**
@@ -17,6 +16,7 @@ public class AccountForm extends HorizontalPanel {
 	 */
 	private HorizontalPanel hPanel = new HorizontalPanel();
 		private VerticalPanel contentPanel = new VerticalPanel();
+		
 	/**
 	 * Erstellung benötigter GUI-Elemente
 	 */

@@ -67,7 +67,7 @@ import de.hdm.shared.bo.Person;
 		}
 		
 		/*
-		 *  
+		 *  Anordnung folgt noch
 		 */
 		
 	}
