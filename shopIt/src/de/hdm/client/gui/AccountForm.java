@@ -46,5 +46,8 @@ public class AccountForm extends HorizontalPanel {
 	RootPanel.get("main").add(contentPanel);
 	
 }
+	public class EditAccountFormDialogBox {
+		
+	}
 	
 }
