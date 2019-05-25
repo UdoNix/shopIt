@@ -510,39 +510,39 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	 * Gruppenmitgliedschaft erstellen
 	 */
 	
-	public Groupmembership createGroupmembership(Person p, Group g) throws IllegalArgumentException{
-		Groupmembership gs = new Groupmembership();
+	public Membership createMembership(Person p, Group g) throws IllegalArgumentException{
+		Membership gs = new Membership();
 		gs.setPerson(p);
 		gs.setGroup(g);
 		gs.setId(1);
 		
-		return this.gsMapper.insert(gs);
+		return this.mMapper.insert(m);
 		
 	}
 	/*
 	 * Gruppenmitgliedschaft anhand der Id finden
 	 */
-	public Groupmembership getGroupmembershipById(int id) throws IllegalArgumentException{
-		return this.gsMapper.findByKey(id);
+	public Membership getMembershipById(int id) throws IllegalArgumentException{
+		return this.mMapper.findByKey(id);
 	}
 	/*
 	 * alle Gruppen einer Person aufzeigen
 	 */
-	public Vector<Groups> getAllGroupmembershipOfPerson(Person p) throws IllegalArgumentException{
-		return this.gsMapper.findByPerson(p);
+	public Vector<Groups> getAllMembershipOfPerson(Person p) throws IllegalArgumentException{
+		return this.mMapper.findByPerson(p);
 	}
 	/*
 	 * eine Gruppenmitgliedschaft �ndern
 	 */
-	public void update(Groupmembership gs) throws IllegalArgumentException{
-		gsMapper.update(gs);
+	public void update(Membership m) throws IllegalArgumentException{
+		mMapper.update(m);
 	}
 	/*
 	 * eine Gruppenmitgliedschaft l�schen
 	 */
-	public void delete(Groupmembership gs) throws IllegalArgumentException{
+	public void delete(Membership ms throws IllegalArgumentException{
 		 
-		    this.gsMapper.delete(gs);
+		    this.mMapper.delete(m);
 		  }
 	  /*
 	   * ***************************************************************************
