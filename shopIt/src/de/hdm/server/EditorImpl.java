@@ -20,7 +20,9 @@ import de.hdm.shared.bo.Responsibility;
 public class EditorImpl extends RemoteServiceServlet implements ShopITAdministration {
 
 	
-	//Referenz auf die MapperKlassen, um die Objekte mit der Datenbank abzugleichen @autor InesWerner
+	//Referenz auf die MapperKlassen, um die Objekte mit der Datenbank abzugleichen 
+	//@autor InesWerner
+	
 	private PersonMapper pMapper = null;
 	private ArticleMapper aMapper = null;
 	private GroupMapper gMapper = null;
@@ -64,7 +66,8 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	
 	  /*
 	   * ***************************************************************************
-	   * ABSCHNITT, Beginn: Methoden für Personen/Anwender-Objekte @autor InesWerner
+	   * ABSCHNITT, Beginn: Methoden für Personen/Anwender-Objekte 
+	   * @autor InesWerner
 	   * ***************************************************************************
 	   */
 	
@@ -230,6 +233,8 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	public void delete(Item i) throws IllegalArgumentException{
 		iMapper.delete(i);
 	}
+	
+	//Eintrag favorit und abhacken
 
 	  /*
 	   * ***************************************************************************
@@ -278,9 +283,6 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	public void save(Group g) throws IllegalArgumentException{
 		gMapper.update(g);
 	}
-<<<<<<< HEAD
-		
-=======
 
 		
 
@@ -293,7 +295,6 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	public Vector<List> getAllListsOf(Group g) throws IllegalArgumentException {
 		return this.lMapper.findByGroup(g.getId()); 
 	}
->>>>>>> refs/heads/InesWerner
 		
 	//L�schen einer Gruppe.
 		
@@ -476,7 +477,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	 * alle Zust�ndigkeiten einer Person aufzeigen
 	 */
 	public Vector<Item> getAllResponsibilityOfPerson(Person p) throws IllegalArgumentException{
-		return this.rMapper.findByPerson(p);
+		return this.rMapper.findByPerson(p.getId());
 	}
 	/*
 	 * eine Zust�ndigkeit �ndern
