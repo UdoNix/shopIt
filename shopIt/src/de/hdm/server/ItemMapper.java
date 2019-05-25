@@ -228,6 +228,36 @@ public Item insert(Item i) {
        e2.printStackTrace();
      }
    }
+   public Vector<Item> groupBySalesman (){
+	    Connection con = DBConnection.connection();
+	    Vector<Item> result = new Vector<Item>();
+
+	    try {
+	      Statement stmt = con.createStatement();
+
+	      ResultSet rs = stmt.executeQuery("SELECT id, salesmanId FROM item "
+	          + " Group By salesmanId");
+
+	      // Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt erstellt.
+	      while (rs.next()) {
+	        Item i = new Item();
+	        i.setId(rs.getInt("id"));
+	        i.setSalesmanId(rs.getInt("salesmanId"));
+
+	        // Hinzufügen des neuen Objekts zum Ergebnisvektor
+	        result.addElement(i);
+	      }
+	    }
+	    catch (SQLException e2) {
+	      e2.printStackTrace();
+	    }
+
+	    // Ergebnisvektor zurückgeben
+	    return result;
+	  }
+
+
+}
 
    
-}
+
