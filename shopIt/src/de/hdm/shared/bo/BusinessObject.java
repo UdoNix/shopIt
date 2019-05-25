@@ -1,6 +1,7 @@
 package de.hdm.shared.bo;
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
+
 
 public abstract class BusinessObject implements Serializable{
 
@@ -18,6 +19,7 @@ public abstract class BusinessObject implements Serializable{
 	  }
 
 	private long serializableID = 1L;
+	
 	//Auslesen der SerializableID.
 	public long getSerializableID() {
 		return serializableID;
@@ -26,17 +28,20 @@ public abstract class BusinessObject implements Serializable{
 	public void setSerializableID(long serializableID) {
 		this.serializableID = serializableID;
 		}
-	 
-	//Eindeutiger Erstellungszeitpunkt einer Instanz einer Klasse.
-	private Date creationDate;
-	//Auslesen des Erstellungszeitpunkts.
-	public Date getCreationDate(){
+	
+	//Erstellungszeitpunkt einer Instanz dieser Klasse.
+	private Timestamp creationDate;
+	
+	//Auslesen des Erstellungszeitpunkts einer Instanz.
+	public Timestamp getCreationDate() {
 		return creationDate;
 	}
-	//Setzen des Erstellungszeitpunkts.
-	public void setCreationDate(Date creationDate){
+	  
+	//Setzen des Erstellungszeitpunkts einer Instanz.
+	public void setCreationDate(Timestamp creationDate) {
 		this.creationDate = creationDate;
 	}
+	
 	
 	//Erzeugt eine textuelle Darstellung der Instanz.
 	public String toString() {
@@ -44,7 +49,8 @@ public abstract class BusinessObject implements Serializable{
 	    return this.getClass().getName() + " Id: " + this.id + " Erstellungsdatum: " + this.creationDate;
 	  }
 
-	  /**
+
+	/**
 	   * <p>
 	   * Feststellen der <em>inhaltlichen</em> Gleichheit zweier
 	   * <code>BusinessObject</code>-Objekte. Die Gleichheit wird in diesem Beispiel auf eine
