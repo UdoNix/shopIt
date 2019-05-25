@@ -56,6 +56,7 @@ public Salesman findByKey (int id) {
 		        s.setStreet(rs.getString("street"));
 		        s.setPostalCode(rs.getString("postalCode"));
 		        s.setCity(rs.getString("city"));
+		        s.setCreationDate(rs.getTimestamp("creationDate"));
 		    	
 		        return s;
 		      }

@@ -191,7 +191,7 @@ public Responsibility insert(Responsibility r) {
 			ResultSet rs = stmt.executeQuery("SELECT id, personId " + "FROM responsibility "
 					+ "WHERE personID=" + personId + " ORDER BY id");
 
-			// Für jeden Eintrag im Suchergebnis wird nun ein Customer-Objekt
+			// Für jeden Eintrag im Suchergebnis wird nun ein Objekt
 			// erstellt.
 			while (rs.next()) {
 				Responsibility r = new Responsibility();

@@ -54,8 +54,8 @@ public Item findByKey (int id) {
 		        // Ergebnis-Tupel in Objekt umwandeln
 		        Item i = new Item();
 		        i.setId(rs.getInt("id"));
-		        i.setCreationDate(rs.getString("creationDate"));
-		        i.setChangeDate(rs.getString("changeDate"));
+		        i.setCreationDate(rs.getTimestamp("creationDate"));
+		        i.setChangeDate(rs.getTimestamp("changeDate"));
 		        i.setSalesmanId(rs.getInt("salesmanId"));
 		        i.setArticleId(rs.getInt("articleId"));
 		        i.setFavorit(rs.getBoolean("favorit"));
@@ -93,8 +93,8 @@ public Vector<Item> findAll() {
     while (rs.next()) {
       Item i = new Item();
       i.setId(rs.getInt("id"));
-      i.setCreationDate(rs.getString("creationDate"));
-      i.setChangeDate(rs.getString("changeDate"));
+      i.setCreationDate(rs.getTimestamp("creationDate"));
+      i.setChangeDate(rs.getTimestamp("changeDate"));
       i.setSalesmanId(rs.getInt("salesmanId"));
       i.setArticleId(rs.getInt("articleId"));
       i.setFavorit(rs.getBoolean("favorit"));
@@ -129,8 +129,8 @@ public Vector<Item> findByList (int listId){
 	        Item i = new Item();
 	        i.setId(rs.getInt("id"));
 	        i.setListId(rs.getInt("listId"));
-	        i.setCreationDate(rs.getString("creationDate"));
-	        i.setChangeDate(rs.getString("changeDate"));
+	        i.setCreationDate(rs.getTimestamp("creationDate"));
+	        i.setChangeDate(rs.getTimestamp("changeDate"));
 	        i.setSalesmanId(rs.getInt("salesmanId"));
 	        i.setArticleId(rs.getInt("articleId"));
 	        i.setFavorit(rs.getBoolean("favorit"));

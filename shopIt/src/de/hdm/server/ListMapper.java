@@ -52,7 +52,7 @@ public class ListMapper {
 			        List l = new List();
 			        l.setId(rs.getInt("id"));
 			        l.setName(rs.getString("name"));
-			        l.setCreationDate(rs.getDate("creationDate"));
+			        l.setCreationDate(rs.getTimestamp("creationDate"));
 			        return l;
 			      }
 			    }
@@ -86,7 +86,7 @@ public class ListMapper {
 	      List l = new List();
 	      l.setId(rs.getInt("id"));
 	      l.setName(rs.getString("name"));
-	      l.setCreationDate(rs.getDate("creationDate"));
+	      l.setCreationDate(rs.getTimestamp("creationDate"));
 
 	      // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
 	      result.addElement(l);
