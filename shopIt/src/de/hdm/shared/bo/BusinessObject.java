@@ -42,6 +42,19 @@ public abstract class BusinessObject implements Serializable{
 		this.creationDate = creationDate;
 	}
 	
+
+	//Änderungszeitpunkts einer Instanz dieser Klasse.
+	private Timestamp changeDate;
+	
+	//Auslesen des Änderungszeitpunkts einer Instanz.
+	public Timestamp getChangeDate() {
+		return changeDate;
+	}
+	
+	//Setzen des Änderungszeitpunkts einer Instanz.
+	public void setChangeDate(Timestamp changeDate) {
+		this.changeDate = changeDate;
+	}
 	
 	//Erzeugt eine textuelle Darstellung der Instanz.
 	public String toString() {
