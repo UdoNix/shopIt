@@ -76,13 +76,16 @@ public class SearchField extends HorizontalPanel {
 		//super.onLoad();
 	}
 	
-	public void loadGroup(){
+	public void loadSearchField(){
 		
-		editGroupBtn = new Button("Gruppe bearbeiten");
+		HorizontalPanel searchField = new HorizontalPanel();
+		Button searchButton = new Button("Ergebnisse anzeigen");
+		
+		searchButton = new Button("Ergebnisse anzeigen");
 		deleteGroupBtn = new Button("Gruppe löschen");
 		abortDeletionButton = new Button("Abbrechen");
 		
-		contentPanel.add(editGroupBtn);
+		searchField.add(searchButton);
 		contentPanel.add(deleteGroupBtn);
 		contentPanel.add(abortDeletionButton);
 		contentPanel.add(name);
