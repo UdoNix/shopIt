@@ -52,6 +52,8 @@ public Article findByKey (int id) {
 		        Article a = new Article();
 		        a.setId(rs.getInt("id"));
 		        a.setName(rs.getString("name"));
+		        a.setCreationDate(rs.getTimestamp("creationDate"));
+		        a.setChangeDate(rs.getTimestamp("changeDate"));
 		        return a;
 		      }
 		    }
@@ -85,6 +87,8 @@ public Vector<Article> findAll() {
       Article a = new Article();
       a.setId(rs.getInt("id"));
       a.setName(rs.getString("name"));
+      a.setCreationDate(rs.getTimestamp("creationDate"));
+      a.setChangeDate(rs.getTimestamp("changeDate"));
 
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
       result.addElement(a);
@@ -126,8 +130,8 @@ public Article insert(Article a) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO article (id, name) " + "VALUES ("
-          + a.getId() + "," + a.getName() + ")");
+      stmt.executeUpdate("INSERT INTO article (id, name, changeDate, creationDate) " + "VALUES ("
+          + a.getId() + "," + a.getChangeDate() + "," + a.getCreationDate()+ "," + a.getName() + ")");
     }
   }
   catch (SQLException e2) {
@@ -148,7 +152,7 @@ public Article insert(Article a) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE accounts " + "SET name=\"" + a.getName()
-          + "\" " + "WHERE id=" + a.getId());
+          + "\" "  + "changeDate=\"" + c.getChangeDate() + "\" "+ "WHERE id=" + a.getId());
 
     }
     catch (SQLException e2) {
