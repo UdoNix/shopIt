@@ -8,13 +8,14 @@ package de.hdm.server;
 	import java.util.Vector;
 
 import de.hdm.shared.bo.Group;
+import de.hdm.shared.bo.Membership;
 import de.hdm.shared.bo.Person;
 
 	public class MembershipMapper {
 		// Klasse MembershipMapper als Singleton
 		//Variable durch <code> static </code> nur einmal für Instanzen der Klassen vorhanden
 		//Sie speichert einzige Instanz der Klasse
-	 private static Membership membership = null;
+	 private static MembershipMapper membershipMapper = null;
 
 	// Konstruktor geschützt, es kann keine neue Instanz dieser Klasse mit <code>new</code> erzeugt werden
 
@@ -124,13 +125,13 @@ import de.hdm.shared.bo.Person;
 	    if (rs.next()) {
 	      //a erhält den bisher maximalen, nun um 1 inkrementierten Primärschlüssel.
 	       
-	      a.setId(rs.getInt("maxid") + 1);
+	      m.setId(rs.getInt("maxid") + 1);
 
 	      stmt = con.createStatement();
 
 	      // Es erfolgt die tatsächliche Einfuegeoperation
 	      stmt.executeUpdate("INSERT INTO membership (id, personId, groupId) " + "VALUES ("
-	          + a.getId() + "," + a.getGroupId() + "," + a.getPersonId() + ")");
+	          + m.getId() + "," + m.getGroupId() + "," + m.getPersonId() + ")");
 	    }
 	  }
 	  catch (SQLException e2) {
@@ -142,7 +143,7 @@ import de.hdm.shared.bo.Person;
 	 // Schreiben eines Objekts in die Datenbank.
 	  // @param m  Objekt, das in die Datenbank geschrieben werden soll
 	  //@return das als Parameter übergebene Objekt
-	   */
+	  //
 	  public Membership update(Membership m) {
 	    Connection con = DBConnection.connection();
 
@@ -150,7 +151,7 @@ import de.hdm.shared.bo.Person;
 	      Statement stmt = con.createStatement();
 
 	      stmt.executeUpdate("UPDATE membership " + "SET personId=\"" + m.getPersonId()
-	          + "\" " +  "," + "personId=\"" + m.getGroupId() + "," +"WHERE id=" + a.getId());
+	          + "\" " +  "," + "personId=\"" + m.getGroupId() + "," +"WHERE id=" + m.getId());
 
 	    }
 	    catch (SQLException e2) {
@@ -181,11 +182,7 @@ import de.hdm.shared.bo.Person;
 	   
 	   public Vector<Person> findByMember(Group group) {
 
-		    /*
-		     * Wir lesen einfach die Kundennummer (Primärschlüssel) des Customer-Objekts
-		     * aus und delegieren die weitere Bearbeitung an findByOwner(int ownerID).
-		     */
-		    return findByMember(Group.getId());
+		    return findByMember(group.getId());
 	   }
 		    
 		   public Vector<Person> findByMember(int groupId) {
