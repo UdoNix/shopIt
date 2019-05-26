@@ -54,6 +54,8 @@ public Group findByKey (int id) {
 		        Group g = new Group();
 		        g.setId(rs.getInt("id"));
 		        g.setName(rs.getString("name"));
+		        g.setCreationDate(rs.getTimestamp("creationDate"));
+		        g.setChangeDate(rs.getTimestamp("changeDate"));
 		        return g;
 		      }
 		    }
@@ -87,6 +89,8 @@ public Vector<Group> findAll() {
       Group g = new Group();
       g.setId(rs.getInt("id"));
       g.setName(rs.getString("name"));
+      g.setCreationDate(rs.getTimestamp("creationDate"));
+      g.setChangeDate(rs.getTimestamp("changeDate"));
 
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
       result.addElement(g);
@@ -128,8 +132,8 @@ public Group insert(Group g) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO group (id, name) " + "VALUES ("
-          + g.getId() + "," + g.getName() + ")");
+      stmt.executeUpdate("INSERT INTO group (id, name, CreationDate, ChangeDate) " + "VALUES ("
+          + g.getId() + "," + g.getCreationDate() + "," + g.getChangeDate() + ","  + g.getName() + ")");
     }
   }
   catch (SQLException e2) {
@@ -149,7 +153,7 @@ public Group insert(Group g) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE accounts " + "SET name=\"" + g.getName()
-          + "\" " + "WHERE id=" + g.getId());
+          + "\" " + "changeDate=\"" + g.getChangeDate() + "\" "+ "WHERE id=" + g.getId());
 
     }
     catch (SQLException e2) {

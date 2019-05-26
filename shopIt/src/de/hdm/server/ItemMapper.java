@@ -200,7 +200,7 @@ public Item insert(Item i) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE list " + "SET id=\"" + i.getId()
-      + "\" " + "," + "changeDate=\"" + i.getChangeDate() + "," + "creationDate=\"" + i.getCreationDate()+ "," + "salesmanId=\"" + i.getSalesmanId()++ "," + "articleId=\"" + i.getArticleId()+ "," + "istStatus=\"" + i.isStatus()+ "," + "isFavorit=\"" + i.isFavorit()+"WHERE id=" + i.getId());
+      + "\" " + "," + "changeDate=\"" + i.getChangeDate() + "," + "salesmanId=\"" + i.getSalesmanId()++ "," + "articleId=\"" + i.getArticleId()+ "," + "istStatus=\"" + i.isStatus()+ "," + "isFavorit=\"" + i.isFavorit()+"WHERE id=" + i.getId());
 
     }
     catch (SQLException e2) {
