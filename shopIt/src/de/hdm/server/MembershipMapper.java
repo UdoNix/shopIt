@@ -151,7 +151,7 @@ import de.hdm.shared.bo.Person;
 	      Statement stmt = con.createStatement();
 
 	      stmt.executeUpdate("UPDATE membership " + "SET personId=\"" + m.getPersonId()
-	          + "\" " +  "," + "personId=\"" + m.getGroupId() + "," +"WHERE id=" + m.getId());
+	          + "\", "+ "personId=\"" + m.getGroupId() + "\", " +"WHERE id=" + m.getId());
 
 	    }
 	    catch (SQLException e2) {

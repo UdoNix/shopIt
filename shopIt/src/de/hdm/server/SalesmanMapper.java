@@ -57,6 +57,7 @@ public Salesman findByKey (int id) {
 		        s.setPostalCode(rs.getString("postalCode"));
 		        s.setCity(rs.getString("city"));
 		        s.setCreationDate(rs.getTimestamp("creationDate"));
+		        s.setChangeDate(rs.getTimestamp("changeDate"));
 		    	
 		        return s;
 		      }
@@ -94,6 +95,8 @@ public Vector<Salesman> findAll() {
       s.setStreet(rs.getString("street"));
       s.setPostalCode(rs.getString("postalcode"));
       s.setCity(rs.getString("city"));
+      s.setCreationDate(rs.getTimestamp("creationDate"));
+      s.setChangeDate(rs.getTimestamp("changeDate"));
   	
       
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
@@ -162,7 +165,7 @@ public Salesman insert(Salesman s) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE list " + "SET name=\"" + s.getName()
-      + "\" " + "," + "creationDate=\"" + s.getCreationDate() + "plz=\"" + s.getPostalCode()+ "city=\"" + s.getCity() + "street=\"" + s.getStreet()+"WHERE id=" + s.getId());
+      + "\", " + "changeDate=\"" + s.getChangeDate() +"\", "+ "plz=\"" + s.getPostalCode()+"\", "+ "city=\"" + s.getCity() +"\", "+ "street=\"" + s.getStreet()+"\", "+"WHERE id=" + s.getId());
 
     }
     catch (SQLException e2) {

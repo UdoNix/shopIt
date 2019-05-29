@@ -183,7 +183,7 @@ public class ListMapper {
 	      Statement stmt = con.createStatement();
 
 	      stmt.executeUpdate("UPDATE list " + "SET name=\"" + l.getName()
-          + "\" " + "," + "changeDate=\"" + "groupId=\"" + l.getGroupId()+ "WHERE id=" + l.getId());
+          + "\", "+ "changeDate=\"" + l.getChangeDate()+ "\", "+ "groupId=\"" + l.getGroupId()+"\", "+ "WHERE id=" + l.getId());
 
 	    }
 	    catch (SQLException e2) {

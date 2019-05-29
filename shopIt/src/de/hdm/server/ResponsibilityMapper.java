@@ -151,7 +151,7 @@ public Responsibility insert(Responsibility r) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE list " + "SET id=\"" + r.getId()
-      + "\" " + "," + "personId=\"" + r.getPersonId() + "salesmanId=\"" + r.getSalesmanId() +"WHERE id=" + r.getId());
+      + "\" " + "," + "personId=\"" + r.getPersonId()+"\", " + "salesmanId=\"" + r.getSalesmanId() +"\", "+"WHERE id=" + r.getId());
 
     }
     catch (SQLException e2) {

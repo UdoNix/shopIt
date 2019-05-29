@@ -152,7 +152,7 @@ public Article insert(Article a) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE accounts " + "SET name=\"" + a.getName()
-          + "\" "  + "changeDate=\"" + c.getChangeDate() + "\" "+ "WHERE id=" + a.getId());
+          + "\", "  + "changeDate=\"" + a.getChangeDate() + "\" "+ "WHERE id=" + a.getId());
 
     }
     catch (SQLException e2) {

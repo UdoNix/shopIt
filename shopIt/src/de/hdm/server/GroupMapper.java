@@ -153,7 +153,7 @@ public Group insert(Group g) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE accounts " + "SET name=\"" + g.getName()
-          + "\" " + "changeDate=\"" + g.getChangeDate() + "\" "+ "WHERE id=" + g.getId());
+          + "\", " + "changeDate=\"" + g.getChangeDate() + "\" "+ "WHERE id=" + g.getId());
 
     }
     catch (SQLException e2) {
