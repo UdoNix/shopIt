@@ -11,6 +11,8 @@ public interface EditorServiceAsync {
 	void getAllMembersOfGroup(String text, ShowGroupCallback showGroupCallback);
 
 	void getAllMembersOf(Group g, AsyncCallback<Vector<Group>> callback);
+
+	void getPersonByMail(String email, GetPersonCallback getPersonCallback);
 	
 	//Import der Methoden aus dem Klassendiagramm
 

@@ -1,10 +1,21 @@
 package de.hdm.client.gui;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
+/**
+ * Die Klasse <code>AccountForm</code> stellt die Formklasse für den Account eines Users dar.
+ * 
+ * @author dibasegmen
+ *
+ */
 
 public class AccountForm extends HorizontalPanel {
 	
@@ -29,7 +40,7 @@ public class AccountForm extends HorizontalPanel {
 	private Button deleteButton = new Button("Account löschen");
 	private Button abortDeletionButton = new Button("Abbrechen");
 	
-	public void loadAccount(){
+	public void onLoad(){
 		
 	
 	editAccountBtn = new Button("Account bearbeiten");
@@ -48,6 +59,19 @@ public class AccountForm extends HorizontalPanel {
 }
 	public class EditAccountFormDialogBox {
 		
+	}
+	
+	/**
+	 * Der User wird auf seine Accountinformationen weitergeleitet
+	 */
+
+	class eigenenAccountAnzeigen implements ClickHandler {
+
+		public void onClick(ClickEvent event) {
+
+			Window.Location.assign("/");
+
+		}
 	}
 	
 }
