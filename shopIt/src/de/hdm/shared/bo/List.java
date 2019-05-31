@@ -14,7 +14,7 @@ public class List extends BusinessObject{
 	//private Date creationDate;
 
 	//Fremdschlüssel zur Gruppe.
-	private Group groupId;
+	private int groupId;
 
 	//Auslesen des Listennamen.
 	public String getName() {
@@ -36,12 +36,12 @@ public class List extends BusinessObject{
 	//}
 	
 	//Auslesen des Fremdschlüssels zur GruppenId.
-	public Group getGroupId() {
+	public int getGroupId() {
 		return groupId;
 	}
 	
 	//Setzen des Fremdschlüssels zur GruppenId.
-	public void setGroupId(Group groupId) {
+	public void setGroupId(int groupId) {
 		this.groupId = groupId;
 	}
 	
