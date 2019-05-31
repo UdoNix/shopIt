@@ -192,7 +192,7 @@ import de.hdm.shared.bo.Person;
 		        try {
 		          Statement stmt = con.createStatement();
 
-		          ResultSet rs = stmt.executeQuery("SELECT personId "
+		          ResultSet rs = stmt.executeQuery("SELECT personId FROM membership"
 		              + "WHERE groupId=" + groupId + " ORDER BY id");
 
 		          

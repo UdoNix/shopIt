@@ -10,6 +10,7 @@ import java.util.Vector;
 import de.hdm.shared.bo.Group;
 import de.hdm.shared.bo.Person;
 
+
 public class GroupMapper {
 	
 	// Klasse GroupMapper als Singleton
@@ -183,8 +184,33 @@ public Group insert(Group g) {
    }
    
    public Vector<Person> getPersonsOf(Group g) {
- 		//Wir bedienen uns hier einfach des PersonMapper.
+ 		//Wir bedienen uns hier einfach des MembershipMapper.
  		return MembershipMapper.membershipMapper().findByMember(g);
    
+}
+
+	 public Vector<Group> getGroupsOf(Person p) {
+		   Connection con = DBConnection.connection();
+		    Vector<Group> result = new Vector<Group>();
+
+		    try {
+		      Statement stmt = con.createStatement();
+
+		      ResultSet rs = stmt.executeQuery("SELECT groupId FROM group "
+		          + " Inner JOIN Membership ON group.Id=Membership.groupId" + "INNER JOIN person ON person.id=membership.personId");
+
+		      
+		      while (rs.next()) {
+		        Group g = new Group();
+		        g.setId(rs.getInt("id"));
+		     
+		        result.addElement(g);
+		      }
+		    }
+		    catch (SQLException e2) {
+		      e2.printStackTrace();
+		    }
+
+		    return result;
 }
 }
