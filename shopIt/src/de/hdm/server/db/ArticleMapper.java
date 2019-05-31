@@ -130,8 +130,8 @@ public Article insert(Article a) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO article (id, name, changeDate, creationDate) " + "VALUES ("
-          + a.getId() + "," + a.getChangeDate() + "," + a.getCreationDate()+ "," + a.getName() + ")");
+      stmt.executeUpdate("INSERT INTO article (id, name) " + "VALUES ("
+          + a.getId() + "," + a.getChangeDate() + ")");
     }
   }
   catch (SQLException e2) {
@@ -152,7 +152,7 @@ public Article insert(Article a) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE accounts " + "SET name=\"" + a.getName()
-          + "\", "  + "changeDate=\"" + a.getChangeDate() + "\" "+ "WHERE id=" + a.getId());
+           + "\" "+ "WHERE id=" + a.getId());
 
     }
     catch (SQLException e2) {

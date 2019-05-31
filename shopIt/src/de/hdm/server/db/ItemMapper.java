@@ -177,8 +177,8 @@ public Item insert(Item i) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO Item (id, changeDate, creationDate, salesmanId, articleId, favorit,status) " + "VALUES ("
-	          + i.getId() + "," +i.getSalesmanId()+ "," +i.getChangeDate() + "," +i.getArticleId()+ "," +i.isStatus()+ ","+i.isFavorit()+ ","+ i.getCreationDate() +")");
+      stmt.executeUpdate("INSERT INTO Item (id, salesmanId, articleId, favorit,status) " + "VALUES ("
+	          + i.getId() + "," +i.getSalesmanId()+ "," +i.getArticleId()+ "," +i.isStatus()+ ","+i.isFavorit() +")");
   
     }
   }
@@ -200,7 +200,7 @@ public Item insert(Item i) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE list " + "SET id=\"" + i.getId()
-      +"\", "+ "changeDate=\"" + i.getChangeDate() + "\", " + "salesmanId=\"" + i.getSalesmanId()+ "\", " + "articleId=\"" + i.getArticleId()+ "\", " + "istStatus=\"" + i.isStatus()+ "\", " + "isFavorit=\"" + i.isFavorit()+"\", "+ "WHERE id=" + i.getId());
+       + "\", " + "salesmanId=\"" + i.getSalesmanId()+ "\", " + "articleId=\"" + i.getArticleId()+ "\", " + "istStatus=\"" + i.isStatus()+ "\", " + "isFavorit=\"" + i.isFavorit()+"\", "+ "WHERE id=" + i.getId());
 
     }
     catch (SQLException e2) {

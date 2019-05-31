@@ -132,8 +132,8 @@ public Group insert(Group g) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO group (id, name, CreationDate, ChangeDate) " + "VALUES ("
-          + g.getId() + "," + g.getCreationDate() + "," + g.getChangeDate() + ","  + g.getName() + ")");
+      stmt.executeUpdate("INSERT INTO group (id, name) " + "VALUES ("
+          + g.getId() + ","  + g.getName() + ")");
     }
   }
   catch (SQLException e2) {
@@ -153,7 +153,7 @@ public Group insert(Group g) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE accounts " + "SET name=\"" + g.getName()
-          + "\", " + "changeDate=\"" + g.getChangeDate() + "\" "+ "WHERE id=" + g.getId());
+          + "\" "+ "WHERE id=" + g.getId());
 
     }
     catch (SQLException e2) {

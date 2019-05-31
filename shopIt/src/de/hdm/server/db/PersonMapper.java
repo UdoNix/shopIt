@@ -134,8 +134,8 @@ public Person insert(Person p) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO person (id, firstName, lastName, email, creationDate) " + "VALUES ("
-          + p.getId() + ","+ p.getFirstName() + "," + p.getCreationDate() + ","+ p.getEmail() + "," + p.getLastName() + ")");
+      stmt.executeUpdate("INSERT INTO person (id, firstName, lastName, email) " + "VALUES ("
+          + p.getId() + ","+ p.getFirstName() +  ","+ p.getEmail() + "," + p.getLastName() + ")");
     }
   }
   catch (SQLException e2) {
@@ -155,7 +155,7 @@ public Person insert(Person p) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE person " + "SET namide=\"" + p.getId()
-      + "\", "+ "firstName=\"" + p.getFirstName() + "\", " + "lastName=\"" + p.getLastName()+"\", "+ "changeDate=\"" + p.getChangeDate() +"\", " + "email=\"" + p.getEmail()+ "\", "+ "WHERE id=" + p.getId());
+      + "\", "+ "firstName=\"" + p.getFirstName() + "\", " + "lastName=\"" + p.getLastName() +"\", " + "email=\"" + p.getEmail()+ "\", "+ "WHERE id=" + p.getId());
 
     }
     catch (SQLException e2) {

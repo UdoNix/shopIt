@@ -162,8 +162,8 @@ public class ListMapper {
 	      stmt = con.createStatement();
 
 	      // Es erfolgt die tatsächliche Einfuegeoperation
-	      stmt.executeUpdate("INSERT INTO list (id, name, creationDate, changeDate, groupId) " + "VALUES ("
-	          + l.getId() + "," + l.getName() + ","+ l.getGroupId() + ","+ l.getChangeDate() + "," + l.getCreationDate() +")");
+	      stmt.executeUpdate("INSERT INTO list (id, name, groupId) " + "VALUES ("
+	          + l.getId() + "," + l.getName() + ","+ l.getGroupId() +")");
 	    }
 	  }
 	  catch (SQLException e2) {
@@ -183,7 +183,7 @@ public class ListMapper {
 	      Statement stmt = con.createStatement();
 
 	      stmt.executeUpdate("UPDATE list " + "SET name=\"" + l.getName()
-          + "\", "+ "changeDate=\"" + l.getChangeDate()+ "\", "+ "groupId=\"" + l.getGroupId()+"\", "+ "WHERE id=" + l.getId());
+          + "\", " + "groupId=\"" + l.getGroupId()+"\", "+ "WHERE id=" + l.getId());
 
 	    }
 	    catch (SQLException e2) {

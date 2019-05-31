@@ -139,8 +139,8 @@ public Salesman insert(Salesman s) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO Salesman (id, name, creationDate, street, plz, city) " + "VALUES ("
-	          + s.getId() + "," + s.getName() + ","+ s.getPostalCode() + "," + s.getCity() + ","+ s.getStreet() + ","+ s.getCreationDate() +")");
+      stmt.executeUpdate("INSERT INTO Salesman (id, name, street, plz, city) " + "VALUES ("
+	          + s.getId() + "," + s.getName() + ","+ s.getPostalCode() + "," + s.getCity() + ","+ s.getStreet()  +")");
       
   
   	
@@ -165,7 +165,7 @@ public Salesman insert(Salesman s) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE list " + "SET name=\"" + s.getName()
-      + "\", " + "changeDate=\"" + s.getChangeDate() +"\", "+ "plz=\"" + s.getPostalCode()+"\", "+ "city=\"" + s.getCity() +"\", "+ "street=\"" + s.getStreet()+"\", "+"WHERE id=" + s.getId());
+      + "\", " + "plz=\"" + s.getPostalCode()+"\", "+ "city=\"" + s.getCity() +"\", "+ "street=\"" + s.getStreet()+"\", "+"WHERE id=" + s.getId());
 
     }
     catch (SQLException e2) {

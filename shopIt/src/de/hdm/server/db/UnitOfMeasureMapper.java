@@ -133,8 +133,8 @@ public UnitOfMeasure insert(UnitOfMeasure u) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO UnitOfMeasure (id, unit, quantity, creationDate) " + "VALUES ("
-	          + u.getId() +"," + u.getCreationDate() + "," + u.getUnit() + "," + u.getQuantity() +")");
+      stmt.executeUpdate("INSERT INTO UnitOfMeasure (id, unit, quantity) " + "VALUES ("
+	          + u.getId() +"," + u.getUnit() + "," + u.getQuantity() +")");
   
     }
   }
@@ -155,7 +155,7 @@ public UnitOfMeasure insert(UnitOfMeasure u) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE list " + "SET unit=\"" + u.getUnit()
-      + "\", " + "changeDate=\"" + u.getChangeDate()+ "\", " + "quantity=\"" + u.getQuantity()+"\", "+ "WHERE id=" + u.getId());
+      + "\", " + "quantity=\"" + u.getQuantity()+"\", "+ "WHERE id=" + u.getId());
 
     }
     catch (SQLException e2) {
