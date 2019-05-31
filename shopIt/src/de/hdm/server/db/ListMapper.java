@@ -1,4 +1,4 @@
-package de.hdm.server;
+package de.hdm.server.db;
 
 
 	import java.sql.Connection;
@@ -53,6 +53,7 @@ public class ListMapper {
 			        l.setId(rs.getInt("id"));
 			        l.setName(rs.getString("name"));
 			        l.setCreationDate(rs.getTimestamp("creationDate"));
+			        l.setChangeDate(rs.getTimestamp("changeDate"));
 			        return l;
 			      }
 			    }
@@ -87,6 +88,8 @@ public class ListMapper {
 	      l.setId(rs.getInt("id"));
 	      l.setName(rs.getString("name"));
 	      l.setCreationDate(rs.getTimestamp("creationDate"));
+	      l.setChangeDate(rs.getTimestamp("changeDate"));
+	      l.setGroupId(rs.getInt("groupId"));
 
 	      // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
 	      result.addElement(l);
@@ -114,7 +117,12 @@ public class ListMapper {
 		    	  List l = new List();
 			        l.setId(rs.getInt("id"));
 			        l.setName(rs.getString("name"));
+			        l.setCreationDate(rs.getTimestamp("creationDate"));
+				    l.setChangeDate(rs.getTimestamp("changeDate"));
+				    l.setGroupId(rs.getInt("groupId"));
+
 			        result.addElement(l);
+			        
 		      }
 		    }
 		    catch (SQLException e2) {
@@ -154,8 +162,8 @@ public class ListMapper {
 	      stmt = con.createStatement();
 
 	      // Es erfolgt die tatsächliche Einfuegeoperation
-	      stmt.executeUpdate("INSERT INTO list (id, name, creationDate) " + "VALUES ("
-	          + l.getId() + "," + l.getName() + "," + l.getCreationDate() +")");
+	      stmt.executeUpdate("INSERT INTO list (id, name, creationDate, changeDate, groupId) " + "VALUES ("
+	          + l.getId() + "," + l.getName() + ","+ l.getGroupId() + ","+ l.getChangeDate() + "," + l.getCreationDate() +")");
 	    }
 	  }
 	  catch (SQLException e2) {
@@ -174,8 +182,8 @@ public class ListMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      stmt.executeUpdate("UPDATE list " + "SET creationDate=\"" + l.getCreationDate()
-          + "\" " + "," + "WHERE id=" + l.getId());
+	      stmt.executeUpdate("UPDATE list " + "SET name=\"" + l.getName()
+          + "\", "+ "changeDate=\"" + l.getChangeDate()+ "\", "+ "groupId=\"" + l.getGroupId()+"\", "+ "WHERE id=" + l.getId());
 
 	    }
 	    catch (SQLException e2) {

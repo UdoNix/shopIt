@@ -22,7 +22,8 @@ public class List extends BusinessObject{
 		this.name = name;
 	}
 
-	//Auslesen der Fremdschlüsselbeziehung zur Gruppe.
+	
+	//Auslesen des Fremdschlüssels zur GruppenId.
 	public int getGroupId() {
 		return groupId;
 	}

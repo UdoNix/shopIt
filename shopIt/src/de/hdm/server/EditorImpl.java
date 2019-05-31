@@ -6,6 +6,15 @@ import com.ibm.icu.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import de.hdm.server.db.ArticleMapper;
+import de.hdm.server.db.GroupMapper;
+import de.hdm.server.db.ItemMapper;
+import de.hdm.server.db.ListMapper;
+import de.hdm.server.db.MembershipMapper;
+import de.hdm.server.db.PersonMapper;
+import de.hdm.server.db.ResponsibilityMapper;
+import de.hdm.server.db.SalesmanMapper;
+import de.hdm.server.db.UnitOfMeasureMapper;
 import de.hdm.shared.ShopITAdministration;
 import de.hdm.shared.bo.Article;
 import de.hdm.shared.bo.Group;
