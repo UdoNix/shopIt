@@ -5,7 +5,7 @@ import com.google.gwt.view.client.TreeViewModel;
 public class GroupListView implements TreeViewModel {
 
 	private EditorAdminView editorAdminView;
-	private CellTreeViewModel cellTreeViewModel;
+	//private CellTreeViewModel cellTreeViewModel;
 	private EditorAdminView editor;
 	
 	public GroupListView() {

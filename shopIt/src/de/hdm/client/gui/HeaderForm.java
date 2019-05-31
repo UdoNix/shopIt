@@ -14,7 +14,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 	/**
 	 * Klasse zur Erstellung der HeaderForm
 	 * 
-	 * @author Diba Segmen
+	 * @author dibasegmen
 	 */
 
 	public class HeaderForm extends Form{
