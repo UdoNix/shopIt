@@ -21,6 +21,7 @@ public class HTMLReportWriter extends ReportWriter{
 		if(p instanceof CompositeParagraph) {
 			return this.paragraph2HTML((CompositeParagraph) p);
 		}
+		return reportText;
 	}
 	/*
 	 * Umwandeln eines CompositeParagraph-Objekts in HTML
@@ -60,7 +61,7 @@ public class HTMLReportWriter extends ReportWriter{
 	 * Auslesen der Ergebnisse durch getReportText()
 	 */
 	public void process(AllItemsOfPersonReport r) {
-		this.resetReportText();
+		this.resetReport();
 		//Ergebnisse werden eingetragen
 		StringBuffer result = new StringBuffer();
 		//einzelne Bestandteile des Reports auslesen und in HTML Form �bersezten
@@ -115,7 +116,7 @@ public class HTMLReportWriter extends ReportWriter{
 	     */
 	public void process(AllItemsOfAllPersonsReport r) {
 		// Zun�chst l�schen wir das Ergebnis vorhergehender Prozessierungen
-		this.resetReportText();
+		this.resetReport();
 		//Ergebnisse werden in diesen Buffer geschrieben
 		StringBuffer result = new StringBuffer();
 		//Nun werden alle Bestandteile des Reports ausgelesen und in HTML
