@@ -5,9 +5,6 @@ public class Article extends BusinessObject{
 
 	//Name des Artikels.
 	private String name = "";
-	
-	//Mengeneinheit des Artikels.
-	private UnitOfMeasure quantityUnit;
 
 	//Auslesen des Namens.
 	public String getName() {
@@ -19,15 +16,6 @@ public class Article extends BusinessObject{
 		this.name = name;
 	}
 
-	//Auslese der Mengeneinheit.
-	public UnitOfMeasure getQuantityUnit() {
-		return quantityUnit;
-	}
-
-	//Setzen der Mengeneinheit
-	public void setQuantityUnit(UnitOfMeasure quantityUnit) {
-		this.quantityUnit = quantityUnit;
-	}
 	
 	
 }

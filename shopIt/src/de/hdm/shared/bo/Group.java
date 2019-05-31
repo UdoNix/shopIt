@@ -5,10 +5,6 @@ public class Group extends BusinessObject{
 	
 	//Name der Gruppe.
 	private String name = "";
-	
-	private Person person;
-	
-	private List list;
 
 	//Auslesen des Gruppennamen.
 	public String getName() {
@@ -17,12 +13,6 @@ public class Group extends BusinessObject{
 	//Setzen des Gruppennamen.
 	public void setName(String name) {
 		this.name = name;
-	}
-	public Person getPerson() {
-		return person;
-	}
-	public void setPerson(Person person) {
-		this.person = person;
 	}
 
 
