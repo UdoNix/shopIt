@@ -195,7 +195,7 @@ import de.hdm.shared.bo.Person;
 		          ResultSet rs = stmt.executeQuery("SELECT personId "
 		              + "WHERE groupId=" + groupId + " ORDER BY id");
 
-		          // Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt erstellt.
+		          
 		          while (rs.next()) {
 		            Person p = new Person();
 		            p.setId(rs.getInt("id"));
@@ -213,5 +213,33 @@ import de.hdm.shared.bo.Person;
 		        // Ergebnisvektor zurückgeben
 		        return result;
 		      }
+		   
+		   public Vector<Membership> findByGroup(int groupId) {
+			    Connection con = DBConnection.connection();
+			    Vector<Membership> result = new Vector<Membership>();
+
+			    try {
+			      Statement stmt = con.createStatement();
+
+			      ResultSet rs = stmt.executeQuery("SELECT personId, groupId FROM membership "
+			          + "WHERE groupId=" + groupId );
+
+			    
+			      while (rs.next()) {
+			        Membership m = new Membership();
+			        m.setPersonId(rs.getInt("personId"));
+			        m.setGroupId(rs.getInt("groupId"));
+
+			        // Hinzufügen des neuen Objekts zum Ergebnisvektor
+			        result.addElement(m);
+			      }
+			    }
+			    catch (SQLException e2) {
+			      e2.printStackTrace();
+			    }
+
+			    // Ergebnisvektor zurückgeben
+			    return result;
+			  }		   
 	}
 
