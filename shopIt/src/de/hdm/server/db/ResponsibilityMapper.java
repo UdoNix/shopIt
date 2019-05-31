@@ -196,7 +196,7 @@ public Responsibility insert(Responsibility r) {
 			while (rs.next()) {
 				Responsibility r = new Responsibility();
 				r.setId(rs.getInt("id"));
-				r.setPersonId(rs.getPersonId("personId"));
+				r.setPersonId(rs.getInt("personId"));
 			
 				// Hinzufügen des neuen Objekts zum Ergebnisvektor
 				result.addElement(r);
