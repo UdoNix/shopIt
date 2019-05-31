@@ -19,6 +19,15 @@ public class ClientsideSettings extends CommonSettings {
 	
 	private static EditorServiceAsync EditorService = null;
 	
+	public static EditorServiceAsync getEditorService() {
+		return EditorService;
+	}
+
+
+	public static void setEditorService(EditorServiceAsync editorService) {
+		EditorService = editorService;
+	}
+
 	/**
 	 * Remote Service Proxy zur Verbindungsaufnahme mit dem Server-seitigen
 	 * Dienst ReportGenerator

@@ -13,13 +13,13 @@ import de.hdm.shared.bo.Group;
 import de.hdm.shared.bo.List;
 
 
-public class GroupForm extends Form {
+public class GroupForm extends VerticalPanel {
 	/**
 	 * Erstellung verschiedener Panels
 	 */
 	private VerticalPanel contentPanel = new VerticalPanel();
 	private HorizontalPanel buttonPanel = new HorizontalPanel();
-	private VerticalPanel MemberPanel = new VerticalPanel();
+	//private VerticalPanel MemberPanel = new VerticalPanel();
 
 	/**
 	 * Erstellung benötigter GUI-Elemente
@@ -31,16 +31,7 @@ public class GroupForm extends Form {
 	
 	private Button editGroupBtn = new Button("Gruppe bearbeiten");
 	private Button deleteGroupBtn = new Button("Gruppe löschen");
-	private Button abortDeletionButton = new Button("Abbrechen");
-
-	/*
-	 * 
-	 */
-	
-	
-	/*
-	 * 
-	 */
+	private Button cancelBtn = new Button("Abbrechen");
 
 	private DateTimeFormat dtf = DateTimeFormat.getFormat("dd.MM.yyyy k:mm");
 
@@ -70,15 +61,15 @@ public class GroupForm extends Form {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void loadGroup(){
+	public void onLoad(GroupForm group){
 		
 			editGroupBtn = new Button("Gruppe bearbeiten");
 			deleteGroupBtn = new Button("Gruppe löschen");
-			abortDeletionButton = new Button("Abbrechen");
+			cancelBtn = new Button("Abbrechen");
 			
-			contentPanel.add(editGroupBtn);
-			contentPanel.add(deleteGroupBtn);
-			contentPanel.add(abortDeletionButton);
+			buttonPanel.add(editGroupBtn);
+			buttonPanel.add(deleteGroupBtn);
+			buttonPanel.add(cancelBtn);
 			contentPanel.add(name);
 			//contentPanel.add(idLabel);
 			contentPanel.add(creationTime);
@@ -86,4 +77,9 @@ public class GroupForm extends Form {
 			RootPanel.get("main").add(contentPanel);
 			
 		}
+
+	public void setSelected(Group selectedGroup) {
+		// TODO Auto-generated method stub
+		
+	}
 }	

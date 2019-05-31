@@ -10,17 +10,17 @@ public class List extends BusinessObject{
 	//Name der Einkaufsliste.
 	private String name = "";
 	
-
 	//Änderungsdatum der letzten Veränderung der Liste.
 	//private Date creationDate;
 
-	//Zugeh�rigkeit zur Gruppe
-	private Group group;
+	//Fremdschlüssel zur Gruppe.
+	private Group groupId;
 
 	//Auslesen des Listennamen.
 	public String getName() {
 		return name;
 	}
+	
 	//Setzen des Listennamen.
 	public void setName(String name) {
 		this.name = name;
@@ -35,21 +35,25 @@ public class List extends BusinessObject{
 	//	this.creationDate = creationDate;
 	//}
 	
+	//Auslesen des Fremdschlüssels zur GruppenId.
+	public Group getGroupId() {
+		return groupId;
+	}
+	
+	//Setzen des Fremdschlüssels zur GruppenId.
+	public void setGroupId(Group groupId) {
+		this.groupId = groupId;
+	}
+	
 	//Auslesen des Listeneintrags.
 	public Item getItem() {
 		return item;
 	}
+	
 	//Setzen eines Listeneintrags.
 	public void setItem(Item item) {
 		this.item = item;
 	}
-	//Auslesen der Gruppe
-	public Group getGroup() {
-		return groupid;
-	}
-	//Setzen der Gruppe
-	public void setGroup(Group group) {
-		this.group = group;
-	}
+
 
 }

@@ -53,9 +53,8 @@ public Salesman findByKey (int id) {
 		        Salesman s = new Salesman();
 		        s.setId(rs.getInt("id"));
 		        s.setName(rs.getString("name"));
-		        s.setCreationDate(rs.getString("creationDate"));
 		        s.setStreet(rs.getString("street"));
-		        s.setPlz(rs.getString("plz"));
+		        s.setPostalCode(rs.getString("postalCode"));
 		        s.setCity(rs.getString("city"));
 		    	
 		        return s;
@@ -91,9 +90,8 @@ public Vector<Salesman> findAll() {
       Salesman s = new Salesman();
       s.setId(rs.getInt("id"));
       s.setName(rs.getString("name"));
-      s.setCreationDate(rs.getString("creationDate"));
       s.setStreet(rs.getString("street"));
-      s.setPlz(rs.getString("plz"));
+      s.setPostalCode(rs.getString("postalcode"));
       s.setCity(rs.getString("city"));
   	
       
@@ -138,7 +136,7 @@ public Salesman insert(Salesman s) {
 
       // Es erfolgt die tatsächliche Einfuegeoperation
       stmt.executeUpdate("INSERT INTO Salesman (id, name, creationDate, street, plz, city) " + "VALUES ("
-	          + s.getId() + "," + s.getName() + ","+ s.getPlz() + "," + s.getCity() + ","+ s.getStreet() + ","+ s.getCreationDate() +")");
+	          + s.getId() + "," + s.getName() + ","+ s.getPostalCode() + "," + s.getCity() + ","+ s.getStreet() + ","+ s.getCreationDate() +")");
       
   
   	
@@ -163,7 +161,7 @@ public Salesman insert(Salesman s) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE list " + "SET name=\"" + s.getName()
-      + "\" " + "," + "creationDate=\"" + s.getCreationDate() + "plz=\"" + s.getPlz()+ "city=\"" + s.getCity() + "street=\"" + s.getStreet()+"WHERE id=" + s.getId());
+      + "\" " + "," + "creationDate=\"" + s.getCreationDate() + "plz=\"" + s.getPostalCode()+ "city=\"" + s.getCity() + "street=\"" + s.getStreet()+"WHERE id=" + s.getId());
 
     }
     catch (SQLException e2) {

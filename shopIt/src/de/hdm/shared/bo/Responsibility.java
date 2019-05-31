@@ -1,12 +1,14 @@
 package de.hdm.shared.bo;
-public class Responsibility {
-//Die Klasse Responsibility/Verantwortlichkeit dient dazu, festzulegen, welcher User für welchen Eintrag zuständig ist.
+
+public class Responsibility extends BusinessObject{
+
+	//Die Klasse Responsibility/Verantwortlichkeit dient dazu, festzulegen, welcher User für welchen Eintrag zuständig ist.
+	
+	private static final long serialVersionUID = 1L;
+
 
 	//Fremdschlüsselbeziehung zur Person.
 	private int personId = 0;
-	
-	//Fremdschlüsselbeziehung zum Eintrag.
-	private int itemId = 0;
 	
 	//Fremdschlüsselbeziehung zum Händler.
 	private int salesmanId = 0;
@@ -15,19 +17,18 @@ public class Responsibility {
 	public int getPersonId() {
 		return personId;
 	}
+	
 	//Setzen des Fremdschlüssels zur Person.
 	public void setPersonId(int personId) {
 		this.personId = personId;
 	}
-	public int getItemId() {
-		return itemId;
-	}
-	public void setItemId(int itemId) {
-		this.itemId = itemId;
-	}
+
+	//Auslesen des Fremdschlüssels zum Händler.
 	public int getSalesmanId() {
 		return salesmanId;
 	}
+	
+	//Setzen des Fremdschlüssels zum Händler.
 	public void setSalesmanId(int salesmanId) {
 		this.salesmanId = salesmanId;
 	}

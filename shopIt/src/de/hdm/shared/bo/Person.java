@@ -41,9 +41,6 @@ public class Person extends BusinessObject{
 		this.email = email;
 	}
 	
-	public void register(){
-		
-	}
 	
 }
 
