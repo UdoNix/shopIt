@@ -195,7 +195,7 @@ import de.hdm.shared.bo.Person;
 		          ResultSet rs = stmt.executeQuery("SELECT personId "
 		              + "WHERE groupId=" + groupId + " ORDER BY id");
 
-		          // Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt erstellt.
+		          
 		          while (rs.next()) {
 		            Person p = new Person();
 		            p.setId(rs.getInt("id"));

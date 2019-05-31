@@ -8,6 +8,8 @@ import java.sql.Connection;
 
 import de.hdm.shared.bo.Article;
 import de.hdm.shared.bo.Item;
+import de.hdm.shared.bo.Person;
+import de.hdm.shared.bo.Responsibility;
 import de.hdm.shared.bo.Salesman;
 
 	
@@ -256,7 +258,33 @@ public Item insert(Item i) {
 	    return result;
 	  }
 
+   
+  //Methode, die alle Einträge einer Person zurüchgibt
+   public Vector<Item> getItemsOf(Person p) {
+	   Connection con = DBConnection.connection();
+	    Vector<Item> result = new Vector<Item>();
 
+	    try {
+	      Statement stmt = con.createStatement();
+
+	      ResultSet rs = stmt.executeQuery("SELECT ItemId FROM item "
+	          + " Inner JOIN Salesman ON Item.salesmanId=Salesman.Id" + "INNER JOIN responsibility ON responsibility.salesmanId=salesmanId");
+
+	      
+	      while (rs.next()) {
+	        Item i = new Item();
+	        i.setId(rs.getInt("id"));
+	     
+	        result.addElement(i);
+	      }
+	    }
+	    catch (SQLException e2) {
+	      e2.printStackTrace();
+	    }
+
+	    return result;
+		
+}
 }
 
    
