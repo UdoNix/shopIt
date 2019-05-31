@@ -41,7 +41,7 @@ public class List extends BusinessObject{
 	}
 	
 	//Setzen des Fremdschlüssels zur GruppenId.
-	public void setGroupId(int groupId) {
+	public void setGroupId(Group groupId) {
 		this.groupId = groupId;
 	}
 	
