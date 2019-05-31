@@ -476,15 +476,14 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		//Objekt in der DB speichern. 
 		return this.uMapper.insert(u); 
 		
+	}
 		/*
 		 * Speichern einer Ma�einheit. 
 		 */
 		
 		public void save(UnitOfMeasure u) throws IllegalArgumentException {
 			uMapper.update(u);
-		
 		}
-	}
 	
 	   /*
 	   * ***************************************************************************
