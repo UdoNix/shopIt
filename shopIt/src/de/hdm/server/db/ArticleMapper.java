@@ -180,4 +180,32 @@ public Article insert(Article a) {
        e2.printStackTrace();
      }
    }
+   public Vector<Article> findByName(Article article) {
+		
+		Connection con =DBConnection.connection();
+		//Anmerkung: Da der Name eines Artikels nicht nur einmal, sondern auch mehrfach gleich 
+		//vergeben sein kann --> Vector verwendet
+		Vector<Article> result = new Vector<Article>();
+		try {
+			
+			Statement stmt =con.createStatement();
+			
+			ResultSet rs =stmt.executeQuery("SELECT id,name from article" + "WHERE name LIKE"+ article.getName() +"ORDER BY name ASC" );
+			
+			   while (rs.next()) {
+			       
+			        Article a= new Article();
+			        a.setId(rs.getInt("id"));
+			        a.setName(rs.getString("name"));
+			  
+					
+					result.addElement(a);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			
+			return result;
+		}
 }
