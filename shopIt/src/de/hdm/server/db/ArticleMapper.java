@@ -190,7 +190,7 @@ public Article insert(Article a) {
 			
 			Statement stmt =con.createStatement();
 			
-			ResultSet rs =stmt.executeQuery("SELECT id,name from article" + "WHERE name LIKE"+ article.getName() +"ORDER BY name ASC" );
+			ResultSet rs =stmt.executeQuery("SELECT id,name from article" + "WHERE name LIKE'"+ article.getName() +"'ORDER BY name ASC" );
 			
 			   while (rs.next()) {
 			       

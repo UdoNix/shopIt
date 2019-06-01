@@ -194,7 +194,7 @@ public Person insert(Person p) {
 			
 			Statement stmt =con.createStatement();
 			
-			ResultSet rs =stmt.executeQuery("SELECT id,lastName,firstName from person" + "WHERE firstName LIKE"+ person.getFirstName() +"OR lastName LIKE"+ person.getLastName() );
+			ResultSet rs =stmt.executeQuery("SELECT id,lastName,firstName from person" + "WHERE firstName LIKE'"+ person.getFirstName()+"'" +"OR lastName LIKE'"+ person.getLastName()+"'" );
 			
 			   while (rs.next()) {
 			       
