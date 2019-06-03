@@ -11,7 +11,7 @@ import com.google.gwt.view.client.TreeViewModel;
 public class GroupListView {
 	
 	private EditorAdminView editorAdminView;
-	private CellTreeViewModel cellTreeViewModel;
+	//private CellTreeViewModel cellTreeViewModel;
 	private EditorAdminView editor;
 	private AccountForm acForm;
 //	private AddPersonToGroupForm adForm;

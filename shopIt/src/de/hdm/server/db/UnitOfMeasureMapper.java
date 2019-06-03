@@ -1,4 +1,4 @@
-package de.hdm.server;
+package de.hdm.server.db;
 
 import java.sql.Connection;
 	import java.sql.ResultSet;
@@ -53,6 +53,8 @@ public UnitOfMeasure findByKey (int id) {
 		        u.setId(rs.getInt("id"));
 		        u.setUnit(rs.getString("unit"));
 		        u.setQuantity(rs.getFloat("quantity"));
+		        u.setCreationDate(rs.getTimestamp("creationDate"));
+		        u.setChangeDate(rs.getTimestamp("changeDate"));
 		        return u;
 		      }
 		    }
@@ -87,6 +89,8 @@ public Vector<UnitOfMeasure> findAll() {
     	u.setId(rs.getInt("id"));
         u.setUnit(rs.getString("unit"));
         u.setQuantity(rs.getFloat("quantity"));
+        u.setCreationDate(rs.getTimestamp("creationDate"));
+        u.setChangeDate(rs.getTimestamp("changeDate"));
        
 
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
@@ -130,7 +134,7 @@ public UnitOfMeasure insert(UnitOfMeasure u) {
 
       // Es erfolgt die tatsächliche Einfuegeoperation
       stmt.executeUpdate("INSERT INTO UnitOfMeasure (id, unit, quantity) " + "VALUES ("
-	          + u.getId() + "," + u.getUnit() + "," + u.getQuantity() +")");
+	          + u.getId() +"," + u.getUnit() + "," + u.getQuantity() +")");
   
     }
   }
@@ -151,7 +155,7 @@ public UnitOfMeasure insert(UnitOfMeasure u) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE list " + "SET unit=\"" + u.getUnit()
-      + "\" " + "," + "quantity=\"" + u.getQuantity() + "WHERE id=" + u.getId());
+      + "\", " + "quantity=\"" + u.getQuantity()+"\", "+ "WHERE id=" + u.getId());
 
     }
     catch (SQLException e2) {

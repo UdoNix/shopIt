@@ -1,8 +1,12 @@
 package de.hdm.shared.bo;
+
+import java.sql.Timestamp;
+
 public class Item extends BusinessObject{
 
 	private static final long serialVersionUID = 1L;
 
+	
 	//Fremdschlüsselbeziehung zum Händler.
 	private int salesmanId = 0;
 	
@@ -23,7 +27,7 @@ public class Item extends BusinessObject{
 	
 	//Status zeigt an, ob Item abgehakt ist oder nicht.
 	private boolean status;
-	
+
 	//Auslesen des Fremdschlüssels des Händlers.
 	public int getSalesmanId() {
 		return salesmanId;

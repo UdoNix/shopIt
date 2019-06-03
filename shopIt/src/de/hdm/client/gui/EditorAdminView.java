@@ -15,7 +15,7 @@ public class EditorAdminView {
 	private HorizontalPanel btnPanel = new HorizontalPanel();
 	private VerticalPanel navPanel = new VerticalPanel();
 	
-	private CellTreeViewModel cellTreeViewModel;
+	//private CellTreeViewModel cellTreeViewModel;
 	
 	public EditorAdminView() {
 		createGroup = new Button("Neue Gruppe");
@@ -31,8 +31,15 @@ public class EditorAdminView {
 		
 		cellTreeViewModel = new CellTreeViewModel();
 		navPanel.add(cellTreeViewModel.getStackMenuPanel());
+
+		//cellTreeViewModel = new CellTreeViewModel();
+		//navigationPanel.add(cellTreeViewModel.getStackMenuPanel());
+
 		
+
 		navPanel.add(cellTreeViewModel);
+
+		//navigationPanel.add(cellTreeViewModel);
 		
 		mainPanel.add(btnPanel);
 		mainPanel.add(navPanel);

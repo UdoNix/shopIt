@@ -1,4 +1,4 @@
-package de.hdm.server;
+package de.hdm.server.db;
 
 
 import java.sql.Connection;
@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import de.hdm.shared.bo.Group;
 import de.hdm.shared.bo.Person;
+
 
 public class GroupMapper {
 	
@@ -54,6 +55,8 @@ public Group findByKey (int id) {
 		        Group g = new Group();
 		        g.setId(rs.getInt("id"));
 		        g.setName(rs.getString("name"));
+		        g.setCreationDate(rs.getTimestamp("creationDate"));
+		        g.setChangeDate(rs.getTimestamp("changeDate"));
 		        return g;
 		      }
 		    }
@@ -87,6 +90,8 @@ public Vector<Group> findAll() {
       Group g = new Group();
       g.setId(rs.getInt("id"));
       g.setName(rs.getString("name"));
+      g.setCreationDate(rs.getTimestamp("creationDate"));
+      g.setChangeDate(rs.getTimestamp("changeDate"));
 
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
       result.addElement(g);
@@ -129,7 +134,7 @@ public Group insert(Group g) {
 
       // Es erfolgt die tatsächliche Einfuegeoperation
       stmt.executeUpdate("INSERT INTO group (id, name) " + "VALUES ("
-          + g.getId() + "," + g.getName() + ")");
+          + g.getId() + ","  + g.getName() + ")");
     }
   }
   catch (SQLException e2) {
@@ -149,7 +154,7 @@ public Group insert(Group g) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE accounts " + "SET name=\"" + g.getName()
-          + "\" " + "WHERE id=" + g.getId());
+          + "\" "+ "WHERE id=" + g.getId());
 
     }
     catch (SQLException e2) {
@@ -179,8 +184,33 @@ public Group insert(Group g) {
    }
    
    public Vector<Person> getPersonsOf(Group g) {
- 		//Wir bedienen uns hier einfach des PersonMapper.
+ 		//Wir bedienen uns hier einfach des MembershipMapper.
  		return MembershipMapper.membershipMapper().findByMember(g);
    
+}
+
+	 public Vector<Group> getGroupsOf(Person p) {
+		   Connection con = DBConnection.connection();
+		    Vector<Group> result = new Vector<Group>();
+
+		    try {
+		      Statement stmt = con.createStatement();
+
+		      ResultSet rs = stmt.executeQuery("SELECT groupId FROM group "
+		          + " Inner JOIN Membership ON group.Id=Membership.groupId" + "INNER JOIN person ON person.id=membership.personId");
+
+		      
+		      while (rs.next()) {
+		        Group g = new Group();
+		        g.setId(rs.getInt("id"));
+		     
+		        result.addElement(g);
+		      }
+		    }
+		    catch (SQLException e2) {
+		      e2.printStackTrace();
+		    }
+
+		    return result;
 }
 }

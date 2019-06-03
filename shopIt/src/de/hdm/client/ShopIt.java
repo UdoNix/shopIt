@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.client.gui.AccountForm;
+import de.hdm.client.gui.AddPersonToGroupForm;
 import de.hdm.client.gui.GroupForm;
 
 /**
@@ -24,7 +25,12 @@ public class ShopIt implements EntryPoint{
 	 Button settings = new Button("Einstellungen");
 	 
 	 AccountForm acForm;
+<<<<<<< HEAD
 //	 GroupForm grForm;
+=======
+	 GroupForm grForm;
+	 //AddPersonToGroupForm addPerson;
+>>>>>>> refs/heads/master
 
 //	contentPanel.add(logoutBtn);
 //	contentPanel.add(settings);
@@ -36,15 +42,35 @@ public class ShopIt implements EntryPoint{
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
+		
 		acForm = new AccountForm();
+<<<<<<< HEAD
 //		grForm = new GroupForm();
+=======
+		grForm = new GroupForm();
+		//addPerson = new AddPersonToGroupForm();
+		
+>>>>>>> refs/heads/master
 		/**
 		 * The Vertical Panel is a gwt standard, it content vertically
 		 */
 		VerticalPanel vPanel = new VerticalPanel();
 		
+<<<<<<< HEAD
 		acForm.loadAccount();
 //		grForm.loadGroup();
+=======
+		acForm.onLoad();
+		grForm.onLoad();
+		
+		vPanel.add(settings);
+		vPanel.add(logoutBtn);
+		vPanel.add(grForm);
+		
+		
+		//addPerson.onLoad();
+		
+>>>>>>> refs/heads/master
 //		Label myLbl = new Label("Hallo");
 //		
 //		HorizontalPanel hPanel = new HorizontalPanel();

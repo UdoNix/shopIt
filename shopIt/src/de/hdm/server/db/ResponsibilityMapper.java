@@ -1,4 +1,4 @@
-package de.hdm.server;
+package de.hdm.server.db;
 
 
 import java.sql.Connection;
@@ -151,7 +151,7 @@ public Responsibility insert(Responsibility r) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE list " + "SET id=\"" + r.getId()
-      + "\" " + "," + "personId=\"" + r.getPersonId() + "salesmanId=\"" + r.getSalesmanId() +"WHERE id=" + r.getId());
+      + "\" " + "," + "personId=\"" + r.getPersonId()+"\", " + "salesmanId=\"" + r.getSalesmanId() +"\", "+"WHERE id=" + r.getId());
 
     }
     catch (SQLException e2) {
@@ -179,4 +179,35 @@ public Responsibility insert(Responsibility r) {
        e2.printStackTrace();
      }
    }
+   
+   
+   public Vector<Responsibility> findByPerson(int personId) {
+		Connection con = DBConnection.connection();
+		Vector<Responsibility> result = new Vector<Responsibility>();
+
+		try {
+			Statement stmt = con.createStatement();
+
+			ResultSet rs = stmt.executeQuery("SELECT id, personId " + "FROM responsibility "
+					+ "WHERE personID=" + personId + " ORDER BY id");
+
+			// Für jeden Eintrag im Suchergebnis wird nun ein Objekt
+			// erstellt.
+			while (rs.next()) {
+				Responsibility r = new Responsibility();
+				r.setId(rs.getInt("id"));
+				r.setPersonId(rs.getInt("personId"));
+			
+				// Hinzufügen des neuen Objekts zum Ergebnisvektor
+				result.addElement(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		// Ergebnisvektor zurückgeben
+		return result;
+	}
+
+
 }

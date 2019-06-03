@@ -2,19 +2,17 @@ package de.hdm.client.gui;
 
 import java.awt.Button;
 import java.awt.Label;
-import java.awt.Window;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Cookies;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.*;
 
-import de.hdm.client.gui.AccountForm;
-import de.hdm.client.gui.AccountForm.EditAccountFormDialogBox;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.Window;
+
 import de.hdm.client.ClientsideSettings;
-import de.hdm.shared.*;
+import de.hdm.client.gui.AccountForm.EditAccountFormDialogBox;
+import de.hdm.shared.EditorServiceAsync;
 import de.hdm.shared.bo.Person;
 
 	/**
@@ -69,5 +67,20 @@ import de.hdm.shared.bo.Person;
 		/*
 		 *  Anordnung folgt noch
 		 */
+		private class DeletePersonCallback implements AsyncCallback<Void> {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Es ist leider folgender Fehler aufgetreten: "+ caught.toString());
+			}
+
+			@Override
+			public void onSuccess(Void result) {
+				Window.alert("Dein Account wurde erfolgreich gelöscht!");
+				//Leite User zum Google LogOut weiter
+				Window.Location.assign(logOutURL);
+			}
+			
+		}
 		
 	}

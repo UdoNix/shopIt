@@ -28,7 +28,7 @@ import de.hdm.shared.bo.Person;
 	public class AddPersonToGroupForm extends VerticalPanel{
 		
 		EditorServiceAsync listenVerwaltung = ClientsideSettings.getEditorService();
-		private Person p = CurrentPerson.person();
+		//private Person p = CurrentPerson.person();
 		private Person newGroupMember = null;
 		private Group selectedGroup = null;
 		
@@ -91,7 +91,7 @@ import de.hdm.shared.bo.Person;
 				if (selectedGroup != null) {
 					String email = emailTextBox.getValue();
 					listenVerwaltung.getPersonByMail(email, new GetPersonCallback());
-					listenVerwaltung.addUserToGroup(newGroupMember, selectedGroup, new AddUserCallback());
+					listenVerwaltung.addPersonToGroup(newGroupMember, selectedGroup, new AddPersonCallback());
 					GroupForm group = new GroupForm();
 					group.setSelected(selectedGroup);
 					RootPanel.get("main").clear();

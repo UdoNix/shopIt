@@ -1,15 +1,19 @@
-package de.hdm.server;
+package de.hdm.server.db;
 
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.logging.Logger;
 
-// import com.google.appengine.api.utils.SystemProperty;
+import com.google.appengine.api.utils.SystemProperty;
+
+import de.hdm.server.ServersideSettings;
 
 
 // Verwalten der DB-Verbindung 
 
 public class DBConnection {
+	Logger logger = ServersideSettings.getLogger();
 
    // Klasse DBConnection wird nur einmal instantiiert --> Singleton
    // Variable ist durch den Bezeichner <code>static</code> nur einmal
@@ -33,15 +37,15 @@ public class DBConnection {
         if (con == null) {
             String url = null;
             try {
-//                if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
-//                    
-//                    Class.forName("");
-//                    url = googleUrl;
-//                } else {
+                if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
+                    
+                    Class.forName("");
+                    url = googleUrl;
+                } else {
                     // Local MySQL instance to use during development.
                     Class.forName("com.mysql.jdbc.Driver");
                     url = localUrl;
-//                }
+                }
                 
                  // Erst dann kann uns der DriverManager eine Verbindung mit den
                  //oben in der Variable url angegebenen Verbindungsinformationen

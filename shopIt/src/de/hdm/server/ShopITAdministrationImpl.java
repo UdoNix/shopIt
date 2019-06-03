@@ -6,18 +6,28 @@ import com.ibm.icu.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import de.hdm.server.db.ArticleMapper;
+import de.hdm.server.db.GroupMapper;
+import de.hdm.server.db.ItemMapper;
+import de.hdm.server.db.ListMapper;
+import de.hdm.server.db.MembershipMapper;
+import de.hdm.server.db.PersonMapper;
+import de.hdm.server.db.ResponsibilityMapper;
+import de.hdm.server.db.SalesmanMapper;
+import de.hdm.server.db.UnitOfMeasureMapper;
 import de.hdm.shared.ShopITAdministration;
 import de.hdm.shared.bo.Article;
 import de.hdm.shared.bo.Group;
 import de.hdm.shared.bo.Item;
 import de.hdm.shared.bo.List;
+import de.hdm.shared.bo.Membership;
 import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Salesman;
 import de.hdm.shared.bo.UnitOfMeasure;
 import de.hdm.shared.bo.Responsibility;
 
 
-public class EditorImpl extends RemoteServiceServlet implements ShopITAdministration {
+public class ShopITAdministrationImpl extends RemoteServiceServlet implements ShopITAdministration {
 
 	
 	//Referenz auf die MapperKlassen, um die Objekte mit der Datenbank abzugleichen 
@@ -31,7 +41,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	private SalesmanMapper sMapper = null;
 	private ResponsibilityMapper rMapper = null;
 	private UnitOfMeasureMapper uMapper = null;
-	private MembershipMapper gsMapper = null;
+	private MembershipMapper mMapper = null;
 	
 	//Um die Klasse übersichtlicher zu gestalten, wird sie mithilfe von Abschnitten unterteilt.
 	 /*
@@ -40,7 +50,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	   * ***************************************************************************
 	   */
 	
-	public EditorImpl() throws IllegalArgumentException{
+	public ShopITAdministrationImpl() throws IllegalArgumentException{
 		//No-Argument-Constructor.
 	}
 
@@ -54,7 +64,7 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		this.sMapper = SalesmanMapper.salesmanMapper();
 		this.rMapper = ResponsibilityMapper.responsibilityMapper();
 		this.uMapper = UnitOfMeasureMapper.unitOfMeasureMapper();
-		this.gsMapper = GroupmembershipMapper.membershipMapper();
+		this.mMapper = MembershipMapper.membershipMapper();
 		
 	}
 	
@@ -102,15 +112,48 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	}
 	
 	//Löschen eines Anwenders.
-	//
 	public void delete(Person p) throws IllegalArgumentException{
 
-		//Methode wird erweitert
+		//Löschen von Listenobjekten in denen der zu löschende Anwender als Fremdschlüssel auftritt.
+		Vector<List> lists = this.getAllListsOf(p);
+		if (lists != null){
+			for (List l : lists){
+				this.delete(p);
+			}
+		}
 		
-		//Entfernung des Kunden aus der Datenbank.
+		//Löschen von Eintragsobjekten in denen der zu löschende Anwender als Fremdschlüssel auftritt.
+		Vector<Item> items = this.getAllItemsOf(p);
+		if (items != null){
+			for (Item i : items){
+				this.delete(i);
+			}
+		}
+		
+		//Löschen der Gruppenobjekte in denen der zu löschende Anwender auftritt.
+		Vector<Group> groups = this.getAllGroupsOf(p);
+		if (groups != null){
+			for (Group g : groups){
+				this.delete(g);
+			}
+		}
+		
+		//Löschen von Membershipobjekten in denen der zu löschende Anwender auftritt.
+		Vector<Membership> memberships = this.getAllMembershipsOf(p);
+		if (memberships != null){
+			for (Membership m : memberships){
+				this.delete(m);
+			}
+		}
+		
+		
+		//Entfernung des Anwenders aus der Datenbank.
 		this.pMapper.delete(p);
 		
+		
+		
 	}
+	
 	
 	  /*
 	   * ***************************************************************************
@@ -433,15 +476,14 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 		//Objekt in der DB speichern. 
 		return this.uMapper.insert(u); 
 		
+	}
 		/*
 		 * Speichern einer Ma�einheit. 
 		 */
 		
 		public void save(UnitOfMeasure u) throws IllegalArgumentException {
 			uMapper.update(u);
-		
 		}
-	}
 	
 	   /*
 	   * ***************************************************************************
@@ -510,39 +552,39 @@ public class EditorImpl extends RemoteServiceServlet implements ShopITAdministra
 	 * Gruppenmitgliedschaft erstellen
 	 */
 	
-	public Groupmembership createGroupmembership(Person p, Group g) throws IllegalArgumentException{
-		Groupmembership gs = new Groupmembership();
-		gs.setPerson(p);
-		gs.setGroup(g);
-		gs.setId(1);
+	public Membership createMembership(Person p, Group g) throws IllegalArgumentException{
+		Membership m = new Membership();
+		m.setPerson(p);
+		m.setGroup(g);
+		m.setId(1);
 		
-		return this.gsMapper.insert(gs);
+		return this.mMapper.insert(m);
 		
 	}
 	/*
 	 * Gruppenmitgliedschaft anhand der Id finden
 	 */
-	public Groupmembership getGroupmembershipById(int id) throws IllegalArgumentException{
-		return this.gsMapper.findByKey(id);
+	public Membership getMembershipById(int id) throws IllegalArgumentException{
+		return this.mMapper.findByKey(id);
 	}
 	/*
 	 * alle Gruppen einer Person aufzeigen
 	 */
-	public Vector<Groups> getAllGroupmembershipOfPerson(Person p) throws IllegalArgumentException{
-		return this.gsMapper.findByPerson(p);
+	public Vector<Groups> getAllMembershipOfPerson(Person p) throws IllegalArgumentException{
+		return this.mMapper.findByPerson(p);
 	}
 	/*
 	 * eine Gruppenmitgliedschaft �ndern
 	 */
-	public void update(Groupmembership gs) throws IllegalArgumentException{
-		gsMapper.update(gs);
+	public void update(Membership m) throws IllegalArgumentException{
+		mMapper.update(m);
 	}
 	/*
 	 * eine Gruppenmitgliedschaft l�schen
 	 */
-	public void delete(Groupmembership gs) throws IllegalArgumentException{
+	public void delete(Membership m) throws IllegalArgumentException{
 		 
-		    this.gsMapper.delete(gs);
+		    this.mMapper.delete(m);
 		  }
 	  /*
 	   * ***************************************************************************

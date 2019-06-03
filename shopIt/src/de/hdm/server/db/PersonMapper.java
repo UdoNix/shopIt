@@ -1,4 +1,4 @@
-package de.hdm.server;
+package de.hdm.server.db;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -54,6 +54,8 @@ public Person findByKey (int id) {
 		        p.setFirstName(rs.getString("firstName"));
 		        p.setLastName(rs.getString("lastName"));
 		        p.setEmail(rs.getString("email"));
+		        p.setCreationDate(rs.getTimestamp("creationDate"));
+		        p.setChangeDate(rs.getTimestamp("changeDate"));		      
 		
 		        return p;
 		      }
@@ -90,7 +92,8 @@ public Vector<Person> findAll() {
       p.setFirstName(rs.getString("firstName"));
       p.setLastName(rs.getString("lastName"));
       p.setEmail(rs.getString("email"));
-
+      p.setCreationDate(rs.getTimestamp("creationDate"));
+      p.setChangeDate(rs.getTimestamp("changeDate"));
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
       result.addElement(p);
     }
@@ -132,7 +135,7 @@ public Person insert(Person p) {
 
       // Es erfolgt die tatsächliche Einfuegeoperation
       stmt.executeUpdate("INSERT INTO person (id, firstName, lastName, email) " + "VALUES ("
-          + p.getId() + ","+ p.getFirstName() + ","+ p.getEmail() + "," + p.getLastName() + ")");
+          + p.getId() + ","+ p.getFirstName() +  ","+ p.getEmail() + "," + p.getLastName() + ")");
     }
   }
   catch (SQLException e2) {
@@ -152,7 +155,7 @@ public Person insert(Person p) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE person " + "SET namide=\"" + p.getId()
-      + "\" " + "," + "firstName=\"" + p.getFirstName() + "," + "lastName=\"" + p.getLastName()+ "," + "email=\"" + p.getEmail()+ "WHERE id=" + p.getId());
+      + "\", "+ "firstName=\"" + p.getFirstName() + "\", " + "lastName=\"" + p.getLastName() +"\", " + "email=\"" + p.getEmail()+ "\", "+ "WHERE id=" + p.getId());
 
     }
     catch (SQLException e2) {
@@ -180,6 +183,35 @@ public Person insert(Person p) {
        e2.printStackTrace();
      }
    }
+   
+   public Vector<Person> findByName(Person person) {
+		
+		Connection con =DBConnection.connection();
+		//Anmerkung: Da der Name einer Person nicht nur einmal, sondern auch mehrfach gleich 
+		//vergeben sein kann --> Vector verwendet
+		Vector<Person> result = new Vector<Person>();
+		try {
+			
+			Statement stmt =con.createStatement();
+			
+			ResultSet rs =stmt.executeQuery("SELECT id,lastName,firstName from person" + "WHERE firstName LIKE'"+ person.getFirstName()+"'" +"OR lastName LIKE'"+ person.getLastName()+"'" );
+			
+			   while (rs.next()) {
+			       
+			        Person p = new Person();
+			        p.setId(rs.getInt("id"));
+			        p.setFirstName(rs.getString("firstName"));
+			        p.setLastName(rs.getString("lastName"));
+			  
+					
+					result.addElement(p);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 
+			
+			return result;
+		}
 
 }

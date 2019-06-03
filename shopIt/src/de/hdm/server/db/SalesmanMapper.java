@@ -1,4 +1,4 @@
-package de.hdm.server;
+package de.hdm.server.db;
 
 import java.sql.Connection;
 	import java.sql.ResultSet;
@@ -56,6 +56,8 @@ public Salesman findByKey (int id) {
 		        s.setStreet(rs.getString("street"));
 		        s.setPostalCode(rs.getString("postalCode"));
 		        s.setCity(rs.getString("city"));
+		        s.setCreationDate(rs.getTimestamp("creationDate"));
+		        s.setChangeDate(rs.getTimestamp("changeDate"));
 		    	
 		        return s;
 		      }
@@ -93,6 +95,8 @@ public Vector<Salesman> findAll() {
       s.setStreet(rs.getString("street"));
       s.setPostalCode(rs.getString("postalcode"));
       s.setCity(rs.getString("city"));
+      s.setCreationDate(rs.getTimestamp("creationDate"));
+      s.setChangeDate(rs.getTimestamp("changeDate"));
   	
       
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
@@ -135,8 +139,8 @@ public Salesman insert(Salesman s) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO Salesman (id, name, creationDate, street, plz, city) " + "VALUES ("
-	          + s.getId() + "," + s.getName() + ","+ s.getPostalCode() + "," + s.getCity() + ","+ s.getStreet() + ","+ s.getCreationDate() +")");
+      stmt.executeUpdate("INSERT INTO Salesman (id, name, street, plz, city) " + "VALUES ("
+	          + s.getId() + "," + s.getName() + ","+ s.getPostalCode() + "," + s.getCity() + ","+ s.getStreet()  +")");
       
   
   	
@@ -161,7 +165,7 @@ public Salesman insert(Salesman s) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE list " + "SET name=\"" + s.getName()
-      + "\" " + "," + "creationDate=\"" + s.getCreationDate() + "plz=\"" + s.getPostalCode()+ "city=\"" + s.getCity() + "street=\"" + s.getStreet()+"WHERE id=" + s.getId());
+      + "\", " + "plz=\"" + s.getPostalCode()+"\", "+ "city=\"" + s.getCity() +"\", "+ "street=\"" + s.getStreet()+"\", "+"WHERE id=" + s.getId());
 
     }
     catch (SQLException e2) {

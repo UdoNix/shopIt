@@ -1,4 +1,4 @@
-package de.hdm.server;
+package de.hdm.server.db;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -52,6 +52,8 @@ public Article findByKey (int id) {
 		        Article a = new Article();
 		        a.setId(rs.getInt("id"));
 		        a.setName(rs.getString("name"));
+		        a.setCreationDate(rs.getTimestamp("creationDate"));
+		        a.setChangeDate(rs.getTimestamp("changeDate"));
 		        return a;
 		      }
 		    }
@@ -85,6 +87,8 @@ public Vector<Article> findAll() {
       Article a = new Article();
       a.setId(rs.getInt("id"));
       a.setName(rs.getString("name"));
+      a.setCreationDate(rs.getTimestamp("creationDate"));
+      a.setChangeDate(rs.getTimestamp("changeDate"));
 
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
       result.addElement(a);
@@ -127,7 +131,7 @@ public Article insert(Article a) {
 
       // Es erfolgt die tatsächliche Einfuegeoperation
       stmt.executeUpdate("INSERT INTO article (id, name) " + "VALUES ("
-          + a.getId() + "," + a.getName() + ")");
+          + a.getId() + "," + a.getChangeDate() + ")");
     }
   }
   catch (SQLException e2) {
@@ -148,7 +152,7 @@ public Article insert(Article a) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE accounts " + "SET name=\"" + a.getName()
-          + "\" " + "WHERE id=" + a.getId());
+           + "\" "+ "WHERE id=" + a.getId());
 
     }
     catch (SQLException e2) {
@@ -176,4 +180,32 @@ public Article insert(Article a) {
        e2.printStackTrace();
      }
    }
+   public Vector<Article> findByName(Article article) {
+		
+		Connection con =DBConnection.connection();
+		//Anmerkung: Da der Name eines Artikels nicht nur einmal, sondern auch mehrfach gleich 
+		//vergeben sein kann --> Vector verwendet
+		Vector<Article> result = new Vector<Article>();
+		try {
+			
+			Statement stmt =con.createStatement();
+			
+			ResultSet rs =stmt.executeQuery("SELECT id,name from article" + "WHERE name LIKE'"+ article.getName() +"'ORDER BY name ASC" );
+			
+			   while (rs.next()) {
+			       
+			        Article a= new Article();
+			        a.setId(rs.getInt("id"));
+			        a.setName(rs.getString("name"));
+			  
+					
+					result.addElement(a);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			
+			return result;
+		}
 }

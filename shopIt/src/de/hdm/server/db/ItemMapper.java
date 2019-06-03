@@ -1,4 +1,4 @@
-package de.hdm.server;
+package de.hdm.server.db;
 
 import java.sql.Connection;
 	import java.sql.ResultSet;
@@ -8,6 +8,8 @@ import java.sql.Connection;
 
 import de.hdm.shared.bo.Article;
 import de.hdm.shared.bo.Item;
+import de.hdm.shared.bo.Person;
+import de.hdm.shared.bo.Responsibility;
 import de.hdm.shared.bo.Salesman;
 
 	
@@ -54,8 +56,8 @@ public Item findByKey (int id) {
 		        // Ergebnis-Tupel in Objekt umwandeln
 		        Item i = new Item();
 		        i.setId(rs.getInt("id"));
-		        i.setCreationDate(rs.getString("creationDate"));
-		        i.setChangeDate(rs.getString("changeDate"));
+		        i.setCreationDate(rs.getTimestamp("creationDate"));
+		        i.setChangeDate(rs.getTimestamp("changeDate"));
 		        i.setSalesmanId(rs.getInt("salesmanId"));
 		        i.setArticleId(rs.getInt("articleId"));
 		        i.setFavorit(rs.getBoolean("favorit"));
@@ -93,8 +95,8 @@ public Vector<Item> findAll() {
     while (rs.next()) {
       Item i = new Item();
       i.setId(rs.getInt("id"));
-      i.setCreationDate(rs.getString("creationDate"));
-      i.setChangeDate(rs.getString("changeDate"));
+      i.setCreationDate(rs.getTimestamp("creationDate"));
+      i.setChangeDate(rs.getTimestamp("changeDate"));
       i.setSalesmanId(rs.getInt("salesmanId"));
       i.setArticleId(rs.getInt("articleId"));
       i.setFavorit(rs.getBoolean("favorit"));
@@ -129,8 +131,8 @@ public Vector<Item> findByList (int listId){
 	        Item i = new Item();
 	        i.setId(rs.getInt("id"));
 	        i.setListId(rs.getInt("listId"));
-	        i.setCreationDate(rs.getString("creationDate"));
-	        i.setChangeDate(rs.getString("changeDate"));
+	        i.setCreationDate(rs.getTimestamp("creationDate"));
+	        i.setChangeDate(rs.getTimestamp("changeDate"));
 	        i.setSalesmanId(rs.getInt("salesmanId"));
 	        i.setArticleId(rs.getInt("articleId"));
 	        i.setFavorit(rs.getBoolean("favorit"));
@@ -177,8 +179,8 @@ public Item insert(Item i) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO Item (id, changeDate, creationDate, salesmanId, articleId, favorit,status) " + "VALUES ("
-	          + i.getId() + "," +i.getSalesmanId()+ "," +i.getChangeDate() + "," +i.getArticleId()+ "," +i.isStatus()+ ","+i.isFavorit()+ ","+ i.getCreationDate() +")");
+      stmt.executeUpdate("INSERT INTO Item (id, salesmanId, articleId, favorit,status) " + "VALUES ("
+	          + i.getId() + "," +i.getSalesmanId()+ "," +i.getArticleId()+ "," +i.isStatus()+ ","+i.isFavorit() +")");
   
     }
   }
@@ -200,7 +202,7 @@ public Item insert(Item i) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE list " + "SET id=\"" + i.getId()
-      + "\" " + "," + "changeDate=\"" + i.getChangeDate() + "," + "creationDate=\"" + i.getCreationDate()+ "," + "salesmanId=\"" + i.getSalesmanId()++ "," + "articleId=\"" + i.getArticleId()+ "," + "istStatus=\"" + i.isStatus()+ "," + "isFavorit=\"" + i.isFavorit()+"WHERE id=" + i.getId());
+       + "\", " + "salesmanId=\"" + i.getSalesmanId()+ "\", " + "articleId=\"" + i.getArticleId()+ "\", " + "istStatus=\"" + i.isStatus()+ "\", " + "isFavorit=\"" + i.isFavorit()+"\", "+ "WHERE id=" + i.getId());
 
     }
     catch (SQLException e2) {
@@ -228,6 +230,62 @@ public Item insert(Item i) {
        e2.printStackTrace();
      }
    }
+   public Vector<Item> groupBySalesman (){
+	    Connection con = DBConnection.connection();
+	    Vector<Item> result = new Vector<Item>();
+
+	    try {
+	      Statement stmt = con.createStatement();
+
+	      ResultSet rs = stmt.executeQuery("SELECT id, salesmanId FROM item "
+	          + " Group By salesmanId");
+
+	      // Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt erstellt.
+	      while (rs.next()) {
+	        Item i = new Item();
+	        i.setId(rs.getInt("id"));
+	        i.setSalesmanId(rs.getInt("salesmanId"));
+
+	        // Hinzufügen des neuen Objekts zum Ergebnisvektor
+	        result.addElement(i);
+	      }
+	    }
+	    catch (SQLException e2) {
+	      e2.printStackTrace();
+	    }
+
+	    // Ergebnisvektor zurückgeben
+	    return result;
+	  }
 
    
+  //Methode, die alle Einträge einer Person zurüchgibt
+   public Vector<Item> getItemsOf(Person p) {
+	   Connection con = DBConnection.connection();
+	    Vector<Item> result = new Vector<Item>();
+
+	    try {
+	      Statement stmt = con.createStatement();
+
+	      ResultSet rs = stmt.executeQuery("SELECT ItemId FROM item "
+	          + " Inner JOIN Salesman ON item.salesmanId=Salesman.Id" + "INNER JOIN responsibility ON responsibility.salesmanId=salesman.Id");
+
+	      
+	      while (rs.next()) {
+	        Item i = new Item();
+	        i.setId(rs.getInt("id"));
+	     
+	        result.addElement(i);
+	      }
+	    }
+	    catch (SQLException e2) {
+	      e2.printStackTrace();
+	    }
+
+	    return result;
+		
 }
+}
+
+   
+

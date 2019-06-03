@@ -8,7 +8,8 @@ import java.util.Vector;
  * @author InesWerner
  *
  */
-public class PlainTextReportWriter {
+public class PlainTextReportWriter
+{
 	
 	//Variable für das Ergebnis einer Umwandlung.
 	private String reportText = "";
@@ -53,8 +54,8 @@ public void process(AllItemsOfPersonReport r){
 			result.append("\n");
 		}
 		
-		result.append("\n");
-		result.append(r.getImprint() + "\n");
+	result.append("\n");
+	result.append(r.getImprint() + "\n");
 		
 		//Buffer wird in String umgewandelt und der Variable reportText zugewiesen.
 		//Man kann ihn durch getReportText() auslesen.
