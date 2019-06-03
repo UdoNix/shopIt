@@ -183,6 +183,35 @@ public Person insert(Person p) {
        e2.printStackTrace();
      }
    }
+   
+   public Vector<Person> findByName(Person person) {
+		
+		Connection con =DBConnection.connection();
+		//Anmerkung: Da der Name einer Person nicht nur einmal, sondern auch mehrfach gleich 
+		//vergeben sein kann --> Vector verwendet
+		Vector<Person> result = new Vector<Person>();
+		try {
+			
+			Statement stmt =con.createStatement();
+			
+			ResultSet rs =stmt.executeQuery("SELECT id,lastName,firstName from person" + "WHERE firstName LIKE'"+ person.getFirstName()+"'" +"OR lastName LIKE'"+ person.getLastName()+"'" );
+			
+			   while (rs.next()) {
+			       
+			        Person p = new Person();
+			        p.setId(rs.getInt("id"));
+			        p.setFirstName(rs.getString("firstName"));
+			        p.setLastName(rs.getString("lastName"));
+			  
+					
+					result.addElement(p);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 
+			
+			return result;
+		}
 
 }
