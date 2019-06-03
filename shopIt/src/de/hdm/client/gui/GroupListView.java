@@ -14,7 +14,9 @@ public class GroupListView {
 	private CellTreeViewModel cellTreeViewModel;
 	private EditorAdminView editor;
 	private AccountForm acForm;
+//	private AddPersonToGroupForm adForm;
 //	private GroupForm grForm;
+	private ArticleForm articleForm;
 	
 	private VerticalPanel vPanel;
 	private Button btnShowListGroup;
@@ -33,24 +35,24 @@ public class GroupListView {
 		this.btnShowListGroup = new Button("Gruppe neu");
 		
 		vPanel.add(btnShowListGroup);
-		btnShowListGroup.addClickHandler(new ShowAccountFormClickHandler());
+		btnShowListGroup.addClickHandler(new ShowGroupListClickHandler());
 		
-//		this.btnShowAccountForm = new Button("AccountForm");
-//		vPanel.add(btnShowAccountForm);
-//		btnShowAccountForm.addClickHandler(new ShowAccountFormClickHandler());
+		this.btnShowAccountForm = new Button("AccountForm");
+		vPanel.add(btnShowAccountForm);
+		btnShowAccountForm.addClickHandler(new ShowAccountFormClickHandler());
 		
 		return vPanel;
 	}
 
-//	private class ShowGroupListClickHandler implements ClickHandler {
-//
-//		@Override
-//		public void onClick(ClickEvent event) {
-//			grForm = new GroupForm();
-//			grForm.loadGroup();
-//		}
-//		
-//	}
+	private class ShowGroupListClickHandler implements ClickHandler {
+
+		@Override
+		public void onClick(ClickEvent event) {
+			articleForm = new ArticleForm();
+			articleForm.onLoad();
+		}
+		
+	}
 	
 	private class ShowAccountFormClickHandler implements ClickHandler {
 
@@ -58,7 +60,7 @@ public class GroupListView {
 		public void onClick(ClickEvent event) {
 			// TODO Auto-generated method stub
 			acForm = new AccountForm();
-			acForm.loadAccount();
+			acForm.onLoad();
 		}
 		
 	}
