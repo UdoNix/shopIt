@@ -321,8 +321,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		
 
 	//Auslesen aller Personen einer Gruppe.
-	public Vector<Membership> getAllPersonsOf(Group g) throws IllegalArgumentException {
-		return this.mMapper.findByGroup(g.getId()); 
+	public Vector<Person> getAllPersonsOf(Group g) throws IllegalArgumentException {
+		return this.mMapper.findByMember(g.getId()); 
 	}
 	
 	//Auslesen aller Listen einer Gruppe.
