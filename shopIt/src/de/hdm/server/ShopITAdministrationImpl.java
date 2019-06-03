@@ -338,11 +338,11 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		 * der Datenbank entfernt.	
 		 */
 		
-		Vector<Membership> membership = this.getAllPersonsOf(g); 
+		Vector<Person> membership = this.getAllPersonsOf(g); 
 		
 		if (membership != null) {
-			for (Membership m: membership) {
-				this.delete(m);
+			for (Person p: membership) {
+				this.delete(p);
 			}
 		}
 		
