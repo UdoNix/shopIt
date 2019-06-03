@@ -193,4 +193,32 @@ public Salesman insert(Salesman s) {
        e2.printStackTrace();
      }
    }
+   public Vector<Salesman> findByName(Salesman salesman) {
+		
+		Connection con =DBConnection.connection();
+		//Anmerkung: Da der Name eines Salesman nicht nur einmal, sondern auch mehrfach gleich 
+		//vergeben sein kann --> Vector verwendet
+		Vector<Salesman> result = new Vector<Salesman>();
+		try {
+			
+			Statement stmt =con.createStatement();
+			
+			ResultSet rs =stmt.executeQuery("SELECT id,name from salesman" + "WHERE name LIKE '"+ salesman.getName() + "' ORDER BY lastName" );
+			
+			   while (rs.next()) {
+			       
+			        Salesman s = new Salesman();
+			        s.setId(rs.getInt("id"));
+			        s.setName(rs.getString("name"));
+			  
+					
+					result.addElement(s);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			
+			return result;
+		}
 }
