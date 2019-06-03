@@ -287,7 +287,6 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	   /*
 	   * ***************************************************************************
-
 	   * ABSCHNITT, Beginn: Methoden f�r Gruppe-Objekte @author Larisa
 	   * ***************************************************************************
 	   */
@@ -300,17 +299,9 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		//Setzen einer vorläufigen Gruppe-Id, welche nach Kommunikation mit DB auf den nächsthhöheren Wert gesetzt wird.
 		g.setId(1);
 		
-
-		//Einen Anwender hinzuf�gen
-		g.addPerson(p); 
-
 		//Speichern des Gruppe-Objekts in der DB.
 		return this.gMapper.insert(g); 
 	}
-	
-	
-	
-	
 	
 	//Auslesen einer Gruppe anhand seiner Gruppe-Id.
 	public Group getGroupById(int id) throws IllegalArgumentException{
@@ -330,8 +321,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		
 
 	//Auslesen aller Personen einer Gruppe.
-	public Vector<Person> getAllPersonsOf(Group g) throws IllegalArgumentException {
-		return this.pMapper.findByGroup(g.getId()); 
+	public Vector<Membership> getAllPersonsOf(Group g) throws IllegalArgumentException {
+		return this.mMapper.findByGroup(g.getId()); 
 	}
 	
 	//Auslesen aller Listen einer Gruppe.
@@ -347,11 +338,11 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		 * der Datenbank entfernt.	
 		 */
 		
-		Vector<Person> persons = this.getAllPersonsOf(g); 
+		Vector<Membership> membership = this.getAllPersonsOf(g); 
 		
-		if (persons != null) {
-			for (Person p: persons) {
-				this.delete(p);
+		if (membership != null) {
+			for (Membership m: membership) {
+				this.delete(m);
 			}
 		}
 		
@@ -368,15 +359,58 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		this.gMapper.delete(g);
 		
 	}
-
-	
-
-	
-	
-	
 	   /*
 	   * ***************************************************************************
 	   * ABSCHNITT, Ende: Methoden f�r Gruppe-Objekte
+	   * ***************************************************************************
+	   */
+	
+	   /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Beginn: Methoden f�r Arikel-Objekte @author Larisa
+	   * ***************************************************************************
+	   */
+	
+	public Article createArticle(String name) throws IllegalArgumentException {
+		Article a = new Article(); 
+		a.setName(name);
+		
+		//Setzen einer vorläufigen Artikel-Id, welche nach Kommunikation mit DB auf den nächsthhöheren Wert gesetzt wird.
+		a.setId(1);
+		
+		//Speichern des Artikel-Objekts in der Datenbank 
+		return this.aMapper.insert(a); 
+		
+	}
+	
+	//Auslesen eines Artikels anhand seiner Id
+	public Article getArticleById(int id) throws IllegalArgumentException {
+		return this.aMapper.findByKey(id);
+	
+	}
+	
+	//Auslesen eines Artikels anhand seinem Namen
+	public Vector<Article> getArticleByName(Article article) throws IllegalArgumentException {
+		return this.aMapper.findByName(article); 
+	}
+	
+	//Auslesen aller Artikel 
+	public Vector<Article> getAllArticles() throws IllegalArgumentException {
+		return this.aMapper.findAll(); 
+	}
+	
+	//Speichern eines Artikels 
+	public void save(Article a) throws IllegalArgumentException {
+		aMapper.update(a); 
+	}
+	
+	//L�schen eines Articles 
+	public void delete(Article a) throws IllegalArgumentException {
+		this.aMapper.delete(a);
+	}
+	   /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden f�r Artikel-Objekte
 	   * ***************************************************************************
 	   */
 		
