@@ -1,6 +1,7 @@
 package de.hdm.client.gui;
 
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -47,7 +48,7 @@ public class LeaveGroupDialogBox extends DialogBox {
 		cancelBtn.setStylePrimaryName("cancelButton");
 		confirmBtn.setStylePrimaryName("confirmButton");
 		
-		cancelBtn.addClickhandler(new CancelClickHandler());
+		cancelBtn.addClickHandler(new CancelClickHandler());
 		confirmBtn.addClickHandler(new ConfirmClickHandler());
 		
 		buttonPanel.add(confirmBtn);
@@ -75,4 +76,41 @@ public class LeaveGroupDialogBox extends DialogBox {
 	}
 	
 	//Anpassung in TreeViewModel fehlt noch!!!
+	
+	/*
+	 * Anlegen der benötigten Clickhandler
+	 */
+	
+	//CancelClickHandler, der das Abbrechen des Vorgangs ermöglicht.
+	
+	private class CancelClickHandler implements ClickHandler{
+		
+		public void onClick(ClickEvent ev){
+			LeaveGroupDialogBox.this.hide();
+			
+		}
+		
+	}
+	
+	
+	// Bestätigungsklick zur Ausführung des Vorgangs
+	
+	private class ConfirmClickHandler implements ClickHandler {
+		
+		public void onClick(ClickEvent ev) {
+			if(selectedGroup != null) {
+				
+				//Funktion fehlt noch
+				
+			} else {
+				
+				Window.alert("Es wurde keine Gruppe ausgewählt.");
+				
+					}
+		}
+	}
+	
+
+	
+
 }
