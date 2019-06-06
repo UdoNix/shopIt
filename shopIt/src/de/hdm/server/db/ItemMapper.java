@@ -197,6 +197,22 @@ public Item insert(Item i) {
    
   public Item update(Item i) {
     Connection con = DBConnection.connection();
+    
+    if (i.isFavorit()== true) {
+    	
+    	Item item = new Item ();
+    	 item.setId(i.getId());
+         item.setCreationDate(i.getCreationDate());
+         item.setChangeDate(i.getChangeDate());
+         item.setSalesmanId(i.getSalesmanId());
+         item.setArticleId(i.getArticleId());
+         item.setFavorit(i.isFavorit());
+         item.setStatus(i.isStatus());
+         
+         ItemMapper.itemMapper().insert(item);
+    }
+    
+    
 
     try {
       Statement stmt = con.createStatement();
@@ -210,8 +226,11 @@ public Item insert(Item i) {
     }
 
     // i zueruck geben
+  
     return i;
+    
   }
+  
    
 
    // Daten eines <code>Item</code>-Objekts aus der Datenbank loeschen.
