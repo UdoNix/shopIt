@@ -5,6 +5,8 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.hdm.server.db.DBConnection;
+
 public class EditorAdminView {
 	private Button createGroup;
 	private Button createList;
@@ -15,7 +17,7 @@ public class EditorAdminView {
 	private HorizontalPanel btnPanel = new HorizontalPanel();
 	private VerticalPanel navPanel = new VerticalPanel();
 	
-	//private CellTreeViewModel cellTreeViewModel;
+	private CellTreeViewModel cellTreeViewModel;
 	
 	public EditorAdminView() {
 		createGroup = new Button("Neue Gruppe");
@@ -43,7 +45,6 @@ public class EditorAdminView {
 		
 		mainPanel.add(btnPanel);
 		mainPanel.add(navPanel);
-		
 		
 	}
 	
