@@ -5,20 +5,20 @@ public class Membership extends BusinessObject {
 	private static final long serialVersionUID = 1L;
 
 	//Fremdschlüsselbeziehung zur Gruppe.
-	private int groupId = 0;
+	private int teamId = 0;
 
 	//Fremdschlüsselbeziehung zur Person.
 	private int personId = 0;
 
 	
 	//Auslesen des Fremdschlüssels zur Gruppe.
-	public int getGroupId() {
-		return groupId;
+	public int getTeamId(int teamId){
+		return teamId;
 	}
 
 	//Setzen des Fremdschlüssels zur Gruppe.
-	public void setGroupId(int groupId) {
-		this.groupId = groupId;
+	public void setTeamId(int teamId) {
+		this.teamId = teamId;
 	}
 
 	//Auslesen des Fremdschlüssels zur Person.
@@ -30,5 +30,7 @@ public class Membership extends BusinessObject {
 	public void setPersonId(int personId) {
 		this.personId = personId;
 	}
+
+
 
 }

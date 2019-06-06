@@ -9,7 +9,7 @@ import de.hdm.shared.bo.*;
 import de.hdm.thies.bankProjekt.shared.BankVerwaltungImpl;
 
 /*
- * Synchrone Schnittstelle für eine RPC-fähige Klasse zur Verwaltung.
+ * Synchrone Schnittstelle fï¿½r eine RPC-fï¿½hige Klasse zur Verwaltung.
  *
  *@author Thies, Ciupe
  */
@@ -18,7 +18,7 @@ public interface ShopITAdministration extends RemoteService {
 	
 	/*
 	 * Initialisierung des Objekts. Diese Methode ist vor dem 
-	 * Hintergrund von GWT RPC zusätzlich zum No Argument Constructor 
+	 * Hintergrund von GWT RPC zusï¿½tzlich zum No Argument Constructor 
 	 * der implementierenden Klasse {@link EditorImpl} notwendig. 
 	 * Bitte diese Methode direkt nach der Instantiierung aufrufen.
 	 */
@@ -30,15 +30,15 @@ public interface ShopITAdministration extends RemoteService {
 	
 	//Eine Gruppe mit Name, Person und Einkaufsliste erstellen
 	
-	public Group createGroup(String name, Person p, List l) throws IllegalArgumentException; 
+	public Team createGroup(String name, Person p, List l) throws IllegalArgumentException; 
 	
 	//Auslesen aller Personen der Gruppe
 	
-	public Vector<Person> getPersonsOf(Group g) throws IllegalArgumentException; 
+	public Vector<Person> getPersonsOf(Team g) throws IllegalArgumentException; 
 	
 	//Auslesen aller Einkauflisten der Gruppe
 	
-	public Vector<List> getListsOf(Group g) throws IllegalArgumentException; 
+	public Vector<List> getListsOf(Team g) throws IllegalArgumentException; 
 	
 	
 	

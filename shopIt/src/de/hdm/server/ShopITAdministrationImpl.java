@@ -7,22 +7,22 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import de.hdm.server.db.ArticleMapper;
-import de.hdm.server.db.GroupMapper;
+import de.hdm.server.db.TeamMapper;
 import de.hdm.server.db.ItemMapper;
 import de.hdm.server.db.ListMapper;
 import de.hdm.server.db.MembershipMapper;
 import de.hdm.server.db.PersonMapper;
 import de.hdm.server.db.ResponsibilityMapper;
-import de.hdm.server.db.SalesmanMapper;
+import de.hdm.server.db.ShopMapper;
 import de.hdm.server.db.UnitOfMeasureMapper;
 import de.hdm.shared.ShopITAdministration;
 import de.hdm.shared.bo.Article;
-import de.hdm.shared.bo.Group;
+import de.hdm.shared.bo.Team;
 import de.hdm.shared.bo.Item;
 import de.hdm.shared.bo.List;
 import de.hdm.shared.bo.Membership;
 import de.hdm.shared.bo.Person;
-import de.hdm.shared.bo.Salesman;
+import de.hdm.shared.bo.Shop;
 import de.hdm.shared.bo.UnitOfMeasure;
 import de.hdm.shared.bo.Responsibility;
 
@@ -35,10 +35,10 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	
 	private PersonMapper pMapper = null;
 	private ArticleMapper aMapper = null;
-	private GroupMapper gMapper = null;
+	private TeamMapper tMapper = null;
 	private ItemMapper iMapper = null;
 	private ListMapper lMapper = null;
-	private SalesmanMapper sMapper = null;
+	private ShopMapper sMapper = null;
 	private ResponsibilityMapper rMapper = null;
 	private UnitOfMeasureMapper uMapper = null;
 	private MembershipMapper mMapper = null;
@@ -58,10 +58,10 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	
 		this.pMapper = PersonMapper.personMapper();
 		this.aMapper = ArticleMapper.articleMapper();
-		this.gMapper = GroupMapper.groupMapper();
+		this.tMapper = TeamMapper.teamMapper();
 		this.iMapper = ItemMapper.itemMapper();
 		this.lMapper = ListMapper.listMapper();
-		this.sMapper = SalesmanMapper.salesmanMapper();
+		this.sMapper = ShopMapper.shopMapper();
 		this.rMapper = ResponsibilityMapper.responsibilityMapper();
 		this.uMapper = UnitOfMeasureMapper.unitOfMeasureMapper();
 		this.mMapper = MembershipMapper.membershipMapper();
@@ -101,6 +101,21 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		return this.pMapper.findByKey(id);
 	}
 	
+	//Auslesen eines Anwenders anhand seines Vornamen.
+	public Person getPersonByFirstName(String firstName){
+		return this.pMapper.findPersonByFirstName(firstName);
+	}
+	
+	//Auslesen eines Anwenders anhand seines Nachnamen.
+	public Person getPersonByLastName(String lastName){
+		return this.pMapper.findPersonByLastName(lastName);
+	}
+	
+	//Auslesen eines Anwenders anhand seiner Email.
+	public Person getPersonByEmail(String email) throws IllegalArgumentException{
+		return this.pMapper.findPersonByEmail(email);
+	}
+	
 	//Auslesen aller Anwender.
 	public Vector<Person> getAllPersons() throws IllegalArgumentException{
 		return this.pMapper.findAll();
@@ -131,10 +146,10 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		}
 		
 		//Löschen der Gruppenobjekte in denen der zu löschende Anwender auftritt.
-		Vector<Group> groups = this.getAllGroupsOf(p);
-		if (groups != null){
-			for (Group g : groups){
-				this.delete(g);
+		Vector<Team> team = this.getAllTeamsOf(p);
+		if (team != null){
+			for (Team t : team){
+				this.delete(t);
 			}
 		}
 		
@@ -171,7 +186,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * neue Liste erstellen
 	 */
-	public List createListFor(Group g, String name) throws IllegalArgumentException{
+	public List createListFor(Team g, String name) throws IllegalArgumentException{
 		List l = new List();
 
 		//creationDate + modification Date noch hinzuf�gen
@@ -293,8 +308,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	   */
 	
 	//Erstellen einer Gruppe mit Name, Anwender 
-	public Group createGroup(String name, Person p) throws IllegalArgumentException {
-		Group g = new Group();
+	public Team createGroup(String name, Person p) throws IllegalArgumentException {
+		Team g = new Team();
 		g.setName(name); 
 		
 		//Setzen einer vorläufigen Gruppe-Id, welche nach Kommunikation mit DB auf den nächsthhöheren Wert gesetzt wird.
@@ -313,35 +328,35 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	
 	
 	//Auslesen einer Gruppe anhand seiner Gruppe-Id.
-	public Group getGroupById(int id) throws IllegalArgumentException{
+	public Team getGroupById(int id) throws IllegalArgumentException{
 			return this.gMapper.findByKey(id);
 	}
 		
 	//Auslesen aller Gruppen.
-	public Vector<Group> getAllGroups() throws IllegalArgumentException{
+	public Vector<Team> getAllGroups() throws IllegalArgumentException{
 		return this.gMapper.findAll();
 	}
 		
 	//Speichern einer Gruppe.
-	public void save(Group g) throws IllegalArgumentException{
+	public void save(Team g) throws IllegalArgumentException{
 		gMapper.update(g);
 	}
 
 		
 
 	//Auslesen aller Personen einer Gruppe.
-	public Vector<Person> getAllPersonsOf(Group g) throws IllegalArgumentException {
+	public Vector<Person> getAllPersonsOf(Team g) throws IllegalArgumentException {
 		return this.pMapper.findByGroup(g.getId()); 
 	}
 	
 	//Auslesen aller Listen einer Gruppe.
-	public Vector<List> getAllListsOf(Group g) throws IllegalArgumentException {
+	public Vector<List> getAllListsOf(Team g) throws IllegalArgumentException {
 		return this.lMapper.findByGroup(g.getId()); 
 	}
 		
 	//L�schen einer Gruppe.
 		
-	public void delete(Group g) throws IllegalArgumentException {
+	public void delete(Team g) throws IllegalArgumentException {
 		/*
 		 * Zun�chst werden alle Anwender und Einkaufslisten der Gruppe aus
 		 * der Datenbank entfernt.	
@@ -387,8 +402,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	   * ***************************************************************************
 	   */
 	
-	public Salesman createSalesman(String name, String street, String postalCode, String city) throws IllegalArgumentException {
-		Salesman s = new Salesman();
+	public Shop createSalesman(String name, String street, String postalCode, String city) throws IllegalArgumentException {
+		Shop s = new Shop();
 		s.setCity(city);
 		s.setStreet(street);
 		s.setPostalCode(postalCode);
@@ -408,21 +423,21 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * Auslesen einer H�ndler anhand seiner H�ndler-Id.
 	 */
-	public Salesman getSalesmanById(int id) throws IllegalArgumentException {
+	public Shop getSalesmanById(int id) throws IllegalArgumentException {
 		return this.sMapper.findByKey(id); 
 	}
 	
 	/*
 	 * Auslesen aller H�ndler.
 	 */
-	public Vector<Salesman> getAllSalesman() throws IllegalArgumentException {
+	public Vector<Shop> getAllSalesman() throws IllegalArgumentException {
 		return this.sMapper.findAll(); 
 	}
 	
 	/*
 	 * Speichern eines H�ndlers.
 	 */
-	public void save(Salesman s) throws IllegalArgumentException {
+	public void save(Shop s) throws IllegalArgumentException {
 		sMapper.update(s); 
 	}
 	
@@ -430,7 +445,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * L�schen eines H�ndlers. 
 	 */
 	
-	public void delete(Salesman s) throws IllegalArgumentException {
+	public void delete(Shop s) throws IllegalArgumentException {
 		/*
 		 * Zun�chst werden alle Eintr�ge dieses H�ndler gel�scht werden.
 		 */
@@ -501,7 +516,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * Zust�ndigkeit erstellen
 	 */
 	
-	public Responsibility createResponsibility(Person p, Salesman s) throws IllegalArgumentException{
+	public Responsibility createResponsibility(Person p, Shop s) throws IllegalArgumentException{
 		Responsibility r = new Responsibility();
 		r.setPerson(p);
 		r.setSalesman(s);
@@ -552,7 +567,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * Gruppenmitgliedschaft erstellen
 	 */
 	
-	public Membership createMembership(Person p, Group g) throws IllegalArgumentException{
+	public Membership createMembership(Person p, Team g) throws IllegalArgumentException{
 		Membership m = new Membership();
 		m.setPerson(p);
 		m.setGroup(g);

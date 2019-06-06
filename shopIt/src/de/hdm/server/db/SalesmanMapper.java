@@ -6,7 +6,7 @@ import java.sql.Connection;
 	import java.sql.Statement;
 	import java.util.Vector;
 
-import de.hdm.shared.bo.Salesman;
+import de.hdm.shared.bo.Shop;
 
 	
 public class SalesmanMapper {
@@ -36,7 +36,7 @@ public static SalesmanMapper salesmanMapper() {
 //@parameter id Primärschlüsselattribut
 //@return Salesmanobjekt des übergebenen Schlüssel, null bei nicht vorhandenem Datenbank-Tupel
 
-public Salesman findByKey (int id) {
+public Shop findByKey (int id) {
 	//DB-Verbindung holen
 	Connection con =DBConnection.connection();
 	
@@ -50,7 +50,7 @@ public Salesman findByKey (int id) {
 		//Es wird geprueft, ob ein Ergebnis vorliegt.
 		   if (rs.next()) {
 		        // Ergebnis-Tupel in Objekt umwandeln
-		        Salesman s = new Salesman();
+		        Shop s = new Shop();
 		        s.setId(rs.getInt("id"));
 		        s.setName(rs.getString("name"));
 		        s.setStreet(rs.getString("street"));
@@ -75,11 +75,11 @@ public Salesman findByKey (int id) {
  //        repräsentieren. Bei Exceptions: Ein partiell gefüllter
 //        oder eben leerer Vetor wird zurückgeliefert.
 
-public Vector<Salesman> findAll() {
+public Vector<Shop> findAll() {
   Connection con = DBConnection.connection();
 
   // Ergebnisvektor vorbereiten
-  Vector<Salesman> result = new Vector<Salesman>();
+  Vector<Shop> result = new Vector<Shop>();
 
   try {
     Statement stmt = con.createStatement();
@@ -89,7 +89,7 @@ public Vector<Salesman> findAll() {
 
     // Für jeden Eintrag im Suchergebnis wird nun ein Salesman-Objekt erstellt.
     while (rs.next()) {
-      Salesman s = new Salesman();
+      Shop s = new Shop();
       s.setId(rs.getInt("id"));
       s.setName(rs.getString("name"));
       s.setStreet(rs.getString("street"));
@@ -119,7 +119,7 @@ public Vector<Salesman> findAll() {
 //@return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
  //        <code>id</code>.
 
-public Salesman insert(Salesman s) {
+public Shop insert(Shop s) {
   Connection con = DBConnection.connection();
 
   try {
@@ -158,7 +158,7 @@ public Salesman insert(Salesman s) {
   // @param s  Objekt, das in die Datenbank geschrieben werden soll
   //@return das als Parameter übergebene Objekt
    
-  public Salesman update(Salesman s) {
+  public Shop update(Shop s) {
     Connection con = DBConnection.connection();
 
     try {
@@ -180,7 +180,7 @@ public Salesman insert(Salesman s) {
    // Daten eines <code>Salesman</code>-Objekts aus der Datenbank loeschen.
     // @param s das aus der DB zu loeschende "Objekt"
    
-   public void delete(Salesman s) {
+   public void delete(Shop s) {
      Connection con = DBConnection.connection();
 
      try {

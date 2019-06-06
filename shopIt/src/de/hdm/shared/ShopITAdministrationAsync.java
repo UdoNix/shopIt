@@ -2,7 +2,7 @@ package de.hdm.shared;
 
 import java.util.Vector;
 
-import de.hdm.shared.bo.Group;
+import de.hdm.shared.bo.Team;
 import de.hdm.shared.bo.List;
 import de.hdm.shared.bo.Person;
 
@@ -16,15 +16,15 @@ public void init() throws IllegalArgumentException;
 	
 	//Eine Gruppe mit Name, Person und Einkaufsliste erstellen
 	
-	public Group createGroup(String name, Person p, List l) throws IllegalArgumentException; 
+	public Team createGroup(String name, Person p, List l) throws IllegalArgumentException; 
 	
 	//Auslesen aller Personen der Gruppe
 	
-	public Vector<Person> getPersonsOf(Group g) throws IllegalArgumentException; 
+	public Vector<Person> getPersonsOf(Team g) throws IllegalArgumentException; 
 	
 	//Auslesen aller Einkauflisten der Gruppe
 	
-	public Vector<List> getListsOf(Group g) throws IllegalArgumentException; 
+	public Vector<List> getListsOf(Team g) throws IllegalArgumentException; 
 	
 
 }

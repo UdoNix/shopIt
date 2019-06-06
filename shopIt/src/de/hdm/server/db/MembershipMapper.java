@@ -7,7 +7,7 @@ package de.hdm.server.db;
 	import java.sql.Statement;
 	import java.util.Vector;
 
-import de.hdm.shared.bo.Group;
+import de.hdm.shared.bo.Team;
 import de.hdm.shared.bo.Membership;
 import de.hdm.shared.bo.Person;
 
@@ -180,7 +180,7 @@ import de.hdm.shared.bo.Person;
 	     }
 	   }
 	   
-	   public Vector<Person> findByMember(Group group) {
+	   public Vector<Person> findByMember(Team group) {
 
 		    return findByMember(group.getId());
 	   }

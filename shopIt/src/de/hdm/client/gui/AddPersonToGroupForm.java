@@ -15,7 +15,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.EditorServiceAsync;
-import de.hdm.shared.bo.Group;
+import de.hdm.shared.bo.Team;
 import de.hdm.shared.bo.Person;
 
 	/**
@@ -30,7 +30,7 @@ import de.hdm.shared.bo.Person;
 		EditorServiceAsync listenVerwaltung = ClientsideSettings.getEditorService();
 		//private Person p = CurrentPerson.person();
 		private Person newGroupMember = null;
-		private Group selectedGroup = null;
+		private Team selectedGroup = null;
 		
 		private VerticalPanel contentPanel = new VerticalPanel();
 		private Label infoLabel = new Label("Neues Gruppenmitglied hinzufügen.");
@@ -63,11 +63,11 @@ import de.hdm.shared.bo.Person;
 		}
 		
 		
-		public Group getSelectedGroup() {
+		public Team getSelectedGroup() {
 			return selectedGroup;
 		}
 
-		public void setSelectedGroup(Group selectedGroup) {
+		public void setSelectedGroup(Team selectedGroup) {
 			this.selectedGroup = selectedGroup;
 		}
 

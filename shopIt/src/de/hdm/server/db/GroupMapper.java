@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 
-import de.hdm.shared.bo.Group;
+import de.hdm.shared.bo.Team;
 import de.hdm.shared.bo.Person;
 
 
@@ -38,7 +38,7 @@ public static GroupMapper groupMapper() {
 //@parameter id Primärschlüsselattribut
 //@return Gruppenobjekt des übergebenen Schlüssel, null bei nicht vorhandenem Datenbank-Tupel
 
-public Group findByKey (int id) {
+public Team findByKey (int id) {
 	//DB-Verbindung holen
 	Connection con =DBConnection.connection();
 	
@@ -52,7 +52,7 @@ public Group findByKey (int id) {
 		//Es wird geprueft, ob ein Ergebnis vorliegt.
 		   if (rs.next()) {
 		        // Ergebnis-Tupel in Objekt umwandeln
-		        Group g = new Group();
+		        Team g = new Team();
 		        g.setId(rs.getInt("id"));
 		        g.setName(rs.getString("name"));
 		        g.setCreationDate(rs.getTimestamp("creationDate"));
@@ -73,11 +73,11 @@ public Group findByKey (int id) {
  //        repräsentieren. Bei Exceptions: Ein partiell gefüllter
 //        oder eben leerer Vetor wird zurückgeliefert.
 
-public Vector<Group> findAll() {
+public Vector<Team> findAll() {
   Connection con = DBConnection.connection();
 
   // Ergebnisvektor vorbereiten
-  Vector<Group> result = new Vector<Group>();
+  Vector<Team> result = new Vector<Team>();
 
   try {
     Statement stmt = con.createStatement();
@@ -87,7 +87,7 @@ public Vector<Group> findAll() {
 
     // Für jeden Eintrag im Suchergebnis wird nun ein Group-Objekt erstellt.
     while (rs.next()) {
-      Group g = new Group();
+      Team g = new Team();
       g.setId(rs.getInt("id"));
       g.setName(rs.getString("name"));
       g.setCreationDate(rs.getTimestamp("creationDate"));
@@ -113,7 +113,7 @@ public Vector<Group> findAll() {
 //@return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
  //        <code>id</code>.
 
-public Group insert(Group g) {
+public Team insert(Team g) {
   Connection con = DBConnection.connection();
 
   try {
@@ -147,7 +147,7 @@ public Group insert(Group g) {
   // @param g  Objekt, das in die Datenbank geschrieben werden soll
   //@return das als Parameter übergebene Objekt
   
-  public Group update(Group g) {
+  public Team update(Team g) {
     Connection con = DBConnection.connection();
 
     try {
@@ -169,7 +169,7 @@ public Group insert(Group g) {
    // Daten eines <code>Group</code>-Objekts aus der Datenbank loeschen.
     // @param g das aus der DB zu loeschende "Objekt"
    
-   public void delete(Group g) {
+   public void delete(Team g) {
      Connection con = DBConnection.connection();
 
      try {
@@ -183,15 +183,15 @@ public Group insert(Group g) {
      }
    }
    
-   public Vector<Person> getPersonsOf(Group g) {
+   public Vector<Person> getPersonsOf(Team g) {
  		//Wir bedienen uns hier einfach des MembershipMapper.
  		return MembershipMapper.membershipMapper().findByMember(g);
    
 }
 
-	 public Vector<Group> getGroupsOf(Person p) {
+	 public Vector<Team> getGroupsOf(Person p) {
 		   Connection con = DBConnection.connection();
-		    Vector<Group> result = new Vector<Group>();
+		    Vector<Team> result = new Vector<Team>();
 
 		    try {
 		      Statement stmt = con.createStatement();
@@ -201,7 +201,7 @@ public Group insert(Group g) {
 
 		      
 		      while (rs.next()) {
-		        Group g = new Group();
+		        Team g = new Team();
 		        g.setId(rs.getInt("id"));
 		     
 		        result.addElement(g);
