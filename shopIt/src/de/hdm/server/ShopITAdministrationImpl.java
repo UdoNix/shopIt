@@ -228,8 +228,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	   */
 	  /*
 	   * ***************************************************************************
-<<<<<<< HEAD
-	   * ABSCHNITT, Beginn: Methoden f�r Eintrag @author Ilona
+
 =======
 	   * ABSCHNITT, Beginn: Methoden f�r Eintrag @author Thies Ilona
 >>>>>>> refs/heads/Ilona
@@ -292,53 +291,53 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	   */
 	
 	//Erstellen einer Gruppe mit Name, Anwender 
-	public Group createGroup(String name, Person p) throws IllegalArgumentException {
-		Group g = new Group();
-		g.setName(name); 
+	public Team createTeam(String name, Person p) throws IllegalArgumentException {
+		Team t = new Team();
+		t.setName(name); 
 		
 		//Setzen einer vorläufigen Gruppe-Id, welche nach Kommunikation mit DB auf den nächsthhöheren Wert gesetzt wird.
-		g.setId(1);
+		t.setId(1);
 		
 		//Speichern des Gruppe-Objekts in der DB.
-		return this.gMapper.insert(g); 
+		return this.gMapper.insert(t); 
 	}
 	
 	//Auslesen einer Gruppe anhand seiner Gruppe-Id.
-	public Group getGroupById(int id) throws IllegalArgumentException{
-			return this.gMapper.findByKey(id);
+	public Team getTeamById(int id) throws IllegalArgumentException{
+			return this.tMapper.findByKey(id);
 	}
 		
 	//Auslesen aller Gruppen.
-	public Vector<Group> getAllGroups() throws IllegalArgumentException{
-		return this.gMapper.findAll();
+	public Vector<Team> getAllTeams() throws IllegalArgumentException{
+		return this.tMapper.findAll();
 	}
 		
 	//Speichern einer Gruppe.
-	public void save(Group g) throws IllegalArgumentException{
-		gMapper.update(g);
+	public void save(Team t) throws IllegalArgumentException{
+		tMapper.update(t);
 	}
 
 		
 
 	//Auslesen aller Personen einer Gruppe.
-	public Vector<Person> getAllPersonsOf(Group g) throws IllegalArgumentException {
+	public Vector<Person> getAllPersonsOf(Team t) throws IllegalArgumentException {
 		return this.mMapper.findByMember(g.getId()); 
 	}
 	
 	//Auslesen aller Listen einer Gruppe.
-	public Vector<List> getAllListsOf(Group g) throws IllegalArgumentException {
-		return this.lMapper.findByGroup(g.getId()); 
+	public Vector<List> getAllListsOf(Team t) throws IllegalArgumentException {
+		return this.lMapper.findByTeam(g.getId()); 
 	}
 		
 	//L�schen einer Gruppe.
 		
-	public void delete(Group g) throws IllegalArgumentException {
+	public void delete(Team t) throws IllegalArgumentException {
 		/*
 		 * Zun�chst werden alle Anwender und Einkaufslisten der Gruppe aus
 		 * der Datenbank entfernt.	
 		 */
 		
-		Vector<Person> membership = this.getAllPersonsOf(g); 
+		Vector<Person> membership = this.getAllPersonsOf(t); 
 		
 		if (membership != null) {
 			for (Person p: membership) {
@@ -346,7 +345,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 			}
 		}
 		
-		Vector<List> lists = this.getAllListsOf(g);
+		Vector<List> lists = this.getAllListsOf(t);
 		
 		if (lists != null) {
 			for (List l: lists) {
@@ -356,7 +355,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		/*
 		 * Anschlie�end die Gruppe entfernen
 		 */
-		this.gMapper.delete(g);
+		this.tMapper.delete(t);
 		
 	}
 	   /*
@@ -417,12 +416,12 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	   /*
 	   * ***************************************************************************
-	   * ABSCHNITT, Beginn: Methoden f�r H�ndler-Objekte
+	   * ABSCHNITT, Beginn: Methoden f�r H�ndler-Objekte @Larisa
 	   * ***************************************************************************
 	   */
 	
-	public Salesman createSalesman(String name, String street, String postalCode, String city) throws IllegalArgumentException {
-		Salesman s = new Salesman();
+	public Salesman createShop(String name, String street, String postalCode, String city) throws IllegalArgumentException {
+		Shop s = new Shop();
 		s.setCity(city);
 		s.setStreet(street);
 		s.setPostalCode(postalCode);
@@ -442,21 +441,21 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * Auslesen einer H�ndler anhand seiner H�ndler-Id.
 	 */
-	public Salesman getSalesmanById(int id) throws IllegalArgumentException {
+	public Shop getShopById(int id) throws IllegalArgumentException {
 		return this.sMapper.findByKey(id); 
 	}
 	
 	/*
 	 * Auslesen aller H�ndler.
 	 */
-	public Vector<Salesman> getAllSalesman() throws IllegalArgumentException {
+	public Vector<Shop> getAllShops() throws IllegalArgumentException {
 		return this.sMapper.findAll(); 
 	}
 	
 	/*
 	 * Speichern eines H�ndlers.
 	 */
-	public void save(Salesman s) throws IllegalArgumentException {
+	public void save(Shop s) throws IllegalArgumentException {
 		sMapper.update(s); 
 	}
 	
@@ -464,19 +463,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * L�schen eines H�ndlers. 
 	 */
 	
-	public void delete(Salesman s) throws IllegalArgumentException {
-		/*
-		 * Zun�chst werden alle Eintr�ge dieses H�ndler gel�scht werden.
-		 */
-		Vector<Item> items = this.getItemsOf(s); 
-
-		if (items != null) {
-			for (Item i : items) {
-				this.delete(i); 
-			}
-		}
-		
-		//Anschlie�end den H�ndler entfernen
+	public void delete(Shop s) throws IllegalArgumentException {
 
 		this.sMapper.delete(s); 
 		
@@ -491,7 +478,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	
 	   /*
 	   * ***************************************************************************
-	   * ABSCHNITT, Beginn: Methoden f�r Ma�einheit-Objekte
+	   * ABSCHNITT, Beginn: Methoden f�r Ma�einheit-Objekte @Larisa
 	   * ***************************************************************************
 	   */
 	
@@ -521,7 +508,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	
 	   /*
 	   * ***************************************************************************
-	   * ABSCHNITT, Ende: Methoden f�r H�ndler-Objekte
+	   * ABSCHNITT, Ende: Methoden f�r Ma�einheit-Objekte
 	   * ***************************************************************************
 	   */
 	
