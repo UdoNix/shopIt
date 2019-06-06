@@ -60,7 +60,7 @@ public class HTMLReportWriter extends ReportWriter{
 	 * Prozessieren des �bergebenen Reports und Ablage im Zielformat
 	 * Auslesen der Ergebnisse durch getReportText()
 	 */
-	public void process(AllItemsOfPersonReport r) {
+	public void process(AllArticlesOfPersonReport r) {
 		this.resetReport();
 		//Ergebnisse werden eingetragen
 		StringBuffer result = new StringBuffer();
@@ -114,7 +114,7 @@ public class HTMLReportWriter extends ReportWriter{
 	     * Auslesen durch getReportText()
 	     * r ist der zu prozessierende Report
 	     */
-	public void process(AllItemsOfAllPersonsReport r) {
+	public void process(AllArticlesOfAllPersonsReport r) {
 		// Zun�chst l�schen wir das Ergebnis vorhergehender Prozessierungen
 		this.resetReport();
 		//Ergebnisse werden in diesen Buffer geschrieben
@@ -136,7 +136,7 @@ public class HTMLReportWriter extends ReportWriter{
 	    for (int i = 0; i < r.getNumSubReports(); i++) {
 	    	//Wenn ein Bestandteil des Reports nicht mehr gilt, sollte hier eine 
 	    	// detaillierte Implementierung erfolgen
-	    	AllItemsOfPersonReport subReport = (AllItemsOfPersonReport) r.getSubReportAt(i);
+	    	AllArticlesOfPersonReport subReport = (AllArticlesOfPersonReport) r.getSubReportAt(i);
 	    	
 	    	this.process(subReport);
 	    	
