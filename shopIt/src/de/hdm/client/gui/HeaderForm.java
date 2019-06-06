@@ -8,7 +8,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 	import com.google.gwt.user.client.rpc.AsyncCallback;
 	import com.google.gwt.user.client.ui.*;
 	import de.hdm.client.ClientsideSettings;
-	import de.hdm.shared.EditorServiceAsync;
+	import de.hdm.shared.ShopItAdministrationAsync;
 	import de.hdm.shared.bo.Person;
 
 	/**
@@ -23,7 +23,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 		 * Erzeugen eines Listenverwaltung-Objekts um die Applikationsverwaltung zu
 		 * initialisieren.
 		 */
-		EditorServiceAsync listenVerwaltung = ClientsideSettings.getEditorServiceAsync();
+		ShopItAdministrationAsync listenVerwaltung = ClientsideSettings.getEditorServiceAsync();
 
 		/**
 		 * Instanziierung gewünschter Elemente

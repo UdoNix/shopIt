@@ -8,7 +8,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.client.ClientsideSettings;
-import de.hdm.shared.EditorServiceAsync;
+import de.hdm.shared.ShopItAdministrationAsync;
 import de.hdm.shared.bo.List;
 
 public class EditListFormDialogBox{

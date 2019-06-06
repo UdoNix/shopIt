@@ -17,9 +17,9 @@ import de.hdm.shared.bo.Group;
 /**
  * The client-side stub for the RPC service.
  */
-@RemoteServiceRelativePath("EditorService")
+@RemoteServiceRelativePath("ShopItAdministration")
 
-public interface EditorService extends RemoteService {
+public interface ShopItAdministration extends RemoteService {
 	
 	Vector<Group> getAllMembersOf(Group g) throws IllegalArgumentException;
 	
