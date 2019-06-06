@@ -25,8 +25,12 @@ public class ShopIt implements EntryPoint{
 	 Button settings = new Button("Einstellungen");
 	 
 	 AccountForm acForm;
+<<<<<<< HEAD
+//	 GroupForm grForm;
+=======
 	 GroupForm grForm;
 	 //AddPersonToGroupForm addPerson;
+>>>>>>> refs/heads/master
 
 //	contentPanel.add(logoutBtn);
 //	contentPanel.add(settings);
@@ -40,14 +44,22 @@ public class ShopIt implements EntryPoint{
 	public void onModuleLoad() {
 		
 		acForm = new AccountForm();
+<<<<<<< HEAD
+//		grForm = new GroupForm();
+=======
 		grForm = new GroupForm();
 		//addPerson = new AddPersonToGroupForm();
 		
+>>>>>>> refs/heads/master
 		/**
 		 * The Vertical Panel is a gwt standard, it content vertically
 		 */
 		VerticalPanel vPanel = new VerticalPanel();
 		
+<<<<<<< HEAD
+		acForm.loadAccount();
+//		grForm.loadGroup();
+=======
 		acForm.onLoad();
 		grForm.onLoad();
 		
@@ -58,6 +70,7 @@ public class ShopIt implements EntryPoint{
 		
 		//addPerson.onLoad();
 		
+>>>>>>> refs/heads/master
 //		Label myLbl = new Label("Hallo");
 //		
 //		HorizontalPanel hPanel = new HorizontalPanel();

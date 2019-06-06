@@ -73,6 +73,7 @@ public class GroupForm extends VerticalPanel {
 			contentPanel.add(name);
 			//contentPanel.add(idLabel);
 			contentPanel.add(creationTime);
+			RootPanel.get().clear();
 			RootPanel.get("main").add(contentPanel);
 			
 		}
