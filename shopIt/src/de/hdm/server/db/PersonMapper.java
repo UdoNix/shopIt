@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 
+import de.hdm.shared.bo.List;
 import de.hdm.shared.bo.Person;
 
 
@@ -244,6 +245,12 @@ public Person insert(Person p) {
 
 		return null;
 	}
-				
+			
+	public Vector<List> getAllListsOf(Person p){
+		
+		return ListMapper.listMapper().getAllListsOf(p);
+		
+	}
+	
 }
 
