@@ -164,21 +164,21 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	  /*
 	   * ***************************************************************************
-	   * ABSCHNITT, Beginn: Methoden f�r Liste @author Ilona
+	   * ABSCHNITT, Beginn: Methoden f�r Liste @author IlonaBrinkmann
 	   * ***************************************************************************
 	   */
 	
 	/*
 	 * neue Liste erstellen
 	 */
-	public List createListFor(Group g, String name) throws IllegalArgumentException{
+	public List createListFor(Team t, String name) throws IllegalArgumentException{
 		List l = new List();
 
 		//creationDate + modification Date noch hinzuf�gen
 
 		l.setId(1);
 		l.setName(name);
-		l.setGroupId(g.getId());
+		l.setGroupId(t.getId());
 		
 
 		return this.lMapper.insert(l);
@@ -228,11 +228,9 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	   */
 	  /*
 	   * ***************************************************************************
-<<<<<<< HEAD
-	   * ABSCHNITT, Beginn: Methoden f�r Eintrag @author Ilona
-=======
-	   * ABSCHNITT, Beginn: Methoden f�r Eintrag @author Thies Ilona
->>>>>>> refs/heads/Ilona
+
+	   * ABSCHNITT, Beginn: Methoden f�r Eintrag @author IlonaBrinkmann
+
 	   * ***************************************************************************
 	   */
 	/*
@@ -493,7 +491,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	
 	  /*
 	   * ***************************************************************************
-	   * ABSCHNITT, Beginn: Methoden f�r Zust�ndigkeits-Objekte
+	   * ABSCHNITT, Beginn: Methoden f�r Zust�ndigkeits-Objekte @author IlonaBrinkmann
 	   * ***************************************************************************
 	   */
 		
@@ -501,10 +499,10 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * Zust�ndigkeit erstellen
 	 */
 	
-	public Responsibility createResponsibility(Person p, Salesman s) throws IllegalArgumentException{
+	public Responsibility createResponsibility(Person p, Shop s) throws IllegalArgumentException{
 		Responsibility r = new Responsibility();
 		r.setPerson(p);
-		r.setSalesman(s);
+		r.setShop(s);
 		
 		return this.rMapper.insert(r);
 		
@@ -544,7 +542,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	
 	  /*
 	   * ***************************************************************************
-	   * ABSCHNITT, Begin: Methoden f�r Gruppenmitgliedschaft-Objekte
+	   * ABSCHNITT, Begin: Methoden f�r Gruppenmitgliedschaft-Objekte @author IlonaBrinkmann
 	   * ***************************************************************************
 	   */
 	
@@ -552,10 +550,10 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * Gruppenmitgliedschaft erstellen
 	 */
 	
-	public Membership createMembership(Person p, Group g) throws IllegalArgumentException{
+	public Membership createMembership(Person p, Team t) throws IllegalArgumentException{
 		Membership m = new Membership();
 		m.setPerson(p);
-		m.setGroup(g);
+		m.setTeam(t);
 		m.setId(1);
 		
 		return this.mMapper.insert(m);
@@ -570,7 +568,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * alle Gruppen einer Person aufzeigen
 	 */
-	public Vector<Groups> getAllMembershipOfPerson(Person p) throws IllegalArgumentException{
+	public Vector<Teams> getAllMembershipOfPerson(Person p) throws IllegalArgumentException{
 		return this.mMapper.findByPerson(p);
 	}
 	/*
