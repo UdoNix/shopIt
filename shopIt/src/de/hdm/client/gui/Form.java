@@ -9,7 +9,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 import de.hdm.client.ClientsideSettings;
-import de.hdm.shared.EditorServiceAsync;
+import de.hdm.shared.ShopItAdministrationAsync;
 import de.hdm.shared.bo.Person;
 
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -20,7 +20,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 import de.hdm.client.ClientsideSettings;
-import de.hdm.shared.EditorServiceAsync;
+import de.hdm.shared.ShopItAdministrationAsync;
 import de.hdm.shared.bo.Person;
 	import java.util.Vector;
 
@@ -37,7 +37,7 @@ import de.hdm.shared.bo.Person;
 	import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.client.ClientsideSettings;
-import de.hdm.shared.EditorServiceAsync;
+import de.hdm.shared.ShopItAdministrationAsync;
 
 
 	public class Form extends VerticalPanel {
