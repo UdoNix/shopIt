@@ -213,5 +213,37 @@ public Person insert(Person p) {
 			
 			return result;
 		}
+   
+//Person anhand seiner Email finden
+   
+	public Person findPersonByEmail(String email) {
+		//DB-Verbindung holen
+		Connection con = DBConnection.connection();
 
+		try {
+			// Leeres SQL-Statement (JDBC) anlegen
+			Statement stmt = con.createStatement();
+
+			// Statement ausfüllen und als Query an die DB schicken
+			ResultSet rs = stmt.executeQuery(
+					"SELECT id, firstName, lastName FROM person " + "WHERE email=" +"'" + email + "'" );
+
+			if (rs.next()) {
+				// Ergebnis-Tupel in Objekt umwandeln
+				Person p = new Person();
+				p.setId(rs.getInt("id"));
+				p.setFirstName(rs.getString("firstName"));
+				p.setLastName(rs.getString("lastName"));
+
+				return p;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		return null;
+	}
+				
 }
+
