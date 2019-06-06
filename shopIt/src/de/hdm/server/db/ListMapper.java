@@ -8,6 +8,7 @@ package de.hdm.server.db;
 	import java.util.Vector;
 
 import de.hdm.shared.bo.List;
+import de.hdm.shared.bo.Person;
 
 public class ListMapper {	
 		// Klasse ListMapper als Singleton
@@ -113,6 +114,44 @@ public class ListMapper {
 
 		      ResultSet rs = stmt.executeQuery("SELECT id, name FROM list "
 		          + "WHERE goup=" + groupID + " ORDER BY id");
+		      while (rs.next()) {
+		    	  List l = new List();
+			        l.setId(rs.getInt("id"));
+			        l.setName(rs.getString("name"));
+			        l.setCreationDate(rs.getTimestamp("creationDate"));
+				    l.setChangeDate(rs.getTimestamp("changeDate"));
+				    l.setGroupId(rs.getInt("groupId"));
+
+			        result.addElement(l);
+			        
+		      }
+		    }
+		    catch (SQLException e2) {
+		      e2.printStackTrace();
+		    }
+
+		    // Ergebnisvektor zurückgeben
+		    return result;
+		  }
+	
+	/*
+	 * @author Udo Nix
+	 */
+	public Vector<List>getAllListsOf(Person p) {
+		Connection con = DBConnection.connection();
+		
+		Vector<List> result = new Vector<List>();
+		
+		
+		
+		try {
+			Statement stmt = con.createStatement();
+
+		      ResultSet rs = stmt.executeQuery("SELECT * "
+		      		+ "FROM List L "
+		      		+ "JOIN Group G ON L.groupId = G.id"
+		      		+ "JOIN Membership M ON G.Id = M.groupId"
+		      		+ "WHERE personId = " + p.getId() + " ORDER BY id");
 		      while (rs.next()) {
 		    	  List l = new List();
 			        l.setId(rs.getInt("id"));

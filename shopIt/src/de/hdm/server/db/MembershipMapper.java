@@ -101,6 +101,37 @@ import de.hdm.shared.bo.Person;
 	  //Der Ergebnisvektor wird zurueckgegeben
 	  return result;
 	}
+	
+	public Vector<Membership>getAllMembershipsOf(int personId) {
+		  Connection con = DBConnection.connection();
+
+		  // Ergebnisvektor vorbereiten
+		  Vector<Membership> result = new Vector<Membership>();
+
+		  try {
+		    Statement stmt = con.createStatement();
+
+		    ResultSet rs = stmt.executeQuery("SELECT * FROM membership  WHERE personId = " + personId 
+		        + " ORDER BY id");
+
+		    // Für jeden Eintrag im Suchergebnis wird nun ein Membership-Objekt erstellt.
+		    while (rs.next()) {
+		      Membership m = new Membership();
+		      m.setId(rs.getInt("id"));
+		      m.setPersonId(rs.getInt("personId"));
+		      m.setGroupId(rs.getInt("groupId"));
+
+		      // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
+		      result.addElement(m);
+		    }
+		  }
+		  catch (SQLException e2) {
+		    e2.printStackTrace();
+		  }
+
+		  //Der Ergebnisvektor wird zurueckgegeben
+		  return result;
+		}
 
 
 	 //Einfügen eines <code>Membership</code>-Objekts in die Datenbank. Es wird
