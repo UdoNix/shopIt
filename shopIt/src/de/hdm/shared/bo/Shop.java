@@ -1,5 +1,5 @@
 package de.hdm.shared.bo;
-public class Salesman extends BusinessObject{
+public class Shop extends BusinessObject{
 
 	private static final long serialVersionUID = 1L;
 

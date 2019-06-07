@@ -1,5 +1,5 @@
 package de.hdm.shared.bo;
-public class Group extends BusinessObject{
+public class Team extends BusinessObject{
 
 	private static final long serialVersionUID = 1L;
 	
