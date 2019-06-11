@@ -186,11 +186,11 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * neue Liste erstellen
 	 */
-
+<<<<<<< HEAD
 	public List createListFor(Team g, String name) throws IllegalArgumentException{
-
+=======
 	public List createListFor(Team t, String name) throws IllegalArgumentException{
-
+>>>>>>> refs/remotes/origin/Ilona
 		List l = new List();
 
 		//creationDate + modification Date noch hinzuf�gen
