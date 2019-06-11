@@ -10,8 +10,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.client.ClientsideSettings;
-import de.hdm.shared.EditorService;
-import de.hdm.shared.EditorServiceAsync;
+import de.hdm.shared.ShopItAdministration;
+import de.hdm.shared.ShopItAdministrationAsync;
 import de.hdm.shared.bo.*;
 
 /*
@@ -26,7 +26,7 @@ public class LeaveGroupDialogBox extends DialogBox {
 	
 	//Entsprechendes Interface wird noch angepasst
 	
-	private EditorServiceAsync listenverwaltung = ClientsideSettings.getEditorService();
+	private ShopItAdministrationAsync listenverwaltung = ClientsideSettings.getEditorService();
 	
 	private Person p = currentPerson.getPerson();
 	private Group selectedGroup = null;

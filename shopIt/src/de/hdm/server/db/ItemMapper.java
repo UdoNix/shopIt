@@ -10,7 +10,7 @@ import de.hdm.shared.bo.Article;
 import de.hdm.shared.bo.Item;
 import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Responsibility;
-import de.hdm.shared.bo.Salesman;
+import de.hdm.shared.bo.Shop;
 
 	
 public class ItemMapper {
@@ -62,6 +62,10 @@ public Item findByKey (int id) {
 		        i.setArticleId(rs.getInt("articleId"));
 		        i.setFavorit(rs.getBoolean("favorit"));
 		        i.setStatus(rs.getBoolean("status"));
+		        i.setUnitId(rs.getInt("unitId"));
+		        i.setListId(rs.getInt("listId"));
+		        i.setTeamId(rs.getTeamInt("teamId"));
+		        
 		    	
 		        return i;
 		      }
@@ -101,6 +105,9 @@ public Vector<Item> findAll() {
       i.setArticleId(rs.getInt("articleId"));
       i.setFavorit(rs.getBoolean("favorit"));
       i.setStatus(rs.getBoolean("status"));
+      i.setUnitId(rs.getInt("unitId"));
+      i.setListId(rs.getInt("listId"));
+      i.setTeamId(rs.getTeamInt("teamId"));
       
 
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
@@ -130,13 +137,15 @@ public Vector<Item> findByList (int listId){
 	      while (rs.next()) {
 	        Item i = new Item();
 	        i.setId(rs.getInt("id"));
-	        i.setListId(rs.getInt("listId"));
 	        i.setCreationDate(rs.getTimestamp("creationDate"));
 	        i.setChangeDate(rs.getTimestamp("changeDate"));
 	        i.setSalesmanId(rs.getInt("salesmanId"));
 	        i.setArticleId(rs.getInt("articleId"));
 	        i.setFavorit(rs.getBoolean("favorit"));
 	        i.setStatus(rs.getBoolean("status"));
+	        i.setUnitId(rs.getInt("unitId"));
+	        i.setListId(rs.getInt("listId"));
+	        i.setTeamId(rs.getTeamInt("teamId"));
 
 	        // Hinzufügen des neuen Objekts zum Ergebnisvektor
 	        result.addElement(i);
@@ -179,8 +188,8 @@ public Item insert(Item i) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO Item (id, salesmanId, articleId, favorit,status) " + "VALUES ("
-	          + i.getId() + "," +i.getSalesmanId()+ "," +i.getArticleId()+ "," +i.isStatus()+ ","+i.isFavorit() +")");
+      stmt.executeUpdate("INSERT INTO Item (id, shopId,unitId, listId, articleId,teamId, isFavorit, isStatus) " + "VALUES ("
+	          + i.getId() + "," +i.getListId()+ "," + "," +i.getUnitId() +i.getShopId()+ "," +i.getArticleId()+ "," +i.isStatus()+ ","+i.isFavorit() +")");
   
     }
   }
@@ -197,12 +206,31 @@ public Item insert(Item i) {
    
   public Item update(Item i) {
     Connection con = DBConnection.connection();
+    
+    if (i.isFavorit()== true) {
+    	
+    	Item item = new Item ();
+    	 item.setId(i.getId());
+         item.setCreationDate(i.getCreationDate());
+         item.setChangeDate(i.getChangeDate());
+         item.setShopId(i.getSalesmanId());
+         item.setArticleId(i.getArticleId());
+         item.setFavorit(i.isFavorit());
+         item.setStatus(i.isStatus());
+	     item.setUnitId(i.getUnitId());
+	     item.setListId(i.getListId());
+	     item.setTeamId(i.getTeamId());
+         
+         ItemMapper.itemMapper().insert(item);
+    }
+    
+    
 
     try {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE list " + "SET id=\"" + i.getId()
-       + "\", " + "salesmanId=\"" + i.getSalesmanId()+ "\", " + "articleId=\"" + i.getArticleId()+ "\", " + "istStatus=\"" + i.isStatus()+ "\", " + "isFavorit=\"" + i.isFavorit()+"\", "+ "WHERE id=" + i.getId());
+       + "\", " + "shopId=\"" + "\", " + "teamId=\"" + i.getTeamId()+ i.getShopnId()+ "\", " + "unitId=\"" + i.getUnitId()+ "\", " + "articleId=\"" + i.getArticleId()+ "\", " + "isStatus=\"" + "\", " + "listid=\"" + i.getListId()+ i.isStatus()+ "\", " + "isFavorit=\"" + i.isFavorit()+"\", "+ "WHERE id=" + i.getId());
 
     }
     catch (SQLException e2) {
@@ -210,8 +238,11 @@ public Item insert(Item i) {
     }
 
     // i zueruck geben
+  
     return i;
+    
   }
+  
    
 
    // Daten eines <code>Item</code>-Objekts aus der Datenbank loeschen.
@@ -238,13 +269,13 @@ public Item insert(Item i) {
 	      Statement stmt = con.createStatement();
 
 	      ResultSet rs = stmt.executeQuery("SELECT id, salesmanId FROM item "
-	          + " Group By salesmanId");
+	          + " Group By shopId");
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt erstellt.
 	      while (rs.next()) {
 	        Item i = new Item();
 	        i.setId(rs.getInt("id"));
-	        i.setSalesmanId(rs.getInt("salesmanId"));
+	        i.setShopId(rs.getInt("shopId"));
 
 	        // Hinzufügen des neuen Objekts zum Ergebnisvektor
 	        result.addElement(i);
@@ -268,7 +299,7 @@ public Item insert(Item i) {
 	      Statement stmt = con.createStatement();
 
 	      ResultSet rs = stmt.executeQuery("SELECT ItemId FROM item "
-	          + " Inner JOIN Salesman ON item.salesmanId=Salesman.Id" + "INNER JOIN responsibility ON responsibility.salesmanId=salesman.Id");
+	          + " Inner JOIN Salesman ON item.shopId=Shop.Id" + "INNER JOIN responsibility ON responsibility.shopId=shop.Id");
 
 	      
 	      while (rs.next()) {

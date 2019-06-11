@@ -4,13 +4,13 @@ import java.util.Vector;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import de.hdm.shared.bo.Group;
+import de.hdm.shared.bo.Team;
 
 public interface EditorServiceAsync {
 
 	void getAllMembersOfGroup(String text, ShowGroupCallback showGroupCallback);
 
-	void getAllMembersOf(Group g, AsyncCallback<Vector<Group>> callback);
+	void getAllMembersOf(Team g, AsyncCallback<Vector<Team>> callback);
 
 	void getPersonByMail(String email, GetPersonCallback getPersonCallback);
 	

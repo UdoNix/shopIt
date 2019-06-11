@@ -12,20 +12,20 @@ import de.hdm.shared.LoginServiceAsync;
 import de.hdm.shared.ReportGenerator;
 import de.hdm.shared.ReportGeneratorAsync;
 import de.hdm.shared.CommonSettings;
-import de.hdm.shared.EditorServiceAsync;
+import de.hdm.shared.ShopItAdministrationAsync;
 
 
 public class ClientsideSettings extends CommonSettings {
 	
-	private static EditorServiceAsync EditorService = null;
+	private static ShopItAdministrationAsync shopItAdministration = null;
 	
-	public static EditorServiceAsync getEditorService() {
-		return EditorService;
+	public static ShopItAdministrationAsync getShopItAdministration() {
+		return shopItAdministration;
 	}
 
 
-	public static void setEditorService(EditorServiceAsync editorService) {
-		EditorService = editorService;
+	public static void setShopItAdministration(ShopItAdministrationAsync shopItAdministration) {
+		ClientsideSettings.shopItAdministration = shopItAdministration;
 	}
 
 	/**
@@ -71,18 +71,18 @@ public class ClientsideSettings extends CommonSettings {
 	
 	
 	/*
-	 * Anlegen und Auslesen des Editor Service
+	 * Anlegen und Auslesen des ShopItAdministration
 	 */
 
-	public static EditorServiceAsync getEditorServiceAsync() {
-		//Prüfung ob eine EditorService-Instanz existiert
-		if (EditorService == null) {
-			//Instantiierung des EditorService
-			EditorService = GWT.create(de.hdm.shared.EditorService.class); //?!
+	public static ShopItAdministrationAsync getShopItAdministrationAsync() {
+		//Prüfung ob eine shopItAdministration-Instanz existiert
+		if (shopItAdministration == null) {
+			//Instantiierung der shopItAdministration
+			shopItAdministration = GWT.create(de.hdm.shared.ShopItAdministration.class); //?!
 		}
 		
-		//Rueckgabe des Editor Service
-		return EditorService;
+		//Rueckgabe der ShopItAdministration
+		return shopItAdministration;
 	}
 	
 	

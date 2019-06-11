@@ -6,30 +6,30 @@ import java.sql.Connection;
 	import java.sql.Statement;
 	import java.util.Vector;
 
-import de.hdm.shared.bo.Shop;
+import de.hdm.shared.bo.Salesman;
 
 	
-public class SalesmanMapper {
+public class ShopMapper {
 	
 	// Klasse SalesmanMapper als Singleton
 	//Variable durch <code> static </code> nur einmal für Instanzen der Klassen vorhanden
 	//Sie speichert einzige Instanz der Klasse
- private static SalesmanMapper salesmanMapper = null;
+ private static ShopMapper shopMapper = null;
 
 // Konstruktor geschützt, es kann keine neue Instanz dieser Klasse mit <code>new</code> erzeugt werden
 
-protected SalesmanMapper() {
+protected ShopMapper() {
 }
 
 //Aufruf der statischen Methode durch <code>SalesmanMapper.salesmanMapper()</code>. Singleton: Es kann nur eine 
 //Instanz von <code>SalesmanMapper</code> existieren
 //@return salesmanMapper
 
-public static SalesmanMapper salesmanMapper() {
-	if (salesmanMapper == null) {
-		salesmanMapper = new SalesmanMapper();
+public static ShopMapper salesmanMapper() {
+	if (shopMapper == null) {
+		shopMapper = new ShopMapper();
 	}
-	return salesmanMapper;
+	return shopMapper;
 }
 
 // Salesman mit der vorgegebene Id suchen, Da sie eindeutig ist, wird nur ein Objekt zurueckgegeben
@@ -44,7 +44,7 @@ public Shop findByKey (int id) {
 		//Anlegen einen leeren SQL-Statement
 		Statement stmt =con.createStatement();
 		// Ausfüllen des Statements, als Query an die DB schicken
-		ResultSet rs =stmt.executeQuery("SELECT * from salesman" + "WHERE salesman.id =" + id );
+		ResultSet rs =stmt.executeQuery("SELECT * from shop" + "WHERE shop.id =" + id );
 		
 		//Da id Primärschlüssel ist, kann nur ein Tupel zurueckgeg werden. 
 		//Es wird geprueft, ob ein Ergebnis vorliegt.
@@ -70,8 +70,8 @@ public Shop findByKey (int id) {
 		    return null;
 		  }
 			
-// Auslesen aller Haendler.
- // @return Ein Vektor mit Salesman-Objekten, die sämtliche Gruppen
+// Auslesen aller Shops.
+ // @return Ein Vektor mit Shop-Objekten, die sämtliche Gruppen
  //        repräsentieren. Bei Exceptions: Ein partiell gefüllter
 //        oder eben leerer Vetor wird zurückgeliefert.
 
@@ -79,12 +79,12 @@ public Vector<Shop> findAll() {
   Connection con = DBConnection.connection();
 
   // Ergebnisvektor vorbereiten
-  Vector<Shop> result = new Vector<Shop>();
+  Vector<Salesman> result = new Vector<Salesman>();
 
   try {
     Statement stmt = con.createStatement();
 
-    ResultSet rs = stmt.executeQuery("SELECT * FROM salesman "
+    ResultSet rs = stmt.executeQuery("SELECT * FROM shop "
         + " ORDER BY id");
 
     // Für jeden Eintrag im Suchergebnis wird nun ein Salesman-Objekt erstellt.
@@ -119,7 +119,7 @@ public Vector<Shop> findAll() {
 //@return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
  //        <code>id</code>.
 
-public Shop insert(Shop s) {
+public Salesman insert(Shop s) {
   Connection con = DBConnection.connection();
 
   try {
@@ -128,7 +128,7 @@ public Shop insert(Shop s) {
     //Pruefen, welches der momentan höchste Primärschlüsselwert ist.
   
     ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
-        + "FROM salesman ");
+        + "FROM shop ");
 
     // Falls man etw. zurueck bekommt, ist dies nur einzeilig 
     if (rs.next()) {
@@ -139,7 +139,7 @@ public Shop insert(Shop s) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO Salesman (id, name, street, plz, city) " + "VALUES ("
+      stmt.executeUpdate("INSERT INTO Shop (id, name, street, plz, city) " + "VALUES ("
 	          + s.getId() + "," + s.getName() + ","+ s.getPostalCode() + "," + s.getCity() + ","+ s.getStreet()  +")");
       
   
@@ -177,7 +177,7 @@ public Shop insert(Shop s) {
   }
    
 
-   // Daten eines <code>Salesman</code>-Objekts aus der Datenbank loeschen.
+   // Daten eines <code>Shop</code>-Objekts aus der Datenbank loeschen.
     // @param s das aus der DB zu loeschende "Objekt"
    
    public void delete(Shop s) {
@@ -186,28 +186,28 @@ public Shop insert(Shop s) {
      try {
        Statement stmt = con.createStatement();
 
-       stmt.executeUpdate("DELETE FROM salesman " + "WHERE id=" + s.getId());
+       stmt.executeUpdate("DELETE FROM shop " + "WHERE id=" + s.getId());
 
      }
      catch (SQLException e2) {
        e2.printStackTrace();
      }
    }
-   public Vector<Salesman> findByName(Salesman salesman) {
+   public Vector<Shop> findByName(Shop shop) {
 		
 		Connection con =DBConnection.connection();
 		//Anmerkung: Da der Name eines Salesman nicht nur einmal, sondern auch mehrfach gleich 
 		//vergeben sein kann --> Vector verwendet
-		Vector<Salesman> result = new Vector<Salesman>();
+		Vector<Shop> result = new Vector<Shop>();
 		try {
 			
 			Statement stmt =con.createStatement();
 			
-			ResultSet rs =stmt.executeQuery("SELECT id,name from salesman" + "WHERE name LIKE '"+ salesman.getName() + "' ORDER BY lastName" );
+			ResultSet rs =stmt.executeQuery("SELECT id,name from shop" + "WHERE name LIKE '"+ shop.getName() + "' ORDER BY lastName" );
 			
 			   while (rs.next()) {
 			       
-			        Salesman s = new Salesman();
+			        Shop s = new Shop();
 			        s.setId(rs.getInt("id"));
 			        s.setName(rs.getString("name"));
 			  

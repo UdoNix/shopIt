@@ -14,8 +14,9 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.client.ClientsideSettings;
+import de.hdm.shared.ShopItAdministrationAsync;
 import de.hdm.shared.EditorServiceAsync;
-import de.hdm.shared.bo.Group;
+import de.hdm.shared.bo.Team;
 import de.hdm.shared.bo.Person;
 
 	/**
@@ -27,10 +28,10 @@ import de.hdm.shared.bo.Person;
 	 */
 	public class AddPersonToGroupForm extends VerticalPanel{
 		
-		EditorServiceAsync listenVerwaltung = ClientsideSettings.getEditorService();
-		//private Person p = CurrentPerson.person();
+		ShopItAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
+		//private Person p = Person.GetPerson(); funktioniert nicht
 		private Person newGroupMember = null;
-		private Group selectedGroup = null;
+		private Team selectedGroup = null;
 		
 		private VerticalPanel contentPanel = new VerticalPanel();
 		private Label infoLabel = new Label("Neues Gruppenmitglied hinzufügen.");
@@ -63,11 +64,11 @@ import de.hdm.shared.bo.Person;
 		}
 		
 		
-		public Group getSelectedGroup() {
+		public Team getSelectedGroup() {
 			return selectedGroup;
 		}
 
-		public void setSelectedGroup(Group selectedGroup) {
+		public void setSelectedGroup(Team selectedGroup) {
 			this.selectedGroup = selectedGroup;
 		}
 
@@ -90,7 +91,7 @@ import de.hdm.shared.bo.Person;
 			public void onClick(ClickEvent event) {
 				if (selectedGroup != null) {
 					String email = emailTextBox.getValue();
-					listenVerwaltung.getPersonByMail(email, new GetPersonCallback());
+					listenVerwaltung.getPersonByEmail(email, new GetPersonCallback());
 					listenVerwaltung.addPersonToGroup(newGroupMember, selectedGroup, new AddPersonCallback());
 					GroupForm group = new GroupForm();
 					group.setSelected(selectedGroup);

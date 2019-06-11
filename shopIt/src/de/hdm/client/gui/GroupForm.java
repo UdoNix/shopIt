@@ -9,7 +9,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.hdm.shared.bo.Group;
+import de.hdm.shared.bo.Team;
 import de.hdm.shared.bo.List;
 
 
@@ -35,7 +35,7 @@ public class GroupForm extends VerticalPanel {
 
 	private DateTimeFormat dtf = DateTimeFormat.getFormat("dd.MM.yyyy k:mm");
 
-	private Group group = new Group();
+	private Team group = new Team();
 	
 	/*
 	 * 
@@ -43,7 +43,7 @@ public class GroupForm extends VerticalPanel {
 
 	GroupForm(long serializableID) {
 
-		Group g = new Group();
+		Team g = new Team();
 		
 		g.setSerializableID(serializableID);
 
@@ -73,11 +73,12 @@ public class GroupForm extends VerticalPanel {
 			contentPanel.add(name);
 			//contentPanel.add(idLabel);
 			contentPanel.add(creationTime);
+			RootPanel.get().clear();
 			RootPanel.get("main").add(contentPanel);
 			
 		}
 
-	public void setSelected(Group selectedGroup) {
+	public void setSelected(Team selectedGroup) {
 		// TODO Auto-generated method stub
 		
 	}
