@@ -1,13 +1,14 @@
 package de.hdm.server.report;
 import java.util.Vector;
 
-import com.google.gwt.user.cellview.client.Column;
+//import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.hdm.shared.ReportGenerator;
 import de.hdm.shared.bo.Article;
 import de.hdm.shared.report.CompositeParagraph;
 import de.hdm.shared.report.Row;
+import de.hdm.shared.report.Column;
 import de.hdm.shared.report.SimpleParagraph;
 
 @SuppressWarnings("serial")//UnterdrÃ¼ckung von Warnungen bezÃ¼glich fehlendem Feld 'serialVersionUID' fÃ¼r eine serialisierbare Klasse
@@ -43,14 +44,17 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			 * Diese Kopfdaten werden am Anfang des Reports erscheinen und
 			 * mit Hife eines CompositeParagraph dargestellt, da dies mehrzeilig ist
 			 */
+			
 			CompositeParagraph header = new CompositeParagraph();
 			//Impressumsbezeichnung hinzufügen
 			header.addSubParagraph(new SimpleParagraph("Impressum: "));
 			//Hinzufügen des zusammengestellten Kopfdaten
 			result.setHeaderData(header);
 			
+			
 			//Erstellen und Abrufen der benötigten Ergebnisvektoren mittels PinnwandVerwaltung
 			Vector<Article> articles = this.getArticlesbyTeamWithTime(teamId, firstDate, lastDate);
+			
 			
 			//Kopfzeile für die Teamstatistik Tabelle
 			Row headline = new Row();
@@ -67,9 +71,21 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			 * desweiteren wird auch nicht anhand der Mengeneinheit zusammengerechnet
 			 * sondern nur die Anzahl der Häufigkeit der Auflistung angezeigt 
 			 */
-			Column c1 = new Column("Artikel");
-			headline.addColumn(c1);
+			
+			//Headline Spalte: Name des Artikels
+			headline.addColumn(new Column("Artikel"));
+			//Zweite Headline Spalte: Die Anzahl zeigt an wie häufig der Artikel gekauft wurde
 			headline.addColumn(new Column("Anzahl"));
+			
+			//Hinzufügen der Kopfzeile
+			result.addRow(headline);
+			
+			//Eine leere Zeile anlegen
+			Row row = new Row();
+			
+			//Erste Spalte: Artikel
+			row.addColumn(new Column(articles.size() + " "));
+			
 			
 			
 		}
