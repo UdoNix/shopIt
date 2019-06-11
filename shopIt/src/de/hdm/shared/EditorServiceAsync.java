@@ -4,15 +4,15 @@ import java.util.Vector;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import de.hdm.shared.bo.Group;
+import de.hdm.shared.bo.Team;
 
-public interface ShopItAdministrationAsync {
+public interface EditorServiceAsync {
 
 	void getAllMembersOfGroup(String text, ShowGroupCallback showGroupCallback);
 
-	void findByMembers(Group g, AsyncCallback<Vector<Group>> callback);
+	void getAllMembersOf(Team g, AsyncCallback<Vector<Team>> callback);
 
-	void getPersonByEmail(String email, GetPersonCallback getPersonCallback);
+	void getPersonByMail(String email, GetPersonCallback getPersonCallback);
 	
 	//Import der Methoden aus dem Klassendiagramm
 

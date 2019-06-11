@@ -10,7 +10,7 @@ public class List extends BusinessObject{
 	private String name = "";
 
 	//Fremdschlüssel zur Gruppe.
-	private int groupId;
+	private int teamId;
 
 	//Auslesen des Listennamen.
 	public String getName() {
@@ -24,13 +24,13 @@ public class List extends BusinessObject{
 
 	
 	//Auslesen des Fremdschlüssels zur GruppenId.
-	public int getGroupId() {
-		return groupId;
+	public int getTeamId() {
+		return teamId;
 	}
 
 	//Setzen der Fremdschlüsselbeziehung zur Gruppe.
-	public void setGroupId(int groupId) {
-		this.groupId = groupId;
+	public void setTeamId(int teamId) {
+		this.teamId = teamId;
 	}
 
 

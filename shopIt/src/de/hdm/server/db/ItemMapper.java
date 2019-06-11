@@ -10,7 +10,7 @@ import de.hdm.shared.bo.Article;
 import de.hdm.shared.bo.Item;
 import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Responsibility;
-import de.hdm.shared.bo.Salesman;
+import de.hdm.shared.bo.Shop;
 
 	
 public class ItemMapper {

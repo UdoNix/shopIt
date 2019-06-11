@@ -1,5 +1,6 @@
 package de.hdm.shared.bo;
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 
@@ -44,15 +45,15 @@ public abstract class BusinessObject implements Serializable{
 	
 
 	//Änderungszeitpunkts einer Instanz dieser Klasse.
-	private Timestamp changeDate;
+	private Date changeDate;
 	
 	//Auslesen des Änderungszeitpunkts einer Instanz.
-	public Timestamp getChangeDate() {
+	public Date getChangeDate() {
 		return changeDate;
 	}
 	
 	//Setzen des Änderungszeitpunkts einer Instanz.
-	public void setChangeDate(Timestamp changeDate) {
+	public void setChangeDate(Date changeDate) {
 		this.changeDate = changeDate;
 	}
 	

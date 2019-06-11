@@ -13,14 +13,14 @@ import java.util.Vector;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-import de.hdm.shared.bo.Group;
+import de.hdm.shared.bo.Team;
 /**
  * The client-side stub for the RPC service.
  */
-@RemoteServiceRelativePath("ShopItAdministration")
+@RemoteServiceRelativePath("EditorService")
 
-public interface ShopItAdministration extends RemoteService {
+public interface EditorService extends RemoteService {
 	
-	Vector<Group> getAllMembersOf(Group g) throws IllegalArgumentException;
+	Vector<Team> getAllMembersOf(Team g) throws IllegalArgumentException;
 	
 }

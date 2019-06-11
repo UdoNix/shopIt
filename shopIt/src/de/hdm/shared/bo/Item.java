@@ -1,14 +1,12 @@
 package de.hdm.shared.bo;
 
-import java.sql.Timestamp;
-
 public class Item extends BusinessObject{
 
 	private static final long serialVersionUID = 1L;
 
 	
 	//Fremdschlüsselbeziehung zum Händler.
-	private int salesmanId = 0;
+	private int shopId = 0;
 	
 	//Fremdschlüsselbeziehung zum Artikel.
 	private int articleId = 0;
@@ -20,7 +18,7 @@ public class Item extends BusinessObject{
 	private int unitId = 0;
 	
 	//Fremdschlüsselbeziehung zur Gruppe.
-	private int groupId = 0;
+	private int teamId = 0;
 
 	//Favorit zeigt an, ob Item Standartartikel ist bzw. favorisiert wurde.
 	private boolean favorit;
@@ -29,13 +27,13 @@ public class Item extends BusinessObject{
 	private boolean status;
 
 	//Auslesen des Fremdschlüssels des Händlers.
-	public int getSalesmanId() {
-		return salesmanId;
+	public int getShopId() {
+		return shopId;
 	}
 	
 	//Setzen des Fremdschlüssels des Händlers.
-	public void setSalesmanId(int salesmanId) {
-		this.salesmanId = salesmanId;
+	public void setShopId(int shopId) {
+		this.shopId = shopId;
 	}
 	
 	//Auslesen des Fremdschlüssels des Artikels.
@@ -89,13 +87,13 @@ public class Item extends BusinessObject{
 	}
 	
 	//Auslesen des Fremdschlüssels zur Gruppe.
-	public int getGroupId() {
-		return groupId;
+	public int getTeamId() {
+		return teamId;
 	}
 	
 	//Setzen des Fremdschlüssels zur Gruppe.
-	public void setGroupId(int groupId) {
-		this.groupId = groupId;
+	public void setTeamId(int teamId) {
+		this.teamId = teamId;
 	}
 
 
