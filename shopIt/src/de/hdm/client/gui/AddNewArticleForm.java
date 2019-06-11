@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class AddNewArticleForm extends VerticalPanel {
 	
+	private ArticleForm acForm;
 	private HorizontalPanel firstPanel = new HorizontalPanel();
 	private HorizontalPanel secondPanel = new HorizontalPanel();
 	private HorizontalPanel buttonPanel = new HorizontalPanel();
@@ -62,7 +63,8 @@ public class AddNewArticleForm extends VerticalPanel {
 		@Override
 		public void onClick(ClickEvent event) {
 			// TODO Auto-generated method stub
-			
+			acForm = new ArticleForm();
+			acForm.onLoad();
 		}
 		
 	}
