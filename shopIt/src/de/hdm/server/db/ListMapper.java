@@ -54,7 +54,7 @@ public class ListMapper {
 			        l.setId(rs.getInt("id"));
 			        l.setName(rs.getString("name"));
 			        l.setCreationDate(rs.getTimestamp("creationDate"));
-			        l.setChangeDate(rs.getTimestamp("changeDate"));
+			        l.setChangeDate(rs.getDate("changeDate"));
 			        return l;
 			      }
 			    }
@@ -89,8 +89,8 @@ public class ListMapper {
 	      l.setId(rs.getInt("id"));
 	      l.setName(rs.getString("name"));
 	      l.setCreationDate(rs.getTimestamp("creationDate"));
-	      l.setChangeDate(rs.getTimestamp("changeDate"));
-	      l.setGroupId(rs.getInt("groupId"));
+	      l.setChangeDate(rs.getDate("changeDate"));
+	      l.setTeamId(rs.getInt("groupId"));
 
 	      // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
 	      result.addElement(l);
@@ -119,8 +119,8 @@ public class ListMapper {
 			        l.setId(rs.getInt("id"));
 			        l.setName(rs.getString("name"));
 			        l.setCreationDate(rs.getTimestamp("creationDate"));
-				    l.setChangeDate(rs.getTimestamp("changeDate"));
-				    l.setGroupId(rs.getInt("groupId"));
+				    l.setChangeDate(rs.getDate("changeDate"));
+				    l.setTeamId(rs.getInt("groupId"));
 
 			        result.addElement(l);
 			        
@@ -157,8 +157,8 @@ public class ListMapper {
 			        l.setId(rs.getInt("id"));
 			        l.setName(rs.getString("name"));
 			        l.setCreationDate(rs.getTimestamp("creationDate"));
-				    l.setChangeDate(rs.getTimestamp("changeDate"));
-				    l.setGroupId(rs.getInt("groupId"));
+				    l.setChangeDate(rs.getDate("changeDate"));
+				    l.setTeamId(rs.getInt("groupId"));
 
 			        result.addElement(l);
 			        
@@ -202,7 +202,7 @@ public class ListMapper {
 
 	      // Es erfolgt die tatsächliche Einfuegeoperation
 	      stmt.executeUpdate("INSERT INTO list (id, name, groupId) " + "VALUES ("
-	          + l.getId() + "," + l.getName() + ","+ l.getGroupId() +")");
+	          + l.getId() + "," + l.getName() + ","+ l.getTeamId() +")");
 	    }
 	  }
 	  catch (SQLException e2) {
@@ -222,7 +222,7 @@ public class ListMapper {
 	      Statement stmt = con.createStatement();
 
 	      stmt.executeUpdate("UPDATE list " + "SET name=\"" + l.getName()
-          + "\", " + "groupId=\"" + l.getGroupId()+"\", "+ "WHERE id=" + l.getId());
+          + "\", " + "groupId=\"" + l.getTeamId()+"\", "+ "WHERE id=" + l.getId());
 
 	    }
 	    catch (SQLException e2) {
