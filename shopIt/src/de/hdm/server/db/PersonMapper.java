@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 
+import de.hdm.shared.bo.List;
 import de.hdm.shared.bo.Person;
 
 
@@ -55,7 +56,7 @@ public Person findByKey (int id) {
 		        p.setLastName(rs.getString("lastName"));
 		        p.setEmail(rs.getString("email"));
 		        p.setCreationDate(rs.getTimestamp("creationDate"));
-		        p.setChangeDate(rs.getTimestamp("changeDate"));		      
+		        p.setChangeDate(rs.getDate("changeDate"));		      
 		
 		        return p;
 		      }
@@ -93,7 +94,7 @@ public Vector<Person> findAll() {
       p.setLastName(rs.getString("lastName"));
       p.setEmail(rs.getString("email"));
       p.setCreationDate(rs.getTimestamp("creationDate"));
-      p.setChangeDate(rs.getTimestamp("changeDate"));
+      p.setChangeDate(rs.getDate("changeDate"));
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
       result.addElement(p);
     }
@@ -244,6 +245,12 @@ public Person insert(Person p) {
 
 		return null;
 	}
-				
+			
+	public Vector<List> getAllListsOf(Person p){
+		
+		return ListMapper.listMapper().getAllListsOf(p);
+		
+	}
+	
 }
 

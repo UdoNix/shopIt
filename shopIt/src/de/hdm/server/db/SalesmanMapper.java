@@ -57,7 +57,7 @@ public Shop findByKey (int id) {
 		        s.setPostalCode(rs.getString("postalCode"));
 		        s.setCity(rs.getString("city"));
 		        s.setCreationDate(rs.getTimestamp("creationDate"));
-		        s.setChangeDate(rs.getTimestamp("changeDate"));
+		        s.setChangeDate(rs.getDate("changeDate"));
 		    	
 		        return s;
 		      }
@@ -96,7 +96,7 @@ public Vector<Shop> findAll() {
       s.setPostalCode(rs.getString("postalcode"));
       s.setCity(rs.getString("city"));
       s.setCreationDate(rs.getTimestamp("creationDate"));
-      s.setChangeDate(rs.getTimestamp("changeDate"));
+      s.setChangeDate(rs.getDate("changeDate"));
   	
       
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
@@ -193,21 +193,21 @@ public Shop insert(Shop s) {
        e2.printStackTrace();
      }
    }
-   public Vector<Salesman> findByName(Salesman salesman) {
+   public Vector<Shop> findByName(Shop shop) {
 		
 		Connection con =DBConnection.connection();
 		//Anmerkung: Da der Name eines Salesman nicht nur einmal, sondern auch mehrfach gleich 
 		//vergeben sein kann --> Vector verwendet
-		Vector<Salesman> result = new Vector<Salesman>();
+		Vector<Shop> result = new Vector<Shop>();
 		try {
 			
 			Statement stmt =con.createStatement();
 			
-			ResultSet rs =stmt.executeQuery("SELECT id,name from salesman" + "WHERE name LIKE '"+ salesman.getName() + "' ORDER BY lastName" );
+			ResultSet rs =stmt.executeQuery("SELECT id,name from salesman" + "WHERE name LIKE '"+ shop.getName() + "' ORDER BY lastName" );
 			
 			   while (rs.next()) {
 			       
-			        Salesman s = new Salesman();
+			        Shop s = new Shop();
 			        s.setId(rs.getInt("id"));
 			        s.setName(rs.getString("name"));
 			  

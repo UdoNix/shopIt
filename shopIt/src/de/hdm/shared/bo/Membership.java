@@ -12,7 +12,7 @@ public class Membership extends BusinessObject {
 
 	
 	//Auslesen des Fremdschlüssels zur Gruppe.
-	public int getTeamId(int teamId){
+	public int getTeamId(){
 		return teamId;
 	}
 

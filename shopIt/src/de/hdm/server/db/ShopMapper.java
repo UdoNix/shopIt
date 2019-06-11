@@ -7,6 +7,7 @@ import java.sql.Connection;
 	import java.util.Vector;
 
 import de.hdm.shared.bo.Salesman;
+import de.hdm.shared.bo.Shop;
 
 	
 public class ShopMapper {
@@ -57,7 +58,7 @@ public Shop findByKey (int id) {
 		        s.setPostalCode(rs.getString("postalCode"));
 		        s.setCity(rs.getString("city"));
 		        s.setCreationDate(rs.getTimestamp("creationDate"));
-		        s.setChangeDate(rs.getTimestamp("changeDate"));
+		        s.setChangeDate(rs.getDate("changeDate"));
 		    	
 		        return s;
 		      }
@@ -79,7 +80,7 @@ public Vector<Shop> findAll() {
   Connection con = DBConnection.connection();
 
   // Ergebnisvektor vorbereiten
-  Vector<Salesman> result = new Vector<Salesman>();
+  Vector<Shop> result = new Vector<Shop>();
 
   try {
     Statement stmt = con.createStatement();
@@ -96,7 +97,7 @@ public Vector<Shop> findAll() {
       s.setPostalCode(rs.getString("postalcode"));
       s.setCity(rs.getString("city"));
       s.setCreationDate(rs.getTimestamp("creationDate"));
-      s.setChangeDate(rs.getTimestamp("changeDate"));
+      s.setChangeDate(rs.getDate("changeDate"));
   	
       
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
@@ -119,7 +120,7 @@ public Vector<Shop> findAll() {
 //@return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
  //        <code>id</code>.
 
-public Salesman insert(Shop s) {
+public Shop insert(Shop s) {
   Connection con = DBConnection.connection();
 
   try {

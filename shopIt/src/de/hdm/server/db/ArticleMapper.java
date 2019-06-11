@@ -54,7 +54,7 @@ public Article findByKey (int id) {
 		        a.setId(rs.getInt("id"));
 		        a.setName(rs.getString("name"));
 		        a.setCreationDate(rs.getTimestamp("creationDate"));
-		        a.setChangeDate(rs.getTimestamp("changeDate"));
+		        a.setChangeDate(rs.getDate("changeDate"));
 		        return a;
 		      }
 		    }
@@ -89,7 +89,7 @@ public Vector<Article> findAll() {
       a.setId(rs.getInt("id"));
       a.setName(rs.getString("name"));
       a.setCreationDate(rs.getTimestamp("creationDate"));
-      a.setChangeDate(rs.getTimestamp("changeDate"));
+      a.setChangeDate(rs.getDate("changeDate"));
 
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
       result.addElement(a);
@@ -208,32 +208,10 @@ public Article insert(Article a) {
 
 			
 			return result;
+
+
 }
-	 public Vector<Article> getArticlesbyTeamWithTime (int TeamId, Date firstDate, Date lastDate) {
-		   Connection con = DBConnection.connection();
-		    Vector<Article> result = new Vector<Article>();
-
-		    try {
-		      Statement stmt = con.createStatement();
-
-		      ResultSet rs = stmt.executeQuery("SELECT id FROM article INNER JOIN item ON article.id = item.articleId INNER JOIN"
-		      		+ "team ON item.teamId = team.id" + "WHERE teamID= TeamId AND (id.getChangeDate() BETWEEN firstDate AND lastDate) ");
-		      				
-		      
-		      while (rs.next()) {
-		        Article a = new Article();
-		        a.setId(rs.getInt("id"));
-		     
-		        result.addElement(a);
-		      }
-		    }
-		    catch (SQLException e2) {
-		      e2.printStackTrace();
-		    }
-
-		    return result;
-}
-	
+	/*
 	 public Vector<Article> countArticles (int TeamId, Date firstDate, Date lastDate) {
 		   Connection con = DBConnection.connection();
 		    Vector<Article> result = new Vector<Article>();
@@ -241,12 +219,13 @@ public Article insert(Article a) {
 		    try {
 		      Statement stmt = con.createStatement();
 
-		      ResultSet rs = stmt.executeQuery("SELECT COUNT (id) FROM article INNER JOIN item ON article.id = item.articleId INNER JOIN"
+		      ResultSet rs = stmt.executeQuery("SELECT COUNT (articleId), articleId FROM item INNER JOIN"
 			      		+ "team ON item.teamId = team.id" + "WHERE teamID= TeamId AND (id.getChangeDate() BETWEEN firstDate AND lastDate) ");
 		      				
 		      
 		      while (rs.next()) {
 		        Article a = new Article();
+		        a.setFrequency(rs.getInt("frequency"));
 		        a.setId(rs.getInt("id"));
 		     
 		        result.addElement(a);
@@ -258,5 +237,5 @@ public Article insert(Article a) {
 
 		    return result;
 }
-	
+*/
 }

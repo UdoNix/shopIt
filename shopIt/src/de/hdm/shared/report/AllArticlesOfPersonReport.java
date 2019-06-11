@@ -4,7 +4,7 @@ package de.hdm.shared.report;
 import java.io.Serializable;
 import java.util.Vector;
 
-public class AllItemsOfPersonReport extends CompositeReport implements Serializable{
+public class AllArticlesOfPersonReport extends CompositeReport implements Serializable{
 
 	/*
 	 * Report der alle Konten eines Kunden darstellt

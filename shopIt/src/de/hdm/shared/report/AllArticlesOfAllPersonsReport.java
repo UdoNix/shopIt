@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author InesWerner
  *
  */
-public class AllItemsOfAllPersonsReport 
+public class AllArticlesOfAllPersonsReport 
 extends CompositeReport 
 implements Serializable{
 
