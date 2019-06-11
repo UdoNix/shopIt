@@ -53,7 +53,7 @@ public Article findByKey (int id) {
 		        a.setId(rs.getInt("id"));
 		        a.setName(rs.getString("name"));
 		        a.setCreationDate(rs.getTimestamp("creationDate"));
-		        a.setChangeDate(rs.getTimestamp("changeDate"));
+		        a.setChangeDate(rs.getDate("changeDate"));
 		        return a;
 		      }
 		    }
@@ -88,7 +88,7 @@ public Vector<Article> findAll() {
       a.setId(rs.getInt("id"));
       a.setName(rs.getString("name"));
       a.setCreationDate(rs.getTimestamp("creationDate"));
-      a.setChangeDate(rs.getTimestamp("changeDate"));
+      a.setChangeDate(rs.getDate("changeDate"));
 
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
       result.addElement(a);

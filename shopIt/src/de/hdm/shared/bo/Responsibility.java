@@ -12,6 +12,9 @@ public class Responsibility extends BusinessObject{
 	
 	//Fremdschlüsselbeziehung zum Händler.
 	private int shopId = 0;
+	
+	//Fremdschlüsselbeziehung zum Item.
+	private int itemId = 0;
 
 	//Auslesen des Fremdschlüssels zur Person.
 	public int getPersonId() {
@@ -33,5 +36,13 @@ public class Responsibility extends BusinessObject{
 		this.shopId = shopId;
 	}
 
+	public int getItemId() {
+		return itemId;
+	}
+	
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
+	}
+	
 }
 
