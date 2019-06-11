@@ -216,7 +216,7 @@ public Article insert(Article a) {
 		    try {
 		      Statement stmt = con.createStatement();
 
-		      ResultSet rs = stmt.executeQuery("SELECT id FROM article INNER JOIN item ON article.id = item.articleId INNER JOIN"
+		      ResultSet rs = stmt.executeQuery("SELECT articleId FROM item INNER JOIN"
 		      		+ "team ON item.teamId = team.id" + "WHERE teamID= TeamId AND (id.getChangeDate() BETWEEN firstDate AND lastDate) ");
 		      				
 		      
@@ -233,7 +233,7 @@ public Article insert(Article a) {
 
 		    return result;
 }
-	
+	/*
 	 public Vector<Article> countArticles (int TeamId, Date firstDate, Date lastDate) {
 		   Connection con = DBConnection.connection();
 		    Vector<Article> result = new Vector<Article>();
@@ -241,12 +241,13 @@ public Article insert(Article a) {
 		    try {
 		      Statement stmt = con.createStatement();
 
-		      ResultSet rs = stmt.executeQuery("SELECT COUNT (id) FROM article INNER JOIN item ON article.id = item.articleId INNER JOIN"
+		      ResultSet rs = stmt.executeQuery("SELECT COUNT (articleId), articleId FROM item INNER JOIN"
 			      		+ "team ON item.teamId = team.id" + "WHERE teamID= TeamId AND (id.getChangeDate() BETWEEN firstDate AND lastDate) ");
 		      				
 		      
 		      while (rs.next()) {
 		        Article a = new Article();
+		        a.setFrequency(rs.getInt("frequency"));
 		        a.setId(rs.getInt("id"));
 		     
 		        result.addElement(a);
@@ -258,5 +259,5 @@ public Article insert(Article a) {
 
 		    return result;
 }
-	
+*/
 }
