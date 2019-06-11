@@ -30,7 +30,7 @@ public class PlainTextReportWriter
 	}
 	
 //Ablage des übergebenen Reports im Zielformat.Auslese erfolgt durch getReportText().
-public void process(AllItemsOfPersonReport r){
+public void process(AllArticlesOfPersonReport r){
 		
 	
 	//Löschen des Ergebnisses einer vorhergehenden Prozessierung.
@@ -64,7 +64,7 @@ public void process(AllItemsOfPersonReport r){
 		}
 	
 	//AllItemsOfAllPersonsReport ist ein CompositeReport.
-	public void process(AllItemsOfAllPersonsReport r){
+	public void process(AllArticlesOfAllPersonsReport r){
 
 	//Löschen des Ergebnisses einer vorhergehenden Prozessierung.
 		this.resetReportText();
@@ -79,7 +79,7 @@ public void process(AllItemsOfPersonReport r){
 		
 		//Der CompositeReport enthält eine Menge von Teil-Reports des Typs AllAccountsOfCustomerReport.
 		for (int i = 0; i < r.getNumSubReports(); i++){
-			AllItemsOfPersonReport subReport = (AllItemsOfPersonReport)r.getSubReportAt(i);
+			AllArticlesOfPersonReport subReport = (AllArticlesOfPersonReport)r.getSubReportAt(i);
 			
 			this.process(subReport);
 			
