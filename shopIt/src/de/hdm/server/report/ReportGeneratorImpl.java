@@ -1,16 +1,66 @@
 package de.hdm.server.report;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import de.hdm.server.ShopITAdministrationImpl;
 import de.hdm.shared.ReportGenerator;
+import de.hdm.shared.ShopITAdministration;
 import de.hdm.shared.report.CompositeParagraph;
+import de.hdm.shared.report.Report;
 import de.hdm.shared.report.Row;
 import de.hdm.shared.report.SimpleParagraph;
 
+/**
+ * Implementierung des ReportGenerator. 
+ */
 @SuppressWarnings("serial")//UnterdrÃ¼ckung von Warnungen bezÃ¼glich fehlendem Feld 'serialVersionUID' fÃ¼r eine serialisierbare Klasse
 public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportGenerator {
 	
-	/**Diese Methode soll eine Statistik über häufig einkaufte Artikel in einem Zeitraum
-	 * von einem Händler anzeigen.
+	/**
+	 * Zugriff auf die ShopITAdministration um Methoden von Datenobjekten des BO-Packages zu erhalten.
+	 * @author InesWerner
+	 */
+	private ShopITAdministration admin = null;
+	
+	public ReportGeneratorImpl() throws IllegalArgumentException{
+		
+	}
+	
+	//Initialisierungsmethode 
+	public void init() throws IllegalArgumentException{
+		/**
+		 * Ein Objekt der ReportGeneratorImpl instanziiert eine eigene ShopITAdministrazionImpl-Instanz.
+		 * @author InesWerner
+		 */
+		ShopITAdministrationImpl shopITAdministration = new ShopITAdministrationImpl();
+		shopITAdministration.init();
+		this.admin = shopITAdministration;
+		
+	}
+	
+	/**
+	 * Auslesen der ShopITAdministration.
+	 */
+	public ShopITAdministration getShopITAdministration(){
+		return this.admin;
+	}
+	
+	/**
+	 * HinzufÃ¼gen des Impressums zum Report.
+	 * @author InesWerner
+	 */
+	public void addImprint(Report report){
+		CompositeParagraph imprint = new CompositeParagraph();
+		imprint.addSubParagraph(new SimpleParagraph("ShopIT"));
+		imprint.addSubParagraph(new SimpleParagraph("NobelstraÃŸe 8"));
+		imprint.addSubParagraph(new SimpleParagraph("70569"));
+		
+		//Impressum wird dem Report hinzugefÃ¼gt.
+		report.setImprint(imprint);
+	}
+
+	
+	/**Diese Methode soll eine Statistik ï¿½ber hï¿½ufig einkaufte Artikel in einem Zeitraum
+	 * von einem Hï¿½ndler anzeigen.
 	 * @Larisa
 	 */
 	
@@ -33,16 +83,16 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			 */
 			CompositeParagraph header = new CompositeParagraph(); 
 			
-			//Impressumsbezeichnung hinzufügen
+			//Impressumsbezeichnung hinzufï¿½gen
 			header.addSubParagraph(new SimpleParagraph("Impressum: ")); 
 			
-			//Hinzufügen des zusammengestellten Kopfdaten 
+			//Hinzufï¿½gen des zusammengestellten Kopfdaten 
 			result.setHeaderData(header); 
 			
-			//Erstellen und Abrufen der benötigten Ergebnisvektoren mittels ShopITAdministration 
+			//Erstellen und Abrufen der benï¿½tigten Ergebnisvektoren mittels ShopITAdministration 
 			Vector<Article> articles = this.getAllArticlesForShopWithTime(a, firstDate, lastDate); 
 			
-			//Kopfzeile für die Händlerstatistik-Tabelle. 
+			//Kopfzeile fï¿½r die Hï¿½ndlerstatistik-Tabelle. 
 			Row headline = new Row(); 
 		}
 	}

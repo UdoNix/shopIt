@@ -36,6 +36,7 @@ public class Responsibility extends BusinessObject{
 		this.shopId = shopId;
 	}
 
+
 	public int getItemId() {
 		return itemId;
 	}
@@ -44,5 +45,6 @@ public class Responsibility extends BusinessObject{
 		this.itemId = itemId;
 	}
 	
+
 }
 
