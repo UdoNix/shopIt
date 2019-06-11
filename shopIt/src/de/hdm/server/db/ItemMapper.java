@@ -1,7 +1,8 @@
 package de.hdm.server.db;
 
 import java.sql.Connection;
-	import java.sql.ResultSet;
+import java.sql.Date;
+import java.sql.ResultSet;
 	import java.sql.SQLException;
 	import java.sql.Statement;
 	import java.util.Vector;
@@ -315,6 +316,31 @@ public Item insert(Item i) {
 
 	    return result;
 		
+}
+	 public Vector<Item> getArticlesbyTeamWithTime (int TeamId, Date firstDate, Date lastDate) {
+		   Connection con = DBConnection.connection();
+		    Vector<Item> result = new Vector<Item>();
+
+		    try {
+		      Statement stmt = con.createStatement();
+
+		      ResultSet rs = stmt.executeQuery("SELECT id, COUNT(articleId) FROM item INNER JOIN"
+		      		+ "team ON item.teamId = team.id" + "WHERE teamID= TeamId AND (id.getChangeDate() BETWEEN firstDate AND lastDate) AND GROUP BY id" + 
+		      				"ORDER BY COUNT(articleId) DESC ");
+		      				
+		      
+		      while (rs.next()) {
+		        Item i = new Item();
+		        i.setId(rs.getInt("id"));
+		     
+		        result.addElement(i);
+		      }
+		    }
+		    catch (SQLException e2) {
+		      e2.printStackTrace();
+		    }
+
+		    return result;
 }
 }
 

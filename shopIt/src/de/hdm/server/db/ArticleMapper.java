@@ -208,30 +208,8 @@ public Article insert(Article a) {
 
 			
 			return result;
-}
-	 public Vector<Article> getArticlesbyTeamWithTime (int TeamId, Date firstDate, Date lastDate) {
-		   Connection con = DBConnection.connection();
-		    Vector<Article> result = new Vector<Article>();
 
-		    try {
-		      Statement stmt = con.createStatement();
 
-		      ResultSet rs = stmt.executeQuery("SELECT articleId FROM item INNER JOIN"
-		      		+ "team ON item.teamId = team.id" + "WHERE teamID= TeamId AND (id.getChangeDate() BETWEEN firstDate AND lastDate) ");
-		      				
-		      
-		      while (rs.next()) {
-		        Article a = new Article();
-		        a.setId(rs.getInt("id"));
-		     
-		        result.addElement(a);
-		      }
-		    }
-		    catch (SQLException e2) {
-		      e2.printStackTrace();
-		    }
-
-		    return result;
 }
 	/*
 	 public Vector<Article> countArticles (int TeamId, Date firstDate, Date lastDate) {
