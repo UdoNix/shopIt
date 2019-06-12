@@ -5,21 +5,15 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.hdm.server.ShopITAdministrationImpl;
 import de.hdm.shared.ReportGenerator;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import de.hdm.shared.ShopITAdministration;
 import de.hdm.shared.report.CompositeParagraph;
 import de.hdm.shared.report.Report;
 import de.hdm.shared.report.Row;
-=======
 import de.hdm.shared.bo.Article;
-=======
 import de.hdm.shared.report.Column;
->>>>>>> refs/heads/Larisa
 import de.hdm.shared.report.CompositeParagraph;
 import de.hdm.shared.report.Row;
 import de.hdm.shared.report.Column;
->>>>>>> refs/remotes/origin/Ilona
 import de.hdm.shared.report.SimpleParagraph;
 import de.hdm.shared.bo.*;
 import de.hdm.server.db.*;
@@ -31,7 +25,6 @@ import de.hdm.server.*;
 @SuppressWarnings("serial")//Unterdrückung von Warnungen bezüglich fehlendem Feld 'serialVersionUID' für eine serialisierbare Klasse
 public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportGenerator {
 	
-<<<<<<< HEAD
 	/**
 	 * Zugriff auf die ShopITAdministration um Methoden von Datenobjekten des BO-Packages zu erhalten.
 	 * @author InesWerner
@@ -110,13 +103,9 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			//Hinzuf�gen des zusammengestellten Kopfdaten.
 			result.setHeaderData(header); 
 			
-<<<<<<< HEAD
-			//Erstellen und Abrufen der ben�tigten Ergebnisvektoren mittels ShopITAdministration 
-			Vector<Article> articles = this.getAllArticlesForShopWithTime(a, firstDate, lastDate); 
-=======
 			//Erstellen und Abrufen der ben�tigten Ergebnisvektoren mittels ShopITAdministration 
 			Vector<Article> articles = this.aMapper.getAllArticlesForShopWithTime(a, firstDate, lastDate); 
->>>>>>> refs/heads/Larisa
+
 			
 			//Kopfzeile f�r die H�ndlerstatistik-Tabelle. 
 			Row headline = new Row(); 
