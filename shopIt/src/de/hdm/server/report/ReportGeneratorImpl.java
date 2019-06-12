@@ -1,11 +1,11 @@
 package de.hdm.server.report;
 import java.util.Vector;
 
-//import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.hdm.server.ShopITAdministrationImpl;
 import de.hdm.shared.ReportGenerator;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import de.hdm.shared.ShopITAdministration;
 import de.hdm.shared.report.CompositeParagraph;
@@ -13,11 +13,17 @@ import de.hdm.shared.report.Report;
 import de.hdm.shared.report.Row;
 =======
 import de.hdm.shared.bo.Article;
+=======
+import de.hdm.shared.report.Column;
+>>>>>>> refs/heads/Larisa
 import de.hdm.shared.report.CompositeParagraph;
 import de.hdm.shared.report.Row;
 import de.hdm.shared.report.Column;
 >>>>>>> refs/remotes/origin/Ilona
 import de.hdm.shared.report.SimpleParagraph;
+import de.hdm.shared.bo.*;
+import de.hdm.server.db.*;
+import de.hdm.server.*;
 
 /**
  * Implementierung des ReportGenerator. 
@@ -25,6 +31,7 @@ import de.hdm.shared.report.SimpleParagraph;
 @SuppressWarnings("serial")//UnterdrÃ¼ckung von Warnungen bezÃ¼glich fehlendem Feld 'serialVersionUID' fÃ¼r eine serialisierbare Klasse
 public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportGenerator {
 	
+<<<<<<< HEAD
 	/**
 	 * Zugriff auf die ShopITAdministration um Methoden von Datenobjekten des BO-Packages zu erhalten.
 	 * @author InesWerner
@@ -71,6 +78,10 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	
 	/**Diese Methode soll eine Statistik ï¿½ber hï¿½ufig einkaufte Artikel in einem Zeitraum
 	 * von einem Hï¿½ndler anzeigen.
+=======
+	/**Diese Methode soll eine Statistik über häufig einkaufte Artikel in einem Zeitraum 
+	 * (falls angegeben) von einem Händler anzeigen.
+>>>>>>> refs/heads/Larisa
 	 * @Larisa
 	 */
 	
@@ -89,7 +100,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			/**Zusammenstellung der Kopfdaten (das, was oben auf dem Report steht).
 			 * Die Kopfdaten sind mehrzeilig, deswegen wird die Klasse CompositeParagraph verwendet.
 			 * 
-			 * @author in Anlehnung Thies
+			 * @author Larisa in Anlehnung Thies
 			 */
 			CompositeParagraph header = new CompositeParagraph(); 
 			
@@ -99,11 +110,52 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			//Hinzufï¿½gen des zusammengestellten Kopfdaten 
 			result.setHeaderData(header); 
 			
+<<<<<<< HEAD
 			//Erstellen und Abrufen der benï¿½tigten Ergebnisvektoren mittels ShopITAdministration 
 			Vector<Article> articles = this.getAllArticlesForShopWithTime(a, firstDate, lastDate); 
+=======
+			//Erstellen und Abrufen der benötigten Ergebnisvektoren mittels ShopITAdministration 
+			Vector<Article> articles = this.aMapper.getAllArticlesForShopWithTime(a, firstDate, lastDate); 
+>>>>>>> refs/heads/Larisa
 			
 			//Kopfzeile fï¿½r die Hï¿½ndlerstatistik-Tabelle. 
 			Row headline = new Row(); 
+			
+			/**
+			 * Die Tabelle wird Zeilen mit 3 Spalten haben. Die erste Spalten entählt
+			 * der Name des Artikels, die zweite die Anzahl des Artikels und die dritte
+			 * Spalte den gewßünschten Zeitraum, falls angegeben. 
+			 * In der Kopfzeile werden die entsprechenden Überschriften angelegt. 
+			 * 
+			 * @author Larisa in Anlehnung Thies
+			 */
+			
+			headline.addColumn(new Column("Article"));
+			headline.addColumn(new Column("Article Quantity"));
+			headline.addColumn(new Column("Period of Time"));
+			
+			//Hinzufügen der Kopfzeile.
+			result.addRow(headline); 
+			
+			//Eine leere Zeile anlegen.
+			Row row = new Row(); 
+			
+			//Die erste Spalte: Artikelname 
+			row.addColumn(new Column(a.getAllArticlesByShop()));
+			row.addColumn(new Column(articles.size() + ""));
+			
+			//Die Zeilen dem Report hinzufügen
+			result.addRow(row); 
+			
+			//Impressum hinzufügen
+			result.addImprint(result); 
+			
+			//Report zurückgeben 
+			return result;
+
+		} else {
+			
+			return null; 
 		}
 	}
 
