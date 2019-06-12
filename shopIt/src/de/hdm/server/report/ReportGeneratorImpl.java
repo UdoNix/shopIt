@@ -104,10 +104,10 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			 */
 			CompositeParagraph header = new CompositeParagraph(); 
 			
-			//Impressumsbezeichnung hinzuf�gen
+			//Impressumsbezeichnung hinzuf�gen.
 			header.addSubParagraph(new SimpleParagraph("Impressum: ")); 
 			
-			//Hinzuf�gen des zusammengestellten Kopfdaten 
+			//Hinzuf�gen des zusammengestellten Kopfdaten.
 			result.setHeaderData(header); 
 			
 <<<<<<< HEAD
