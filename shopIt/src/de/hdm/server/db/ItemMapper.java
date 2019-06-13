@@ -357,7 +357,7 @@ public Vector<Item> getItemsbyTeamAndShop(int teamId, int shopId) {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("SELECT item.id, COUNT(item.id), shopId FROM item INNER JOIN responsibility"
+	      ResultSet rs = stmt.executeQuery("SELECT item.id,  COUNT(item.id), responsibility.shopId, teamId FROM item INNER JOIN responsibility"
 	      		+ "ON item.id = responsibility.itemId"
 	      +"WHERE item.teamID=" + teamId + " AND item.shopId=" + shopId);
 	      				
