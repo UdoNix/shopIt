@@ -3,9 +3,9 @@ package de.hdm.server.db;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
-	import java.sql.SQLException;
-	import java.sql.Statement;
-	import java.util.Vector;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Vector;
 
 import de.hdm.shared.bo.Article;
 import de.hdm.shared.bo.Item;
@@ -325,7 +325,7 @@ public Item insert(Item i) {
 		      Statement stmt = con.createStatement();
 
 		      ResultSet rs = stmt.executeQuery(
-		    		  "SELECT COUNT(articleId), item.id AS id, team.id AS 'team.id', item.changeDate"
+		    		  "SELECT item.id AS id, COUNT(articleId) AS count, team.id AS 'team.id', item.changeDate AS changeDate"
 		    		  + "FROM item INNER JOIN team ON item.teamId = team.id "
 		    		  + "WHERE teamID= TeamId AND item.changeDate BETWEEN "+ firstDate +" AND "+ lastDate +""
 		    		  		+ "GROUP BY item.id ORDER BY COUNT(item.articleId) DESC"
@@ -338,6 +338,9 @@ public Item insert(Item i) {
 		      while (rs.next()) {
 		        Item i = new Item();
 		        i.setId(rs.getInt("id"));
+		        i.setCount(rs.getInt("count"));
+		        i.setId(rs.getInt("teamId"));
+		        i.setChangeDate(rs.getDate("changeDate"));
 		     
 		        result.addElement(i);
 		      }
@@ -357,15 +360,18 @@ public Vector<Item> getItemsbyTeamAndShop(int teamId, int shopId) {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("SELECT item.id,  COUNT(item.id), responsibility.shopId, teamId FROM item INNER JOIN responsibility"
+	      ResultSet rs = stmt.executeQuery("SELECT item.id AS id,  COUNT(item.id) AS count, responsibility.shopId AS shopId, teamId FROM item INNER JOIN responsibility"
 	      		+ "ON item.id = responsibility.itemId"
 	      +"WHERE item.teamID=" + teamId + " AND item.shopId=" + shopId);
 	      				
 	      
 	      while (rs.next()) {
 	        Item i = new Item();
-	        i.setShopId (rs.getInt("shopId"));
-	        i.setId(rs.getInt("id"));
+	        i.setShopId (rs.getInt("id"));
+	        i.setId(rs.getInt("count"));
+	        i.setCount(rs.getInt("count"));
+	        i.setShopId(rs.getInt("shopId"));
+	        i.setTeamId(rs.getInt("teamId"));
 	     
 	        result.addElement(i);
 	      }
