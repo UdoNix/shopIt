@@ -101,15 +101,15 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		return this.pMapper.findByKey(id);
 	}
 	
-	//Auslesen eines Anwenders anhand seines Vornamen.
-	public Person getPersonByFirstName(String firstName){
-		return this.pMapper.findPersonByFirstName(firstName);
+	//Auslesen eines Anwenders anhand seines Namen.
+	public Vector<Person> getPersonByName(Person person){
+		return this.pMapper.findByName(person);
 	}
 	
 	//Auslesen eines Anwenders anhand seines Nachnamen.
-	public Person getPersonByLastName(String lastName){
-		return this.pMapper.findPersonByLastName(lastName);
-	}
+	//public Person getPersonByLastName(String lastName){
+	//	return this.pMapper.findPersonByLastName(lastName);
+	//}
 	
 	//Auslesen eines Anwenders anhand seiner Email.
 	public Person getPersonByEmail(String email) throws IllegalArgumentException{
@@ -325,7 +325,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		t.setId(1);
 		
 		//Speichern des Gruppe-Objekts in der DB.
-		return this.gMapper.insert(t); 
+		return this.tMapper.insert(t); 
 	}
 	
 	//Auslesen einer Gruppe anhand seiner Gruppe-Id.
