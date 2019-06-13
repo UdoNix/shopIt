@@ -325,7 +325,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		t.setId(1);
 		
 		//Speichern des Gruppe-Objekts in der DB.
-		return this.gMapper.insert(t); 
+		return this.tMapper.insert(t); 
 	}
 	
 	//Auslesen einer Gruppe anhand seiner Gruppe-Id.
