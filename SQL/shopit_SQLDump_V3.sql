@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Datenbank: `shopit`
 --
+CREATE DATABASE IF NOT EXISTS `shopit` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `shopit`;
 
 -- --------------------------------------------------------
 
@@ -31,7 +33,7 @@ CREATE TABLE `article` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `changeDate` datetime NOT NULL,
-  `name` varchar(20) NOT NULL default '',
+  `name` varchar(20) NOT NULL default ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
@@ -53,7 +55,7 @@ CREATE TABLE `team` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `changeDate` datetime NOT NULL,
-  `name` varchar(25) NOT NULL
+  `name` varchar(25) NOT NULL default ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
@@ -108,7 +110,7 @@ CREATE TABLE `list` (
   `id` int(11) NOT NULL,
   `cretionDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `changeDate` datetime NOT NULL,
-  `name` varchar(20) NOT NULL,
+  `name` varchar(20) NOT NULL default '',
   `groupId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -142,10 +144,10 @@ CREATE TABLE `membership` (
 INSERT INTO membership VALUES (1, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 1, 1);
 INSERT INTO membership VALUES (2, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 2, 1);
 INSERT INTO membership VALUES (3, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 3, 1);
-INSERT INTO membership VALUES (2, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 4, 2);
-INSERT INTO membership VALUES (3, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 5, 2);
-INSERT INTO membership VALUES (2, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 6, 3);
-INSERT INTO membership VALUES (3, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 7, 3);
+INSERT INTO membership VALUES (4, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 4, 2);
+INSERT INTO membership VALUES (5, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 5, 2);
+INSERT INTO membership VALUES (6, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 6, 3);
+INSERT INTO membership VALUES (7, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 7, 3);
 
 -- --------------------------------------------------------
 
@@ -158,9 +160,9 @@ CREATE TABLE `person` (
   `id` int(11) NOT NULL,
   `cretionDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `changeDate` datetime NOT NULL,
-  `firstName` varchar(20) NOT NULL,
-  `lastName` varchar(20) NOT NULL,
-  `email` varchar(20) NOT NULL
+  `firstName` varchar(20) NOT NULL default '',
+  `lastName` varchar(20) NOT NULL default '',
+  `email` varchar(20) NOT NULL default ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
@@ -218,10 +220,10 @@ CREATE TABLE `shop` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `changeDate` datetime NOT NULL,
-  `name` varchar(20) NOT NULL,
-  `street` int(11) NOT NULL,
-  `postalCode` varchar(11) NOT NULL,
-  `city` int(11) NOT NULL
+  `name` varchar(20) NOT NULL default '',
+  `street` varchar(20) NOT NULL default '',
+  `postalCode` varchar(20) NOT NULL default '',
+  `city` varchar(20) NOT NULL default ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
@@ -243,7 +245,7 @@ CREATE TABLE `unit` (
   `cretionDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `changeDate` datetime NOT NULL,
   `amount` int(11) NOT NULL,
-  `measure` varchar(20) NOT NULL
+  `measure` varchar(20) NOT NULL default ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
@@ -322,42 +324,42 @@ ALTER TABLE `unit`
 -- AUTO_INCREMENT für Tabelle `article`
 --
 ALTER TABLE `article`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT für Tabelle `team`
 --
 ALTER TABLE `team`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT für Tabelle `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT für Tabelle `membership`
 --
 ALTER TABLE `membership`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT für Tabelle `person`
 --
 ALTER TABLE `person`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT für Tabelle `responsibility`
 --
 ALTER TABLE `responsibility`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT für Tabelle `shop`
 --
 ALTER TABLE `shop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT für Tabelle `unit`
 --
 ALTER TABLE `unit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
