@@ -198,6 +198,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		l.setTeamId(t.getId());
 		
 
+		
 		return this.lMapper.insert(l);
 		
 	}
