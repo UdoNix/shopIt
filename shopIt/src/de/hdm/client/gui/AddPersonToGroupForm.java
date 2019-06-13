@@ -28,7 +28,7 @@ import de.hdm.shared.bo.Person;
 	 */
 	public class AddPersonToGroupForm extends VerticalPanel{
 		
-		ShopItAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
+		private ShopItAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
 		//private Person p = Person.GetPerson(); funktioniert nicht
 		private Person newGroupMember = null;
 		private Team selectedGroup = null;
