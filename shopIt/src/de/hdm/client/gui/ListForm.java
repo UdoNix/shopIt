@@ -1,6 +1,7 @@
 package de.hdm.client.gui;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
