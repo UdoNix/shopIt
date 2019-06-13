@@ -6,7 +6,6 @@ import java.sql.Connection;
 	import java.sql.Statement;
 	import java.util.Vector;
 
-import de.hdm.shared.bo.Salesman;
 import de.hdm.shared.bo.Shop;
 
 	
