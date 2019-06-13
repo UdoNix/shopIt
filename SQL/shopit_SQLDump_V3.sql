@@ -26,25 +26,43 @@ SET time_zone = "+00:00";
 -- Tabellenstruktur für Tabelle `article`
 --
 
+DROP TABLE IF EXISTS `article`;
 CREATE TABLE `article` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` date NOT NULL,
-  `name` varchar(20) NOT NULL
+  `changeDate` datetime NOT NULL,
+  `name` varchar(20) NOT NULL default '',
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Daten für Tabelle article
+#
+
+INSERT INTO article VALUES (1, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'Äpfel');
+INSERT INTO article VALUES (2, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 'Brot');
+INSERT INTO article VALUES (3, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 'Mehl');
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `groups`
+-- Tabellenstruktur für Tabelle `team`
 --
 
+DROP TABLE IF EXISTS `team`;
 CREATE TABLE `team` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` date NOT NULL,
+  `changeDate` datetime NOT NULL,
   `name` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Daten für Tabelle team
+#
+
+INSERT INTO team VALUES (1, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'Superteam');
+INSERT INTO team VALUES (2, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 'Megateam');
+INSERT INTO team VALUES (3, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 'Ultrateam');
 
 -- --------------------------------------------------------
 
@@ -52,10 +70,11 @@ CREATE TABLE `team` (
 -- Tabellenstruktur für Tabelle `item`
 --
 
+DROP TABLE IF EXISTS `item`;
 CREATE TABLE `item` (
   `id` int(11) NOT NULL,
   `cretionDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` date NOT NULL,
+  `changeDate` datetime NOT NULL,
   `unitId` int(11) NOT NULL,
   `articleId` int(11) NOT NULL,
   `teamId` int(11) NOT NULL,
@@ -64,19 +83,42 @@ CREATE TABLE `item` (
   `status` boolean
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+#
+# Daten für Tabelle item
+#
+
+INSERT INTO item VALUES (1, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 1, 1, 1, 1, false, true);
+INSERT INTO item VALUES (2, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 2, 2, 1, 1, true, true);
+INSERT INTO item VALUES (3, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 3, 3, 1, 1, true, false);
+INSERT INTO item VALUES (4, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 1, 1, 2, 2, false, true);
+INSERT INTO item VALUES (5, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 2, 2, 2, 2, true, true);
+INSERT INTO item VALUES (6, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 3, 3, 2, 2, true, false);
+INSERT INTO item VALUES (7, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 1, 1, 3, 3, false, true);
+INSERT INTO item VALUES (8, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 2, 2, 3, 3, true, true);
+INSERT INTO item VALUES (9, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 3, 3, 3, 3, true, false);
+
 -- --------------------------------------------------------
 
 --
 -- Tabellenstruktur für Tabelle `list`
 --
 
+DROP TABLE IF EXISTS `list`;
 CREATE TABLE `list` (
   `id` int(11) NOT NULL,
   `cretionDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` date NOT NULL,
+  `changeDate` datetime NOT NULL,
   `name` varchar(20) NOT NULL,
   `groupId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Daten für Tabelle list
+#
+
+INSERT INTO list VALUES (1, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'Familie', 1);
+INSERT INTO list VALUES (2, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 'Freunde', 2);
+INSERT INTO list VALUES (3, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 'Feinde', 3);
 
 -- --------------------------------------------------------
 
@@ -84,13 +126,26 @@ CREATE TABLE `list` (
 -- Tabellenstruktur für Tabelle `membership`
 --	
 
+DROP TABLE IF EXISTS `membership`;
 CREATE TABLE `membership` (
   `id` int(11) NOT NULL,
   `cretionDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` date NOT NULL,
+  `changeDate` datetime NOT NULL,
   `personId` int(11) NOT NULL,
   `groupId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Daten für Tabelle membership
+#
+
+INSERT INTO membership VALUES (1, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 1, 1);
+INSERT INTO membership VALUES (2, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 2, 1);
+INSERT INTO membership VALUES (3, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 3, 1);
+INSERT INTO membership VALUES (2, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 4, 2);
+INSERT INTO membership VALUES (3, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 5, 2);
+INSERT INTO membership VALUES (2, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 6, 3);
+INSERT INTO membership VALUES (3, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 7, 3);
 
 -- --------------------------------------------------------
 
@@ -98,14 +153,28 @@ CREATE TABLE `membership` (
 -- Tabellenstruktur für Tabelle `person`
 --
 
+DROP TABLE IF EXISTS `person`;
 CREATE TABLE `person` (
   `id` int(11) NOT NULL,
   `cretionDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` date NOT NULL,
+  `changeDate` datetime NOT NULL,
   `firstName` varchar(20) NOT NULL,
   `lastName` varchar(20) NOT NULL,
   `email` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Daten für Tabelle person
+#
+
+INSERT INTO person VALUES (1, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'Ulrike', 'Mustermann', 'ulrike@mustermann.org');
+INSERT INTO person VALUES (2, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'Max', 'Mustermann', 'max@mustermann.org');
+INSERT INTO person VALUES (3, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'Kim', 'Mustermann', 'kim@mustermann.org');
+INSERT INTO person VALUES (4, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'abc', 'def', 'abc@def.org');
+INSERT INTO person VALUES (5, '1970-01-01 00:00:00', '2019-01-01 00:00:00', '123', '456', '123@456.org');
+INSERT INTO person VALUES (6, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'xyz', 'zyx', 'xyz@zyx.org');
+INSERT INTO person VALUES (7, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'alpha', 'beta', 'alpha@beta.org');
+
 
 -- --------------------------------------------------------
 
@@ -113,31 +182,54 @@ CREATE TABLE `person` (
 -- Tabellenstruktur für Tabelle `responsibility`
 --
 
+DROP TABLE IF EXISTS `responsibility`;
 CREATE TABLE `responsibility` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` date NOT NULL,
+  `changeDate` datetime NOT NULL,
   `personId` int(11) DEFAULT NULL,
   `itemId` int(11) DEFAULT NULL,
   `shopId` int(11) DEFAULT NULL
   
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+#
+# Daten für Tabelle responsibility
+#
+
+INSERT INTO responsibility VALUES (1, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 1, 1, 1);
+INSERT INTO responsibility VALUES (2, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 2, 2, 2);
+INSERT INTO responsibility VALUES (3, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 3, 3, 1);
+INSERT INTO responsibility VALUES (4, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 4, 4, 2);
+INSERT INTO responsibility VALUES (5, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 5, 5, 1);
+INSERT INTO responsibility VALUES (6, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 6, 6, 2);
+INSERT INTO responsibility VALUES (7, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 7, 7, 1);
+INSERT INTO responsibility VALUES (8, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 1, 8, 2);
+INSERT INTO responsibility VALUES (9, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 7, 9, 1);
+
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `salesman`
+-- Tabellenstruktur für Tabelle `shop`
 --
 
+DROP TABLE IF EXISTS `shop`;
 CREATE TABLE `shop` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` date NOT NULL,
+  `changeDate` datetime NOT NULL,
   `name` varchar(20) NOT NULL,
   `street` int(11) NOT NULL,
   `postalCode` varchar(11) NOT NULL,
   `city` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Daten für Tabelle shop
+#
+
+INSERT INTO shop VALUES (1, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'Lidl', 'Astraße', '00000', 'Stadt1');
+INSERT INTO shop VALUES (2, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'Aldi', 'Bstraße', '00001', 'Stadt2');
 
 -- --------------------------------------------------------
 
@@ -145,13 +237,24 @@ CREATE TABLE `shop` (
 -- Tabellenstruktur für Tabelle `unit`
 --
 
+DROP TABLE IF EXISTS `unit`;
 CREATE TABLE `unit` (
   `id` int(11) NOT NULL,
   `cretionDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` date NOT NULL,
+  `changeDate` datetime NOT NULL,
   `amount` int(11) NOT NULL,
   `measure` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Daten für Tabelle unit
+#
+
+INSERT INTO unit VALUES (1, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 3, 'Kilo');
+INSERT INTO unit VALUES (2, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 5, 'Stück');
+INSERT INTO unit VALUES (3, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 2, 'Packungen');
+
+-- --------------------------------------------------------
 
 --
 -- Indizes der exportierten Tabellen
@@ -164,9 +267,9 @@ ALTER TABLE `article`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `groups`
+-- Indizes für die Tabelle `team`
 --
-ALTER TABLE `groups`
+ALTER TABLE `team`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -200,9 +303,9 @@ ALTER TABLE `responsibility`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `salesman`
+-- Indizes für die Tabelle `shop`
 --
-ALTER TABLE `salesman`
+ALTER TABLE `shop`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -221,9 +324,9 @@ ALTER TABLE `unit`
 ALTER TABLE `article`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT für Tabelle `groups`
+-- AUTO_INCREMENT für Tabelle `team`
 --
-ALTER TABLE `groups`
+ALTER TABLE `team`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT für Tabelle `item`
