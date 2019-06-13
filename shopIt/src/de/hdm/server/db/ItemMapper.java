@@ -299,8 +299,8 @@ public Item insert(Item i) {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("SELECT ItemId FROM item "
-	          + " Inner JOIN Salesman ON item.shopId=Shop.Id" + "INNER JOIN responsibility ON responsibility.shopId=shop.Id");
+	      ResultSet rs = stmt.executeQuery("SELECT * FROM item "
+	          + " INNER JOIN shop ON responsibility.shopId=Shop.Id" + "INNER JOIN responsibility ON responsibility.shopId=shop.Id");
 
 	      
 	      while (rs.next()) {
