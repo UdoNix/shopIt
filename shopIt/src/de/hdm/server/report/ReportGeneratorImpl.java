@@ -323,6 +323,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			return null;
 		}
 		
+		
 	}
 
 }
