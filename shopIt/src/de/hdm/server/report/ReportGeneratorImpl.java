@@ -5,25 +5,18 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.hdm.server.ShopITAdministrationImpl;
 import de.hdm.shared.ReportGenerator;
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> branch 'master' of https://github.com/UdoNix/shopIt.git
 import de.hdm.shared.ShopITAdministration;
 import de.hdm.shared.report.CompositeParagraph;
 import de.hdm.shared.report.Report;
 import de.hdm.shared.report.Row;
 import de.hdm.shared.bo.Article;
-<<<<<<< HEAD
-=======
-=======
+
 import de.hdm.shared.report.Column;
->>>>>>> refs/heads/Larisa
+
 import de.hdm.shared.report.CompositeParagraph;
 import de.hdm.shared.report.Row;
->>>>>>> branch 'master' of https://github.com/UdoNix/shopIt.git
+
 import de.hdm.shared.report.Column;
 
 import de.hdm.shared.report.SimpleParagraph;
@@ -37,7 +30,7 @@ import de.hdm.server.*;
 @SuppressWarnings("serial")//UnterdrÃ¼ckung von Warnungen bezÃ¼glich fehlendem Feld 'serialVersionUID' fÃ¼r eine serialisierbare Klasse
 public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportGenerator {
 	
-<<<<<<< HEAD
+
 	/**
 	 * Zugriff auf die ShopITAdministration um Methoden von Datenobjekten des BO-Packages zu erhalten.
 	 * @author InesWerner
@@ -82,12 +75,10 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	}
 
 	
-	/**Diese Methode soll eine Statistik ï¿½ber hï¿½ufig einkaufte Artikel in einem Zeitraum
-	 * von einem Hï¿½ndler anzeigen.
-=======
-	/**Diese Methode soll eine Statistik über häufig einkaufte Artikel in einem Zeitraum 
+
+	/**
+	 * Diese Methode soll eine Statistik über häufig einkaufte Artikel in einem Zeitraum 
 	 * (falls angegeben) von einem Händler anzeigen.
->>>>>>> refs/heads/Larisa
 	 * @Larisa
 	 */
 	
@@ -116,13 +107,10 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			//Hinzufï¿½gen des zusammengestellten Kopfdaten.
 			result.setHeaderData(header); 
 			
-<<<<<<< HEAD
+
 			//Erstellen und Abrufen der benï¿½tigten Ergebnisvektoren mittels ShopITAdministration 
 			Vector<Article> articles = this.getAllArticlesForShopWithTime(a, firstDate, lastDate); 
-=======
-			//Erstellen und Abrufen der benötigten Ergebnisvektoren mittels ShopITAdministration 
-			Vector<Article> articles = this.aMapper.getAllArticlesForShopWithTime(a, firstDate, lastDate); 
->>>>>>> refs/heads/Larisa
+
 			
 			//Kopfzeile fï¿½r die Hï¿½ndlerstatistik-Tabelle. 
 			Row headline = new Row(); 
@@ -181,12 +169,13 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		if (this.getAticles() == null) {
 			return null;
 		}
-		Team t = this.getArticlesbyTeam(name);
+		Team t = this.getTeambyName(name);
 		
 		if (t != null) {
 			
 			//Einen leeren Report anlegen.
 			TeamStatisticReport result = new TeamStatisticReport();
+			
 			//Jeder Report hat einen Titel
 			result.setTitle("Teamstatistik");
 			
@@ -197,8 +186,10 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			 */
 			
 			CompositeParagraph header = new CompositeParagraph();
+			
 			//Impressumsbezeichnung hinzufügen
 			header.addSubParagraph(new SimpleParagraph("Impressum: "));
+			
 			//Hinzufügen des zusammengestellten Kopfdaten
 			result.setHeaderData(header);
 			
@@ -240,6 +231,98 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			
 			
 		}
+	}
+	
+	/*
+	 * Die Methode soll alle Artikel eines gewissen Zeitraums anhand eines Händlers anzeigen 
+	 * 
+	 * Zurückgegeben wird ein fertiger Report
+	 * 
+	 * @author IlonaBrinkmann
+	 */
+	
+	private int shopid;
+	
+	private int teamid;
+	
+	public TeamAndShopStatistikReport createTeamAndShopStatistikReport(String tname, String sname, Date firstDate, Date lastdate) throws IllegalArgumentException {
+		
+		Shop s1 = this.getShopbyName(sname);
+		
+		shopid = s1.getId();
+		
+		Team t1 = this.getTeambyName(tname);
+		
+		teamid = t1.getId();
+		
+		Shop s = this.getShopITAdministration().getShopById(shopid);
+		
+		Team t = this.getShopITAdministration().getTeamById(teamid);
+		
+		if ( s != null) {
+			
+			// einen leeren Report anlegen
+			TeamAndShopStatistikReport result = new TeamAndShopStatistikReport();
+			
+			//Jeder Report hat einen Titel
+			result.setTitle("TeamAndShopStatistik:");
+			
+			/*
+			 * 
+			 * Nun folgt die Zusammenstellung der Kopfdaten des Reports
+			 * Die Kopfdaten sind mehrzeilig, daher die Verwendung des
+			 * CompositeParagraph
+			 * 
+			 * 
+			 */
+			
+			CompositeParagraph header = new CompositeParagraph();
+			//Impressumsbezeichnung hinzufügen
+			header.addSubParagraph(new SimpleParagraph("Impressum: "));
+			//Hinzufügen des zusammengestellten Kopfdaten
+			result.setHeaderDate(header);
+			
+			//Erstellen und Abrufen der benötigten Ergebnisvektoren mittels ShopITVerwaltung
+			Vector<Article> articles = this.getShopITVerwaltung().getArticlesbyTeamAndShopWithTime(t, s, firstDate, lastdate);
+			
+			
+			//Kopfzeil dür die Team/Shop Statistik Tabelle
+			Row headline = new Row();
+			
+			/*
+			 * Es wird eine Tabelle mit 3 Spalten erzeugt. In die erste Spalte 
+			 * wird der Name des Artikels hingeschrieben. In die zweite Spalte kommt der Name des Shops und 
+			 * in die dritte Spalte kommt die Anzahl der Häufigkeit. Also wie oft der 
+			 * Artikel den Listen aufgelistet war.
+			 */
+			
+			headline.addColumn(new Column("Artikel"));
+			headline.addColumn(new Column("Einzelhändler"));
+			headline.addColumn(new Column("Anzahl"));
+			
+			//Hinzufügen der Kopfzeile
+			result.addRow(headline);
+			
+			//Eine leere Zeile anlegen
+			Row row = new Row();
+			
+			//Erste Spalte: Artikelname
+			row.addColumn(new Column(articles.size() + "");
+			
+			//die Zeilen werden zu dem Report hinzugefügt
+			result.addRow(row);
+			
+			//Impressum hinzufügen
+			this.addImprint(result);
+			
+			//es wird zum Schluss wird der fertige Report abgegeben
+			return result;
+
+			
+		}else {
+			return null;
+		}
+		
 	}
 
 }
