@@ -26,7 +26,7 @@ protected ShopMapper() {
 //Instanz von <code>SalesmanMapper</code> existieren
 //@return salesmanMapper
 
-public static ShopMapper salesmanMapper() {
+public static ShopMapper shopMapper() {
 	if (shopMapper == null) {
 		shopMapper = new ShopMapper();
 	}
