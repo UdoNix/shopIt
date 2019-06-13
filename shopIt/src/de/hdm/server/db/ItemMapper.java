@@ -381,7 +381,7 @@ public Vector<Item> getItemsbyTeamAndShop(int teamId, int shopId) {
 }
 
 
-public Vector<Item> getItemsbyTeamAndShopWithTime (int teamId, int shopId, Date firstDate, Date lastDate) {
+public Vector<Item> getItemsByTeamAndShopWithTime (int teamId, int shopId, Date firstDate, Date lastDate) {
 	   Connection con = DBConnection.connection();
 	    Vector<Item> result = new Vector<Item>();
 
