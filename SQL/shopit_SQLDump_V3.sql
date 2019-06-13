@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `article` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `changeDate` date NOT NULL,
   `name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -39,10 +39,10 @@ CREATE TABLE `article` (
 -- Tabellenstruktur für Tabelle `groups`
 --
 
-CREATE TABLE `groups` (
+CREATE TABLE `team` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `changeDate` date NOT NULL,
   `name` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -55,11 +55,10 @@ CREATE TABLE `groups` (
 CREATE TABLE `item` (
   `id` int(11) NOT NULL,
   `cretionDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `changeDate` date NOT NULL,
   `unitId` int(11) NOT NULL,
   `articleId` int(11) NOT NULL,
-  `groupId` int(11) NOT NULL,
-  `salesmanId` int(11) NOT NULL,
+  `teamId` int(11) NOT NULL,
   `listId` int(11) NOT NULL,
   `favorit` boolean,
   `status` boolean
@@ -74,7 +73,7 @@ CREATE TABLE `item` (
 CREATE TABLE `list` (
   `id` int(11) NOT NULL,
   `cretionDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `changeDate` date NOT NULL,
   `name` varchar(20) NOT NULL,
   `groupId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -88,7 +87,7 @@ CREATE TABLE `list` (
 CREATE TABLE `membership` (
   `id` int(11) NOT NULL,
   `cretionDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `changeDate` date NOT NULL,
   `personId` int(11) NOT NULL,
   `groupId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -102,7 +101,7 @@ CREATE TABLE `membership` (
 CREATE TABLE `person` (
   `id` int(11) NOT NULL,
   `cretionDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `changeDate` date NOT NULL,
   `firstName` varchar(20) NOT NULL,
   `lastName` varchar(20) NOT NULL,
   `email` varchar(20) NOT NULL
@@ -117,9 +116,11 @@ CREATE TABLE `person` (
 CREATE TABLE `responsibility` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `changeDate` date NOT NULL,
   `personId` int(11) DEFAULT NULL,
-  `salesmanId` int(11) DEFAULT NULL
+  `itemId` int(11) DEFAULT NULL,
+  `shopId` int(11) DEFAULT NULL
+  
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -128,10 +129,10 @@ CREATE TABLE `responsibility` (
 -- Tabellenstruktur für Tabelle `salesman`
 --
 
-CREATE TABLE `salesman` (
+CREATE TABLE `shop` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `changeDate` date NOT NULL,
   `name` varchar(20) NOT NULL,
   `street` int(11) NOT NULL,
   `postalCode` varchar(11) NOT NULL,
@@ -147,7 +148,7 @@ CREATE TABLE `salesman` (
 CREATE TABLE `unit` (
   `id` int(11) NOT NULL,
   `cretionDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `changeDate` date NOT NULL,
   `amount` int(11) NOT NULL,
   `measure` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -245,9 +246,9 @@ ALTER TABLE `person`
 ALTER TABLE `responsibility`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT für Tabelle `salesman`
+-- AUTO_INCREMENT für Tabelle `shop`
 --
-ALTER TABLE `salesman`
+ALTER TABLE `shop`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT für Tabelle `unit`
