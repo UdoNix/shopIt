@@ -342,6 +342,37 @@ public Item insert(Item i) {
 
 		    return result;
 }
+	 
+
+public Vector<Item> getItemsbyTeamAndShop(int teamId, int shopId) {
+	   Connection con = DBConnection.connection();
+	    Vector<Item> result = new Vector<Item>();
+
+	    try {
+	      Statement stmt = con.createStatement();
+
+	      ResultSet rs = stmt.executeQuery("SELECT item.id, COUNT(item.id), shopId FROM item INNER JOIN responsibility"
+	      		+ "ON item.id = responsibility.itemId"
+	      +"WHERE item.teamID=" + teamId + " AND item.shopId=" + shopId);
+	      				
+	      
+	      while (rs.next()) {
+	        Item i = new Item();
+	        i.setShopId (rs.getInt("shopId"));
+	        i.setId(rs.getInt("id"));
+	     
+	        result.addElement(i);
+	      }
+	    }
+	    catch (SQLException e2) {
+	      e2.printStackTrace();
+	    }
+
+	    return result;
+
+
+
+}
 }
 
    
