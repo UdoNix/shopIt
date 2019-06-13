@@ -299,8 +299,8 @@ public Item insert(Item i) {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("SELECT ItemId FROM item "
-	          + " Inner JOIN Salesman ON item.shopId=Shop.Id" + "INNER JOIN responsibility ON responsibility.shopId=shop.Id");
+	      ResultSet rs = stmt.executeQuery("SELECT * FROM item "
+	          + " INNER JOIN shop ON responsibility.shopId=Shop.Id" + "INNER JOIN responsibility ON responsibility.shopId=shop.Id");
 
 	      
 	      while (rs.next()) {
@@ -317,17 +317,23 @@ public Item insert(Item i) {
 	    return result;
 		
 }
-	 public Vector<Item> getArticlesbyTeamWithTime (int TeamId, Date firstDate, Date lastDate) {
+	 public Vector<Item> getItemsbyTeamWithTime (int TeamId, Date firstDate, Date lastDate) {
 		   Connection con = DBConnection.connection();
 		    Vector<Item> result = new Vector<Item>();
 
 		    try {
 		      Statement stmt = con.createStatement();
 
-		      ResultSet rs = stmt.executeQuery("SELECT id, COUNT(articleId) FROM item INNER JOIN"
-		      		+ "team ON item.teamId = team.id" + "WHERE teamID= TeamId AND (id.getChangeDate() BETWEEN firstDate AND lastDate) AND GROUP BY id" + 
-		      				"ORDER BY COUNT(articleId) DESC ");
-		      				
+		      ResultSet rs = stmt.executeQuery(
+		    		  "SELECT COUNT(articleId), item.id AS id, team.id AS 'team.id', item.changeDate"
+		    		  + "FROM item INNER JOIN team ON item.teamId = team.id "
+		    		  + "WHERE teamID= TeamId AND item.changeDate BETWEEN "+ firstDate +" AND "+ lastDate +""
+		    		  		+ "GROUP BY item.id ORDER BY COUNT(item.articleId) DESC"
+//		    		  "SELECT COUNT(articleId), item.id AS id, team.id AS 'team.id', item.changeDate FROM item INNER JOIN "
+//		      		+ "team ON item.teamId = team.id" + "WHERE teamID= TeamId ( AND  item.changeDate  BETWEEN "+ firstDate +" AND "+ lastDate +" )  GROUP BY id" + 
+//		      				"ORDER BY COUNT(articleId) DESC"
+		      		);
+ 
 		      
 		      while (rs.next()) {
 		        Item i = new Item();
