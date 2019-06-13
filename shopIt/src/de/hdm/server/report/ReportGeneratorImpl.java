@@ -70,12 +70,8 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	}
 
 	
-	/**Diese Methode soll eine Statistik ï¿½ber hï¿½ufig einkaufte Artikel in einem Zeitraum
-	 * von einem Hï¿½ndler anzeigen.
-=======
-	/**Diese Methode soll eine Statistik über häufig einkaufte Artikel in einem Zeitraum 
-	 * (falls angegeben) von einem Händler anzeigen.
->>>>>>> refs/heads/Larisa
+	
+	/**Diese Methode soll eine Statistik über häufig einkaufte Artikel von einem Händler anzeigen.
 	 * @Larisa
 	 */
 	
