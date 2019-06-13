@@ -379,6 +379,41 @@ public Vector<Item> getItemsbyTeamAndShop(int teamId, int shopId) {
 
 
 }
+
+
+public Vector<Item> getItemsbyTeamAndShopWithTime (int teamId, int shopId, Date firstDate, Date lastDate) {
+	   Connection con = DBConnection.connection();
+	    Vector<Item> result = new Vector<Item>();
+
+	    try {
+	      Statement stmt = con.createStatement();
+
+	      ResultSet rs = stmt.executeQuery("SELECT item.id, COUNT(item.id) AS 'count', shop.Id AS 'shopId', team.id AS 'team.id', item.changeDate"
+	      		+ " FROM item INNER JOIN responsibility"
+		      		+ "ON item.id = responsibility.itemId"
+		  	      +"WHERE item.teamId=" + teamId + " AND responsibility.shopId=" + shopId + "AND item.changeDate BETWEEN "+ firstDate +" AND "+ lastDate +""
+		  		+ "GROUP BY item.id ORDER BY COUNT(item.articleId) DESC");
+	      				
+	      
+	      while (rs.next()) {
+	        Item i = new Item();
+	        i.setId(rs.getInt("id"));
+	        i.setShopId (rs.getInt("shopId"));
+	        i.setCount (rs.getInt("count"));
+	        i.setTeamId(rs.getInt("itemId"));
+	        i.setChangeDate(rs.getDate("changeDate"));
+	        
+	        
+	     
+	        result.addElement(i);
+	      }
+	    }
+	    catch (SQLException e2) {
+	      e2.printStackTrace();
+	    }
+
+	    return result;
+}
 }
 
    
