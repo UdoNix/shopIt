@@ -1,10 +1,12 @@
 package de.hdm.shared;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 
 import de.hdm.shared.bo.*;
+import de.hdm.thies.bankProjekt.shared.BankVerwaltungImpl;
 
 /*
  * Synchrone Schnittstelle f�r eine RPC-f�hige Klasse zur Verwaltung.
@@ -38,4 +40,13 @@ public interface ShopITAdministration extends RemoteService {
 	
 	public Vector<List> getListsOf(Team g) throws IllegalArgumentException; 
 	
+	
+	
+	
+	
+	
+	
+	
+
+
 }
