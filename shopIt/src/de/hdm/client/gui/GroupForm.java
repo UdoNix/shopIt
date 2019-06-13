@@ -61,7 +61,7 @@ public class GroupForm extends VerticalPanel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void onLoad(GroupForm group){
+	public void onLoad(){
 		
 			editGroupBtn = new Button("Gruppe bearbeiten");
 			deleteGroupBtn = new Button("Gruppe löschen");

@@ -1,4 +1,4 @@
-package de.hdm.client.gui;
+ package de.hdm.client.gui;
 
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
