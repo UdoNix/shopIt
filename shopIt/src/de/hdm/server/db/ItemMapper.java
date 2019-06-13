@@ -1,7 +1,8 @@
 package de.hdm.server.db;
 
 import java.sql.Connection;
-	import java.sql.ResultSet;
+import java.sql.Date;
+import java.sql.ResultSet;
 	import java.sql.SQLException;
 	import java.sql.Statement;
 	import java.util.Vector;
@@ -57,14 +58,14 @@ public Item findByKey (int id) {
 		        Item i = new Item();
 		        i.setId(rs.getInt("id"));
 		        i.setCreationDate(rs.getTimestamp("creationDate"));
-		        i.setChangeDate(rs.getTimestamp("changeDate"));
-		        i.setSalesmanId(rs.getInt("salesmanId"));
+		        i.setChangeDate(rs.getDate("changeDate"));
+		        i.setShopId(rs.getInt("shopId"));
 		        i.setArticleId(rs.getInt("articleId"));
 		        i.setFavorit(rs.getBoolean("favorit"));
 		        i.setStatus(rs.getBoolean("status"));
 		        i.setUnitId(rs.getInt("unitId"));
 		        i.setListId(rs.getInt("listId"));
-		        i.setTeamId(rs.getTeamInt("teamId"));
+		        i.setTeamId(rs.getInt("teamId"));
 		        
 		    	
 		        return i;
@@ -100,14 +101,14 @@ public Vector<Item> findAll() {
       Item i = new Item();
       i.setId(rs.getInt("id"));
       i.setCreationDate(rs.getTimestamp("creationDate"));
-      i.setChangeDate(rs.getTimestamp("changeDate"));
-      i.setSalesmanId(rs.getInt("salesmanId"));
+      i.setChangeDate(rs.getDate("changeDate"));
+      i.setShopId(rs.getInt("salesmanId"));
       i.setArticleId(rs.getInt("articleId"));
       i.setFavorit(rs.getBoolean("favorit"));
       i.setStatus(rs.getBoolean("status"));
       i.setUnitId(rs.getInt("unitId"));
       i.setListId(rs.getInt("listId"));
-      i.setTeamId(rs.getTeamInt("teamId"));
+      i.setTeamId(rs.getInt("teamId"));
       
 
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
@@ -138,14 +139,14 @@ public Vector<Item> findByList (int listId){
 	        Item i = new Item();
 	        i.setId(rs.getInt("id"));
 	        i.setCreationDate(rs.getTimestamp("creationDate"));
-	        i.setChangeDate(rs.getTimestamp("changeDate"));
-	        i.setSalesmanId(rs.getInt("salesmanId"));
+	        i.setChangeDate(rs.getDate("changeDate"));
+	        i.setShopId(rs.getInt("salesmanId"));
 	        i.setArticleId(rs.getInt("articleId"));
 	        i.setFavorit(rs.getBoolean("favorit"));
 	        i.setStatus(rs.getBoolean("status"));
 	        i.setUnitId(rs.getInt("unitId"));
 	        i.setListId(rs.getInt("listId"));
-	        i.setTeamId(rs.getTeamInt("teamId"));
+	        i.setTeamId(rs.getInt("teamId"));
 
 	        // Hinzufügen des neuen Objekts zum Ergebnisvektor
 	        result.addElement(i);
@@ -213,7 +214,7 @@ public Item insert(Item i) {
     	 item.setId(i.getId());
          item.setCreationDate(i.getCreationDate());
          item.setChangeDate(i.getChangeDate());
-         item.setShopId(i.getSalesmanId());
+         item.setShopId(i.getShopId());
          item.setArticleId(i.getArticleId());
          item.setFavorit(i.isFavorit());
          item.setStatus(i.isStatus());
@@ -230,7 +231,7 @@ public Item insert(Item i) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE list " + "SET id=\"" + i.getId()
-       + "\", " + "shopId=\"" + "\", " + "teamId=\"" + i.getTeamId()+ i.getShopnId()+ "\", " + "unitId=\"" + i.getUnitId()+ "\", " + "articleId=\"" + i.getArticleId()+ "\", " + "isStatus=\"" + "\", " + "listid=\"" + i.getListId()+ i.isStatus()+ "\", " + "isFavorit=\"" + i.isFavorit()+"\", "+ "WHERE id=" + i.getId());
+       + "\", " + "shopId=\"" + "\", " + "teamId=\"" + i.getTeamId()+ i.getShopId()+ "\", " + "unitId=\"" + i.getUnitId()+ "\", " + "articleId=\"" + i.getArticleId()+ "\", " + "isStatus=\"" + "\", " + "listid=\"" + i.getListId()+ i.isStatus()+ "\", " + "isFavorit=\"" + i.isFavorit()+"\", "+ "WHERE id=" + i.getId());
 
     }
     catch (SQLException e2) {
@@ -315,6 +316,31 @@ public Item insert(Item i) {
 
 	    return result;
 		
+}
+	 public Vector<Item> getArticlesbyTeamWithTime (int TeamId, Date firstDate, Date lastDate) {
+		   Connection con = DBConnection.connection();
+		    Vector<Item> result = new Vector<Item>();
+
+		    try {
+		      Statement stmt = con.createStatement();
+
+		      ResultSet rs = stmt.executeQuery("SELECT id, COUNT(articleId) FROM item INNER JOIN"
+		      		+ "team ON item.teamId = team.id" + "WHERE teamID= TeamId AND (id.getChangeDate() BETWEEN firstDate AND lastDate) AND GROUP BY id" + 
+		      				"ORDER BY COUNT(articleId) DESC ");
+		      				
+		      
+		      while (rs.next()) {
+		        Item i = new Item();
+		        i.setId(rs.getInt("id"));
+		     
+		        result.addElement(i);
+		      }
+		    }
+		    catch (SQLException e2) {
+		      e2.printStackTrace();
+		    }
+
+		    return result;
 }
 }
 

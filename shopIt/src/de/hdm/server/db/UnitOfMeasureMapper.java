@@ -54,7 +54,7 @@ public UnitOfMeasure findByKey (int id) {
 		        u.setUnit(rs.getString("unit"));
 		        u.setQuantity(rs.getFloat("quantity"));
 		        u.setCreationDate(rs.getTimestamp("creationDate"));
-		        u.setChangeDate(rs.getTimestamp("changeDate"));
+		        u.setChangeDate(rs.getDate("changeDate"));
 		        return u;
 		      }
 		    }
@@ -90,7 +90,7 @@ public Vector<UnitOfMeasure> findAll() {
         u.setUnit(rs.getString("unit"));
         u.setQuantity(rs.getFloat("quantity"));
         u.setCreationDate(rs.getTimestamp("creationDate"));
-        u.setChangeDate(rs.getTimestamp("changeDate"));
+        u.setChangeDate(rs.getDate("changeDate"));
        
 
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt

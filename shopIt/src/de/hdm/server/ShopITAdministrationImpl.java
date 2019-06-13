@@ -101,15 +101,15 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		return this.pMapper.findByKey(id);
 	}
 	
-	//Auslesen eines Anwenders anhand seines Vornamen.
-	public Person getPersonByFirstName(String firstName){
-		return this.pMapper.findPersonByFirstName(firstName);
+	//Auslesen eines Anwenders anhand seines Namen.
+	public Vector<Person> getPersonByName(Person person){
+		return this.pMapper.findByName(person);
 	}
 	
 	//Auslesen eines Anwenders anhand seines Nachnamen.
-	public Person getPersonByLastName(String lastName){
-		return this.pMapper.findPersonByLastName(lastName);
-	}
+	//public Person getPersonByLastName(String lastName){
+	//	return this.pMapper.findPersonByLastName(lastName);
+	//}
 	
 	//Auslesen eines Anwenders anhand seiner Email.
 	public Person getPersonByEmail(String email) throws IllegalArgumentException{
@@ -186,18 +186,16 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * neue Liste erstellen
 	 */
-<<<<<<< HEAD
-	public List createListFor(Team g, String name) throws IllegalArgumentException{
-=======
+
 	public List createListFor(Team t, String name) throws IllegalArgumentException{
->>>>>>> refs/remotes/origin/Ilona
+
 		List l = new List();
 
 		//creationDate + modification Date noch hinzuf�gen
 
 		l.setId(1);
 		l.setName(name);
-		l.setGroupId(t.getId());
+		l.setTeamId(t.getId());
 		
 
 		return this.lMapper.insert(l);
@@ -247,16 +245,11 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	   */
 	  /*
 	   * ***************************************************************************
-<<<<<<< HEAD
 
-=======
-	   * ABSCHNITT, Beginn: Methoden f�r Eintrag @author Thies Ilona
->>>>>>> refs/heads/Ilona
-=======
 
 	   * ABSCHNITT, Beginn: Methoden f�r Eintrag @author IlonaBrinkmann
 
->>>>>>> refs/remotes/origin/Ilona
+
 	   * ***************************************************************************
 	   */
 	/*
@@ -612,11 +605,9 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * Gruppenmitgliedschaft erstellen
 	 */
 	
-<<<<<<< HEAD
-	public Membership createMembership(Person p, Team g) throws IllegalArgumentException{
-=======
+
 	public Membership createMembership(Person p, Team t) throws IllegalArgumentException{
->>>>>>> refs/remotes/origin/Ilona
+
 		Membership m = new Membership();
 		m.setPerson(p);
 		m.setTeam(t);
