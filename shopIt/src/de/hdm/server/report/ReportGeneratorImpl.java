@@ -70,8 +70,12 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	}
 
 	
-	
-	/**Diese Methode soll eine Statistik über häufig einkaufte Artikel von einem Händler anzeigen.
+	/**Diese Methode soll eine Statistik ï¿½ber hï¿½ufig einkaufte Artikel in einem Zeitraum
+	 * von einem Hï¿½ndler anzeigen.
+=======
+	/**Diese Methode soll eine Statistik über häufig einkaufte Artikel in einem Zeitraum 
+	 * (falls angegeben) von einem Händler anzeigen.
+>>>>>>> refs/heads/Larisa
 	 * @Larisa
 	 */
 	
@@ -149,7 +153,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 				Row articleRow = new Row(); 
 				
 				//Erste Spalte: Artikelname hinzufügen
-				articleRow.addColumn(new Column(a.getName()));
+				articleRow.addColumn(new Column(s.getName()));
 				
 				//Zweite Spalte: Anzahl des Artikels
 				articleRow.addColumn(new Column(articles.size() + ""));
