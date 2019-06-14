@@ -149,7 +149,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 				Row articleRow = new Row(); 
 				
 				//Erste Spalte: Artikelname hinzufügen
-				articleRow.addColumn(new Column(s.getName()));
+				articleRow.addColumn(new Column(a.getName()));
 				
 				//Zweite Spalte: Anzahl des Artikels
 				articleRow.addColumn(new Column(articles.size() + ""));
