@@ -8,7 +8,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.TreeViewModel;
 
 //public class GroupListView implements TreeViewModel {
-public class GroupListView {
+public class TeamListView {
 	
 	private EditorAdminView editorAdminView;
 	//private CellTreeViewModel cellTreeViewModel;
@@ -22,7 +22,7 @@ public class GroupListView {
 	private Button btnShowListGroup;
 	private Button btnShowAccountForm;
 	
-	public GroupListView() {
+	public TeamListView() {
 		
 	}
 	
