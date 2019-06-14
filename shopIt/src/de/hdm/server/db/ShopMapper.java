@@ -6,7 +6,6 @@ import java.sql.Connection;
 	import java.sql.Statement;
 	import java.util.Vector;
 
-import de.hdm.shared.bo.Salesman;
 import de.hdm.shared.bo.Shop;
 
 	
@@ -26,7 +25,7 @@ protected ShopMapper() {
 //Instanz von <code>SalesmanMapper</code> existieren
 //@return salesmanMapper
 
-public static ShopMapper salesmanMapper() {
+public static ShopMapper shopMapper() {
 	if (shopMapper == null) {
 		shopMapper = new ShopMapper();
 	}

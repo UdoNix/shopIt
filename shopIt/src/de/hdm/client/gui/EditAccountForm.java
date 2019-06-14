@@ -12,6 +12,7 @@ import com.google.gwt.user.client.Window;
 
 import de.hdm.client.ClientsideSettings;
 import de.hdm.client.gui.AccountForm.EditAccountFormDialogBox;
+import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.ShopItAdministrationAsync;
 import de.hdm.shared.bo.Person;
 
@@ -29,7 +30,7 @@ import de.hdm.shared.bo.Person;
 		
 		Person user = null;
 		String logOutURL; //Benennung?
-		ShopItAdministrationAsync listenVerwaltung = ClientsideSettings.getEditorServiceAsync();
+		ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getEditorServiceAsync();
 		
 		/*
 		 * Anordnung der Widgets

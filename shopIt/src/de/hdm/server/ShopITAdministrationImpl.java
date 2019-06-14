@@ -179,9 +179,10 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 		l.setId(1);
 		l.setName(name);
-		l.setGroupId(t.getId());
+		l.setTeamId(t.getId());
 		
 
+		
 		return this.lMapper.insert(l);
 		
 	}
@@ -229,16 +230,11 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	   */
 	  /*
 	   * ***************************************************************************
-<<<<<<< HEAD
 
-=======
-	   * ABSCHNITT, Beginn: Methoden f�r Eintrag @author Thies Ilona
->>>>>>> refs/heads/Ilona
-=======
 
 	   * ABSCHNITT, Beginn: Methoden f�r Eintrag @author IlonaBrinkmann
 
->>>>>>> refs/remotes/origin/Ilona
+
 	   * ***************************************************************************
 	   */
 	/*
@@ -594,7 +590,9 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * Gruppenmitgliedschaft erstellen
 	 */
 	
+
 	public Membership createMembership(Person p, Team t) throws IllegalArgumentException{
+
 		Membership m = new Membership();
 		m.setPerson(p);
 		m.setTeam(t);

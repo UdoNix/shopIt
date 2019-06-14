@@ -11,20 +11,21 @@ import de.hdm.shared.LoginService;
 import de.hdm.shared.LoginServiceAsync;
 import de.hdm.shared.ReportGenerator;
 import de.hdm.shared.ReportGeneratorAsync;
+import de.hdm.shared.ShopITAdministration;
+import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.CommonSettings;
-import de.hdm.shared.ShopItAdministrationAsync;
 
 
 public class ClientsideSettings extends CommonSettings {
 	
-	private static ShopItAdministrationAsync shopItAdministration = null;
+	private static ShopITAdministrationAsync shopItAdministration = null;
 	
-	public static ShopItAdministrationAsync getShopItAdministration() {
+	public static ShopITAdministrationAsync getShopItAdministration() {
 		return shopItAdministration;
 	}
 
 
-	public static void setShopItAdministration(ShopItAdministrationAsync shopItAdministration) {
+	public static void setShopItAdministration(ShopITAdministrationAsync shopItAdministration) {
 		ClientsideSettings.shopItAdministration = shopItAdministration;
 	}
 
@@ -74,11 +75,11 @@ public class ClientsideSettings extends CommonSettings {
 	 * Anlegen und Auslesen des ShopItAdministration
 	 */
 
-	public static ShopItAdministrationAsync getShopItAdministrationAsync() {
+	public static ShopITAdministrationAsync getShopItAdministrationAsync() {
 		//Prüfung ob eine shopItAdministration-Instanz existiert
 		if (shopItAdministration == null) {
 			//Instantiierung der shopItAdministration
-			shopItAdministration = GWT.create(de.hdm.shared.ShopItAdministration.class); //?!
+			shopItAdministration = GWT.create(ShopITAdministration.class); //?!
 		}
 		
 		//Rueckgabe der ShopItAdministration

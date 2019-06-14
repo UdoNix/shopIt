@@ -299,8 +299,8 @@ public Item insert(Item i) {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("SELECT ItemId FROM item "
-	          + " Inner JOIN Salesman ON item.shopId=Shop.Id" + "INNER JOIN responsibility ON responsibility.shopId=shop.Id");
+	      ResultSet rs = stmt.executeQuery("SELECT * FROM item "
+	          + " INNER JOIN shop ON responsibility.shopId=Shop.Id" + "INNER JOIN responsibility ON responsibility.shopId=shop.Id");
 
 	      
 	      while (rs.next()) {
@@ -317,17 +317,23 @@ public Item insert(Item i) {
 	    return result;
 		
 }
-	 public Vector<Item> getArticlesbyTeamWithTime (int TeamId, Date firstDate, Date lastDate) {
+	 public Vector<Item> getItemsbyTeamWithTime (int TeamId, Date firstDate, Date lastDate) {
 		   Connection con = DBConnection.connection();
 		    Vector<Item> result = new Vector<Item>();
 
 		    try {
 		      Statement stmt = con.createStatement();
 
-		      ResultSet rs = stmt.executeQuery("SELECT id, COUNT(articleId) FROM item INNER JOIN"
-		      		+ "team ON item.teamId = team.id" + "WHERE teamID= TeamId AND (id.getChangeDate() BETWEEN firstDate AND lastDate) AND GROUP BY id" + 
-		      				"ORDER BY COUNT(articleId) DESC ");
-		      				
+		      ResultSet rs = stmt.executeQuery(
+		    		  "SELECT COUNT(articleId), item.id AS id, team.id AS 'team.id', item.changeDate"
+		    		  + "FROM item INNER JOIN team ON item.teamId = team.id "
+		    		  + "WHERE teamID= TeamId AND item.changeDate BETWEEN "+ firstDate +" AND "+ lastDate +""
+		    		  		+ "GROUP BY item.id ORDER BY COUNT(item.articleId) DESC"
+//		    		  "SELECT COUNT(articleId), item.id AS id, team.id AS 'team.id', item.changeDate FROM item INNER JOIN "
+//		      		+ "team ON item.teamId = team.id" + "WHERE teamID= TeamId ( AND  item.changeDate  BETWEEN "+ firstDate +" AND "+ lastDate +" )  GROUP BY id" + 
+//		      				"ORDER BY COUNT(articleId) DESC"
+		      		);
+ 
 		      
 		      while (rs.next()) {
 		        Item i = new Item();
@@ -341,6 +347,72 @@ public Item insert(Item i) {
 		    }
 
 		    return result;
+}
+	 
+
+public Vector<Item> getItemsbyTeamAndShop(int teamId, int shopId) {
+	   Connection con = DBConnection.connection();
+	    Vector<Item> result = new Vector<Item>();
+
+	    try {
+	      Statement stmt = con.createStatement();
+
+	      ResultSet rs = stmt.executeQuery("SELECT item.id, COUNT(item.id), shopId FROM item INNER JOIN responsibility"
+	      		+ "ON item.id = responsibility.itemId"
+	      +"WHERE item.teamID=" + teamId + " AND item.shopId=" + shopId);
+	      				
+	      
+	      while (rs.next()) {
+	        Item i = new Item();
+	        i.setShopId (rs.getInt("shopId"));
+	        i.setId(rs.getInt("id"));
+	     
+	        result.addElement(i);
+	      }
+	    }
+	    catch (SQLException e2) {
+	      e2.printStackTrace();
+	    }
+
+	    return result;
+
+
+
+}
+
+
+public Vector<Item> getItemsByTeamAndShopWithTime (int teamId, int shopId, Date firstDate, Date lastDate) {
+	   Connection con = DBConnection.connection();
+	    Vector<Item> result = new Vector<Item>();
+
+	    try {
+	      Statement stmt = con.createStatement();
+
+	      ResultSet rs = stmt.executeQuery("SELECT item.id, COUNT(item.id) AS 'count', shop.Id AS 'shopId', team.id AS 'team.id', item.changeDate"
+	      		+ " FROM item INNER JOIN responsibility"
+		      		+ "ON item.id = responsibility.itemId"
+		  	      +"WHERE item.teamId=" + teamId + " AND responsibility.shopId=" + shopId + "AND item.changeDate BETWEEN "+ firstDate +" AND "+ lastDate +""
+		  		+ "GROUP BY item.id ORDER BY COUNT(item.articleId) DESC");
+	      				
+	      
+	      while (rs.next()) {
+	        Item i = new Item();
+	        i.setId(rs.getInt("id"));
+	        i.setShopId (rs.getInt("shopId"));
+	        i.setCount (rs.getInt("count"));
+	        i.setTeamId(rs.getInt("itemId"));
+	        i.setChangeDate(rs.getDate("changeDate"));
+	        
+	        
+	     
+	        result.addElement(i);
+	      }
+	    }
+	    catch (SQLException e2) {
+	      e2.printStackTrace();
+	    }
+
+	    return result;
 }
 }
 

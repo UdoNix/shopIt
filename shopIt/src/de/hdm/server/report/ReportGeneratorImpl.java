@@ -6,20 +6,26 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import de.hdm.server.ShopITAdministrationImpl;
 import de.hdm.shared.ReportGenerator;
 <<<<<<< HEAD
+
+=======
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> branch 'master' of https://github.com/UdoNix/shopIt.git
 import de.hdm.shared.ShopITAdministration;
 import de.hdm.shared.report.CompositeParagraph;
 import de.hdm.shared.report.Report;
 import de.hdm.shared.report.Row;
-=======
 import de.hdm.shared.bo.Article;
+<<<<<<< HEAD
+=======
 =======
 import de.hdm.shared.report.Column;
 >>>>>>> refs/heads/Larisa
 import de.hdm.shared.report.CompositeParagraph;
 import de.hdm.shared.report.Row;
+>>>>>>> branch 'master' of https://github.com/UdoNix/shopIt.git
 import de.hdm.shared.report.Column;
->>>>>>> refs/remotes/origin/Ilona
+
 import de.hdm.shared.report.SimpleParagraph;
 import de.hdm.shared.bo.*;
 import de.hdm.server.db.*;
