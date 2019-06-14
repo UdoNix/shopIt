@@ -25,6 +25,9 @@ public class Item extends BusinessObject{
 	
 	//Status zeigt an, ob Item abgehakt ist oder nicht.
 	private boolean status;
+	
+	//Anzahl der Einträge, zur Berechnung der häufig gekauften Artikel.
+	private int count = 0;
 
 	//Auslesen des Fremdschlüssels des Händlers.
 	public int getShopId() {
@@ -94,6 +97,16 @@ public class Item extends BusinessObject{
 	//Setzen des Fremdschlüssels zur Gruppe.
 	public void setTeamId(int teamId) {
 		this.teamId = teamId;
+	}
+
+	//Auslesen der Anzahl von häufig eingekauften Artikel.
+	public int getCount() {
+		return count;
+	}
+
+	//Setzen der Anzahl von häufig eingekauften Artikel.
+	public void setCount(int count) {
+		this.count = count;
 	}
 
 
