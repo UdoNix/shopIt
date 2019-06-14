@@ -30,7 +30,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 		 */
 
 		//private ItemForm item = new ItemForm();
-		private GroupForm group = new GroupForm();
+		private TeamForm group = new TeamForm();
 		private ListForm list = new ListForm();
 		
 		public class HeaderGUI implements EntryPoint {
