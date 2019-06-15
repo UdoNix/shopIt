@@ -102,8 +102,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	}
 	
 	//Auslesen eines Anwenders anhand seines Namen.
-	public Vector<Person> getPersonByName(Person person){
-		return this.pMapper.findByName(person);
+	public Vector<Person> getPersonByName(Person p){
+		return this.pMapper.findByName(p);
 	}
 	
 	//Auslesen eines Anwenders anhand seines Nachnamen.
@@ -129,32 +129,16 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	//Löschen eines Anwenders.
 	public void delete(Person p) throws IllegalArgumentException{
 
-		//Löschen von Listenobjekten in denen der zu löschende Anwender als Fremdschlüssel auftritt.
-		Vector<List> lists = this.getAllListsOf(p);
-		if (lists != null){
-			for (List l : lists){
+		//Löschen von Responsibilityobjekten in denen der zu löschende Anwender als Fremdschlüssel auftritt.
+		Vector<Responsibility> responsibilities = this.getAllResponsibilitiesOfPerson(p);
+		if (responsibilities != null){
+			for (Responsibility r : responsibilities){
 				this.delete(p);
 			}
-		}
-		
-		//Löschen von Eintragsobjekten in denen der zu löschende Anwender als Fremdschlüssel auftritt.
-		Vector<Item> items = this.getAllItemsOf(p);
-		if (items != null){
-			for (Item i : items){
-				this.delete(i);
-			}
-		}
-		
-		//Löschen der Gruppenobjekte in denen der zu löschende Anwender auftritt.
-		Vector<Team> team = this.getAllTeamsOf(p);
-		if (team != null){
-			for (Team t : team){
-				this.delete(t);
-			}
-		}
+		}	
 		
 		//Löschen von Membershipobjekten in denen der zu löschende Anwender auftritt.
-		Vector<Membership> memberships = this.getAllMembershipsOf(p);
+		Vector<Membership> memberships = this.getAllMembershipsOfPerson(p);
 		if (memberships != null){
 			for (Membership m : memberships){
 				this.delete(m);
