@@ -102,8 +102,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	}
 	
 	//Auslesen eines Anwenders anhand seines Namen.
-	public Vector<Person> getPersonByName(Person person){
-		return this.pMapper.findByName(person);
+	public Vector<Person> getPersonByName(Person p){
+		return this.pMapper.findByName(p);
 	}
 	
 	//Auslesen eines Anwenders anhand seines Nachnamen.
@@ -129,32 +129,16 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	//Löschen eines Anwenders.
 	public void delete(Person p) throws IllegalArgumentException{
 
-		//Löschen von Listenobjekten in denen der zu löschende Anwender als Fremdschlüssel auftritt.
-		Vector<List> lists = this.getAllListsOf(p);
-		if (lists != null){
-			for (List l : lists){
+		//Löschen von Responsibilityobjekten in denen der zu löschende Anwender als Fremdschlüssel auftritt.
+		Vector<Responsibility> responsibilities = this.getAllResponsibilitiesOfPerson(p);
+		if (responsibilities != null){
+			for (Responsibility r : responsibilities){
 				this.delete(p);
 			}
-		}
-		
-		//Löschen von Eintragsobjekten in denen der zu löschende Anwender als Fremdschlüssel auftritt.
-		Vector<Item> items = this.getAllItemsOf(p);
-		if (items != null){
-			for (Item i : items){
-				this.delete(i);
-			}
-		}
-		
-		//Löschen der Gruppenobjekte in denen der zu löschende Anwender auftritt.
-		Vector<Team> team = this.getAllTeamsOf(p);
-		if (team != null){
-			for (Team t : team){
-				this.delete(t);
-			}
-		}
+		}	
 		
 		//Löschen von Membershipobjekten in denen der zu löschende Anwender auftritt.
-		Vector<Membership> memberships = this.getAllMembershipsOf(p);
+		Vector<Membership> memberships = this.getAllMembershipsOfPerson(p);
 		if (memberships != null){
 			for (Membership m : memberships){
 				this.delete(m);
@@ -187,8 +171,6 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * neue Liste erstellen
 	 */
 
-	public List createListFor(Team g, String name) throws IllegalArgumentException{
-
 	public List createListFor(Team t, String name) throws IllegalArgumentException{
 
 		List l = new List();
@@ -197,9 +179,10 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 		l.setId(1);
 		l.setName(name);
-		l.setGroupId(t.getId());
+		l.setTeamId(t.getId());
 		
 
+		
 		return this.lMapper.insert(l);
 		
 	}
@@ -247,16 +230,11 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	   */
 	  /*
 	   * ***************************************************************************
-<<<<<<< HEAD
 
-=======
-	   * ABSCHNITT, Beginn: Methoden f�r Eintrag @author Thies Ilona
->>>>>>> refs/heads/Ilona
-=======
 
 	   * ABSCHNITT, Beginn: Methoden f�r Eintrag @author IlonaBrinkmann
 
->>>>>>> refs/remotes/origin/Ilona
+
 	   * ***************************************************************************
 	   */
 	/*
@@ -598,11 +576,9 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * Gruppenmitgliedschaft erstellen
 	 */
 	
-<<<<<<< HEAD
-	public Membership createMembership(Person p, Team g) throws IllegalArgumentException{
-=======
+
 	public Membership createMembership(Person p, Team t) throws IllegalArgumentException{
->>>>>>> refs/remotes/origin/Ilona
+
 		Membership m = new Membership();
 		m.setPerson(p);
 		m.setTeam(t);

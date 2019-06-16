@@ -20,7 +20,7 @@ import com.google.gwt.view.client.TreeViewModel;
  */
 public class CellTreeViewModel extends VerticalPanel {
 
-	private GroupListView groupListView;
+	private TeamListView groupListView;
 	private StackPanel menuPanel;
 	
 	
@@ -48,7 +48,7 @@ public class CellTreeViewModel extends VerticalPanel {
 
 	private Widget showGroupListView() {
 		
-		this.groupListView = new GroupListView();
+		this.groupListView = new TeamListView();
 		groupListView.showList();
 		
 		

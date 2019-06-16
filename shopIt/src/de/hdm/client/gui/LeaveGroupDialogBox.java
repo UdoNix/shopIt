@@ -28,8 +28,8 @@ public class LeaveGroupDialogBox extends DialogBox {
 	
 	private ShopItAdministrationAsync listenverwaltung = ClientsideSettings.getEditorService();
 	
-	private Person p = currentPerson.getPerson();
-	private Group selectedGroup = null;
+	//private Person p = currentPerson.getPerson();
+	private Team selectedGroup = null;
 	
 	private VerticalPanel contentPanel = new VerticalPanel();
 	private HorizontalPanel buttonPanel = new HorizontalPanel();

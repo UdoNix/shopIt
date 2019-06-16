@@ -4,6 +4,7 @@ import java.util.Vector;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.hdm.server.ShopITAdministrationImpl;
+
 import de.hdm.shared.ReportGenerator;
 import de.hdm.shared.ShopITAdministration;
 import de.hdm.shared.report.CompositeParagraph;
