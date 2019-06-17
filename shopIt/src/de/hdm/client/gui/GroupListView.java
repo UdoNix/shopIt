@@ -8,6 +8,15 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.TreeViewModel;
 
+	/**
+	 * Die GroupListView dient zur Anzeige der Listen in den einzelnen Gruppen, 
+	 * in welchem der eingeloggte User hinterlegt ist
+	 * 
+	 * @author Alexander Gerlings
+	 *
+	 */
+
+
 //public class GroupListView implements TreeViewModel {
 public class GroupListView { 
 	

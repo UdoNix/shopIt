@@ -7,6 +7,12 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.server.db.DBConnection;
 
+	/**
+	 * 
+	 * @author Alexander Gerlings
+	 *
+	 */
+
 public class EditorAdminView {
 	private Button createGroup;
 	private Button createList;
