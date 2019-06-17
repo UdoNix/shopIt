@@ -1,4 +1,5 @@
 package de.hdm.server.report;
+import java.util.Date;
 import java.util.Vector;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -20,6 +21,8 @@ import de.hdm.shared.report.Row;
 import de.hdm.shared.report.Column;
 
 import de.hdm.shared.report.SimpleParagraph;
+import de.hdm.shared.report.TeamAndShopStatistikReport;
+import de.hdm.shared.report.TeamStatisticReport;
 import de.hdm.shared.bo.*;
 import de.hdm.server.db.*;
 import de.hdm.server.*;
@@ -59,6 +62,18 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	public ShopITAdministration getShopITAdministration(){
 		return this.admin;
 	}
+	
+
+	 /**
+	  * Setzen der zugehörigen Gruppe
+	  * 
+	  * @author ilonabrinkmann
+	  * 
+	  */
+	public void setTeam(Team t) {
+		this.admin.setTeam(t);
+	}
+	
 	
 	/**
 	 * HinzufÃ¼gen des Impressums zum Report.
@@ -166,7 +181,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	
 	public TeamStatisticReport createTeamStatisticReport(String name, Date firstDate, Date lastDate) throws IllegalArgumentException {
 		
-		if (this.getAticles() == null) {
+		if (this.getShopITAdministration() == null) {
 			return null;
 		}
 		Team t = this.getTeambyName(name);
