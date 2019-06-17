@@ -113,6 +113,8 @@ public interface ShopITAdministrationAsync {
 	void update(Item i, AsyncCallback<Void> callback);
 
 	void update(List l, AsyncCallback<Void> callback);
+
+	void getItemsbyTeamAndShop(Shop shop, AsyncCallback<Vector<Item>> callback);
 	
 
 }
