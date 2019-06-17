@@ -127,27 +127,23 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	}
 	
 	//Löschen eines Anwenders.
-	public void delete(Person p) throws IllegalArgumentException{
+	public void delete(int personId) throws IllegalArgumentException{
 
 		//Löschen von Responsibilityobjekten in denen der zu löschende Anwender als Fremdschlüssel auftritt.
-		Vector<Responsibility> responsibilities = this.getAllResponsibilitiesOfPerson(p);
+		Vector<Responsibility> responsibilities = this.rMapper.findByPerson(personId);
 		if (responsibilities != null){
 			for (Responsibility r : responsibilities){
-				this.delete(p);
+				this.delete(personId);
 			}
 		}	
 		
 		//Löschen von Membershipobjekten in denen der zu löschende Anwender auftritt.
-		Vector<Membership> memberships = this.getAllMembershipsOfPerson(p);
+		Vector<Membership> memberships = this.mMapper.getAllMembershipsOf(personId);
 		if (memberships != null){
 			for (Membership m : memberships){
-				this.delete(m);
+				this.delete(personId);
 			}
 		}
-		
-		
-		//Entfernung des Anwenders aus der Datenbank.
-		this.pMapper.delete(p);
 		
 		
 		
@@ -279,8 +275,31 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		iMapper.delete(i);
 	}
 	
-	//Eintrag favorit und abhacken
-
+	//Status des Eintrags ändern. (Eintrag abhaken bzw. den Haken entfernen)
+	public void changeStatus(Item i)throws IllegalArgumentException{
+		if(i.isStatus() == false){
+			i.setStatus(true);
+			this.iMapper.insert(i);
+		} 
+		else if(i.isStatus() == true){
+			i.setStatus(false);
+			this.iMapper.insert(i);
+		}
+	}
+	
+	//Setzen/Entfernen des Favoritenstatus (Standardartikel)
+	public void changeFavorit(Item i) throws IllegalArgumentException{
+		if(i.isFavorit() == false){
+			i.setFavorit(true);
+			this.iMapper.insert(i);
+		} 
+		else if(i.isFavorit() == true){
+			i.setFavorit(false);
+			this.iMapper.insert(i);
+		}
+	}
+	
+	
 	  /*
 	   * ***************************************************************************
 	   * ABSCHNITT, Ende: Methoden f�r Eintrag 
