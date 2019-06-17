@@ -7,7 +7,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.client.gui.CellTreeViewModel;
 import de.hdm.client.gui.EditorAdminView;
-import de.hdm.client.gui.TestSite;
 
 
 /**
@@ -15,12 +14,12 @@ import de.hdm.client.gui.TestSite;
  */
 public class Editor implements EntryPoint {
 	
-	private TestSite Test;
+	private EditorAdminView editorAdminView;
 	
 	public void onModuleLoad() {
-		Test = new TestSite();
+		editorAdminView = new EditorAdminView();
 		
-		Test.loadEditor();
+		editorAdminView.loadEditor();
 	
 	}
 	
