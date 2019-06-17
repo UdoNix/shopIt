@@ -58,7 +58,7 @@ public Item findByKey (int id) {
 		        Item i = new Item();
 		        i.setId(rs.getInt("id"));
 		        i.setCreationDate(rs.getTimestamp("creationDate"));
-		        i.setChangeDate(rs.getDate("changeDate"));
+		        i.setChangeDate(rs.getTimestamp("changeDate"));
 		        i.setShopId(rs.getInt("shopId"));
 		        i.setArticleId(rs.getInt("articleId"));
 		        i.setFavorit(rs.getBoolean("favorit"));
@@ -101,7 +101,7 @@ public Vector<Item> findAll() {
       Item i = new Item();
       i.setId(rs.getInt("id"));
       i.setCreationDate(rs.getTimestamp("creationDate"));
-      i.setChangeDate(rs.getDate("changeDate"));
+      i.setChangeDate(rs.getTimestamp("changeDate"));
       i.setShopId(rs.getInt("salesmanId"));
       i.setArticleId(rs.getInt("articleId"));
       i.setFavorit(rs.getBoolean("favorit"));
@@ -139,7 +139,7 @@ public Vector<Item> findByList (int listId){
 	        Item i = new Item();
 	        i.setId(rs.getInt("id"));
 	        i.setCreationDate(rs.getTimestamp("creationDate"));
-	        i.setChangeDate(rs.getDate("changeDate"));
+	        i.setChangeDate(rs.getTimestamp("changeDate"));
 	        i.setShopId(rs.getInt("salesmanId"));
 	        i.setArticleId(rs.getInt("articleId"));
 	        i.setFavorit(rs.getBoolean("favorit"));
@@ -340,7 +340,7 @@ public Item insert(Item i) {
 		        i.setId(rs.getInt("id"));
 		        i.setCount(rs.getInt("count"));
 		        i.setId(rs.getInt("teamId"));
-		        i.setChangeDate(rs.getDate("changeDate"));
+		        i.setChangeDate(rs.getTimestamp("changeDate"));
 		     
 		        result.addElement(i);
 		      }
@@ -407,7 +407,7 @@ public Vector<Item> getItemsByTeamAndShopWithTime (int teamId, int shopId, Date 
 	        i.setShopId (rs.getInt("shopId"));
 	        i.setCount (rs.getInt("count"));
 	        i.setTeamId(rs.getInt("itemId"));
-	        i.setChangeDate(rs.getDate("changeDate"));
+	        i.setChangeDate(rs.getTimestamp("changeDate"));
 	        
 	        
 	     

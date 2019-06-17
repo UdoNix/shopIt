@@ -56,7 +56,7 @@ public Team findByKey (int id) {
 		        g.setId(rs.getInt("id"));
 		        g.setName(rs.getString("name"));
 		        g.setCreationDate(rs.getTimestamp("creationDate"));
-		        g.setChangeDate(rs.getDate("changeDate"));
+		        g.setChangeDate(rs.getTimestamp("changeDate"));
 		        return g;
 		      }
 		    }
@@ -91,7 +91,7 @@ public Vector<Team> findAll() {
       g.setId(rs.getInt("id"));
       g.setName(rs.getString("name"));
       g.setCreationDate(rs.getTimestamp("creationDate"));
-      g.setChangeDate(rs.getDate("changeDate"));
+      g.setChangeDate(rs.getTimestamp("changeDate"));
 
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
       result.addElement(g);

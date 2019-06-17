@@ -56,7 +56,7 @@ public Person findByKey (int id) {
 		        p.setLastName(rs.getString("lastName"));
 		        p.setEmail(rs.getString("email"));
 		        p.setCreationDate(rs.getTimestamp("creationDate"));
-		        p.setChangeDate(rs.getDate("changeDate"));		      
+		        p.setChangeDate(rs.getTimestamp("changeDate"));		      
 		
 		        return p;
 		      }
@@ -94,7 +94,7 @@ public Vector<Person> findAll() {
       p.setLastName(rs.getString("lastName"));
       p.setEmail(rs.getString("email"));
       p.setCreationDate(rs.getTimestamp("creationDate"));
-      p.setChangeDate(rs.getDate("changeDate"));
+      p.setChangeDate(rs.getTimestamp("changeDate"));
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
       result.addElement(p);
     }

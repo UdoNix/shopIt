@@ -54,7 +54,7 @@ public class ListMapper {
 			        l.setId(rs.getInt("id"));
 			        l.setName(rs.getString("name"));
 			        l.setCreationDate(rs.getTimestamp("creationDate"));
-			        l.setChangeDate(rs.getDate("changeDate"));
+			        l.setChangeDate(rs.getTimestamp("changeDate"));
 			        return l;
 			      }
 			    }
@@ -89,7 +89,7 @@ public class ListMapper {
 	      l.setId(rs.getInt("id"));
 	      l.setName(rs.getString("name"));
 	      l.setCreationDate(rs.getTimestamp("creationDate"));
-	      l.setChangeDate(rs.getDate("changeDate"));
+	      l.setChangeDate(rs.getTimestamp("changeDate"));
 	      l.setTeamId(rs.getInt("groupId"));
 
 	      // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
@@ -119,7 +119,7 @@ public class ListMapper {
 			        l.setId(rs.getInt("id"));
 			        l.setName(rs.getString("name"));
 			        l.setCreationDate(rs.getTimestamp("creationDate"));
-				    l.setChangeDate(rs.getDate("changeDate"));
+				    l.setChangeDate(rs.getTimestamp("changeDate"));
 				    l.setTeamId(rs.getInt("groupId"));
 
 			        result.addElement(l);
@@ -157,7 +157,7 @@ public class ListMapper {
 			        l.setId(rs.getInt("id"));
 			        l.setName(rs.getString("name"));
 			        l.setCreationDate(rs.getTimestamp("creationDate"));
-				    l.setChangeDate(rs.getDate("changeDate"));
+				    l.setChangeDate(rs.getTimestamp("changeDate"));
 				    l.setTeamId(rs.getInt("groupId"));
 
 			        result.addElement(l);
