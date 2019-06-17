@@ -303,7 +303,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		t.setId(1);
 		
 		//Speichern des Gruppe-Objekts in der DB.
-		return this.gMapper.insert(t); 
+		return this.tMapper.insert(t); 
 	}
 	
 	//Auslesen einer Gruppe anhand seiner Gruppe-Id.
@@ -312,7 +312,6 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	}
 		
 	//Auslesen aller Gruppen.
-
 	public Vector<Team> getAllTeams() throws IllegalArgumentException{
 		return this.tMapper.findAll();
 	}
@@ -323,15 +322,14 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	}
 
 		
-
 	//Auslesen aller Personen einer Gruppe.
 	public Vector<Person> getAllPersonsOf(Team t) throws IllegalArgumentException {
-		return this.mMapper.findByMember(g.getId()); 
+		return this.mMapper.findByMember(t.getId()); 
 	}
 	
 	//Auslesen aller Listen einer Gruppe.
 	public Vector<List> getAllListsOf(Team t) throws IllegalArgumentException {
-		return this.lMapper.findByTeam(g.getId()); 
+		return this.lMapper.findByTeam(t.getId()); 
 	}
 		
 	//L�schen einer Gruppe.
@@ -425,7 +423,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	   * ***************************************************************************
 	   */
 	
-	public Salesman createShop(String name, String street, String postalCode, String city) throws IllegalArgumentException {
+	public Shop createShop(String name, String street, String postalCode, String city) throws IllegalArgumentException {
 		Shop s = new Shop();
 		s.setCity(city);
 		s.setStreet(street);
@@ -469,18 +467,6 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 */
 	
 	public void delete(Shop s) throws IllegalArgumentException {
-		/*
-		 * Zun�chst werden alle Eintr�ge dieses H�ndler gel�scht werden.
-		 */
-		Vector<Item> items = this.getItemsOf(s); 
-
-		if (items != null) {
-			for (Item i : items) {
-				this.delete(i); 
-			}
-		}
-		
-		//Anschlie�end den H�ndler entfernen
 
 		this.sMapper.delete(s); 
 		
@@ -515,13 +501,13 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		return this.uMapper.insert(u); 
 		
 	}
-		/*
-		 * Speichern einer Ma�einheit. 
-		 */
+	/*
+	 * Speichern einer Ma�einheit. 
+	*/
 		
-		public void save(UnitOfMeasure u) throws IllegalArgumentException {
-			uMapper.update(u);
-		}
+	public void save(UnitOfMeasure u) throws IllegalArgumentException {
+		uMapper.update(u);
+	}
 	
 	   /*
 	   * ***************************************************************************
