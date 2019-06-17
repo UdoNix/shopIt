@@ -68,30 +68,22 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	}
 
 	
-	/**Diese Methode soll eine Statistik ï¿½ber hï¿½ufig einkaufte Artikel in einem Zeitraum
-	 * von einem Hï¿½ndler anzeigen.
-=======
-	/**Diese Methode soll eine Statistik über häufig einkaufte Artikel in einem Zeitraum 
-	 * (falls angegeben) von einem Händler anzeigen.
->>>>>>> refs/heads/Larisa
-	 * @Larisa
+	
+	/**Diese Methode soll eine Statistik über häufig einkaufte Artikel von einem Händler anzeigen.
+	 * @Larisa in Anlehnung Thies
 	 */
 	
-	public AllArticlesOfShopReport createAllArticlesOfShopReport(Shop shop, Date firstDate, Date lastDate)
+	public AllArticlesOfShopReport createAllArticlesOfShopReport(Shop shop)
 	throws IllegalArgumentException {
 		
 		if (this.getShopITAdministration() == null) {
 			return null;
-		}
-		
-		Shop s = this.findByName(shop); 
-		
-		if (s != null) {
+		}  
 			
-			//Ein leeren Report anlegen.
+			//Einen leeren Report anlegen.
 			AllArticlesOfShopReport result = new AllArticlesOfShopReport(); 
 			
-			//Jeder Report sollte einen Titel bzw. eine Bezeichnunh haben.
+			//Jeder Report sollte einen Titel bzw. eine Bezeichnung haben.
 			result.setTitle("Shop Statistic"); 
 			
 			//Impressum hinzufügen 
@@ -113,7 +105,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			CompositeParagraph header = new CompositeParagraph(); 
 			
 			//Name des Shops aufnehmen.
-			header.addSubParagraph(new SimpleParagraph(s.getName()));
+			header.addSubParagraph(new SimpleParagraph(shop.getName()));
 			
 			//Hinzufï¿½gen des zusammengestellten Kopfdaten.
 			result.setHeaderData(header); 
@@ -144,30 +136,27 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			 * Häufigkeit in die Tabelle eingetragen. 
 			 */
 			
-			Vector<Article> articles = this.admin.getAllArticlesOfShop(s); 
+			Vector<Item> items = this.admin.getItemsbyTeamAndShop(shop); 
 			
-			for (Article a : articles) {
+			for (Item i : items) {
 				//Eine leere Zeile anlegen.
-				Row articleRow = new Row(); 
+				Row itemRow = new Row(); 
 				
 				//Erste Spalte: Artikelname hinzufügen
-				articleRow.addColumn(new Column(s.getName()));
+				itemRow.addColumn(new Column(String.valueOf(i.getArticleId())));
 				
 				//Zweite Spalte: Anzahl des Artikels
-				articleRow.addColumn(new Column(articles.size() + ""));
+				itemRow.addColumn(new Column(String.valueOf(i.getCount())));
 
 				//Die Zeilen dem Report hinzufügen
-				result.addRow(articleRow); 
+				result.addRow(itemRow); 
 				
-				//Report zurückgeben 
-				return result;
 			} 
 			
-		} else {
+			//Report zurückgeben 
+			return result;
 			
-			return null; 
 		}
-	}
 
 
 	
