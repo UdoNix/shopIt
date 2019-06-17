@@ -108,10 +108,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			header.addSubParagraph(new SimpleParagraph(shop.getName()));
 			
 			//Hinzufï¿½gen des zusammengestellten Kopfdaten.
-			result.setHeaderData(header); 
-			
-			//Erstellen und Abrufen der benötigten Ergebnisvektoren mittels ShopITAdministration. 
-			//Vector<Article> articles = this.aMapper.getAllArticlesForShopWithTime(a, firstDate, lastDate); 
+			result.setHeaderData(header);
 
 			
 			//Kopfzeile fï¿½r die Hï¿½ndlerstatistik-Tabelle. 
