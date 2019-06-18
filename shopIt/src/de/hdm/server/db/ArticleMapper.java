@@ -44,7 +44,7 @@ public Article findByKey (int id) {
 		//Anlegen einen leeren SQL-Statement
 		Statement stmt =con.createStatement();
 		// Ausfüllen des Statements, als Query an die DB schicken
-		ResultSet rs =stmt.executeQuery("SELECT * from article" + "WHERE article.id =" + id );
+		ResultSet rs =stmt.executeQuery("SELECT * from article WHERE article.id =" + id );
 		
 		//Da id Primärschlüssel ist, kann nur ein Tupel zurueckgeg werden. 
 		//Es wird geprueft, ob ein Ergebnis vorliegt.
@@ -80,8 +80,7 @@ public Vector<Article> findAll() {
   try {
     Statement stmt = con.createStatement();
 
-    ResultSet rs = stmt.executeQuery("SELECT * FROM article "
-        + " ORDER BY id");
+    ResultSet rs = stmt.executeQuery("SELECT * FROM article ORDER BY id");
 
     // Für jeden Eintrag im Suchergebnis wird nun ein Group-Objekt erstellt.
     while (rs.next()) {
@@ -131,8 +130,8 @@ public Article insert(Article a) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO article (id, name) " + "VALUES ("
-          + a.getId() + "," + a.getChangeDate() + ")");
+      stmt.executeUpdate("INSERT INTO article (id, creationDate, changeDate, name) " + "VALUES ("
+          + a.getId() + ", CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '" + a.getName() + "')");
     }
   }
   catch (SQLException e2) {
@@ -152,8 +151,8 @@ public Article insert(Article a) {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE accounts " + "SET name=\"" + a.getName()
-           + "\" "+ "WHERE id=" + a.getId());
+      stmt.executeUpdate("UPDATE article SET name = '" + a.getName() + "', changeDate = CURRENT_TIMESTAMP "
+      		+ "WHERE id= " + a.getId());
 
     }
     catch (SQLException e2) {
@@ -191,7 +190,8 @@ public Article insert(Article a) {
 			
 			Statement stmt =con.createStatement();
 			
-			ResultSet rs =stmt.executeQuery("SELECT id,name from article" + "WHERE name LIKE'"+ article.getName() +"'ORDER BY name ASC" );
+			ResultSet rs =stmt.executeQuery("SELECT id, name FROM article "
+					+ "WHERE name LIKE '" + article.getName() + "' ORDER BY name ASC");
 			
 			   while (rs.next()) {
 			       

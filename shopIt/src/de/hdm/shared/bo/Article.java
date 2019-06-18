@@ -1,7 +1,5 @@
 package de.hdm.shared.bo;
 
-import de.hdm.client.gui.ListItemForm.ArticleSuggestBoxSelectionHandler;
-
 public class Article extends BusinessObject{
 	
 	private static final long serialVersionUID = 1L;
