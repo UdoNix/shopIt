@@ -181,6 +181,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	
 	public TeamStatisticReport createTeamStatisticReport(Team t, Date firstDate, Date lastDate) throws IllegalArgumentException {
 		
+		
 		int teamid = t.getId();
 		
 		if (this.getShopITAdministration() == null) {
