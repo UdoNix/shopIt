@@ -312,6 +312,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	   * ***************************************************************************
 	   */
 	
+	
 	//Erstellen einer Gruppe mit Name, Anwender 
 	public Team createTeam(String name, Person p) throws IllegalArgumentException {
 		Team t = new Team();
