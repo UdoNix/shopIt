@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import de.hdm.shared.bo.Article;
 import de.hdm.shared.bo.Item;
+import de.hdm.shared.bo.List;
 import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Responsibility;
 import de.hdm.shared.bo.Shop;
@@ -122,7 +123,9 @@ public Vector<Item> findAll() {
   //Der Ergebnisvektor wird zurueckgegeben
   return result;
 }
-public Vector<Item> findByList (int listId){
+public Vector<Item> findByList (List l){
+	
+	int listId = l.getId();
 	
 	Connection con = DBConnection.connection();
 	Vector<Item> result = new Vector<Item>();
