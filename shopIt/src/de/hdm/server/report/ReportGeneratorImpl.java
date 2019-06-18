@@ -4,34 +4,14 @@ import java.util.Vector;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.hdm.server.ShopITAdministrationImpl;
-<<<<<<< HEAD
 import de.hdm.shared.ReportGenerator;
-=======
->>>>>>> branch 'master' of https://github.com/UdoNix/shopIt.git
-
-<<<<<<< HEAD
-=======
-import de.hdm.shared.ReportGenerator;
->>>>>>> branch 'master' of https://github.com/UdoNix/shopIt.git
 import de.hdm.shared.ShopITAdministration;
 import de.hdm.shared.report.CompositeParagraph;
 import de.hdm.shared.report.Report;
 import de.hdm.shared.report.Row;
-<<<<<<< HEAD
 import de.hdm.shared.bo.Article;
-
 import de.hdm.shared.report.Column;
-
-import de.hdm.shared.report.CompositeParagraph;
-import de.hdm.shared.report.Row;
-
-import de.hdm.shared.report.Column;
-
-=======
-import de.hdm.shared.bo.Article;
 import de.hdm.shared.report.AllArticlesOfShopReport;
-import de.hdm.shared.report.Column;
->>>>>>> branch 'master' of https://github.com/UdoNix/shopIt.git
 import de.hdm.shared.report.SimpleParagraph;
 import de.hdm.shared.report.TeamAndShopStatistikReport;
 import de.hdm.shared.report.TeamStatisticReport;
@@ -44,12 +24,7 @@ import de.hdm.server.*;
  */
 @SuppressWarnings("serial")//UnterdrÃ¼ckung von Warnungen bezÃ¼glich fehlendem Feld 'serialVersionUID' fÃ¼r eine serialisierbare Klasse
 public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportGenerator {
-<<<<<<< HEAD
-	
 
-=======
-	
->>>>>>> branch 'master' of https://github.com/UdoNix/shopIt.git
 	/**
 	 * Zugriff auf die ShopITAdministration um Methoden von Datenobjekten des BO-Packages zu erhalten.
 	 * @author InesWerner
@@ -104,19 +79,9 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		//Impressum wird dem Report hinzugefÃ¼gt.
 		report.setImprint(imprint);
 	}
-
-	
-<<<<<<< HEAD
-
-	/**
-	 * Diese Methode soll eine Statistik über häufig einkaufte Artikel in einem Zeitraum 
-	 * (falls angegeben) von einem Händler anzeigen.
-	 * @Larisa
-=======
 	
 	/**Diese Methode soll eine Statistik über häufig einkaufte Artikel von einem Händler anzeigen.
 	 * @Larisa in Anlehnung Thies
->>>>>>> branch 'master' of https://github.com/UdoNix/shopIt.git
 	 */
 	
 	public AllArticlesOfShopReport createAllArticlesOfShopReport(Shop shop)
@@ -154,16 +119,8 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			header.addSubParagraph(new SimpleParagraph(shop.getName()));
 			
 			//Hinzufï¿½gen des zusammengestellten Kopfdaten.
-<<<<<<< HEAD
 			result.setHeaderData(header); 
 			
-
-			//Erstellen und Abrufen der benï¿½tigten Ergebnisvektoren mittels ShopITAdministration 
-			Vector<Article> articles = this.getAllArticlesForShopWithTime(a, firstDate, lastDate); 
-=======
-			result.setHeaderData(header);
->>>>>>> branch 'master' of https://github.com/UdoNix/shopIt.git
-
 			
 			//Kopfzeile fï¿½r die Hï¿½ndlerstatistik-Tabelle. 
 			Row headline = new Row(); 
