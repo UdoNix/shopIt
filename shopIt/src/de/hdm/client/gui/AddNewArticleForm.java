@@ -25,7 +25,6 @@ import de.hdm.shared.bo.Article;
 public class AddNewArticleForm extends VerticalPanel {
 	
 	private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
-	private Article newArticle = null;
 	
 	/*
 	 * Erstellung der Panels
@@ -95,6 +94,13 @@ public class AddNewArticleForm extends VerticalPanel {
 		
 	}
 	
+	/**
+	 * <code>CancelNewArticle</code> stellt den ClickHandler dar, 
+	 * mit welchem man das Anlegen eines Artikels abbrechen kann.
+	 * Durch onClick wird man zurück auf die ArticleForm gebracht.
+	 * @author Alexander Gerlings
+	 *
+	 */
 	private class CancelNewArticle implements ClickHandler {
 
 		@Override
@@ -106,6 +112,11 @@ public class AddNewArticleForm extends VerticalPanel {
 		
 	}
 	
+	/**
+	 * Callback Klasse 
+	 * @author Alexander Gerlings
+	 *
+	 */
 	private class CreateNewArticleCallback implements AsyncCallback<Article> {
 
 		@Override
@@ -117,6 +128,7 @@ public class AddNewArticleForm extends VerticalPanel {
 		@Override
 		public void onSuccess(Article result) {
 			// TODO Auto-generated method stub
+			Window.alert("Der Artikel " + artName.getValue() + "wurde angelegt");
 			
 		}
 	}
