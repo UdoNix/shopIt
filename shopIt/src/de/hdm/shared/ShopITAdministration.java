@@ -165,6 +165,9 @@ public interface ShopITAdministration extends RemoteService {
 	//eine Gruppenmitgliedschaft lï¿½schen.
 	public void delete(Membership m) throws IllegalArgumentException;
 	
+	//Auslesen aller eingekauften Artikeln von einem Händler
+	public Vector<Item> getItemsbyTeamAndShop(Shop shop) throws IllegalArgumentException;
+	
 	
 	
 	

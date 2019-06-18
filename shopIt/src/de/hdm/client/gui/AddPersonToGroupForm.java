@@ -28,7 +28,7 @@ import de.hdm.shared.bo.Person;
 	 */
 	public class AddPersonToGroupForm extends VerticalPanel{
 		
-		ShopItAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
+		private ShopItAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
 		//private Person p = Person.GetPerson(); funktioniert nicht
 		private Person newGroupMember = null;
 		private Team selectedGroup = null;
@@ -79,7 +79,7 @@ import de.hdm.shared.bo.Person;
 			@Override
 			public void onClick(ClickEvent event) {
 				RootPanel.get("main").clear();
-				GroupForm group = new GroupForm();
+				TeamForm group = new TeamForm();
 				group.setSelected(selectedGroup);
 				RootPanel.get("main").add(group);
 			}
@@ -93,7 +93,7 @@ import de.hdm.shared.bo.Person;
 					String email = emailTextBox.getValue();
 					listenVerwaltung.getPersonByEmail(email, new GetPersonCallback());
 					listenVerwaltung.addPersonToGroup(newGroupMember, selectedGroup, new AddPersonCallback());
-					GroupForm group = new GroupForm();
+					TeamForm group = new TeamForm();
 					group.setSelected(selectedGroup);
 					RootPanel.get("main").clear();
 					RootPanel.get("main").add(group);

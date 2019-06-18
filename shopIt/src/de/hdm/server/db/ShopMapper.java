@@ -57,7 +57,7 @@ public Shop findByKey (int id) {
 		        s.setPostalCode(rs.getString("postalCode"));
 		        s.setCity(rs.getString("city"));
 		        s.setCreationDate(rs.getTimestamp("creationDate"));
-		        s.setChangeDate(rs.getDate("changeDate"));
+		        s.setChangeDate(rs.getTimestamp("changeDate"));
 		    	
 		        return s;
 		      }
@@ -96,7 +96,7 @@ public Vector<Shop> findAll() {
       s.setPostalCode(rs.getString("postalcode"));
       s.setCity(rs.getString("city"));
       s.setCreationDate(rs.getTimestamp("creationDate"));
-      s.setChangeDate(rs.getDate("changeDate"));
+      s.setChangeDate(rs.getTimestamp("changeDate"));
   	
       
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt

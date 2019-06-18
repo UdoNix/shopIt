@@ -13,7 +13,7 @@ import de.hdm.shared.bo.Team;
 import de.hdm.shared.bo.List;
 
 
-public class GroupForm extends VerticalPanel {
+public class TeamForm extends VerticalPanel {
 	/**
 	 * Erstellung verschiedener Panels
 	 */
@@ -41,27 +41,26 @@ public class GroupForm extends VerticalPanel {
 	 * 
 	 */
 
-	GroupForm(long serializableID) {
+	TeamForm(long serializableID) {
 
 		Team g = new Team();
 		
 		g.setSerializableID(serializableID);
 
-		this.addStyleName("groupForm");
+		this.addStyleName("teamForm");
 		
 		ListForm listForm = new ListForm(serializableID);
 
 		this.add(listForm);
 
-		//super.onLoad();
 
 	}
 
-	public GroupForm() {
+	public TeamForm() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void onLoad(GroupForm group){
+	public void onLoad(TeamForm group){
 		
 			editGroupBtn = new Button("Gruppe bearbeiten");
 			deleteGroupBtn = new Button("Gruppe löschen");
@@ -78,7 +77,7 @@ public class GroupForm extends VerticalPanel {
 			
 		}
 
-	public void setSelected(Team selectedGroup) {
+	public void setSelected(Team selectedTeam) {
 		// TODO Auto-generated method stub
 		
 	}

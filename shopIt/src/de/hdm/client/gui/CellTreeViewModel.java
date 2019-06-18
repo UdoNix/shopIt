@@ -4,6 +4,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.cellview.client.CellTree;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.StackPanel;
@@ -20,7 +21,7 @@ import com.google.gwt.view.client.TreeViewModel;
  */
 public class CellTreeViewModel extends VerticalPanel {
 
-	private GroupListView groupListView;
+	private TeamListView groupListView;
 	private StackPanel menuPanel;
 	
 	
@@ -48,7 +49,7 @@ public class CellTreeViewModel extends VerticalPanel {
 
 	private Widget showGroupListView() {
 		
-		this.groupListView = new GroupListView();
+		this.groupListView = new TeamListView();
 		groupListView.showList();
 		
 		

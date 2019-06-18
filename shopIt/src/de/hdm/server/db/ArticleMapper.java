@@ -1,7 +1,7 @@
 package de.hdm.server.db;
 
 import java.sql.Connection;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -54,7 +54,7 @@ public Article findByKey (int id) {
 		        a.setId(rs.getInt("id"));
 		        a.setName(rs.getString("name"));
 		        a.setCreationDate(rs.getTimestamp("creationDate"));
-		        a.setChangeDate(rs.getDate("changeDate"));
+		        a.setChangeDate(rs.getTimestamp("changeDate"));
 		        return a;
 		      }
 		    }
@@ -89,7 +89,7 @@ public Vector<Article> findAll() {
       a.setId(rs.getInt("id"));
       a.setName(rs.getString("name"));
       a.setCreationDate(rs.getTimestamp("creationDate"));
-      a.setChangeDate(rs.getDate("changeDate"));
+      a.setChangeDate(rs.getTimestamp("changeDate"));
 
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
       result.addElement(a);

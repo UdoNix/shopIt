@@ -102,8 +102,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	}
 	
 	//Auslesen eines Anwenders anhand seines Namen.
-	public Vector<Person> getPersonByName(Person person){
-		return this.pMapper.findByName(person);
+	public Vector<Person> getPersonByName(Person p){
+		return this.pMapper.findByName(p);
 	}
 	
 	//Auslesen eines Anwenders anhand seines Nachnamen.
@@ -127,43 +127,23 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	}
 	
 	//Löschen eines Anwenders.
-	public void delete(Person p) throws IllegalArgumentException{
+	public void delete(int personId) throws IllegalArgumentException{
 
-		//Löschen von Listenobjekten in denen der zu löschende Anwender als Fremdschlüssel auftritt.
-		Vector<List> lists = this.getAllListsOf(p);
-		if (lists != null){
-			for (List l : lists){
-				this.delete(p);
+		//Löschen von Responsibilityobjekten in denen der zu löschende Anwender als Fremdschlüssel auftritt.
+		Vector<Responsibility> responsibilities = this.rMapper.findByPerson(personId);
+		if (responsibilities != null){
+			for (Responsibility r : responsibilities){
+				this.delete(personId);
 			}
-		}
-		
-		//Löschen von Eintragsobjekten in denen der zu löschende Anwender als Fremdschlüssel auftritt.
-		Vector<Item> items = this.getAllItemsOf(p);
-		if (items != null){
-			for (Item i : items){
-				this.delete(i);
-			}
-		}
-		
-		//Löschen der Gruppenobjekte in denen der zu löschende Anwender auftritt.
-		Vector<Team> team = this.getAllTeamsOf(p);
-		if (team != null){
-			for (Team t : team){
-				this.delete(t);
-			}
-		}
+		}	
 		
 		//Löschen von Membershipobjekten in denen der zu löschende Anwender auftritt.
-		Vector<Membership> memberships = this.getAllMembershipsOf(p);
+		Vector<Membership> memberships = this.mMapper.getAllMembershipsOf(personId);
 		if (memberships != null){
 			for (Membership m : memberships){
-				this.delete(m);
+				this.delete(personId);
 			}
 		}
-		
-		
-		//Entfernung des Anwenders aus der Datenbank.
-		this.pMapper.delete(p);
 		
 		
 		
@@ -295,8 +275,31 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		iMapper.delete(i);
 	}
 	
-	//Eintrag favorit und abhacken
-
+	//Status des Eintrags ändern. (Eintrag abhaken bzw. den Haken entfernen)
+	public void changeStatus(Item i)throws IllegalArgumentException{
+		if(i.isStatus() == false){
+			i.setStatus(true);
+			this.iMapper.insert(i);
+		} 
+		else if(i.isStatus() == true){
+			i.setStatus(false);
+			this.iMapper.insert(i);
+		}
+	}
+	
+	//Setzen/Entfernen des Favoritenstatus (Standardartikel)
+	public void changeFavorit(Item i) throws IllegalArgumentException{
+		if(i.isFavorit() == false){
+			i.setFavorit(true);
+			this.iMapper.insert(i);
+		} 
+		else if(i.isFavorit() == true){
+			i.setFavorit(false);
+			this.iMapper.insert(i);
+		}
+	}
+	
+	
 	  /*
 	   * ***************************************************************************
 	   * ABSCHNITT, Ende: Methoden f�r Eintrag 
@@ -320,7 +323,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		t.setId(1);
 		
 		//Speichern des Gruppe-Objekts in der DB.
-		return this.gMapper.insert(t); 
+		return this.tMapper.insert(t); 
 	}
 	
 	//Auslesen einer Gruppe anhand seiner Gruppe-Id.
@@ -329,7 +332,6 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	}
 		
 	//Auslesen aller Gruppen.
-
 	public Vector<Team> getAllTeams() throws IllegalArgumentException{
 		return this.tMapper.findAll();
 	}
@@ -340,15 +342,14 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	}
 
 		
-
 	//Auslesen aller Personen einer Gruppe.
 	public Vector<Person> getAllPersonsOf(Team t) throws IllegalArgumentException {
-		return this.mMapper.findByMember(g.getId()); 
+		return this.mMapper.findByMember(t.getId()); 
 	}
 	
 	//Auslesen aller Listen einer Gruppe.
 	public Vector<List> getAllListsOf(Team t) throws IllegalArgumentException {
-		return this.lMapper.findByTeam(g.getId()); 
+		return this.lMapper.findByTeam(t.getId()); 
 	}
 		
 	//L�schen einer Gruppe.
@@ -442,7 +443,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	   * ***************************************************************************
 	   */
 	
-	public Salesman createShop(String name, String street, String postalCode, String city) throws IllegalArgumentException {
+	public Shop createShop(String name, String street, String postalCode, String city) throws IllegalArgumentException {
 		Shop s = new Shop();
 		s.setCity(city);
 		s.setStreet(street);
@@ -486,18 +487,6 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 */
 	
 	public void delete(Shop s) throws IllegalArgumentException {
-		/*
-		 * Zun�chst werden alle Eintr�ge dieses H�ndler gel�scht werden.
-		 */
-		Vector<Item> items = this.getItemsOf(s); 
-
-		if (items != null) {
-			for (Item i : items) {
-				this.delete(i); 
-			}
-		}
-		
-		//Anschlie�end den H�ndler entfernen
 
 		this.sMapper.delete(s); 
 		
@@ -532,13 +521,13 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		return this.uMapper.insert(u); 
 		
 	}
-		/*
-		 * Speichern einer Ma�einheit. 
-		 */
+	/*
+	 * Speichern einer Ma�einheit. 
+	*/
 		
-		public void save(UnitOfMeasure u) throws IllegalArgumentException {
-			uMapper.update(u);
-		}
+	public void save(UnitOfMeasure u) throws IllegalArgumentException {
+		uMapper.update(u);
+	}
 	
 	   /*
 	   * ***************************************************************************
