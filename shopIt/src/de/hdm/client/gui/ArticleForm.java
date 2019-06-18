@@ -2,6 +2,8 @@ package de.hdm.client.gui;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -11,18 +13,34 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-/*
- * 
- *@author Alexander Gerlings
- * 
- */
+import de.hdm.client.ClientsideSettings;
+import de.hdm.shared.ShopITAdministrationAsync;
+import de.hdm.shared.bo.Article;
+
+	/**
+	 * 
+	 * Die <code>ArticleForm</code> wird verwendet um alle angelegten Artikel anzuzeigen
+	 * @author Alexander Gerlings
+	 *
+	 */
 
 
 public class ArticleForm extends VerticalPanel {
 	
+	ShopITAdministrationAsync articleVerwaltung = ClientsideSettings.getShopItAdministrationAsync();
+	
+	
+	
+	/**
+	 * Erzeugung der benötigten Panels der Klasse ArticleForm
+	 */
 	private HorizontalPanel buttonPanel = new HorizontalPanel();
 	private HorizontalPanel contentPanel = new HorizontalPanel();
 	private VerticalPanel mainPanel = new VerticalPanel();
+	
+	/**
+	 * Erzeugung der benötigten GUI-Elemente
+	 */
 	private Button newArticle = new Button("neuer Artikel");
 	private Button cancelButton = new Button("Abbrechen");
 	private AddNewArticleForm newArticleForm = new AddNewArticleForm();
@@ -31,7 +49,11 @@ public class ArticleForm extends VerticalPanel {
 	private Label numberArticle;
 	private Grid grid = new Grid(1 ,1);
 	
+	/**
+	 * Erzeugen der onLoad Methode
+	 */
 	public void onLoad() {
+		//articleVerwaltung.getAllArticles(new GetAllArticleCallback(this));
 		newArticle.addClickHandler(new OpenNewArticleForm());
 		buttonPanel.add(newArticle);
 		
@@ -61,12 +83,27 @@ public class ArticleForm extends VerticalPanel {
 	
 	private class OpenNewArticleForm implements ClickHandler {
 		
-
 		@Override
 		public void onClick(ClickEvent event) {
 			// TODO Auto-generated method stub
 			newArticleForm.onLoad();
 		}
 	
+	}
+	
+	class GetAllArticleCallback implements AsyncCallback<Article> {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			// TODO Auto-generated method stub
+			Window.alert("Es ist leider folgender Fehler aufgetreten: " + caught.getMessage());
+		}
+
+		@Override
+		public void onSuccess(Article result) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 }
