@@ -12,6 +12,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.hdm.client.ClientsideSettings;
+import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.Article;
 
 	/**
@@ -21,6 +23,10 @@ import de.hdm.shared.bo.Article;
 	 */
 
 public class AddNewArticleForm extends VerticalPanel {
+	
+	private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
+	private Article newArticle = null;
+	
 	/*
 	 * Erstellung der Panels
 	 */
@@ -83,10 +89,9 @@ public class AddNewArticleForm extends VerticalPanel {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			// TODO Auto-generated method stub
-			String aNam = artName.getValue();
-			Window.alert(aNam);
-		}
+			String articleName = artName.getValue();
+			listenVerwaltung.createArticle(articleName, new CreateNewArticleCallback());
+			}
 		
 	}
 	
@@ -101,7 +106,7 @@ public class AddNewArticleForm extends VerticalPanel {
 		
 	}
 	
-	private class createNewArticleCallback implements AsyncCallback<Article> {
+	private class CreateNewArticleCallback implements AsyncCallback<Article> {
 
 		@Override
 		public void onFailure(Throwable caught) {
