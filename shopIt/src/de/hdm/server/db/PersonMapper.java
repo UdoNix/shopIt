@@ -136,7 +136,7 @@ public Person insert(Person p) {
 
       // Es erfolgt die tatsächliche Einfuegeoperation
       stmt.executeUpdate("INSERT INTO person (id, firstName, lastName, email) " + "VALUES ("
-          + p.getId() + ","+ p.getFirstName() +  ","+ p.getEmail() + "," + p.getLastName() + ")");
+          + p.getId() + " , "+ p.getFirstName() +  " , "+ p.getLastName() +" , "+ p.getEmail()  +  ")");
     }
   }
   catch (SQLException e2) {
