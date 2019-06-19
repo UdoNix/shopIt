@@ -6,7 +6,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.hdm.shared.bo.Team;
 import de.hdm.shared.bo.UnitOfMeasure;
-import de.hdm.client.gui.AddPersonToGroupForm.GetPersonCallback;
+
 import de.hdm.shared.bo.Article;
 import de.hdm.shared.bo.Item;
 import de.hdm.shared.bo.List;
