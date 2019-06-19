@@ -6,6 +6,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.hdm.shared.bo.Team;
 import de.hdm.shared.bo.UnitOfMeasure;
+import de.hdm.client.gui.AddPersonToGroupForm.GetPersonCallback;
 import de.hdm.shared.bo.Article;
 import de.hdm.shared.bo.Item;
 import de.hdm.shared.bo.List;
@@ -113,6 +114,8 @@ public interface ShopITAdministrationAsync {
 	void update(Item i, AsyncCallback<Void> callback);
 
 	void update(List l, AsyncCallback<Void> callback);
+
+	void addPersonToTeam(Person newGroupMember, Team selectedGroup, GetPersonCallback getPersonCallback);
 	
 
 }
