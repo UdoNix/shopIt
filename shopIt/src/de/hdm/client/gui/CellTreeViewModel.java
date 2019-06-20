@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.TreeViewModel;
 
 import de.hdm.shared.bo.List;
+import de.hdm.shared.bo.Team;
 
 
 /**
@@ -77,6 +78,7 @@ public class CellTreeViewModel extends VerticalPanel {
 		@Source("ShopItCellTree.css")
 		CellTree.Style cellTreeStyle();
 	}
+
 
 	
 }
