@@ -195,7 +195,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * alle Eintr�ge einer Liste aufzeigen
 	 */
 	public Vector<Item> getAllItemsOfList(List l) throws IllegalArgumentException{
-		return this.iMapper.findByList(l.getId());
+		return this.iMapper.findByList(l);
 	}
 	/*
 	 * eine Liste �ndern
@@ -208,11 +208,9 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 */
 	public void delete(List l) throws IllegalArgumentException{
 		 //alle Eintr�ge der Liste suchen und ggf. l�schen
-<<<<<<< HEAD
-		Vector<Item> items = iMapper.findByList(l);
-=======
+
 		Vector<Item> items = this.getAllItemsOfList(l);
->>>>>>> refs/heads/Larisa
+
 		 
 		    if (items != null) {
 		      for (Item item : items) {
@@ -244,11 +242,9 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 */
 	public Item createItem(int listId, int articleId, int responsibilityId) throws IllegalArgumentException{
 		Item i = new Item();
-<<<<<<< HEAD
-		//i.setCreationDate();//aktuelles Datum einf�gen Muss nicht gesetzt werden, das macht die DB
-=======
+
 		i.setCreationDate(new Date());//aktuelles Datum einf�gen
->>>>>>> refs/heads/Larisa
+
 
 		i.setId(1);
 		i.setListId(listId);
