@@ -27,6 +27,7 @@ public class CellTreeViewModel extends VerticalPanel {
 
 	private TeamListView groupListView;
 	private StackPanel firstStackPanel;
+	private Person user;
 	
 	private CellTreeResources groupListRes = GWT.create(CellTreeResources.class);
 	
@@ -41,7 +42,7 @@ public class CellTreeViewModel extends VerticalPanel {
 		
 		//menuPanel.add(showGroupListView(), "Alle Gruppen");
 		firstStackPanel.add(showGroupListView(), "Alle Gruppen");
-		firstStackPanel.add(displayGroupListView(), "Gruppen");
+		firstStackPanel.add(displayGroupListView(user), "Gruppen");
 		
 	}
 
@@ -55,10 +56,7 @@ public class CellTreeViewModel extends VerticalPanel {
 		groupListView.setEditor(editor);
 	}
 	
-	public Widget displayGroupListView(Person user) {
-		
-	}
-
+	
 	private Widget showGroupListView() {
 		
 		this.groupListView = new TeamListView();
@@ -71,6 +69,10 @@ public class CellTreeViewModel extends VerticalPanel {
 
 	public StackPanel getStackMenuPanel() {
 		return this.firstStackPanel;
+	}
+	
+	public void emptyTreeView() {
+		firstStackPanel.showStack(0);
 	}
 
 	static interface CellTreeResources extends CellTree.Resources {
