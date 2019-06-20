@@ -6,7 +6,7 @@
 
 #navigation {
 	float: left;
-	width: 400px;
+	width: 30%;
 	margin-right: 20px;
 	background-color: grey;
 }
@@ -18,6 +18,21 @@
 
 
 /* ##### body ##### */
+#body {
+	width: 100%;
+}
+
+#topWrapper {
+	width: 80%;
+	margin: 0 10%;
+	height: 600px;
+	text-align: center;
+}
+
+#navigation {
+	
+}
+
 #main {
 	float: left;
 	width: 400px;

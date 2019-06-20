@@ -1,6 +1,9 @@
 package de.hdm.client.gui;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Vector;
+import de.hdm.client.gui.MySuggestOracle;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -8,18 +11,27 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.i18n.client.Constants;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.SuggestBox;
+import com.google.gwt.user.client.ui.SuggestOracle;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.SuggestOracle.Callback;
+import com.google.gwt.user.client.ui.SuggestOracle.Request;
+import com.google.gwt.user.client.ui.SuggestOracle.Response;
+import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
 
 import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopITAdministration;
@@ -65,7 +77,8 @@ public class ListItemForm extends VerticalPanel{
 	public void setListToDisplay(ListForm listToDisplay) {
 		ListToDisplay = listToDisplay;
 	}
-	
+
+	 
 	/*
 	 * Instanziieren von den genannten Objekten, der Rest Realisierung über TextBox, da
 	 * Inhalt komplett variabel
@@ -77,8 +90,8 @@ public class ListItemForm extends VerticalPanel{
 	private Person selectedPerson= null;
 	
 	/*
-	 * Verwendung einer „ArrayList“ als Datenstruktur zur Aufnahme der Händler,
-	 * Personen und Mengenheiten entsprechend ihres generischen Typs
+	 * Verwendung eines Vectors als Datenstruktur zur Aufnahme der Artikel, Händler,
+	 * Personen und Mengenheiten entsprechend ihres generischen Typs.
 	 */
 	
 	private Vector<Article> articleList;
@@ -90,7 +103,7 @@ public class ListItemForm extends VerticalPanel{
 	 * Instanziierung aller notwendigen GUI Elemente
 	 */
 
-	private VerticalPanel contentPanel = new VerticalPanel();
+	private VerticalPanel contentPanel = new VerticalPanel(); //welches Panel??
 	private HorizontalPanel btnPanel = new HorizontalPanel();
 	private Grid ListGrid;
 	private Button saveBtn = new Button("Speichern");
@@ -103,7 +116,7 @@ public class ListItemForm extends VerticalPanel{
 	 * Generiert Artikel-Vorschläge via RPC Call zum Server
 	 */
 	
-	private TextBox articleSuggestbox = new TextBox();
+	private TextBox articleTextBox = new TextBox();
 	
 	/*
 	 * ListBox, um die Auswahl aus vorgegebenen Werten zu ermöglichen
@@ -112,7 +125,13 @@ public class ListItemForm extends VerticalPanel{
 	private ListBox unitListBox = new ListBox();
 	private ListBox personListBox = new ListBox();
 	private ListBox shopListBox = new ListBox();
-
+	
+	/*
+	 *  Anlegen eines Favorisieren-Buttons und einer Abhaken-CheckBox
+	 */
+	
+	private Button standardizeBtn = new Button();
+	private CheckBox check = new CheckBox();
 
 	
 	public ListItemForm() {
@@ -125,8 +144,8 @@ public class ListItemForm extends VerticalPanel{
 		
 		Label newArticleLabel = new Label("Artikel: ");
 		ListGrid.setWidget(0, 0, newArticleLabel);
-		ListGrid.setWidget(0, 1, articleSuggestbox);
-		articleSuggestbox.addChangeHandler((ChangeHandler) new ArticleSuggestBoxSelectionHandler());
+		ListGrid.setWidget(0, 1, articleTextBox);
+	
 		
 		Label newAmountLabel = new Label("Anzahl: ");
 		ListGrid.setWidget(1, 0, newAmountLabel);
@@ -151,9 +170,14 @@ public class ListItemForm extends VerticalPanel{
 		ListGrid.setWidget(4, 0, shopLabel);
 		ListGrid.setWidget(4, 1, shopListBox);
 		shopListBox.addChangeHandler(new ShopListBoxChangeHandler());
+		
+		Label standardizeLabel = new Label("favorisieren: ");
+		ListGrid.setWidget(5, 0, standardizeLabel);
+		ListGrid.setWidget(5, 1, standardizeBtn);
+		standardizeBtn.addClickHandler(new StandardizeClickHandler);
 
 		HorizontalPanel updateBtnPanel = new HorizontalPanel();
-		ListGrid.setWidget(4, 1, updateBtnPanel);
+		ListGrid.setWidget(, , updateBtnPanel);
 
 		saveBtn.addClickHandler(new NewListitemClickHandler());
 		saveBtn.setEnabled(true);
@@ -175,6 +199,7 @@ public class ListItemForm extends VerticalPanel{
 	}
 	
 	private class GetAllArticlesCallback implements AsyncCallback<Vector<Article>>{
+		
 
 		@Override
 		public void onFailure(Throwable caught) {
@@ -184,18 +209,22 @@ public class ListItemForm extends VerticalPanel{
 
 		@Override
 		public void onSuccess(Vector<Article> result) {
+			
 			articleList = result;
-			for (int i = 0; i < result.size(); i++) {
-				articleList.addItem(result.get(i).getFirstName();
-				articleList.addItem(result.get(i).getName());
-				articleList = result.get(0);
-		}
-		
-		
-	}
-	
-	private class GetAllPersonsCallback implements AsyncCallback<Vector<Person>>{
+	                   
+	                    for (int i = 0; i < result.size(); i++) {
+	           
+	         
+	                    	
+	                    	selectedArticle = result.get(0);
+	                    }
 
+		}
+
+	    
+	
+	private class GetAllPersonsOfTeamCallback implements AsyncCallback<Vector<Person>>{
+		
 		@Override
 		public void onFailure(Throwable caught) {
 			// TODO Auto-generated method stub
@@ -204,13 +233,16 @@ public class ListItemForm extends VerticalPanel{
 
 		@Override
 		public void onSuccess(Vector<Person> result) {
+			
 			personList = result;
+			
 			for (int i = 0; i < result.size(); i++) {
-				personList.addItem(result.get(i).getFirstName();
-				personList = result.get(0);
+				personListBox.addItem(result.get(i).getFirstName());
+				selectedPerson = result.get(0);
 			}
 			
 		}
+		
 		
 	}
 	
@@ -289,6 +321,12 @@ public class ListItemForm extends VerticalPanel{
 			int item = unitListBox.getSelectedIndex();
 			selectedUnit = unitList.get(item);
 
+		}
+	}
+	
+	private class StandardizeClickHandler implements ClickHandler{
+		public void onClick(ClickEvent event) {
+			
 		}
 	}
 	
@@ -375,6 +413,8 @@ public class ListItemForm extends VerticalPanel{
 		} else {
 			
 				Window.alert("Keine Einkaufsliste ausgewaehlt :(. ");
+				
 		}
 	}
+
 }

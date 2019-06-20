@@ -16,6 +16,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopItAdministrationAsync;
 import de.hdm.shared.EditorServiceAsync;
+import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.Team;
 import de.hdm.shared.bo.Person;
 
@@ -28,7 +29,7 @@ import de.hdm.shared.bo.Person;
 	 */
 	public class AddPersonToGroupForm extends VerticalPanel{
 		
-		private ShopItAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
+		private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
 		//private Person p = Person.GetPerson(); funktioniert nicht
 		private Person newGroupMember = null;
 		private Team selectedGroup = null;
@@ -92,7 +93,8 @@ import de.hdm.shared.bo.Person;
 				if (selectedGroup != null) {
 					String email = emailTextBox.getValue();
 					listenVerwaltung.getPersonByEmail(email, new GetPersonCallback());
-					listenVerwaltung.addPersonToGroup(newGroupMember, selectedGroup, new AddPersonCallback());
+					listenVerwaltung.createMembership(person, team, callback);
+					(newGroupMember, selectedGroup, new GetPersonCallback());
 					TeamForm group = new TeamForm();
 					group.setSelected(selectedGroup);
 					RootPanel.get("main").clear();
