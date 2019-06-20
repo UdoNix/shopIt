@@ -161,8 +161,9 @@ import de.hdm.shared.bo.Person;
 	      stmt = con.createStatement();
 
 	      // Es erfolgt die tatsächliche Einfuegeoperation
-	      stmt.executeUpdate("INSERT INTO membership (id, personId, groupId) " + "VALUES ("
-	          + m.getId() + "," + m.getTeamId() + "," + m.getPersonId() + ")");
+	      stmt.executeUpdate("INSERT INTO membership (id, creationDate, changeDate,  personId, teamId) "
+	      		+ "VALUES ("
+	          + m.getId() + ", CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, " + m.getTeamId() + "," + m.getPersonId() + ")");
 	    }
 	  }
 	  catch (SQLException e2) {
