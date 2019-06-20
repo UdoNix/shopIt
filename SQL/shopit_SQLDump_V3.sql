@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS `article`;
 CREATE TABLE `article` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` datetime NOT NULL,
+  `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `name` varchar(20) NOT NULL default ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -40,9 +40,9 @@ CREATE TABLE `article` (
 # Daten für Tabelle article
 #
 
-INSERT INTO article VALUES (1, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'Äpfel');
-INSERT INTO article VALUES (2, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 'Brot');
-INSERT INTO article VALUES (3, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 'Mehl');
+INSERT INTO article VALUES (1, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 'Äpfel');
+INSERT INTO article VALUES (2, '2019-01-02 00:00:00', '2019-01-02 00:00:00', 'Brot');
+INSERT INTO article VALUES (3, '2019-01-02 00:00:00', '2019-01-03 00:00:00', 'Mehl');
 
 -- --------------------------------------------------------
 
@@ -54,7 +54,7 @@ DROP TABLE IF EXISTS `team`;
 CREATE TABLE `team` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` datetime NOT NULL,
+  `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `name` varchar(25) NOT NULL default ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -62,9 +62,9 @@ CREATE TABLE `team` (
 # Daten für Tabelle team
 #
 
-INSERT INTO team VALUES (1, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'Superteam');
-INSERT INTO team VALUES (2, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 'Megateam');
-INSERT INTO team VALUES (3, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 'Ultrateam');
+INSERT INTO team VALUES (1, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 'Superteam');
+INSERT INTO team VALUES (2, '2019-01-02 00:00:00', '2019-01-02 00:00:00', 'Megateam');
+INSERT INTO team VALUES (3, '2019-01-02 00:00:00', '2019-01-03 00:00:00', 'Ultrateam');
 
 -- --------------------------------------------------------
 
@@ -75,8 +75,8 @@ INSERT INTO team VALUES (3, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 'Ultra
 DROP TABLE IF EXISTS `item`;
 CREATE TABLE `item` (
   `id` int(11) NOT NULL,
-  `cretionDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` datetime NOT NULL,
+  `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `unitId` int(11) NOT NULL,
   `articleId` int(11) NOT NULL,
   `teamId` int(11) NOT NULL,
@@ -89,15 +89,15 @@ CREATE TABLE `item` (
 # Daten für Tabelle item
 #
 
-INSERT INTO item VALUES (1, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 1, 1, 1, 1, false, true);
-INSERT INTO item VALUES (2, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 2, 2, 1, 1, true, true);
-INSERT INTO item VALUES (3, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 3, 3, 1, 1, true, false);
-INSERT INTO item VALUES (4, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 1, 1, 2, 2, false, true);
-INSERT INTO item VALUES (5, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 2, 2, 2, 2, true, true);
-INSERT INTO item VALUES (6, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 3, 3, 2, 2, true, false);
-INSERT INTO item VALUES (7, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 1, 1, 3, 3, false, true);
-INSERT INTO item VALUES (8, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 2, 2, 3, 3, true, true);
-INSERT INTO item VALUES (9, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 3, 3, 3, 3, true, false);
+INSERT INTO item VALUES (1, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 1, 1, 1, 1, false, true);
+INSERT INTO item VALUES (2, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 2, 2, 1, 1, true, true);
+INSERT INTO item VALUES (3, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 3, 3, 1, 1, true, false);
+INSERT INTO item VALUES (4, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 1, 1, 2, 2, false, true);
+INSERT INTO item VALUES (5, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 2, 2, 2, 2, true, true);
+INSERT INTO item VALUES (6, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 3, 3, 2, 2, true, false);
+INSERT INTO item VALUES (7, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 1, 1, 3, 3, false, true);
+INSERT INTO item VALUES (8, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 2, 2, 3, 3, true, true);
+INSERT INTO item VALUES (9, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 3, 3, 3, 3, true, false);
 
 -- --------------------------------------------------------
 
@@ -108,19 +108,19 @@ INSERT INTO item VALUES (9, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 3, 3, 
 DROP TABLE IF EXISTS `list`;
 CREATE TABLE `list` (
   `id` int(11) NOT NULL,
-  `cretionDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` datetime NOT NULL,
+  `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `name` varchar(20) NOT NULL default '',
-  `groupId` int(11) NOT NULL
+  `teamId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Daten für Tabelle list
 #
 
-INSERT INTO list VALUES (1, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'Familie', 1);
-INSERT INTO list VALUES (2, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 'Freunde', 2);
-INSERT INTO list VALUES (3, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 'Feinde', 3);
+INSERT INTO list VALUES (1, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 'Familie', 1);
+INSERT INTO list VALUES (2, '2019-01-02 00:00:00', '2019-01-02 00:00:00', 'Freunde', 2);
+INSERT INTO list VALUES (3, '2019-01-02 00:00:00', '2019-01-03 00:00:00', 'Feinde', 3);
 
 -- --------------------------------------------------------
 
@@ -131,23 +131,23 @@ INSERT INTO list VALUES (3, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 'Feind
 DROP TABLE IF EXISTS `membership`;
 CREATE TABLE `membership` (
   `id` int(11) NOT NULL,
-  `cretionDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` datetime NOT NULL,
+  `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `personId` int(11) NOT NULL,
-  `groupId` int(11) NOT NULL
+  `teamId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Daten für Tabelle membership
 #
 
-INSERT INTO membership VALUES (1, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 1, 1);
-INSERT INTO membership VALUES (2, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 2, 1);
-INSERT INTO membership VALUES (3, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 3, 1);
-INSERT INTO membership VALUES (4, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 4, 2);
-INSERT INTO membership VALUES (5, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 5, 2);
-INSERT INTO membership VALUES (6, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 6, 3);
-INSERT INTO membership VALUES (7, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 7, 3);
+INSERT INTO membership VALUES (1, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 1, 1);
+INSERT INTO membership VALUES (2, '2019-01-02 00:00:00', '2019-01-02 00:00:00', 2, 1);
+INSERT INTO membership VALUES (3, '2019-01-02 00:00:00', '2019-01-03 00:00:00', 3, 1);
+INSERT INTO membership VALUES (4, '2019-01-02 00:00:00', '2019-01-02 00:00:00', 4, 2);
+INSERT INTO membership VALUES (5, '2019-01-02 00:00:00', '2019-01-03 00:00:00', 5, 2);
+INSERT INTO membership VALUES (6, '2019-01-02 00:00:00', '2019-01-02 00:00:00', 6, 3);
+INSERT INTO membership VALUES (7, '2019-01-02 00:00:00', '2019-01-03 00:00:00', 7, 3);
 
 -- --------------------------------------------------------
 
@@ -158,8 +158,8 @@ INSERT INTO membership VALUES (7, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 
 DROP TABLE IF EXISTS `person`;
 CREATE TABLE `person` (
   `id` int(11) NOT NULL,
-  `cretionDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` datetime NOT NULL,
+  `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `firstName` varchar(20) NOT NULL default '',
   `lastName` varchar(20) NOT NULL default '',
   `email` varchar(20) NOT NULL default ''
@@ -169,13 +169,13 @@ CREATE TABLE `person` (
 # Daten für Tabelle person
 #
 
-INSERT INTO person VALUES (1, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'Ulrike', 'Mustermann', 'ulrike@mustermann.org');
-INSERT INTO person VALUES (2, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'Max', 'Mustermann', 'max@mustermann.org');
-INSERT INTO person VALUES (3, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'Kim', 'Mustermann', 'kim@mustermann.org');
-INSERT INTO person VALUES (4, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'abc', 'def', 'abc@def.org');
-INSERT INTO person VALUES (5, '1970-01-01 00:00:00', '2019-01-01 00:00:00', '123', '456', '123@456.org');
-INSERT INTO person VALUES (6, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'xyz', 'zyx', 'xyz@zyx.org');
-INSERT INTO person VALUES (7, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'alpha', 'beta', 'alpha@beta.org');
+INSERT INTO person VALUES (1, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 'Ulrike', 'Mustermann', 'ulrike@mustermann.org');
+INSERT INTO person VALUES (2, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 'Max', 'Mustermann', 'max@mustermann.org');
+INSERT INTO person VALUES (3, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 'Kim', 'Mustermann', 'kim@mustermann.org');
+INSERT INTO person VALUES (4, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 'abc', 'def', 'abc@def.org');
+INSERT INTO person VALUES (5, '2019-01-02 00:00:00', '2019-01-01 00:00:00', '123', '456', '123@456.org');
+INSERT INTO person VALUES (6, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 'xyz', 'zyx', 'xyz@zyx.org');
+INSERT INTO person VALUES (7, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 'alpha', 'beta', 'alpha@beta.org');
 
 
 -- --------------------------------------------------------
@@ -188,7 +188,7 @@ DROP TABLE IF EXISTS `responsibility`;
 CREATE TABLE `responsibility` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` datetime NOT NULL,
+  `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `personId` int(11) DEFAULT NULL,
   `itemId` int(11) DEFAULT NULL,
   `shopId` int(11) DEFAULT NULL
@@ -199,15 +199,15 @@ CREATE TABLE `responsibility` (
 # Daten für Tabelle responsibility
 #
 
-INSERT INTO responsibility VALUES (1, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 1, 1, 1);
-INSERT INTO responsibility VALUES (2, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 2, 2, 2);
-INSERT INTO responsibility VALUES (3, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 3, 3, 1);
-INSERT INTO responsibility VALUES (4, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 4, 4, 2);
-INSERT INTO responsibility VALUES (5, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 5, 5, 1);
-INSERT INTO responsibility VALUES (6, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 6, 6, 2);
-INSERT INTO responsibility VALUES (7, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 7, 7, 1);
-INSERT INTO responsibility VALUES (8, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 1, 8, 2);
-INSERT INTO responsibility VALUES (9, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 7, 9, 1);
+INSERT INTO responsibility VALUES (1, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 1, 1, 1);
+INSERT INTO responsibility VALUES (2, '2019-01-02 00:00:00', '2019-01-02 00:00:00', 2, 2, 2);
+INSERT INTO responsibility VALUES (3, '2019-01-02 00:00:00', '2019-01-03 00:00:00', 3, 3, 1);
+INSERT INTO responsibility VALUES (4, '2019-01-02 00:00:00', '2019-01-02 00:00:00', 4, 4, 2);
+INSERT INTO responsibility VALUES (5, '2019-01-02 00:00:00', '2019-01-03 00:00:00', 5, 5, 1);
+INSERT INTO responsibility VALUES (6, '2019-01-02 00:00:00', '2019-01-02 00:00:00', 6, 6, 2);
+INSERT INTO responsibility VALUES (7, '2019-01-02 00:00:00', '2019-01-03 00:00:00', 7, 7, 1);
+INSERT INTO responsibility VALUES (8, '2019-01-02 00:00:00', '2019-01-03 00:00:00', 1, 8, 2);
+INSERT INTO responsibility VALUES (9, '2019-01-02 00:00:00', '2019-01-03 00:00:00', 7, 9, 1);
 
 -- --------------------------------------------------------
 
@@ -219,7 +219,7 @@ DROP TABLE IF EXISTS `shop`;
 CREATE TABLE `shop` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` datetime NOT NULL,
+  `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `name` varchar(20) NOT NULL default '',
   `street` varchar(20) NOT NULL default '',
   `postalCode` varchar(20) NOT NULL default '',
@@ -230,8 +230,8 @@ CREATE TABLE `shop` (
 # Daten für Tabelle shop
 #
 
-INSERT INTO shop VALUES (1, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'Lidl', 'Astraße', '00000', 'Stadt1');
-INSERT INTO shop VALUES (2, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'Aldi', 'Bstraße', '00001', 'Stadt2');
+INSERT INTO shop VALUES (1, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 'Lidl', 'Astraße', '00000', 'Stadt1');
+INSERT INTO shop VALUES (2, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 'Aldi', 'Bstraße', '00001', 'Stadt2');
 
 -- --------------------------------------------------------
 
@@ -242,8 +242,8 @@ INSERT INTO shop VALUES (2, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 'Aldi'
 DROP TABLE IF EXISTS `unit`;
 CREATE TABLE `unit` (
   `id` int(11) NOT NULL,
-  `cretionDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `changeDate` datetime NOT NULL,
+  `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `amount` int(11) NOT NULL,
   `measure` varchar(20) NOT NULL default ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -252,9 +252,9 @@ CREATE TABLE `unit` (
 # Daten für Tabelle unit
 #
 
-INSERT INTO unit VALUES (1, '1970-01-01 00:00:00', '2019-01-01 00:00:00', 3, 'Kilo');
-INSERT INTO unit VALUES (2, '1970-01-01 00:00:00', '2019-01-02 00:00:00', 5, 'Stück');
-INSERT INTO unit VALUES (3, '1970-01-01 00:00:00', '2019-01-03 00:00:00', 2, 'Packungen');
+INSERT INTO unit VALUES (1, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 3, 'Kilo');
+INSERT INTO unit VALUES (2, '2019-01-02 00:00:00', '2019-01-02 00:00:00', 5, 'Stück');
+INSERT INTO unit VALUES (3, '2019-01-02 00:00:00', '2019-01-03 00:00:00', 2, 'Packungen');
 
 -- --------------------------------------------------------
 

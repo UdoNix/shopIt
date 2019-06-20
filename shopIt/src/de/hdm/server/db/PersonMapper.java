@@ -44,7 +44,7 @@ public Person findByKey (int id) {
 		//Anlegen einen leeren SQL-Statement
 		Statement stmt =con.createStatement();
 		// Ausfüllen des Statements, als Query an die DB schicken
-		ResultSet rs =stmt.executeQuery("SELECT * from person" + "WHERE list.id =" + id );
+		ResultSet rs =stmt.executeQuery("SELECT * from person WHERE person.id = " + id );
 		
 		//Da id Primärschlüssel ist, kann nur ein Tupel zurueckgeg werden. 
 		//Es wird geprueft, ob ein Ergebnis vorliegt.
@@ -135,8 +135,8 @@ public Person insert(Person p) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO person (id, firstName, lastName, email) " + "VALUES ("
-          + p.getId() + ","+ p.getFirstName() +  ","+ p.getEmail() + "," + p.getLastName() + ")");
+      stmt.executeUpdate("INSERT INTO person (id, creationDate, changeDate, firstName, lastName, email) " + "VALUES ("
+          + p.getId() + " ,CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '"+ p.getFirstName() +  "' , '"+ p.getLastName() +"' , '"+ p.getEmail()  +  "')");
     }
   }
   catch (SQLException e2) {
@@ -155,8 +155,9 @@ public Person insert(Person p) {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE person " + "SET namide=\"" + p.getId()
-      + "\", "+ "firstName=\"" + p.getFirstName() + "\", " + "lastName=\"" + p.getLastName() +"\", " + "email=\"" + p.getEmail()+ "\", "+ "WHERE id=" + p.getId());
+      stmt.executeUpdate("UPDATE person "
+      		+ "SET id=" + p.getId() +"," +
+       " firstName=\"" + p.getFirstName() + "\",  lastName=\"" + p.getLastName() +"\", " + "email=\"" + p.getEmail()+ "\" WHERE id=" + p.getId());
 
     }
     catch (SQLException e2) {
@@ -177,7 +178,7 @@ public Person insert(Person p) {
      try {
        Statement stmt = con.createStatement();
 
-       stmt.executeUpdate("DELETE FROM person " + "WHERE id=" + p.getId());
+       stmt.executeUpdate("DELETE FROM person " + " WHERE id=" + p.getId());
 
      }
      catch (SQLException e2) {
@@ -195,7 +196,9 @@ public Person insert(Person p) {
 			
 			Statement stmt =con.createStatement();
 			
-			ResultSet rs =stmt.executeQuery("SELECT id,lastName,firstName from person" + "WHERE firstName LIKE'"+ person.getFirstName()+"'" +"OR lastName LIKE'"+ person.getLastName()+"'" );
+			ResultSet rs =stmt.executeQuery("SELECT * "
+					+ "FROM person "
+					+ "WHERE firstName LIKE '"+ person.getFirstName()+"'" +" OR lastName LIKE '"+ person.getLastName()+"'" );
 			
 			   while (rs.next()) {
 			       
@@ -203,6 +206,8 @@ public Person insert(Person p) {
 			        p.setId(rs.getInt("id"));
 			        p.setFirstName(rs.getString("firstName"));
 			        p.setLastName(rs.getString("lastName"));
+			        p.setChangeDate(rs.getTimestamp("changeDate"));
+			        p.setCreationDate(rs.getTimestamp("creationDate"));
 			  
 					
 					result.addElement(p);

@@ -54,7 +54,7 @@ import de.hdm.shared.bo.Person;
 			        Membership m = new Membership();
 			        m.setId(rs.getInt("id"));
 			        m.setPersonId(rs.getInt("personId"));
-			        m.setTeamId(rs.getInt("groupId"));
+			        m.setTeamId(rs.getInt("teamId"));
 			        return m;
 			      }
 			    }
@@ -88,7 +88,7 @@ import de.hdm.shared.bo.Person;
 	      Membership m = new Membership();
 	      m.setId(rs.getInt("id"));
 	      m.setPersonId(rs.getInt("personId"));
-	      m.setTeamId(rs.getInt("groupId"));
+	      m.setTeamId(rs.getInt("teamid"));
 
 	      // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
 	      result.addElement(m);
@@ -119,7 +119,7 @@ import de.hdm.shared.bo.Person;
 		      Membership m = new Membership();
 		      m.setId(rs.getInt("id"));
 		      m.setPersonId(rs.getInt("personId"));
-		      m.setTeamId(rs.getInt("groupId"));
+		      m.setTeamId(rs.getInt("teamid"));
 
 		      // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
 		      result.addElement(m);
@@ -161,8 +161,9 @@ import de.hdm.shared.bo.Person;
 	      stmt = con.createStatement();
 
 	      // Es erfolgt die tatsächliche Einfuegeoperation
-	      stmt.executeUpdate("INSERT INTO membership (id, personId, groupId) " + "VALUES ("
-	          + m.getId() + "," + m.getTeamId() + "," + m.getPersonId() + ")");
+	      stmt.executeUpdate("INSERT INTO membership (id, creationDate, changeDate,  personId, teamId) "
+	      		+ "VALUES ("
+	          + m.getId() + ", CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, "   + m.getPersonId() + "," + m.getTeamId() + ")");
 	    }
 	  }
 	  catch (SQLException e2) {
@@ -182,7 +183,7 @@ import de.hdm.shared.bo.Person;
 	      Statement stmt = con.createStatement();
 
 	      stmt.executeUpdate("UPDATE membership " + "SET personId=\"" + m.getPersonId()
-	          + "\", "+ "groupId=\"" + m.getTeamId() + "\", " +"WHERE id=" + m.getId());
+	          + "\", "+ "teamid=\"" + m.getTeamId() + "\", " +"WHERE id=" + m.getId());
 
 	    }
 	    catch (SQLException e2) {
@@ -203,7 +204,7 @@ import de.hdm.shared.bo.Person;
 	     try {
 	       Statement stmt = con.createStatement();
 
-	       stmt.executeUpdate("DELETE FROM membership " + "WHERE id=" + m.getId());
+	       stmt.executeUpdate("DELETE FROM membership WHERE id= " + m.getId());
 
 	     }
 	     catch (SQLException e2) {
@@ -211,20 +212,19 @@ import de.hdm.shared.bo.Person;
 	     }
 	   }
 	   
-	   public Vector<Person> findByMember(Team group) {
+	   public Vector<Person> findByMember(Team team) {
 
-		    return findByMember(group.getId());
+		    return findByMember(team.getId());
 	   }
 		    
-		   public Vector<Person> findByMember(int groupId) {
+		   public Vector<Person> findByMember(int teamid) {
 		        Connection con = DBConnection.connection();
 		        Vector<Person> result = new Vector<Person>();
 
 		        try {
 		          Statement stmt = con.createStatement();
 
-		          ResultSet rs = stmt.executeQuery("SELECT personId FROM membership"
-		              + "WHERE groupId=" + groupId + " ORDER BY id");
+		          ResultSet rs = stmt.executeQuery("SELECT personId FROM membership WHERE teamid= " + teamid + " ORDER BY id");
 
 		          
 		          while (rs.next()) {
@@ -245,21 +245,22 @@ import de.hdm.shared.bo.Person;
 		        return result;
 		      }
 		   
-		   public Vector<Membership> findByGroup(int groupId) {
+		   public Vector<Membership> findByTeam(int teamId) {
 			    Connection con = DBConnection.connection();
 			    Vector<Membership> result = new Vector<Membership>();
 
 			    try {
 			      Statement stmt = con.createStatement();
 
-			      ResultSet rs = stmt.executeQuery("SELECT personId, groupId FROM membership "
-			          + "WHERE groupId=" + groupId );
+			      ResultSet rs = stmt.executeQuery("SELECT * FROM membership "
+			          + "WHERE teamId= " + teamId );
 
 			    
 			      while (rs.next()) {
 			        Membership m = new Membership();
+			        m.setId(rs.getInt("id"));
 			        m.setPersonId(rs.getInt("personId"));
-			        m.setTeamId(rs.getInt("teamId"));
+			        m.setTeamId(rs.getInt("teamid"));
 
 			        // Hinzufügen des neuen Objekts zum Ergebnisvektor
 			        result.addElement(m);

@@ -4,12 +4,16 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.cellview.client.CellTree;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.StackPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.TreeViewModel;
+
+import de.hdm.shared.bo.List;
+import de.hdm.shared.bo.Team;
 
 
 /**
@@ -22,6 +26,7 @@ public class CellTreeViewModel extends VerticalPanel {
 
 	private TeamListView groupListView;
 	private StackPanel menuPanel;
+	public List removeList;
 	
 	
 	//private CellTreeResources groupListRes = GWT.create(CellTreeResources.class);
@@ -73,6 +78,7 @@ public class CellTreeViewModel extends VerticalPanel {
 		@Source("ShopItCellTree.css")
 		CellTree.Style cellTreeStyle();
 	}
-	
+
+
 	
 }

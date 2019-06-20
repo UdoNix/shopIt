@@ -26,7 +26,7 @@ public class AccountForm extends HorizontalPanel {
 	 * Erstellung verschiedener Panels
 	 */
 	private HorizontalPanel hPanel = new HorizontalPanel();
-		private VerticalPanel contentPanel = new VerticalPanel();
+	private VerticalPanel contentPanel = new VerticalPanel();
 		
 	/**
 	 * Erstellung benötigter GUI-Elemente

@@ -6,6 +6,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.hdm.shared.bo.Team;
 import de.hdm.shared.bo.UnitOfMeasure;
+
 import de.hdm.shared.bo.Article;
 import de.hdm.shared.bo.Item;
 import de.hdm.shared.bo.List;
@@ -24,11 +25,11 @@ public interface ShopITAdministrationAsync {
 
 	void createListFor(Team t, String name, AsyncCallback<List> callback);
 
-	void createMembership(Person p, Team g, AsyncCallback<Membership> callback);
+	void createMembership(int personId, int teamI, AsyncCallback<Membership> callback);
 
-	void createPerson(String first, String last, AsyncCallback<Person> callback);
+	void createPerson(String first, String last, String email, AsyncCallback<Person> callback);
 
-	void createResponsibility(Person p, Shop s, AsyncCallback<Responsibility> callback);
+	void createResponsibility(Person p, Shop s, Item i,  AsyncCallback<Responsibility> callback);
 
 	void createShop(String name, String street, String postalCode, String city, AsyncCallback<Shop> callback);
 
@@ -60,13 +61,13 @@ public interface ShopITAdministrationAsync {
 
 	void getAllListsOf(Team t, AsyncCallback<Vector<List>> callback);
 
-	void getAllMembershipOfPerson(Person p, AsyncCallback<Vector<Team>> callback);
+	void getAllMembershipOfPerson(Person p, AsyncCallback<Vector<Membership>> callback);
 
 	void getAllPersons(AsyncCallback<Vector<Person>> callback);
 
 	void getAllPersonsOf(Team t, AsyncCallback<Vector<Person>> callback);
 
-	void getAllResponsibilityOfPerson(Person p, AsyncCallback<Vector<Item>> callback);
+	void getAllResponsibilityOfPerson(Person p, AsyncCallback<Vector<Responsibility>> callback);
 
 	void getAllShops(AsyncCallback<Vector<Shop>> callback);
 
@@ -113,6 +114,12 @@ public interface ShopITAdministrationAsync {
 	void update(Item i, AsyncCallback<Void> callback);
 
 	void update(List l, AsyncCallback<Void> callback);
+
+	void getItemsbyTeamAndShop(Shop shop, AsyncCallback<Vector<Item>> callback);
+
+	void setTeam(Team t, AsyncCallback<Void> callback);
+
+	void getItemsByTeamWithTime(Team t, AsyncCallback<Vector<Item>> callback);
 	
 
 }

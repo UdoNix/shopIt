@@ -4,16 +4,17 @@ import java.util.Vector;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.hdm.server.ShopITAdministrationImpl;
-
 import de.hdm.shared.ReportGenerator;
 import de.hdm.shared.ShopITAdministration;
 import de.hdm.shared.report.CompositeParagraph;
 import de.hdm.shared.report.Report;
 import de.hdm.shared.report.Row;
 import de.hdm.shared.bo.Article;
-import de.hdm.shared.report.AllArticlesOfShopReport;
 import de.hdm.shared.report.Column;
+import de.hdm.shared.report.AllArticlesOfShopReport;
 import de.hdm.shared.report.SimpleParagraph;
+import de.hdm.shared.report.TeamAndShopStatistikReport;
+import de.hdm.shared.report.TeamStatisticReport;
 import de.hdm.shared.bo.*;
 import de.hdm.server.db.*;
 import de.hdm.server.*;
@@ -23,7 +24,7 @@ import de.hdm.server.*;
  */
 @SuppressWarnings("serial")//UnterdrÃ¼ckung von Warnungen bezÃ¼glich fehlendem Feld 'serialVersionUID' fÃ¼r eine serialisierbare Klasse
 public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportGenerator {
-	
+
 	/**
 	 * Zugriff auf die ShopITAdministration um Methoden von Datenobjekten des BO-Packages zu erhalten.
 	 * @author InesWerner
@@ -53,6 +54,18 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		return this.admin;
 	}
 	
+
+	 /**
+	  * Setzen der zugehörigen Gruppe
+	  * 
+	  * @author ilonabrinkmann
+	  * 
+	  */
+	public void setTeam(Team t) {
+		this.admin.setTeam(t);
+	}
+	
+	
 	/**
 	 * HinzufÃ¼gen des Impressums zum Report.
 	 * @author InesWerner
@@ -66,32 +79,22 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		//Impressum wird dem Report hinzugefÃ¼gt.
 		report.setImprint(imprint);
 	}
-
 	
-	/**Diese Methode soll eine Statistik ï¿½ber hï¿½ufig einkaufte Artikel in einem Zeitraum
-	 * von einem Hï¿½ndler anzeigen.
-=======
-	/**Diese Methode soll eine Statistik über häufig einkaufte Artikel in einem Zeitraum 
-	 * (falls angegeben) von einem Händler anzeigen.
->>>>>>> refs/heads/Larisa
-	 * @Larisa
+	/**Diese Methode soll eine Statistik über häufig einkaufte Artikel von einem Händler anzeigen.
+	 * @Larisa in Anlehnung Thies
 	 */
 	
-	public AllArticlesOfShopReport createAllArticlesOfShopReport(Shop shop, Date firstDate, Date lastDate)
+	public AllArticlesOfShopReport createAllArticlesOfShopReport(Shop shop)
 	throws IllegalArgumentException {
 		
 		if (this.getShopITAdministration() == null) {
 			return null;
-		}
-		
-		Shop s = this.findByName(shop); 
-		
-		if (s != null) {
+		}  
 			
-			//Ein leeren Report anlegen.
+			//Einen leeren Report anlegen.
 			AllArticlesOfShopReport result = new AllArticlesOfShopReport(); 
 			
-			//Jeder Report sollte einen Titel bzw. eine Bezeichnunh haben.
+			//Jeder Report sollte einen Titel bzw. eine Bezeichnung haben.
 			result.setTitle("Shop Statistic"); 
 			
 			//Impressum hinzufügen 
@@ -113,14 +116,11 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			CompositeParagraph header = new CompositeParagraph(); 
 			
 			//Name des Shops aufnehmen.
-			header.addSubParagraph(new SimpleParagraph(s.getName()));
+			header.addSubParagraph(new SimpleParagraph(shop.getName()));
 			
 			//Hinzufï¿½gen des zusammengestellten Kopfdaten.
 			result.setHeaderData(header); 
 			
-			//Erstellen und Abrufen der benötigten Ergebnisvektoren mittels ShopITAdministration. 
-			//Vector<Article> articles = this.aMapper.getAllArticlesForShopWithTime(a, firstDate, lastDate); 
-
 			
 			//Kopfzeile fï¿½r die Hï¿½ndlerstatistik-Tabelle. 
 			Row headline = new Row(); 
@@ -144,30 +144,27 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			 * Häufigkeit in die Tabelle eingetragen. 
 			 */
 			
-			Vector<Article> articles = this.admin.getAllArticlesOfShop(s); 
+			Vector<Item> items = this.admin.getItemsbyTeamAndShop(shop);
 			
-			for (Article a : articles) {
+			for (Item i : items) {
 				//Eine leere Zeile anlegen.
-				Row articleRow = new Row(); 
+				Row itemRow = new Row(); 
 				
-				//Erste Spalte: Artikelname hinzufügen
-				articleRow.addColumn(new Column(s.getName()));
+				//Erste Spalte: ArtikelId hinzufügen
+				itemRow.addColumn(new Column(String.valueOf(i.getArticleId())));
 				
 				//Zweite Spalte: Anzahl des Artikels
-				articleRow.addColumn(new Column(articles.size() + ""));
+				itemRow.addColumn(new Column(String.valueOf(i.getCount())));
 
 				//Die Zeilen dem Report hinzufügen
-				result.addRow(articleRow); 
+				result.addRow(itemRow); 
 				
-				//Report zurückgeben 
-				return result;
 			} 
 			
-		} else {
+			//Report zurückgeben 
+			return result;
 			
-			return null; 
 		}
-	}
 
 
 	
@@ -180,19 +177,31 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	 * @author IlonaBrinkmann, Thies
 	 */
 	
-	public TeamStatisticReport createTeamStatisticReport(String name, Date firstDate, Date lastDate) throws IllegalArgumentException {
+	public TeamStatisticReport createTeamStatisticReport(Team t, Date firstDate, Date lastDate) throws IllegalArgumentException {
 		
-		if (this.getAticles() == null) {
+		//int teamid = t.getId();
+		
+		if (this.getShopITAdministration() == null) {
 			return null;
 		}
-		Team t = this.getArticlesbyTeam(name);
+		//Team t = admin.getTeamById(teamid);
 		
-		if (t != null) {
+		//if (t != null) {
 			
 			//Einen leeren Report anlegen.
 			TeamStatisticReport result = new TeamStatisticReport();
+			
 			//Jeder Report hat einen Titel
 			result.setTitle("Teamstatistik");
+			
+			//Impressumsbezeichnung hinzufügen
+			result.addImprint(result); 
+			
+			/*Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
+		     *"Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts
+		     */
+			
+			result.setCreated(new Date()); 
 			
 			/*
 			 * Jetzt erfolgt die Zusammenstellung der allgemeinen Daten.
@@ -201,14 +210,17 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			 */
 			
 			CompositeParagraph header = new CompositeParagraph();
-			//Impressumsbezeichnung hinzufügen
-			header.addSubParagraph(new SimpleParagraph("Impressum: "));
+			
+			//Gruppenname aufnehmen
+			header.addSubParagraph(new SimpleParagraph(t.getName()));
+			
+			
 			//Hinzufügen des zusammengestellten Kopfdaten
 			result.setHeaderData(header);
 			
 			
 			//Erstellen und Abrufen der benötigten Ergebnisvektoren mittels PinnwandVerwaltung
-			Vector<Article> articles = this.getArticlesbyTeamWithTime(teamId, firstDate, lastDate);
+			//Vector<Article> articles = this.getArticlesbyTeamWithTime(teamId, firstDate, lastDate);
 			
 			
 			//Kopfzeile für die Teamstatistik Tabelle
@@ -235,15 +247,121 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			//Hinzufügen der Kopfzeile
 			result.addRow(headline);
 			
+			/*
+			 * Nun werden alle Artikel einer Gruppe ausgelesen und anhand deren
+			 * Häufigkeit in die Tabelle eingetragen.
+			 */
+			
+			Vector<Item> items = this.iMapper.getItemsByTeamWithTime(t); 
+			
+			for (Item i: items) {
+				//Eine leere Zeile anlegen.
+				Row itemRow = new Row(); 
+				
+				//Erste Spalte: ArticleId hinzufügen
+				itemRow.addColumn(new Column(String.valueOf(i.getArticleId())));
+				itemRow.addColumn(new Column(String.valueOf(i.getCount())));
+				
+				//Schliesslich die Zeile dem Report hinzufügen
+				result.addRow(itemRow);
+		
+			}
+			//Report zurückgeben
+			
+			return result;
+	}
+	
+	/*
+	 * Die Methode soll alle Artikel eines gewissen Zeitraums anhand eines Händlers anzeigen 
+	 * 
+	 * Zurückgegeben wird ein fertiger Report
+	 * 
+	 * @author IlonaBrinkmann
+	 */
+	
+	private int shopid;
+	
+	private int teamid;
+	
+	public TeamAndShopStatistikReport createTeamAndShopStatistikReport(String tname, String sname, Date firstDate, Date lastdate) throws IllegalArgumentException {
+		
+		Shop s1 = this.getShopbyName(sname);
+		
+		shopid = s1.getId();
+		
+		Team t1 = this.getTeambyName(tname);
+		
+		teamid = t1.getId();
+		
+		Shop s = this.getShopITAdministration().getShopById(shopid);
+		
+		Team t = this.getShopITAdministration().getTeamById(teamid);
+		
+		if ( s != null) {
+			
+			// einen leeren Report anlegen
+			TeamAndShopStatistikReport result = new TeamAndShopStatistikReport();
+			
+			//Jeder Report hat einen Titel
+			result.setTitle("TeamAndShopStatistik:");
+			
+			/*
+			 * 
+			 * Nun folgt die Zusammenstellung der Kopfdaten des Reports
+			 * Die Kopfdaten sind mehrzeilig, daher die Verwendung des
+			 * CompositeParagraph
+			 * 
+			 * 
+			 */
+			
+			CompositeParagraph header = new CompositeParagraph();
+			//Impressumsbezeichnung hinzufügen
+			header.addSubParagraph(new SimpleParagraph("Impressum: "));
+			//Hinzufügen des zusammengestellten Kopfdaten
+			result.setHeaderDate(header);
+			
+			//Erstellen und Abrufen der benötigten Ergebnisvektoren mittels ShopITVerwaltung
+			Vector<Article> articles = this.getShopITVerwaltung().getArticlesbyTeamAndShopWithTime(t, s, firstDate, lastdate);
+			
+			
+			//Kopfzeil dür die Team/Shop Statistik Tabelle
+			Row headline = new Row();
+			
+			/*
+			 * Es wird eine Tabelle mit 3 Spalten erzeugt. In die erste Spalte 
+			 * wird der Name des Artikels hingeschrieben. In die zweite Spalte kommt der Name des Shops und 
+			 * in die dritte Spalte kommt die Anzahl der Häufigkeit. Also wie oft der 
+			 * Artikel den Listen aufgelistet war.
+			 */
+			
+			headline.addColumn(new Column("Artikel"));
+			headline.addColumn(new Column("Einzelhändler"));
+			headline.addColumn(new Column("Anzahl"));
+			
+			//Hinzufügen der Kopfzeile
+			result.addRow(headline);
+			
 			//Eine leere Zeile anlegen
 			Row row = new Row();
 			
-			//Erste Spalte: Artikel
-			row.addColumn(new Column(articles.size() + " "));
+			//Erste Spalte: Artikelname
+			row.addColumn(new Column(articles.size() + "");
 			
+			//die Zeilen werden zu dem Report hinzugefügt
+			result.addRow(row);
 			
+			//Impressum hinzufügen
+			this.addImprint(result);
 			
+			//es wird zum Schluss wird der fertige Report abgegeben
+			return result;
+
+			
+		}else {
+			return null;
 		}
+		
+		
 	}
 
 }

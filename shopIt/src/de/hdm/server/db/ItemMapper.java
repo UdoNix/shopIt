@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import de.hdm.shared.bo.Article;
 import de.hdm.shared.bo.Item;
+import de.hdm.shared.bo.List;
 import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Responsibility;
 import de.hdm.shared.bo.Shop;
@@ -119,7 +120,9 @@ public Vector<Item> findAll() {
   //Der Ergebnisvektor wird zurueckgegeben
   return result;
 }
-public Vector<Item> findByList (int listId){
+public Vector<Item> findByList (List l){
+	
+	int listId = l.getId();
 	
 	Connection con = DBConnection.connection();
 	Vector<Item> result = new Vector<Item>();
@@ -185,8 +188,9 @@ public Item insert(Item i) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
+<<<<<<< HEAD
       stmt.executeUpdate("INSERT INTO Item (id, changeDate, unitId, articleId, teamId, listId, favorit, status) "
-      		+ "VALUES (" + i.getId() + "," + i.getUnitId() + "," + i.getArticleId() + "," + i.getTeamId()+ "," + i.isFavorit()+ "," + i.isStatus() +")");
+      		+ "VALUES (" + i.getId() + ", CURRENT_TIMESTAMP, " + i.getUnitId() + "," + i.getArticleId() + "," + i.getTeamId()+ "," + i.isFavorit()+ "," + i.isStatus() +")");
 
     }
   }
@@ -211,7 +215,6 @@ public Item insert(Item i) {
     	 item.setId(i.getId());
          item.setCreationDate(i.getCreationDate());
          item.setChangeDate(i.getChangeDate());
-         item.setShopId(i.getShopId());
          item.setArticleId(i.getArticleId());
          item.setFavorit(i.isFavorit());
          item.setStatus(i.isStatus());
@@ -228,7 +231,7 @@ public Item insert(Item i) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE list " + "SET id=\"" + i.getId()
-       + "\", " + "shopId=\"" + "\", " + "teamId=\"" + i.getTeamId()+ i.getShopId()+ "\", " + "unitId=\"" + i.getUnitId()+ "\", " + "articleId=\"" + i.getArticleId()+ "\", " + "isStatus=\"" + "\", " + "listid=\"" + i.getListId()+ i.isStatus()+ "\", " + "isFavorit=\"" + i.isFavorit()+"\", "+ "WHERE id=" + i.getId());
+       + "\", teamId=\"" + i.getTeamId()+ i.getShopId()+ "\", " + "unitId=\"" + i.getUnitId()+ "\", " + "articleId=\"" + i.getArticleId()+ "\", " + "isStatus=\"" + "\", " + "listid=\"" + i.getListId()+ i.isStatus()+ "\", " + "isFavorit=\"" + i.isFavorit()+"\", "+ " WHERE id=" + i.getId());
 
     }
     catch (SQLException e2) {
@@ -259,7 +262,10 @@ public Item insert(Item i) {
        e2.printStackTrace();
      }
    }
-   public Vector<Item> groupBySalesman (){
+   
+   //Wrong name and foreign key constrain doesn't exist anymore
+   @Deprecated
+   public Vector<Item> groupByShop (){
 	    Connection con = DBConnection.connection();
 	    Vector<Item> result = new Vector<Item>();
 
