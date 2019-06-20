@@ -188,7 +188,7 @@ public Item insert(Item i) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-<<<<<<< HEAD
+
       stmt.executeUpdate("INSERT INTO Item (id, changeDate, unitId, articleId, teamId, listId, favorit, status) "
       		+ "VALUES (" + i.getId() + ", CURRENT_TIMESTAMP, " + i.getUnitId() + "," + i.getArticleId() + "," + i.getTeamId()+ "," + i.isFavorit()+ "," + i.isStatus() +")");
 
