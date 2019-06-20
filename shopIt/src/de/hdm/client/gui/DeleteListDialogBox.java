@@ -12,7 +12,6 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.client.ClientsideSettings;
-import de.hdm.shared.ShopITAdministration;
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.List;
 
@@ -111,7 +110,7 @@ public class DeleteListDialogBox extends DialogBox {
 			public void onSuccess(Void result) {
 				if (list != null) {
 					setSelectedList(null);
-					ViewModel.removeList.(list);
+					//ViewModel.removeList(list); funktioniert nicht!!
 					RootPanel.get("main").clear();
 			
 					
