@@ -23,7 +23,7 @@ public interface ShopITAdministration extends RemoteService {
 	
 	//Einen Kunden anlegen.
 	
-	public Person createPerson(String first, String last) throws IllegalArgumentException; 
+	public Person createPerson(String first, String last, String email) throws IllegalArgumentException; 
 	
 	//Auslesen eines Anwenders anhand seiner Id.
 	public Person getPersonById(int id) throws IllegalArgumentException;
