@@ -138,7 +138,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		}
 		
 		//Löschen von Membershipobjekten in denen der zu löschende Anwender auftritt.
-		Vector<Membership> memberships = this.mMapper.getAllMembershipsOf(personId);
+		Vector<Membership> memberships = this.mMapper.getAllMembershipsOf(p);
 		if (memberships != null){
 			for (Membership m : memberships){
 				this.mMapper.delete(m);
@@ -580,7 +580,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * alle Zust�ndigkeiten einer Person aufzeigen
 	 */
-	public Vector<Item> getAllResponsibilityOfPerson(Person p) throws IllegalArgumentException{
+	public Vector<Responsibility> getAllResponsibilityOfPerson(Person p) throws IllegalArgumentException{
 		return this.rMapper.findByPerson(p.getId());
 	}
 	/*
@@ -634,8 +634,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * alle Gruppen einer Person aufzeigen
 	 */
-	public Vector<Team> getAllMembershipOfPerson(Person p) throws IllegalArgumentException{
-		return this.mMapper.findByPerson(p);
+	public Vector<Membership> getAllMembershipOfPerson(Person p) throws IllegalArgumentException{
+		return this.mMapper.getAllMembershipsOf(p);
 	}
 	/*
 	 * eine Gruppenmitgliedschaft �ndern
@@ -681,7 +681,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		
 	}
 
-	//TODO Parameter Team muss noch �bergeben werden
+	//TODO Parameter Team muss noch �bergeben werden
 	@Override
 //	public Vector<Item> getItemsbyTeamAndShop(Shop shop) throws IllegalArgumentException {
 //		
