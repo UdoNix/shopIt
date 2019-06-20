@@ -11,7 +11,11 @@ public class Test {
 		admin.init();
 		//Person p = admin.getPersonById(1);
 		
-		admin.createPerson("Hans", "Wurst", "abcdef.de");
+		//admin.createPerson("Hans", "Wurst", "abcdef.de");
+		
+		admin.getPersonById(1);
+		
+		
 	
 	}
 
