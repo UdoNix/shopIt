@@ -115,7 +115,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	
 	//Auslesen eines Anwenders anhand seiner Email.
 	public Person getPersonByEmail(String email) throws IllegalArgumentException{
-		return this.pMapper.findPersonByEmail(email); 
+		return this.pMapper.findPersonByEmail(email);
 	}
 	
 	//Auslesen aller Anwender.
@@ -208,9 +208,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 */
 	public void delete(List l) throws IllegalArgumentException{
 		 //alle Eintr�ge der Liste suchen und ggf. l�schen
-
-		Vector<Item> items = this.getAllItemsOfList(l);
-
+		Vector<Item> items = iMapper.findByList(l);
 		 
 		    if (items != null) {
 		      for (Item item : items) {
@@ -240,20 +238,20 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * neuen Eintrag erstellen
 	 */
-	public Item createItem(int listId, int articleId, int responsibilityId) throws IllegalArgumentException{
+	public Item createItem(List l, Article a) throws IllegalArgumentException{
 		Item i = new Item();
+		//i.setCreationDate();//aktuelles Datum einf�gen Muss nicht gesetzt werden, das macht die DB
 
 		i.setId(1);
-		i.setListId(listId);
-		i.setArticleId(articleId);
-		/*
-		 * Zust�ndigkeit zum Eintrag hinzuf�gen
-		 */
-		i.setResponsibilityId(responsibilityId);
+		i.setListId(l.getId());
 		return this.iMapper.insert(i);
 	}
-	
-	
+	/*
+	 * Zust�ndigkeit zum Eintrag hinzuf�gen
+	 */
+	public Item addResponsibilityToItem(Responsibility r, Item i) {
+		i.setResponsibility(r);
+	}
 	/*
 	 * Eintrag anhand der Id finden
 	 */
@@ -326,8 +324,19 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		//Setzen einer vorläufigen Gruppe-Id, welche nach Kommunikation mit DB auf den nächsthhöheren Wert gesetzt wird.
 		t.setId(1);
 		
+		//Membership der Person muss erstellt werden
+		Membership m = new Membership();
+		m.setPersonId(p.getId());
+		m.setTeamId(t.getId());
+		m.setId(1);
+		
+		this.mMapper.insert(m);
+		
 		//Speichern des Gruppe-Objekts in der DB.
 		return this.tMapper.insert(t); 
+		
+		
+		
 	}
 	
 	//Auslesen einer Gruppe anhand seiner Gruppe-Id.
@@ -549,12 +558,10 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * Zust�ndigkeit erstellen
 	 */
 	
-	public Responsibility createResponsibility(Person p, Shop s ,Item i) throws IllegalArgumentException{
+	public Responsibility createResponsibility(Person p, Shop s) throws IllegalArgumentException{
 		Responsibility r = new Responsibility();
-		r.setId(1);
-		r.setPersonId(p.getId());
-		r.setShopId(s.getId());
-		r.setItemId(i.getId());
+		r.setPerson(p);
+		r.setShop(s);
 		
 		return this.rMapper.insert(r);
 		
@@ -568,7 +575,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * alle Zust�ndigkeiten einer Person aufzeigen
 	 */
-	public Vector<Responsibility> getAllResponsibilityOfPerson(Person p) throws IllegalArgumentException{
+	public Vector<Item> getAllResponsibilityOfPerson(Person p) throws IllegalArgumentException{
 		return this.rMapper.findByPerson(p.getId());
 	}
 	/*
@@ -603,11 +610,11 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 */
 	
 
-	public Membership createMembership(int personId, int teamId) throws IllegalArgumentException{
+	public Membership createMembership(Person p, Team t) throws IllegalArgumentException{
 
 		Membership m = new Membership();
-		m.setPersonId(personId);
-		m.setTeamId(teamId);
+		m.setPersonId(p.getId());
+		m.setTeamId(t.getId());
 		m.setId(1);
 		
 		return this.mMapper.insert(m);
@@ -622,8 +629,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * alle Gruppen einer Person aufzeigen
 	 */
-	public Vector<Membership> getAllMembershipOfPerson(Person p) throws IllegalArgumentException{
-		return this.mMapper.getAllMembershipsOf(p.getId());
+	public Vector<Teams> getAllMembershipOfPerson(Person p) throws IllegalArgumentException{
+		return this.mMapper.findByPerson(p);
 	}
 	/*
 	 * eine Gruppenmitgliedschaft �ndern

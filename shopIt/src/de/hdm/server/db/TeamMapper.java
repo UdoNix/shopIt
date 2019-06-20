@@ -46,7 +46,7 @@ public Team findByKey (int id) {
 		//Anlegen einen leeren SQL-Statement
 		Statement stmt =con.createStatement();
 		// Ausfüllen des Statements, als Query an die DB schicken
-		ResultSet rs =stmt.executeQuery("SELECT * from team" + "WHERE id =" + id );
+		ResultSet rs =stmt.executeQuery("SELECT * from team WHERE id = " + id );
 		
 		//Da id Primärschlüssel ist, kann nur ein Tupel zurueckgeg werden. 
 		//Es wird geprueft, ob ein Ergebnis vorliegt.
@@ -134,7 +134,7 @@ public Team insert(Team t) {
 
       // Es erfolgt die tatsächliche Einfuegeoperation
       stmt.executeUpdate("INSERT INTO team (id, name) " + "VALUES ("
-          + t.getId() + ","  + t.getName() + ")");
+          + t.getId() + ", '"  + t.getName() + "' )");
     }
   }
   catch (SQLException e2) {
@@ -153,8 +153,8 @@ public Team insert(Team t) {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE accounts " + "SET name=\"" + t.getName()
-          + "\" "+ "WHERE id=" + t.getId());
+      stmt.executeUpdate("UPDATE team " + "SET name=\"" + t.getName()
+          + "\" "+ "WHERE id= " + t.getId());
 
     }
     catch (SQLException e2) {
