@@ -5,6 +5,7 @@ import com.ibm.icu.text.DateFormat;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
 
 import de.hdm.server.db.ArticleMapper;
