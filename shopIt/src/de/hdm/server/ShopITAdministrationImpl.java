@@ -3,7 +3,9 @@ package de.hdm.server;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.ibm.icu.text.DateFormat;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
 
 import de.hdm.server.db.ArticleMapper;
@@ -193,7 +195,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * alle Eintr�ge einer Liste aufzeigen
 	 */
 	public Vector<Item> getAllItemsOfList(List l) throws IllegalArgumentException{
-		return this.iMapper.findByList(l);
+		return this.iMapper.findByList(l.getId());
 	}
 	/*
 	 * eine Liste �ndern
@@ -206,7 +208,11 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 */
 	public void delete(List l) throws IllegalArgumentException{
 		 //alle Eintr�ge der Liste suchen und ggf. l�schen
+<<<<<<< HEAD
 		Vector<Item> items = iMapper.findByList(l);
+=======
+		Vector<Item> items = this.getAllItemsOfList(l);
+>>>>>>> refs/heads/Larisa
 		 
 		    if (items != null) {
 		      for (Item item : items) {
@@ -236,20 +242,25 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * neuen Eintrag erstellen
 	 */
-	public Item createItem(List l, Article a) throws IllegalArgumentException{
+	public Item createItem(int listId, int articleId, int responsibilityId) throws IllegalArgumentException{
 		Item i = new Item();
+<<<<<<< HEAD
 		//i.setCreationDate();//aktuelles Datum einf�gen Muss nicht gesetzt werden, das macht die DB
+=======
+		i.setCreationDate(new Date());//aktuelles Datum einf�gen
+>>>>>>> refs/heads/Larisa
 
 		i.setId(1);
-		i.setListId(l.getId());
+		i.setListId(listId);
+		i.setArticleId(articleId);
+		/*
+		 * Zust�ndigkeit zum Eintrag hinzuf�gen
+		 */
+		i.setResponsibilityId(responsibilityId);
 		return this.iMapper.insert(i);
 	}
-	/*
-	 * Zust�ndigkeit zum Eintrag hinzuf�gen
-	 */
-	public Item addResponsibilityToItem(Responsibility r, Item i) {
-		i.setResponsibility(r);
-	}
+	
+	
 	/*
 	 * Eintrag anhand der Id finden
 	 */
@@ -545,10 +556,11 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * Zust�ndigkeit erstellen
 	 */
 	
-	public Responsibility createResponsibility(Person p, Shop s) throws IllegalArgumentException{
+	public Responsibility createResponsibility(int personId, int shopId) throws IllegalArgumentException{
 		Responsibility r = new Responsibility();
-		r.setPerson(p);
-		r.setShop(s);
+		r.setPersonId(personId);
+		r.setShopId(shopId);
+		r.setId(1);
 		
 		return this.rMapper.insert(r);
 		
@@ -562,7 +574,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * alle Zust�ndigkeiten einer Person aufzeigen
 	 */
-	public Vector<Item> getAllResponsibilityOfPerson(Person p) throws IllegalArgumentException{
+	public Vector<Responsibility> getAllResponsibilityOfPerson(Person p) throws IllegalArgumentException{
 		return this.rMapper.findByPerson(p.getId());
 	}
 	/*
@@ -597,11 +609,11 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 */
 	
 
-	public Membership createMembership(Person p, Team t) throws IllegalArgumentException{
+	public Membership createMembership(int personId, int teamId) throws IllegalArgumentException{
 
 		Membership m = new Membership();
-		m.setPerson(p);
-		m.setTeam(t);
+		m.setPersonId(personId);
+		m.setTeamId(teamId);
 		m.setId(1);
 		
 		return this.mMapper.insert(m);
@@ -616,8 +628,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * alle Gruppen einer Person aufzeigen
 	 */
-	public Vector<Teams> getAllMembershipOfPerson(Person p) throws IllegalArgumentException{
-		return this.mMapper.findByPerson(p);
+	public Vector<Membership> getAllMembershipOfPerson(Person p) throws IllegalArgumentException{
+		return this.mMapper.getAllMembershipsOf(p.getId());
 	}
 	/*
 	 * eine Gruppenmitgliedschaft �ndern

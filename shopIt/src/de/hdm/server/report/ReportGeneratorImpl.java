@@ -150,7 +150,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 				//Eine leere Zeile anlegen.
 				Row itemRow = new Row(); 
 				
-				//Erste Spalte: Artikelname hinzufügen
+				//Erste Spalte: ArtikelId hinzufügen
 				itemRow.addColumn(new Column(String.valueOf(i.getArticleId())));
 				
 				//Zweite Spalte: Anzahl des Artikels
@@ -179,21 +179,29 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	
 	public TeamStatisticReport createTeamStatisticReport(Team t, Date firstDate, Date lastDate) throws IllegalArgumentException {
 		
-		
-		int teamid = t.getId();
+		//int teamid = t.getId();
 		
 		if (this.getShopITAdministration() == null) {
 			return null;
 		}
-		Team t = admin.getTeamById(teamid);
+		//Team t = admin.getTeamById(teamid);
 		
-		if (t != null) {
+		//if (t != null) {
 			
 			//Einen leeren Report anlegen.
 			TeamStatisticReport result = new TeamStatisticReport();
 			
 			//Jeder Report hat einen Titel
 			result.setTitle("Teamstatistik");
+			
+			//Impressumsbezeichnung hinzufügen
+			result.addImprint(result); 
+			
+			/*Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
+		     *"Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts
+		     */
+			
+			result.setCreated(new Date()); 
 			
 			/*
 			 * Jetzt erfolgt die Zusammenstellung der allgemeinen Daten.
@@ -203,15 +211,16 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			
 			CompositeParagraph header = new CompositeParagraph();
 			
-			//Impressumsbezeichnung hinzufügen
-			header.addSubParagraph(new SimpleParagraph("Impressum: "));
+			//Gruppenname aufnehmen
+			header.addSubParagraph(new SimpleParagraph(t.getName()));
+			
 			
 			//Hinzufügen des zusammengestellten Kopfdaten
 			result.setHeaderData(header);
 			
 			
 			//Erstellen und Abrufen der benötigten Ergebnisvektoren mittels PinnwandVerwaltung
-			Vector<Article> articles = this.getArticlesbyTeamWithTime(teamId, firstDate, lastDate);
+			//Vector<Article> articles = this.getArticlesbyTeamWithTime(teamId, firstDate, lastDate);
 			
 			
 			//Kopfzeile für die Teamstatistik Tabelle
@@ -238,15 +247,28 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			//Hinzufügen der Kopfzeile
 			result.addRow(headline);
 			
-			//Eine leere Zeile anlegen
-			Row row = new Row();
+			/*
+			 * Nun werden alle Artikel einer Gruppe ausgelesen und anhand deren
+			 * Häufigkeit in die Tabelle eingetragen.
+			 */
 			
-			//Erste Spalte: Artikel
-			row.addColumn(new Column(articles.size() + " "));
+			Vector<Item> items = this.admin.getItemsByTeamWithTime(t); 
 			
+			for (Item i: items) {
+				//Eine leere Zeile anlegen.
+				Row itemRow = new Row(); 
+				
+				//Erste Spalte: ArticleId hinzufügen
+				itemRow.addColumn(new Column(String.valueOf(i.getArticleId())));
+				itemRow.addColumn(new Column(String.valueOf(i.getCount())));
+				
+				//Schliesslich die Zeile dem Report hinzufügen
+				result.addRow(itemRow);
+		
+			}
+			//Report zurückgeben
 			
-			
-		}
+			return result;
 	}
 	
 	/*

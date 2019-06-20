@@ -135,14 +135,13 @@ public interface ShopITAdministration extends RemoteService {
 	//Speichern einer Maï¿½einheit. 
 	public void save(UnitOfMeasure u) throws IllegalArgumentException;
 	
-	//Zustï¿½ndigkeit erstellen.
-	public Responsibility createResponsibility(Person p, Shop s) throws IllegalArgumentException;
+	Responsibility createResponsibility(int personId, int shopId);
 	
 	//Zustï¿½ndigkeit anhand der Id finden.
 	public Responsibility getResponsibilityById(int id) throws IllegalArgumentException;
 	
 	//alle Zustï¿½ndigkeiten einer Person aufzeigen.
-	public Vector<Item> getAllResponsibilityOfPerson(Person p) throws IllegalArgumentException;
+	public Vector<Responsibility> getAllResponsibilityOfPerson(Person p) throws IllegalArgumentException;
 	
 	//eine Zustï¿½ndigkeit ï¿½ndern.
 	public void update(Responsibility r) throws IllegalArgumentException;
@@ -151,13 +150,13 @@ public interface ShopITAdministration extends RemoteService {
 	public void delete(Responsibility r) throws IllegalArgumentException;
 	
 	//Gruppenmitgliedschaft erstellen.
-	public Membership createMembership(Person p, Team g) throws IllegalArgumentException;
+	public Membership createMembership(int personId, int teamId) throws IllegalArgumentException;
 	
 	//Gruppenmitgliedschaft anhand der Id finden.
 	public Membership getMembershipById(int id) throws IllegalArgumentException;
 	
 	//alle Gruppen einer Person aufzeigen.
-	public Vector<Team> getAllMembershipOfPerson(Person p) throws IllegalArgumentException;
+	public Vector<Membership> getAllMembershipOfPerson(Person p) throws IllegalArgumentException;
 	
 	//eine Gruppenmitgliedschaft ï¿½ndern.
 	public void update(Membership m) throws IllegalArgumentException;
@@ -167,6 +166,12 @@ public interface ShopITAdministration extends RemoteService {
 	
 	//Auslesen aller eingekauften Artikeln von einem Händler
 	public Vector<Item> getItemsbyTeamAndShop(Shop shop) throws IllegalArgumentException;
+	
+	//Setzen des zugehörigen Team-Objekts. 
+	public void setTeam(Team t) throws IllegalArgumentException;
+	
+	//Auslesen aller Einträge eines Teams mit Zeitangabe.
+	public Vector<Item> getItemsByTeamWithTime(Team t);
 	
 	
 	
