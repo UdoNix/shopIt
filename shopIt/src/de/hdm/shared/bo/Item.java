@@ -1,5 +1,7 @@
 package de.hdm.shared.bo;
 
+import java.util.Date;
+
 public class Item extends BusinessObject{
 
 	private static final long serialVersionUID = 1L;
@@ -13,6 +15,9 @@ public class Item extends BusinessObject{
 	
 	//FremdschlÃ¼sselbeziehung zur Liste.
 	private int listId = 0;
+	
+	//FremdschlÃ¼sselbeziehung zur Zuständigkeit.
+	private int responsibilityId = 0;
 	
 	//FremdschlÃ¼sselbeziehung zur UnitOfMeasure.
 	private int unitId = 0;
@@ -57,6 +62,16 @@ public class Item extends BusinessObject{
 	//Setzen des FremdschlÃ¼ssels der Liste.
 	public void setListId(int listId) {
 		this.listId = listId;
+	}
+	
+	//Auslesen des Fremdschlüssels der Zuständigkeit. 
+	public int getResponsibilityId() {
+		return responsibilityId; 
+	}
+	
+	//Setzen des Fremdschlüssels der Zuständigkeit. 
+	public void setResponsibilityId(int responsibilityId) {
+		this.responsibilityId = responsibilityId; 
 	}
 	
 	//Auslesen, ob Artikel ein Standardartikel ist.
@@ -108,6 +123,7 @@ public class Item extends BusinessObject{
 	public void setCount(int count) {
 		this.count = count;
 	}
+
 
 
 
