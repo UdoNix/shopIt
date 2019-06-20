@@ -23,6 +23,7 @@ public class CellTreeViewModel extends VerticalPanel {
 
 	private TeamListView groupListView;
 	private StackPanel menuPanel;
+	public Object removeList;
 	
 	
 	//private CellTreeResources groupListRes = GWT.create(CellTreeResources.class);
