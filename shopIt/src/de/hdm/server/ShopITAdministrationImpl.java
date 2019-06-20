@@ -322,8 +322,19 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		//Setzen einer vorläufigen Gruppe-Id, welche nach Kommunikation mit DB auf den nächsthhöheren Wert gesetzt wird.
 		t.setId(1);
 		
+		//Membership der Person muss erstellt werden
+		Membership m = new Membership();
+		m.setPersonId(p.getId());
+		m.setTeamId(t.getId());
+		m.setId(1);
+		
+		this.mMapper.insert(m);
+		
 		//Speichern des Gruppe-Objekts in der DB.
 		return this.tMapper.insert(t); 
+		
+		
+		
 	}
 	
 	//Auslesen einer Gruppe anhand seiner Gruppe-Id.
@@ -600,8 +611,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	public Membership createMembership(Person p, Team t) throws IllegalArgumentException{
 
 		Membership m = new Membership();
-		m.setPerson(p);
-		m.setTeam(t);
+		m.setPersonId(p.getId());
+		m.setTeamId(t.getId());
 		m.setId(1);
 		
 		return this.mMapper.insert(m);
