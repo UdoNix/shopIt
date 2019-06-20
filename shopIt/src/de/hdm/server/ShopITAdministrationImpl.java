@@ -206,7 +206,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 */
 	public void delete(List l) throws IllegalArgumentException{
 		 //alle Eintr�ge der Liste suchen und ggf. l�schen
-		Vector<Item> items = this.getAllItemsOf(l);
+		Vector<Item> items = iMapper.findByList(l);
 		 
 		    if (items != null) {
 		      for (Item item : items) {
@@ -238,7 +238,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 */
 	public Item createItem(List l, Article a) throws IllegalArgumentException{
 		Item i = new Item();
-		i.setCreationDate();//aktuelles Datum einf�gen
+		//i.setCreationDate();//aktuelles Datum einf�gen Muss nicht gesetzt werden, das macht die DB
 
 		i.setId(1);
 		i.setListId(l.getId());
@@ -637,5 +637,23 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	   * ABSCHNITT, Ende: Methoden f�r Gruppenmitgliedschaft-Objekte
 	   * ***************************************************************************
 	   */
+
+	@Override
+	public Person createPerson(String first, String last) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void delete(Person p) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Vector<Item> getItemsbyTeamAndShop(Shop shop) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
