@@ -12,6 +12,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.TreeViewModel;
 
+import de.hdm.shared.bo.List;
+import de.hdm.shared.bo.Team;
+
 
 /**
  * @author Alexander Gerlings
@@ -23,7 +26,7 @@ public class CellTreeViewModel extends VerticalPanel {
 
 	private TeamListView groupListView;
 	private StackPanel menuPanel;
-	public Object removeList;
+	public List removeList;
 	
 	
 	//private CellTreeResources groupListRes = GWT.create(CellTreeResources.class);
@@ -75,6 +78,7 @@ public class CellTreeViewModel extends VerticalPanel {
 		@Source("ShopItCellTree.css")
 		CellTree.Style cellTreeStyle();
 	}
-	
+
+
 	
 }
