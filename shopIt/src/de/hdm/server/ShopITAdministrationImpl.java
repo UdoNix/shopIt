@@ -113,7 +113,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	
 	//Auslesen eines Anwenders anhand seiner Email.
 	public Person getPersonByEmail(String email) throws IllegalArgumentException{
-		return this.pMapper.findPersonByEmail(email);
+		return this.pMapper.findPersonByEmail(email); 
 	}
 	
 	//Auslesen aller Anwender.
@@ -545,10 +545,11 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * Zust�ndigkeit erstellen
 	 */
 	
-	public Responsibility createResponsibility(Person p, Shop s) throws IllegalArgumentException{
+	public Responsibility createResponsibility(Person p, Shop s ,Item i) throws IllegalArgumentException{
 		Responsibility r = new Responsibility();
-		r.setPerson(p);
-		r.setShop(s);
+		r.setPersonId(p.getId());
+		r.setShopId(s.getId());
+		r.setItemId(i.getId());
 		
 		return this.rMapper.insert(r);
 		

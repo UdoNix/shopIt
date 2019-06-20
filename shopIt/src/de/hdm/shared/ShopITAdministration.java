@@ -136,7 +136,7 @@ public interface ShopITAdministration extends RemoteService {
 	public void save(UnitOfMeasure u) throws IllegalArgumentException;
 	
 	//Zust�ndigkeit erstellen.
-	public Responsibility createResponsibility(Person p, Shop s) throws IllegalArgumentException;
+	public Responsibility createResponsibility(Person p, Shop s, Item i) throws IllegalArgumentException;
 	
 	//Zust�ndigkeit anhand der Id finden.
 	public Responsibility getResponsibilityById(int id) throws IllegalArgumentException;

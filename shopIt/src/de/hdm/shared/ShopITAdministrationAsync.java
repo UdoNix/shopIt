@@ -29,7 +29,7 @@ public interface ShopITAdministrationAsync {
 
 	void createPerson(String first, String last, AsyncCallback<Person> callback);
 
-	void createResponsibility(Person p, Shop s, AsyncCallback<Responsibility> callback);
+	void createResponsibility(Person p, Shop s, Item i,  AsyncCallback<Responsibility> callback);
 
 	void createShop(String name, String street, String postalCode, String city, AsyncCallback<Shop> callback);
 
