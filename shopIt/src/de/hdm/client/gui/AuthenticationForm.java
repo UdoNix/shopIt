@@ -18,13 +18,13 @@ public class AuthenticationForm {
 		private Button googleBtn = new Button();
 		private Image GoogleImg = new Image("images/googleLogo.png");
 		private Image ourLogo = new Image("");
-		private String loginURL;
+		private String loginUrl;
 		
 		public AuthenticationForm() {
 		}
 		
-		public AuthenticationForm(String loginURL) {
-			this.loginURL = loginURL;		
+		public AuthenticationForm(String loginUrl) {
+			this.loginURL = loginUrl;		
 		}
 		
 		public void onLoad(){
@@ -32,13 +32,13 @@ public class AuthenticationForm {
 			
 		}
 		
-		private class loginClickHandler implements ClickHandler{
+		private class LoginClickHandler implements ClickHandler{
 
 			@Override
 			public void onClick(ClickEvent event) {
 				
 				//Weiterleitung des Users an Google Login
-				Window.Location.assign(loginURL);
+				Window.Location.assign(loginUrl);
 			}
 			
 		}
