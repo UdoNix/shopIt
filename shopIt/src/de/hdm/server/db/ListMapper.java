@@ -21,7 +21,7 @@ public class ListMapper {
 	protected ListMapper() {
 	}
 
-	//Aufruf der statischen Methode durch <code>ListMapper.groupMapper()</code>. Singleton: Es kann nur eine 
+	//Aufruf der statischen Methode durch <code>ListMapper.teamMapper()</code>. Singleton: Es kann nur eine 
 	//Instanz von <code>ListMapper</code> existieren
 	//@return listMapper
 
@@ -90,7 +90,7 @@ public class ListMapper {
 	      l.setName(rs.getString("name"));
 	      l.setCreationDate(rs.getTimestamp("creationDate"));
 	      l.setChangeDate(rs.getTimestamp("changeDate"));
-	      l.setTeamId(rs.getInt("groupId"));
+	      l.setTeamId(rs.getInt("tId"));
 
 	      // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
 	      result.addElement(l);
@@ -104,7 +104,7 @@ public class ListMapper {
 	  return result;
 	}
 	
-	public Vector<List> findByGroup(int groupID) {
+	public Vector<List> findByTeam(int teamId) {
 		Connection con = DBConnection.connection();
 		
 		Vector<List> result = new Vector<List>();
@@ -113,14 +113,14 @@ public class ListMapper {
 			Statement stmt = con.createStatement();
 
 		      ResultSet rs = stmt.executeQuery("SELECT id, name FROM list "
-		          + "WHERE goup=" + groupID + " ORDER BY id");
+		          + "WHERE team=" + teamId + " ORDER BY id");
 		      while (rs.next()) {
 		    	  List l = new List();
 			        l.setId(rs.getInt("id"));
 			        l.setName(rs.getString("name"));
 			        l.setCreationDate(rs.getTimestamp("creationDate"));
 				    l.setChangeDate(rs.getTimestamp("changeDate"));
-				    l.setTeamId(rs.getInt("groupId"));
+				    l.setTeamId(rs.getInt("teamId"));
 
 			        result.addElement(l);
 			        
@@ -149,8 +149,8 @@ public class ListMapper {
 
 		      ResultSet rs = stmt.executeQuery("SELECT * "
 		      		+ "FROM List L "
-		      		+ "JOIN Group G ON L.groupId = G.id"
-		      		+ "JOIN Membership M ON G.Id = M.groupId"
+		      		+ "JOIN Team T ON L.teamId = T.id"
+		      		+ "JOIN Membership M ON G.Id = M.teamId"
 		      		+ "WHERE personId = " + p.getId() + " ORDER BY id");
 		      while (rs.next()) {
 		    	  List l = new List();
@@ -158,7 +158,7 @@ public class ListMapper {
 			        l.setName(rs.getString("name"));
 			        l.setCreationDate(rs.getTimestamp("creationDate"));
 				    l.setChangeDate(rs.getTimestamp("changeDate"));
-				    l.setTeamId(rs.getInt("groupId"));
+				    l.setTeamId(rs.getInt("teamId"));
 
 			        result.addElement(l);
 			        
@@ -201,7 +201,7 @@ public class ListMapper {
 	      stmt = con.createStatement();
 
 	      // Es erfolgt die tatsächliche Einfuegeoperation
-	      stmt.executeUpdate("INSERT INTO list (id, name, groupId) " + "VALUES ("
+	      stmt.executeUpdate("INSERT INTO list (id, name, teamId) " + "VALUES ("
 	          + l.getId() + "," + l.getName() + ","+ l.getTeamId() +")");
 	    }
 	  }
@@ -222,7 +222,7 @@ public class ListMapper {
 	      Statement stmt = con.createStatement();
 
 	      stmt.executeUpdate("UPDATE list " + "SET name=\"" + l.getName()
-          + "\", " + "groupId=\"" + l.getTeamId()+"\", "+ "WHERE id=" + l.getId());
+          + "\", " + "teamId=\"" + l.getTeamId()+"\", "+ "WHERE id=" + l.getId());
 
 	    }
 	    catch (SQLException e2) {
