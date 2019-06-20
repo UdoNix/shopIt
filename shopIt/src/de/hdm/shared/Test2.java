@@ -3,7 +3,9 @@ package de.hdm.shared;
 //import java.util.Vector;
 
 import de.hdm.server.ShopITAdministrationImpl;
+import de.hdm.server.report.ReportGeneratorImpl;
 import de.hdm.shared.bo.Person;
+import de.hdm.shared.bo.Shop;
 import de.hdm.shared.bo.Team;
 
 public class Test2 {
@@ -13,9 +15,10 @@ public class Test2 {
 		
 		
 		ShopITAdministrationImpl admin = new ShopITAdministrationImpl();
+		ReportGeneratorImpl radmin = new ReportGeneratorImpl();
 		
 		admin.init();
-		
+		radmin.init();
 		Person p1 = admin.getPersonByEmail("ulrike@mustermann.or");
 		//int id = p1.getId() ;
 		//System.out.println(p1.getLastName() + ", " + p1.getFirstName() + ", " + p1.getEmail() + p1.getId());
@@ -47,11 +50,18 @@ public class Test2 {
 		//somit werden auch keine Mitglieder ausgegeben
 		
 		//admin.createTeam("Igelgruppe", p1);
-		Team t3 = admin.getTeamById(6);
+		Team t3 = admin.getTeamById(3);
 		//System.out.println("Team erstellt: " + t3.getName() + ", ID : " + t3.getId());
+		//admin.createListFor(t3, "Wocheneinkauf");
 		
-		//admin.createMembership(p1, t2);
-		admin.delete(t3);
+		//admin.delete(t3);
+		
+		//System.out.println(admin.getListById(1).getName());
+		
+		Shop s1 = new Shop();
+		s1 = admin.getShopById(1);
+		System.out.println(radmin.createAllArticlesOfShopReport(s1));
+		
 	}
 
 }

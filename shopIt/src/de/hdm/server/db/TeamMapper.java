@@ -175,7 +175,7 @@ public Team insert(Team t) {
      try {
        Statement stmt = con.createStatement();
 
-       stmt.executeUpdate("DELETE FROM team " + "WHERE id=" + t.getId());
+       stmt.executeUpdate("DELETE FROM team " + "WHERE id= " + t.getId());
 
      }
      catch (SQLException e2) {

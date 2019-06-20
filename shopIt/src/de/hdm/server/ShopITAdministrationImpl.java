@@ -229,9 +229,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	  /*
 	   * ***************************************************************************
 
-
 	   * ABSCHNITT, Beginn: Methoden f�r Eintrag @author IlonaBrinkmann
-
 
 	   * ***************************************************************************
 	   */
@@ -319,21 +317,28 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	public Team createTeam(String name, Person p) throws IllegalArgumentException {
 		Team t = new Team();
 		t.setName(name); 
-
 		
 		//Setzen einer vorläufigen Gruppe-Id, welche nach Kommunikation mit DB auf den nächsthhöheren Wert gesetzt wird.
 		t.setId(1);
 		
-		//Membership der Person muss erstellt werden
-		Membership m = new Membership();
-		m.setPersonId(p.getId());
-		m.setTeamId(t.getId());
-		m.setId(1);
+		this.tMapper.insert(t);
+//		int personid = p.getId();
+//		int teamid = t.getId();
+
+	
 		
-		this.mMapper.insert(m);
 		
+//		//Membership der Person muss erstellt werden
+//		Membership m = new Membership();
+//		m.setPersonId(p.getId());
+//		m.setTeamId(teamid);
+//		m.setId(1);
+//		
+//		this.mMapper.insert(m);
+		
+		this.createMembership(p, t);
 		//Speichern des Gruppe-Objekts in der DB.
-		return this.tMapper.insert(t); 
+		return t; 
 		
 		
 		
@@ -373,11 +378,11 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		 * der Datenbank entfernt.	
 		 */
 		
-		Vector<Person> membership = this.getAllPersonsOf(t); 
+		Vector<Membership> membership = this.mMapper.findByTeam(t.getId()); 
 		
 		if (membership != null) {
-			for (Person p: membership) {
-				this.delete(p);
+			for (Membership m: membership) {
+				this.mMapper.delete(m);
 			}
 		}
 		
@@ -385,7 +390,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		
 		if (lists != null) {
 			for (List l: lists) {
-				this.delete(l);
+				this.lMapper.delete(l);
 			}
 		}
 		/*
@@ -665,7 +670,12 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	@Override
 	public Vector<Item> getItemsbyTeamAndShop(Shop shop) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
+		//TODO Parameter Team muss noch �bergeben werden
+
+		return this.iMapper.getItemsbyTeamAndShop(teamId, shopId);
+		
+		
+
 		return null;
 	}
 

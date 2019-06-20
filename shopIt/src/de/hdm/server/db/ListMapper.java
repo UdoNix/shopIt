@@ -44,7 +44,7 @@ public class ListMapper {
 			//Anlegen einen leeren SQL-Statement
 			Statement stmt =con.createStatement();
 			// Ausfüllen des Statements, als Query an die DB schicken
-			ResultSet rs =stmt.executeQuery("SELECT * from list" + "WHERE list.id =" + id );
+			ResultSet rs =stmt.executeQuery("SELECT * from list WHERE list.id = " + id );
 			
 			//Da id Primärschlüssel ist, kann nur ein Tupel zurueckgeg werden. 
 			//Es wird geprueft, ob ein Ergebnis vorliegt.
@@ -90,7 +90,7 @@ public class ListMapper {
 	      l.setName(rs.getString("name"));
 	      l.setCreationDate(rs.getTimestamp("creationDate"));
 	      l.setChangeDate(rs.getTimestamp("changeDate"));
-	      l.setTeamId(rs.getInt("tId"));
+	      l.setTeamId(rs.getInt("teamId"));
 
 	      // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
 	      result.addElement(l);
@@ -112,8 +112,8 @@ public class ListMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-		      ResultSet rs = stmt.executeQuery("SELECT id, name FROM list "
-		          + "WHERE team=" + teamId + " ORDER BY id");
+		      ResultSet rs = stmt.executeQuery("SELECT * FROM list "
+		          + "WHERE teamId = " + teamId + " ORDER BY id");
 		      while (rs.next()) {
 		    	  List l = new List();
 			        l.setId(rs.getInt("id"));
@@ -201,8 +201,8 @@ public class ListMapper {
 	      stmt = con.createStatement();
 
 	      // Es erfolgt die tatsächliche Einfuegeoperation
-	      stmt.executeUpdate("INSERT INTO list (id, name, teamId) " + "VALUES ("
-	          + l.getId() + "," + l.getName() + ","+ l.getTeamId() +")");
+	      stmt.executeUpdate("INSERT INTO list (id, creationDate, changeDate, name, teamId) " + "VALUES ("
+	          + l.getId() + ", CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '" + l.getName() + "',"+ l.getTeamId() +")");
 	    }
 	  }
 	  catch (SQLException e2) {

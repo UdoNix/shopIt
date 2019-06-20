@@ -144,7 +144,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			 * Häufigkeit in die Tabelle eingetragen. 
 			 */
 			
-			Vector<Item> items = this.admin.getItemsbyTeamAndShop(shop); 
+			Vector<Item> items = this.admin.getItemsbyTeamAndShop(shop);
 			
 			for (Item i : items) {
 				//Eine leere Zeile anlegen.
@@ -252,7 +252,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			 * Häufigkeit in die Tabelle eingetragen.
 			 */
 			
-			Vector<Item> items = this.admin.getItemsByTeamWithTime(t); 
+			Vector<Item> items = this.iMapper.getItemsByTeamWithTime(t); 
 			
 			for (Item i: items) {
 				//Eine leere Zeile anlegen.
