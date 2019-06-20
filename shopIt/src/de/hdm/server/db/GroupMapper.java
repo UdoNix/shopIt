@@ -10,7 +10,7 @@ import java.util.Vector;
 import de.hdm.shared.bo.Team;
 import de.hdm.shared.bo.Person;
 
-
+@Deprecated
 public class GroupMapper {
 	
 	// Klasse GroupMapper als Singleton

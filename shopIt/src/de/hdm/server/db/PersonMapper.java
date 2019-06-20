@@ -155,8 +155,9 @@ public Person insert(Person p) {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE person " + "SET namide=\"" + p.getId()
-      + "\", "+ " firstName=\"" + p.getFirstName() + "\", " + "lastName=\"" + p.getLastName() +"\", " + "email=\"" + p.getEmail()+ "\", "+ " WHERE id=" + p.getId());
+      stmt.executeUpdate("UPDATE person "
+      		+ "SET id=" + p.getId() +"," +
+       " firstName=\"" + p.getFirstName() + "\",  lastName=\"" + p.getLastName() +"\", " + "email=\"" + p.getEmail()+ "\" WHERE id=" + p.getId());
 
     }
     catch (SQLException e2) {

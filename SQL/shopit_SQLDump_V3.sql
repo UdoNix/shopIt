@@ -111,7 +111,7 @@ CREATE TABLE `list` (
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `name` varchar(20) NOT NULL default '',
-  `groupId` int(11) NOT NULL
+  `teamId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
@@ -134,7 +134,7 @@ CREATE TABLE `membership` (
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `personId` int(11) NOT NULL,
-  `groupId` int(11) NOT NULL
+  `teamId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
