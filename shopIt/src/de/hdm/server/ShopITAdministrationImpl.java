@@ -1,11 +1,8 @@
 package de.hdm.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import com.ibm.icu.text.DateFormat;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.Vector;
 
 import de.hdm.server.db.ArticleMapper;
@@ -129,21 +126,22 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	}
 	
 	//Löschen eines Anwenders.
-	public void delete(int personId) throws IllegalArgumentException{
+	public void delete(Person p) throws IllegalArgumentException{
 
+		int personId = p.getId();
 		//Löschen von Responsibilityobjekten in denen der zu löschende Anwender als Fremdschlüssel auftritt.
 		Vector<Responsibility> responsibilities = this.rMapper.findByPerson(personId);
 		if (responsibilities != null){
 			for (Responsibility r : responsibilities){
-				this.delete(personId);
+				this.rMapper.delete(r);
 			}
-		}	
+		}
 		
 		//Löschen von Membershipobjekten in denen der zu löschende Anwender auftritt.
 		Vector<Membership> memberships = this.mMapper.getAllMembershipsOf(personId);
 		if (memberships != null){
 			for (Membership m : memberships){
-				this.delete(personId);
+				this.mMapper.delete(m);
 			}
 		}
 		
@@ -250,7 +248,9 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * Zust�ndigkeit zum Eintrag hinzuf�gen
 	 */
 	public Item addResponsibilityToItem(Responsibility r, Item i) {
-		i.setResponsibility(r);
+		i.setResponsibilityId(r.getId());
+		
+		return iMapper.update(i);
 	}
 	/*
 	 * Eintrag anhand der Id finden
@@ -560,8 +560,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	
 	public Responsibility createResponsibility(Person p, Shop s) throws IllegalArgumentException{
 		Responsibility r = new Responsibility();
-		r.setPerson(p);
-		r.setShop(s);
+		r.setPersonId(p.getId());
+		r.setShopId(s.getId());
 		
 		return this.rMapper.insert(r);
 		
@@ -629,7 +629,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * alle Gruppen einer Person aufzeigen
 	 */
-	public Vector<Teams> getAllMembershipOfPerson(Person p) throws IllegalArgumentException{
+	public Vector<Team> getAllMembershipOfPerson(Person p) throws IllegalArgumentException{
 		return this.mMapper.findByPerson(p);
 	}
 	/*
@@ -651,20 +651,33 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	   * ***************************************************************************
 	   */
 
+
 	@Override
-	public Person createPerson(String first, String last) throws IllegalArgumentException {
+	public Vector<Item> getItemsbyTeamAndShop(Shop shop) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void delete(Person p) throws IllegalArgumentException {
+	public Responsibility createResponsibility(Person p, Shop s, Item i) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Membership createMembership(int personId, int teamId) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setTeam(Team t) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Vector<Item> getItemsbyTeamAndShop(Shop shop) throws IllegalArgumentException {
+	public Vector<Item> getItemsByTeamWithTime(Team t) {
 		// TODO Auto-generated method stub
 		return null;
 	}
