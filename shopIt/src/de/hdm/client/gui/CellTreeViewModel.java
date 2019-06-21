@@ -2,18 +2,19 @@ package de.hdm.client.gui;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.StackPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.TreeViewModel;
 
-import de.hdm.shared.bo.List;
-import de.hdm.shared.bo.Team;
+import de.hdm.shared.bo.Person;
 
 
 /**
@@ -25,32 +26,36 @@ import de.hdm.shared.bo.Team;
 public class CellTreeViewModel extends VerticalPanel {
 
 	private TeamListView groupListView;
-	private StackPanel menuPanel;
-	public List removeList;
+	private StackPanel firstStackPanel;
+	private Person user;
 	
-	
-	//private CellTreeResources groupListRes = GWT.create(CellTreeResources.class);
-	
-	
+	private CellTreeResources groupListRes = GWT.create(CellTreeResources.class);
+
 	
 	public CellTreeViewModel() {
-		menuPanel = new StackPanel();
-		menuPanel.setStyleName("stackMenuPanel");
 		
-		menuPanel.setWidth("200px");
+		
+		firstStackPanel = new StackPanel();
+		firstStackPanel.setStyleName("stackMenuPanel");
+		firstStackPanel.setWidth("200px");
 		
 		//menuPanel.add(showGroupListView(), "Alle Gruppen");
-		menuPanel.add(showGroupListView(), "Alle Gruppen");
+		firstStackPanel.add(showGroupListView(), "Alle Gruppen");
+		firstStackPanel.add(displayGroupListView(user), "Gruppen");
+		
 	}
 
 	public void onLoad() {
-		this.add(this.menuPanel);
+		this.add(this.firstStackPanel);
 	}
+	
+	
 	
 	public void setEditor(EditorAdminView editor) {
 		groupListView.setEditor(editor);
 	}
-
+	
+	
 	private Widget showGroupListView() {
 		
 		this.groupListView = new TeamListView();
@@ -62,7 +67,11 @@ public class CellTreeViewModel extends VerticalPanel {
 	}
 
 	public StackPanel getStackMenuPanel() {
-		return this.menuPanel;
+		return this.firstStackPanel;
+	}
+	
+	public void emptyTreeView() {
+		firstStackPanel.showStack(0);
 	}
 
 	static interface CellTreeResources extends CellTree.Resources {
@@ -78,7 +87,6 @@ public class CellTreeViewModel extends VerticalPanel {
 		@Source("ShopItCellTree.css")
 		CellTree.Style cellTreeStyle();
 	}
-
-
+	
 	
 }
