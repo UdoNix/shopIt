@@ -1,8 +1,8 @@
 package de.hdm.client.gui;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Vector;
+/**
+ * Prüfen ob Klasse benötigt wird.
+ */
 
 /**
  * Die Klasse <code>TeamCellTreeTab</code> bildet alle Gruppen eines Users ab,
@@ -12,6 +12,11 @@ import java.util.Vector;
  * Aufbau und Funktionen @author Thies
  *
  */
+
+
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Vector;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dev.util.collect.HashMap;
