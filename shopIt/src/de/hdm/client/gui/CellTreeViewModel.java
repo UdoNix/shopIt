@@ -41,8 +41,16 @@ public class CellTreeViewModel extends VerticalPanel {
 		
 		//menuPanel.add(showGroupListView(), "Alle Gruppen");
 		firstStackPanel.add(showGroupListView(), "Alle Gruppen");
-		firstStackPanel.add(displayGroupListView(user), "Gruppen");
+		firstStackPanel.add(displayTeamListView(user), "Gruppen");
 		
+	}
+
+	private Widget displayTeamListView(Person user2) {
+		// TODO Auto-generated method stub
+		this.groupListView = new TeamListView();
+		CellTree tree = new CellTree(null, groupListView);
+		tree.setAnimationEnabled(true);
+		return tree;
 	}
 
 	public void onLoad() {
