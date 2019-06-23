@@ -16,4 +16,6 @@ public interface ReportGeneratorAsync {
 
 	void getAllTeams(GetAllTeamsCallback getAllTeamsCallback);
 
+	void getAllShops(GetAllShopsCallback getAllShopsCallback);
+
 }
