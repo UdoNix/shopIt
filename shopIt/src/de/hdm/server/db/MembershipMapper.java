@@ -102,9 +102,12 @@ import de.hdm.shared.bo.Person;
 	  return result;
 	}
 	
-	public Vector<Membership>getAllMembershipsOf(int personId) {
+	public Vector<Membership>getAllMembershipsOf(Person p) {
+		
 		  Connection con = DBConnection.connection();
 
+		  int personId = p.getId();
+		  
 		  // Ergebnisvektor vorbereiten
 		  Vector<Membership> result = new Vector<Membership>();
 

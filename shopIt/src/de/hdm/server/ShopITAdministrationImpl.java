@@ -1,7 +1,6 @@
 package de.hdm.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import com.ibm.icu.text.DateFormat;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;

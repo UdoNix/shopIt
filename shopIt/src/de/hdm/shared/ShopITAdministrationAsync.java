@@ -27,7 +27,7 @@ public interface ShopITAdministrationAsync {
 
 	void createMembership(int personId, int teamI, AsyncCallback<Membership> callback);
 
-	void createPerson(String first, String last, AsyncCallback<Person> callback);
+	void createPerson(String first, String last, String email, AsyncCallback<Person> callback);
 
 	void createResponsibility(Person p, Shop s, Item i,  AsyncCallback<Responsibility> callback);
 

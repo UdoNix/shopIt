@@ -50,7 +50,7 @@ public Item findByKey (int id) {
 		//Anlegen einen leeren SQL-Statement
 		Statement stmt =con.createStatement();
 		// Ausfüllen des Statements, als Query an die DB schicken
-		ResultSet rs =stmt.executeQuery("SELECT * from item" + "WHERE item.id =" + id );
+		ResultSet rs =stmt.executeQuery("SELECT * from item WHERE item.id =" + id );
 		
 		//Da id Primärschlüssel ist, kann nur ein Tupel zurueckgeg werden. 
 		//Es wird geprueft, ob ein Ergebnis vorliegt.
@@ -60,15 +60,13 @@ public Item findByKey (int id) {
 		        i.setId(rs.getInt("id"));
 		        i.setCreationDate(rs.getTimestamp("creationDate"));
 		        i.setChangeDate(rs.getTimestamp("changeDate"));
-		        i.setShopId(rs.getInt("shopId"));
+		        i.setUnitId(rs.getInt("unitId"));
 		        i.setArticleId(rs.getInt("articleId"));
+		        i.setTeamId(rs.getInt("teamId"));
+		        i.setListId(rs.getInt("listId"));
 		        i.setFavorit(rs.getBoolean("favorit"));
 		        i.setStatus(rs.getBoolean("status"));
-		        i.setUnitId(rs.getInt("unitId"));
-		        i.setListId(rs.getInt("listId"));
-		        i.setTeamId(rs.getInt("teamId"));
-		        
-		    	
+
 		        return i;
 		      }
 		    }
@@ -103,13 +101,12 @@ public Vector<Item> findAll() {
       i.setId(rs.getInt("id"));
       i.setCreationDate(rs.getTimestamp("creationDate"));
       i.setChangeDate(rs.getTimestamp("changeDate"));
-      i.setShopId(rs.getInt("salesmanId"));
+      i.setUnitId(rs.getInt("unitId"));
       i.setArticleId(rs.getInt("articleId"));
+      i.setTeamId(rs.getInt("teamId"));
+      i.setListId(rs.getInt("listId"));
       i.setFavorit(rs.getBoolean("favorit"));
       i.setStatus(rs.getBoolean("status"));
-      i.setUnitId(rs.getInt("unitId"));
-      i.setListId(rs.getInt("listId"));
-      i.setTeamId(rs.getInt("teamId"));
       
 
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
@@ -143,13 +140,12 @@ public Vector<Item> findByList (List l){
 	        i.setId(rs.getInt("id"));
 	        i.setCreationDate(rs.getTimestamp("creationDate"));
 	        i.setChangeDate(rs.getTimestamp("changeDate"));
-	        i.setShopId(rs.getInt("salesmanId"));
+	        i.setUnitId(rs.getInt("unitId"));
 	        i.setArticleId(rs.getInt("articleId"));
+	        i.setTeamId(rs.getInt("teamId"));
+	        i.setListId(rs.getInt("listId"));
 	        i.setFavorit(rs.getBoolean("favorit"));
 	        i.setStatus(rs.getBoolean("status"));
-	        i.setUnitId(rs.getInt("unitId"));
-	        i.setListId(rs.getInt("listId"));
-	        i.setTeamId(rs.getInt("teamId"));
 
 	        // Hinzufügen des neuen Objekts zum Ergebnisvektor
 	        result.addElement(i);
@@ -192,9 +188,10 @@ public Item insert(Item i) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO Item (id, shopId,unitId, listId, articleId,teamId, isFavorit, isStatus) " + "VALUES ("
-	          + i.getId() + "," +i.getListId()+ "," + "," +i.getUnitId() +i.getShopId()+ "," +i.getArticleId()+ "," +i.isStatus()+ ","+i.isFavorit() +")");
-  
+
+      stmt.executeUpdate("INSERT INTO Item (id, changeDate, unitId, articleId, teamId, listId, favorit, status) "
+      		+ "VALUES (" + i.getId() + ", CURRENT_TIMESTAMP, " + i.getUnitId() + "," + i.getArticleId() + "," + i.getTeamId()+ "," + i.isFavorit()+ "," + i.isStatus() +")");
+
     }
   }
 
@@ -208,6 +205,7 @@ public Item insert(Item i) {
   // @param i  Objekt, das in die Datenbank geschrieben werden soll
   //@return das als Parameter übergebene Objekt
    
+// TODO correct it
   public Item update(Item i) {
     Connection con = DBConnection.connection();
     
@@ -217,7 +215,6 @@ public Item insert(Item i) {
     	 item.setId(i.getId());
          item.setCreationDate(i.getCreationDate());
          item.setChangeDate(i.getChangeDate());
-         item.setShopId(i.getShopId());
          item.setArticleId(i.getArticleId());
          item.setFavorit(i.isFavorit());
          item.setStatus(i.isStatus());
@@ -234,7 +231,7 @@ public Item insert(Item i) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE list " + "SET id=\"" + i.getId()
-       + "\", " + "shopId=\"" + "\", " + "teamId=\"" + i.getTeamId()+ i.getShopId()+ "\", " + "unitId=\"" + i.getUnitId()+ "\", " + "articleId=\"" + i.getArticleId()+ "\", " + "isStatus=\"" + "\", " + "listid=\"" + i.getListId()+ i.isStatus()+ "\", " + "isFavorit=\"" + i.isFavorit()+"\", "+ "WHERE id=" + i.getId());
+       + "\", teamId=\"" + i.getTeamId()+ i.getShopId()+ "\", " + "unitId=\"" + i.getUnitId()+ "\", " + "articleId=\"" + i.getArticleId()+ "\", " + "isStatus=\"" + "\", " + "listid=\"" + i.getListId()+ i.isStatus()+ "\", " + "isFavorit=\"" + i.isFavorit()+"\", "+ " WHERE id=" + i.getId());
 
     }
     catch (SQLException e2) {
@@ -265,7 +262,10 @@ public Item insert(Item i) {
        e2.printStackTrace();
      }
    }
-   public Vector<Item> groupBySalesman (){
+   
+   //Wrong name and foreign key constrain doesn't exist anymore
+   @Deprecated
+   public Vector<Item> groupByShop (){
 	    Connection con = DBConnection.connection();
 	    Vector<Item> result = new Vector<Item>();
 
