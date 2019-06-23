@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.List;
+import de.hdm.shared.bo.Team;
 
 
 public class DeleteListDialogBox extends DialogBox {
@@ -24,7 +25,18 @@ public class DeleteListDialogBox extends DialogBox {
 		private CellTreeViewModel ViewModel = new CellTreeViewModel();
 		
 		private List selectedList = null;
+		private Team selectedTeam = null;
 		
+		public Team getSelectedTeam() {
+			return selectedTeam;
+		}
+
+
+		public void setSelectedTeam(Team selectedTeam) {
+			this.selectedTeam = selectedTeam;
+		}
+
+
 		private VerticalPanel contentPanel = new VerticalPanel();
 		private Label confirmLabel = new Label("Möchten Sie die Liste wirklich löschen?");
 		private HorizontalPanel btnPanel = new HorizontalPanel();
@@ -64,8 +76,9 @@ public class DeleteListDialogBox extends DialogBox {
 		public void setSelectedList(List selectedList) {
 			this.selectedList = selectedList;
 		}
-		
-		
+	
+
+
 		private class CancelClickHandler implements ClickHandler{
 			
 			public void onClick (ClickEvent event) {

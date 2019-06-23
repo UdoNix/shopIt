@@ -29,7 +29,7 @@ public class DeleteTeamDialogBox extends DialogBox {
 
 
 			private VerticalPanel contentPanel = new VerticalPanel();
-			private Label confirmLabel = new Label("Möchten Sie das Gruppe wirklich löschen?");
+			private Label confirmLabel = new Label("Möchten Sie das Team wirklich löschen?");
 			private HorizontalPanel btnPanel = new HorizontalPanel();
 			private Button confirmButton = new Button("Löschen");
 			private Button cancelButton = new Button("Abbrechen");
@@ -128,7 +128,7 @@ public class DeleteTeamDialogBox extends DialogBox {
 		}
 
 
-	}
+	
 
 					
 			

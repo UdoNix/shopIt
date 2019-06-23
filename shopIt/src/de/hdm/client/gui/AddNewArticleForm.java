@@ -18,7 +18,7 @@ import de.hdm.shared.bo.Article;
 
 	/**
 	 * Die Klasse <code>AddNewArticleForm</code> dient zur Erstellung neuer Artikel
-	 * welche durch den eingeloggten User angelegt werden können.
+	 * welche durch den eingeloggten User angelegt werden kï¿½nnen.
 	 * @author Alexander Gerlings
 	 */
 
@@ -36,7 +36,7 @@ public class AddNewArticleForm extends VerticalPanel {
 	private VerticalPanel mainPanel = new VerticalPanel();
 	
 	/*
-	 * Erstellen der benötigten GUI-Elemente
+	 * Erstellen der benÃ¶tigten GUI-Elemente
 	 */
 	
 	private Button safeArticle = new Button("Artikel speichern");
@@ -61,7 +61,7 @@ public class AddNewArticleForm extends VerticalPanel {
 //		
 //		mainPanel.add(grid);
 		/*
-		 * Hier werden die Panels angeordnet und mit den Gui-Elementen zusammengefügt
+		 * Hier werden die Panels angeordnet und mit den Gui-Elementen zusammengefï¿½gt
 		 */
 		firstPanel.add(idArticle);
 		firstPanel.add(artNum);
@@ -97,7 +97,7 @@ public class AddNewArticleForm extends VerticalPanel {
 	/**
 	 * <code>CancelNewArticle</code> stellt den ClickHandler dar, 
 	 * mit welchem man das Anlegen eines Artikels abbrechen kann.
-	 * Durch onClick wird man zurück auf die ArticleForm gebracht.
+	 * Durch onClick wird man zurï¿½ck auf die ArticleForm gebracht.
 	 * @author Alexander Gerlings
 	 *
 	 */
