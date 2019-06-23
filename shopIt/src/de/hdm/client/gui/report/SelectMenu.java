@@ -43,7 +43,8 @@ public class SelectMenu extends VerticalPanel {
 	class ShopReportClickHandler implements ClickHandler{
 		
 		public void onClick(ClickEvent event){
-			RootPanel.get("").add(new ShopReportForm());
+			RootPanel.get("contentPanel").clear();
+			RootPanel.get("contentPanel").add(new ShopReportForm());
 		}
 	}
 	
@@ -51,7 +52,8 @@ public class SelectMenu extends VerticalPanel {
 	class TimeReportClickHandler implements ClickHandler{
 		
 		public void onClick(ClickEvent event){
-			RootPanel.get("").add(new TimeReportForm());
+			RootPanel.get("contentPanel").clear();
+			RootPanel.get("contentpanel").add(new TimeReportForm());
 		}
 	}
 	
@@ -59,7 +61,8 @@ public class SelectMenu extends VerticalPanel {
 	class ShopTimeReportClickHandler implements ClickHandler{
 		
 		public void onClick(ClickEvent event){
-			RootPanel.get("").add(new ShopTimeReportForm());
+			RootPanel.get("contentPanel").clear();
+			RootPanel.get("contentPanel").add(new ShopTimeReportForm());
 		}
 	}
 	
