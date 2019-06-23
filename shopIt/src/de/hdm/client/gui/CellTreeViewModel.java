@@ -12,9 +12,12 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.StackPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
 
+import de.hdm.shared.bo.BusinessObject;
 import de.hdm.shared.bo.Person;
+import de.hdm.shared.bo.Team;
 
 
 /**
@@ -25,9 +28,10 @@ import de.hdm.shared.bo.Person;
  */
 public class CellTreeViewModel extends VerticalPanel {
 
-	private TeamListView groupListView;
+	private TeamListCellTreeTab teamListView;
 	private StackPanel firstStackPanel;
 	private Person user;
+	private Team team;
 	
 	private CellTreeResources groupListRes = GWT.create(CellTreeResources.class);
 
@@ -40,46 +44,52 @@ public class CellTreeViewModel extends VerticalPanel {
 		firstStackPanel.setWidth("200px");
 		
 		//menuPanel.add(showGroupListView(), "Alle Gruppen");
-		firstStackPanel.add(showGroupListView(), "Alle Gruppen");
-		firstStackPanel.add(displayTeamListView(user), "Gruppen");
+		//firstStackPanel.add(showGroupListView(), "Alle Gruppen");
+		firstStackPanel.add(displayTeamListView(team), "Gruppen");
 		
 	}
-
-	private Widget displayTeamListView(Person user2) {
-		// TODO Auto-generated method stub
-		this.groupListView = new TeamListView();
-		CellTree tree = new CellTree(null, groupListView);
-		tree.setAnimationEnabled(true);
-		return tree;
-	}
-
+	
 	public void onLoad() {
 		this.add(this.firstStackPanel);
 	}
-	
-	
-	
-	public void setEditor(EditorAdminView editor) {
-		groupListView.setEditor(editor);
+
+	private Widget displayTeamListView(Team team) {
+		// TODO Auto-generated method stub
+		this.teamListView = new TeamListCellTreeTab();
+		CellTree tree = new CellTree(teamListView, "Root", groupListRes);
+		tree.setAnimationEnabled(true);
+		
+		return tree;
 	}
+
+//	public void setPerson(Person user) {
+//		teamListView.setPerson(user);
+//	}
 	
-	
-	private Widget showGroupListView() {
-		
-		this.groupListView = new TeamListView();
-		groupListView.showList();
-		
-		
-		return groupListView.showList();
-		
-	}
+//	private Widget showGroupListView() {
+//		
+//		this.groupListView = new TeamListView();
+//		groupListView.showList();
+//		
+//		
+//		return groupListView.showList();
+//		
+//	}
 
 	public StackPanel getStackMenuPanel() {
 		return this.firstStackPanel;
 	}
 	
+//	public void setEditor(EditorAdminView editor) {
+//		teamListView.setEditor(editor);
+//	}
+	
 	public void emptyTreeView() {
 		firstStackPanel.showStack(0);
+	}
+	
+	public SingleSelectionModel<BusinessObject> getSelectionModelTeamListCell() {
+		return teamListView.getSelectionModel();
 	}
 
 	static interface CellTreeResources extends CellTree.Resources {
