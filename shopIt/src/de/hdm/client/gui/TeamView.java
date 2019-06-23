@@ -12,13 +12,21 @@ package de.hdm.client.gui;
 	import com.google.gwt.user.client.ui.TextBox;
 	import com.google.gwt.user.client.ui.VerticalPanel;
 
+import AccountForm.CreateAccountCallback;
+import AccountForm.GetBalanceCallback;
+import CustomerForm.CreateCustomerCallback;
+import CustomerForm.NewClickHandler;
+import CustomerForm.SaveCallback;
+import de.hdm.client.ClientsideSettings;
+import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.Membership;
+import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Team;
 
 
 	public class TeamView  extends VerticalPanel {
 		
-		@emily kretzschmar
+		//@emily kretzschmar
 		
 		private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
 		
@@ -27,9 +35,16 @@ import de.hdm.shared.bo.Team;
 		private CellTreeViewModel ViewModel = null;
 
 		
-		private Team selectedTeam = null;
+		private Team selectedTeam = null; 
 		private Membership selectedMembership = null;
 		
+		public Team getSelectedTeam() {
+			return selectedTeam;
+		}
+
+		public void setSelectedTeam(Team selectedTeam) {
+			this.selectedTeam = selectedTeam;
+		}
 		
 		public CellTreeViewModel getViewModel() {
 			return ViewModel;
@@ -40,6 +55,7 @@ import de.hdm.shared.bo.Team;
 		}
 
 		Team teamToDisplay = null;
+		Person personToDisplay = null;
 		
 
 		
@@ -49,11 +65,14 @@ import de.hdm.shared.bo.Team;
 		
 		
 		
-		 Button changeButton = new Button("Name ändern");
+		// Button changeButton = new Button("Name ändern");
 		 Button deleteButton = new Button("Team löschen");
 		 Button leaveButton = new Button("Gruppe verlassen");
 		 Button addButton = new Button ("Mitglieder hinzufügen");
 		 TextBox nameTextBox = new TextBox();
+		 Button newButton = new Button("Als neue Gruppe speichern");
+		 Button saveButton = new Button ("Speichern");
+		 TextBox emailTextBox = new TextBox ();
 
 
 		/*
@@ -69,28 +88,40 @@ import de.hdm.shared.bo.Team;
 			 * Das Grid-Widget erlaubt die Anordnung anderer Widgets in einem
 			 * Gitter.
 			 */
-			Grid teamGrid = new Grid(2, 2);
+			Grid teamGrid = new Grid(5, 3);
 			this.add(teamGrid);
 
 			deleteButton.addClickHandler(new DeleteClickHandler());
 			deleteButton.setEnabled(false);
-			teamGrid.setWidget(1, 0, deleteButton);
+			teamGrid.setWidget(4, 1, deleteButton);
 
-			changeButton.addClickHandler(new ChangeButtonClickHandler());
-			changeButton.setEnabled(true);
-			teamGrid.setWidget(2, 1, editButton);
+			//changeButton.addClickHandler(new ChangeButtonClickHandler());
+			//changeButton.setEnabled(true);
+			//teamGrid.setWidget(2, 1, editButton);
 			
 			Label textboxLabel = new Label ("Name:");
 			teamGrid.setWidget(1, 0, textboxLabel);
 			teamGrid.setWidget(1,1, nameTextBox );
 			
+			Label personTextBox = new Label ("Hinzuzufügende Person (email)");
+			teamGrid.setWidget(3, 0, personTextBox);
+			teamGrid.setWidget(3, 1 , emailTextBox);
+			
 			leaveButton.addClickHandler(new LeaveClickHandler());
 			leaveButton.setEnabled(true);
-			teamGrid.setWidget(2, 0, leaveButton);
+			teamGrid.setWidget(5, 0, leaveButton);
 			
 			addButton.addClickHandler(new AddClickHandler());
 			addButton.setEnabled(true);
-			teamGrid.setWidget(2, 1, addButton);
+			teamGrid.setWidget(3, 3, addButton);
+			
+			newButton.addClickHandler(new NewClickHandler());
+			newButton.setEnabled(false);
+			teamGrid.setWidget(4, 1, newButton);
+			
+			saveButton.addClickHandler(new ChangeClickHandler());
+			saveButton.setEnabled(true);
+			teamGrid.setWidget(3,4,saveButton);
 			
 
 		}
@@ -132,12 +163,12 @@ import de.hdm.shared.bo.Team;
 			
 		}
 		
-		private class ChangeClickHandler implements ClickHandler {
+		/*private class ChangeClickHandler implements ClickHandler {
 
 			public void onClick(ClickEvent event) {
 				if (teamToDisplay != null) {
 					teamToDisplay.setName(nameTextBox.getText());
-					listVerwaltung.save(teamToDisplay, new SaveCallback());
+					listenVerwaltung.save(teamToDisplay, new SaveCallback());
 				} else {
 					Window.alert("Kein Team ausgewählt");
 				}
@@ -155,6 +186,7 @@ import de.hdm.shared.bo.Team;
 				CellTreeViewModel.updateTeam(teamToDisplay);
 			}
 		}
+		*/
 		
 		private class LeaveClickHandler implements ClickHandler {
 
@@ -163,9 +195,8 @@ import de.hdm.shared.bo.Team;
 				if (selectedTeam == null) {
 					Window.alert("Kein Team ausgewählt");
 				} else {
-					listenVerwaltung.delete().getMembershipId();
-							new deleteMembershipCallback(
-									teamToDisplay);
+					listenVerwaltung.delete(selectedMembership, new deleteMembershipCallback());
+							
 				}
 				}
 				
@@ -191,9 +222,129 @@ import de.hdm.shared.bo.Team;
 					ViewModel.delete(membership);
 				}
 			}
+		}
+		
+		
+		private class NewClickHandler implements ClickHandler {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				String name = nameTextBox.getText();
+				
+				listenVerwaltung.createTeam(name,
+						new createTeamCallback());
+				
+				
+				class createTeamCallback implements AsyncCallback<Team> {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Das Anlegen einer neuer Gruppe ist fehlgeschlagen!");
+					}
+
+					@Override
+					public void onSuccess(Team team) {
+						if (team != null) {
+						
+							CellTreeViewModel.addTeam(team);
+						}
+					}
+				}
+			}
+		}
+		
+		
+		private class ChangeClickHandler implements ClickHandler {
+			@Override
+			public void onClick(ClickEvent event) {
+				if (teamToDisplay != null) {
+					teamToDisplay.setName(nameTextBox.getText());
+					listenVerwaltung.save(teamToDisplay, new saveCallback());
+				} else {
+					Window.alert("Kein Team ausgewählt!");
+				}
+			}
+		}
+
+		private class saveCallback implements AsyncCallback<Void> {
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Die Änderung ist fehlgeschlagen!");
+			}
+
+			@Override
+			public void onSuccess(Void result) {
+				
+				CellTreeViewModel.updateTeam(teamToDisplay);
+			}
+		}
+			
+		private class AddClickHandler implements ClickHandler {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				Team selectedTeam = CellTreeViewModel.getSelectedTeam();
+				if (selectedTeam == null) {
+					Window.alert("Kein Team ausgewählt");
+				} else {
+					listenVerwaltung.getPersonByEmail(emailTextBox.getText(), new GetPersonCallback());
+					listenVerwaltung.createMembership(selectedTeam ,,
+							new CreateMembershipCallback(selectedTeam));
+					
+				}
+			}
+		}
+		
+		class GetPersonCallback implements AsyncCallback{
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Fehler!");
+			
+				
+			}
+
+			@Override
+			public void onSuccess(Object result) {
+				
+				
+			}
+			
+		}
+		
+		private class CreateMembershipCallback implements AsyncCallback<Membership> {
+
+			Team team = null;
+
+			CreateMembershipCallback(Team t) {
+				team = t;
+			}
+
+			@Override
+			public void onFailure(Throwable caught) {
+				//("Fehler bei der Abfrage " +  caught.getMessage());
+			}
+
+			@Override
+			public void onSuccess(Membership membership) {
+				if (membership != null && team != null) {
+					CellTreeViewModel.addMembershipOfTeam(membership, team);
+				}
+			}
+		}
+
+		
+		
+		}
+
+	
+		
+		
 			
 		
 		
 
-		}
+		
+
+		
 
