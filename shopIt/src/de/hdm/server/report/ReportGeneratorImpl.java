@@ -58,8 +58,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	 /**
 	  * Setzen der zugehörigen Gruppe
 	  * 
-	  * @author ilonabrinkmann
-	  * 
 	  */
 	public void setTeam(Team t) {
 		this.admin.setTeam(t);

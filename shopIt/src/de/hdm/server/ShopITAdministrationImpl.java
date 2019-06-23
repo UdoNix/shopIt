@@ -671,6 +671,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	@Override
 	public Vector<Item> getItemsbyTeamAndShop(Shop shop) throws IllegalArgumentException {
 		//TODO Parameter Team muss noch übergeben werden
+		
 
 		return this.iMapper.getItemsbyTeamAndShop(teamId, shopId);
 		
