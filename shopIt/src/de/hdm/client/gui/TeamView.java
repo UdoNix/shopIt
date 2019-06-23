@@ -12,11 +12,7 @@ package de.hdm.client.gui;
 	import com.google.gwt.user.client.ui.TextBox;
 	import com.google.gwt.user.client.ui.VerticalPanel;
 
-import AccountForm.CreateAccountCallback;
-import AccountForm.GetBalanceCallback;
-import CustomerForm.CreateCustomerCallback;
-import CustomerForm.NewClickHandler;
-import CustomerForm.SaveCallback;
+
 import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.Membership;
