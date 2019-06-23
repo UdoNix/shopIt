@@ -56,7 +56,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	
 
 	 /**
-	  * Setzen der zugehörigen Gruppe
+	  * Setzen der zugehï¿½rigen Gruppe
 	  * 
 	  */
 	public void setTeam(Team t) {
@@ -78,7 +78,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		report.setImprint(imprint);
 	}
 	
-	/**Diese Methode soll eine Statistik über häufig einkaufte Artikel von einem Händler anzeigen.
+	/**Diese Methode soll eine Statistik ï¿½ber hï¿½ufig einkaufte Artikel von einem Hï¿½ndler anzeigen.
 	 * @Larisa in Anlehnung Thies
 	 */
 	
@@ -95,11 +95,11 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			//Jeder Report sollte einen Titel bzw. eine Bezeichnung haben.
 			result.setTitle("Shop Statistic"); 
 			
-			//Impressum hinzufügen 
+			//Impressum hinzufï¿½gen 
 			this.addImprint(result);
 			
 			/**
-			 * Datum der Erstellung hinzufügen. Mithilfe der Methode new Date()
+			 * Datum der Erstellung hinzufï¿½gen. Mithilfe der Methode new Date()
 			 * wird automatisch einen "Timestamp" des Zeitpunkts der Instantiierung
 			 * des Date-Objekts. 
 			 */
@@ -124,9 +124,9 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			Row headline = new Row(); 
 			
 			/**
-			 * Die Tabelle wird Zeilen mit 2 Spalten haben. Die erste Spalten entählt
+			 * Die Tabelle wird Zeilen mit 2 Spalten haben. Die erste Spalten entï¿½hlt
 			 * der Name des Artikels, die zweite die Anzahl des Artikels. 
-			 * In der Kopfzeile werden die entsprechenden Überschriften angelegt. 
+			 * In der Kopfzeile werden die entsprechenden ï¿½berschriften angelegt. 
 			 * 
 			 * @author Larisa in Anlehnung Thies
 			 */
@@ -134,12 +134,12 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			headline.addColumn(new Column("Article"));
 			headline.addColumn(new Column("Article Quantity"));
 			
-			//Hinzufügen der Kopfzeile.
+			//Hinzufï¿½gen der Kopfzeile.
 			result.addRow1(headline); 
 			
 			/**
-			 * Nun werden alle Artikel eines Händlers ausgelesen und anhand deren
-			 * Häufigkeit in die Tabelle eingetragen. 
+			 * Nun werden alle Artikel eines Hï¿½ndlers ausgelesen und anhand deren
+			 * Hï¿½ufigkeit in die Tabelle eingetragen. 
 			 */
 			
 			Vector<Item> items = this.admin.getItemsbyTeamAndShop(shop);
@@ -148,18 +148,18 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 				//Eine leere Zeile anlegen.
 				Row itemRow = new Row(); 
 				
-				//Erste Spalte: ArtikelId hinzufügen
+				//Erste Spalte: ArtikelId hinzufï¿½gen
 				itemRow.addColumn(new Column(String.valueOf(i.getArticleId())));
 				
 				//Zweite Spalte: Anzahl des Artikels
 				itemRow.addColumn(new Column(String.valueOf(i.getCount())));
 
-				//Die Zeilen dem Report hinzufügen
+				//Die Zeilen dem Report hinzufï¿½gen
 				result.addRow(itemRow); 
 				
 			} 
 			
-			//Report zurückgeben 
+			//Report zurï¿½ckgeben 
 			return result;
 			
 		}
@@ -189,10 +189,10 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		//Jeder Report hat einen Titel
 		result.setTitle("Teamstatistik");
 			
-		//Impressumsbezeichnung hinzufügen
+		//Impressumsbezeichnung hinzufï¿½gen
 		result.addImprint(result); 
 			
-		/*Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
+		/*Datum der Erstellung hinzufï¿½gen. new Date() erzeugt autom. einen
 		*"Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts
 		*/
 			
@@ -210,15 +210,15 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		header.addSubParagraph(new SimpleParagraph(t.getName()));
 			
 			
-		//Hinzufügen des zusammengestellten Kopfdaten
+		//Hinzufï¿½gen des zusammengestellten Kopfdaten
 		result.setHeaderData(header);
 			
 			
-		//Erstellen und Abrufen der benötigten Ergebnisvektoren mittels PinnwandVerwaltung
+		//Erstellen und Abrufen der benï¿½tigten Ergebnisvektoren mittels PinnwandVerwaltung
 		//Vector<Article> articles = this.getArticlesbyTeamWithTime(teamId, firstDate, lastDate);
 			
 			
-		//Kopfzeile für die Teamstatistik Tabelle
+		//Kopfzeile fï¿½r die Teamstatistik Tabelle
 		Row headline = new Row();
 			
 		/*
@@ -227,24 +227,24 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		 * in der zweiten Spalte wird die Anzahl augegeben,
 		 * wie oft der Artikel auf die Liste geschrieben worden ist
 		 * 
-		 * -es wird nur gezählt, wie oft ein Artikel zu einer Liste hinzugefügt wurde,
-		 * es wird nicht nachgeprüpft ob der Artikel tatsächich gekauft wurde bzw. 
+		 * -es wird nur gezï¿½hlt, wie oft ein Artikel zu einer Liste hinzugefï¿½gt wurde,
+		 * es wird nicht nachgeprï¿½pft ob der Artikel tatsï¿½chich gekauft wurde bzw. 
 		 * abgehakt wurde
 		 * desweiteren wird auch nicht anhand der Mengeneinheit zusammengerechnet
-		 * sondern nur die Anzahl der Häufigkeit der Auflistung angezeigt 
+		 * sondern nur die Anzahl der Hï¿½ufigkeit der Auflistung angezeigt 
 		 */
 			
 		//Headline Spalte: Artikel Id
 		headline.addColumn(new Column("Artikel"));
-		//Zweite Headline Spalte: Die Anzahl zeigt an wie häufig der Artikel gekauft wurde
+		//Zweite Headline Spalte: Die Anzahl zeigt an wie hï¿½ufig der Artikel gekauft wurde
 		headline.addColumn(new Column("Anzahl"));
 			
-		//Hinzufügen der Kopfzeile
+		//Hinzufï¿½gen der Kopfzeile
 		result.addRow(headline);
 			
 		/*
 		* Nun werden alle Artikel einer Gruppe ausgelesen und anhand deren
-		* Häufigkeit in die Tabelle eingetragen.
+		* Hï¿½ufigkeit in die Tabelle eingetragen.
      	 */
 			
 		Vector<Item> items = this.admin.getItemsByTeamWithTime(t); 
@@ -253,23 +253,23 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 				//Eine leere Zeile anlegen.
 				Row itemRow = new Row(); 
 				
-				//Erste Spalte: ArticleId hinzufügen
+				//Erste Spalte: ArticleId hinzufï¿½gen
 				itemRow.addColumn(new Column(String.valueOf(i.getArticleId())));
 				itemRow.addColumn(new Column(String.valueOf(i.getCount())));
 				
-				//Schliesslich die Zeile dem Report hinzufügen
+				//Schliesslich die Zeile dem Report hinzufï¿½gen
 				result.addRow(itemRow);
 		
 			}
-			//Report zurückgeben
+			//Report zurï¿½ckgeben
 			
 			return result;
 	}
 	
 	/*
-	 * Die Methode soll alle Artikel eines gewissen Zeitraums anhand eines Händlers anzeigen 
+	 * Die Methode soll alle Artikel eines gewissen Zeitraums anhand eines Hï¿½ndlers anzeigen 
 	 * 
-	 * Zurückgegeben wird ein fertiger Report
+	 * Zurï¿½ckgegeben wird ein fertiger Report
 	 * 
 	 * @author IlonaBrinkmann
 	 */
@@ -291,11 +291,11 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		//Jeder Report hat einen Titel
 		result.setTitle("TeamAndShopStatistik:");
 		
-		//Impressum hinzufügen
+		//Impressum hinzufï¿½gen
 		result.addImprint(result);
 		
 		/*
-		 * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
+		 * Datum der Erstellung hinzufï¿½gen. new Date() erzeugt autom. einen
          * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
 		 */
 		
@@ -318,29 +318,29 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		//Shop Name aufnehmen
 		header.addSubParagraph(new SimpleParagraph(s.getName()));
 		
-		//Hinzufügen des zusammengestellten Kopfdaten
+		//Hinzufï¿½gen des zusammengestellten Kopfdaten
 		result.setHeaderData(header);
 		
-		//Kopfzeil dür die Team/Shop Statistik Tabelle
+		//Kopfzeil dï¿½r die Team/Shop Statistik Tabelle
 		Row headline = new Row();
 			
 		/*
 		 * Es wird eine Tabelle mit 3 Spalten erzeugt. In die erste Spalte 
 		 * wird der Name des Artikels hingeschrieben. In die zweite Spalte kommt der Name des Shops und 
-		 * in die dritte Spalte kommt die Anzahl der Häufigkeit. Also wie oft der 
+		 * in die dritte Spalte kommt die Anzahl der Hï¿½ufigkeit. Also wie oft der 
 		 * Artikel den Listen aufgelistet war.
 		 */
 			
 		headline.addColumn(new Column("Artikel"));
-		headline.addColumn(new Column("Einzelhändler"));
+		headline.addColumn(new Column("Einzelhï¿½ndler"));
 		headline.addColumn(new Column("Anzahl"));
 			
-		//Hinzufügen der Kopfzeile
+		//Hinzufï¿½gen der Kopfzeile
 		result.addRow(headline);
 		
 		/*
-		 * Nun werden alle Artikel einer Gruppe ausgelesen und anhand deren Häufigkeit
-		 * und deren Händler in die Tabelle eingetragen.
+		 * Nun werden alle Artikel einer Gruppe ausgelesen und anhand deren Hï¿½ufigkeit
+		 * und deren Hï¿½ndler in die Tabelle eingetragen.
 		 */
 		
 		Vector<Item> items = this.admin.getItemsByTeamAndShopWithTime(s,t);
@@ -355,7 +355,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			//Zweite Spalte: Anzahl
 			itemRow.addColumn(new Column(String.valueOf(i.getCount())));
 			
-			//die Zeile werden zu dem Report hinzugefügt
+			//die Zeile werden zu dem Report hinzugefï¿½gt
 			result.addRow(itemRow);
 
 		}
@@ -363,6 +363,13 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		//es wird zum Schluss wird der fertige Report abgegeben
 		return result;
 		
+	}
+
+	@Override
+	public TeamAndShopStatistikReport createTeamAndShopStatistikReport(String tname, String sname, Date firstDate,
+			Date lastdate) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 		
 	

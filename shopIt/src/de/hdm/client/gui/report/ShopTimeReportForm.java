@@ -54,6 +54,8 @@ public class ShopTimeReportForm extends HorizontalPanel{
 			flex.setWidget(1, 1, startButton);
 			
 			startButton.addClickHandler(new StartReportClickHandler());
+			
+			//Entsprechende Methode fehlt (!!!)
 			reportVerwaltung.getAllShops(new GetAllShopsCallback());
 			reportVerwaltung.getAllTeams(new GetAllTeamsCallback());
 			
