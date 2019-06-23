@@ -119,7 +119,7 @@ import de.hdm.shared.bo.Team;
 			newButton.setEnabled(false);
 			teamGrid.setWidget(4, 1, newButton);
 			
-			saveButton.addClickHandler(new saveClickHandler());
+			saveButton.addClickHandler(new ChangeClickHandler());
 			saveButton.setEnabled(true);
 			teamGrid.setWidget(3,4,saveButton);
 			
@@ -174,7 +174,7 @@ import de.hdm.shared.bo.Team;
 				}
 			}
 		}
-*/
+
 		private class SaveCallback implements AsyncCallback<Void> {
 		
 			public void onFailure(Throwable caught) {
@@ -186,6 +186,7 @@ import de.hdm.shared.bo.Team;
 				CellTreeViewModel.updateTeam(teamToDisplay);
 			}
 		}
+		*/
 		
 		private class LeaveClickHandler implements ClickHandler {
 
@@ -244,8 +245,7 @@ import de.hdm.shared.bo.Team;
 					@Override
 					public void onSuccess(Team team) {
 						if (team != null) {
-							// Das erfolgreiche Hinzufügen eines Kunden wird an den Kunden- und
-							// Kontenbaum propagiert.
+						
 							CellTreeViewModel.addTeam(team);
 						}
 					}
@@ -274,7 +274,7 @@ import de.hdm.shared.bo.Team;
 
 			@Override
 			public void onSuccess(Void result) {
-				// Die Änderung wird zum Kunden- und Kontenbaum propagiert.
+				
 				CellTreeViewModel.updateTeam(teamToDisplay);
 			}
 		}
