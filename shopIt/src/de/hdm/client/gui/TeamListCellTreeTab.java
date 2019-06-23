@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Vector;
 
+
 import com.google.gwt.dev.util.collect.HashMap;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.ListDataProvider;
@@ -19,7 +20,6 @@ import de.hdm.shared.bo.BusinessObject;
 import de.hdm.shared.bo.List;
 import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Team;
-import de.hdm.thies.bankProjekt.shared.bo.Account;
 
 /**
  * Die Klasse <code>TeamListCellTreeTab</code> stellt alle Einkaufslisten eines Nutzers da.
@@ -31,11 +31,18 @@ import de.hdm.thies.bankProjekt.shared.bo.Account;
 public class TeamListCellTreeTab implements TreeViewModel {
 
 	private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
+	
+	private ListForm listForm;
+	private TeamForm teamForm;
+	
 	private Team selectedTeam;
 	private List selectedList;
+	private Team team;
 	
 	private Person user;
+	
 	private EditorAdminView editorView;
+	
 	private CellTreeViewModel cellTreeViewModel;
 	
 	private ArrayList<List> teamList;
@@ -45,7 +52,10 @@ public class TeamListCellTreeTab implements TreeViewModel {
 	 * 
 	 */
 	
-	private ListDataProvider<List> teamListDataProviders;
+	//private ListDataProvider<List> teamListDataProviders;
+	//Unten verwenden
+	private ListDataProvider<Team> teamDataProviders;
+	
 	
 	/*
 	 * in der Map wird die Liste mit den Gruppen verbunden, die Werte werden durch einzigartige Keys
@@ -53,7 +63,8 @@ public class TeamListCellTreeTab implements TreeViewModel {
 	 * Die Map wird als Assoziativspeicher verwendet und somit sind die Werte jederzeit anhand der Keys aufrufbar
 	 */
 	
-	private Map<List, ListDataProvider<Team>> teamDataProvider = null;
+	//private Map<List, ListDataProvider<Team>> teamDataProvider = null;
+	private Map<Team, ListDataProvider<List>> teamListDataProvider = null;
 	
 	private BusinessObjectKeyProvider boKeyProvider = null;
 	private SingleSelectionModel<BusinessObject> selectionModel = null;
@@ -85,38 +96,13 @@ public class TeamListCellTreeTab implements TreeViewModel {
 		
 	}
 	
-	public TeamListCellTreeTab(Person p) {
-		this.user = p;
-		
-		boKeyProvider = new BusinessObjectKeyProvider();
-		
-		selectionModel = new SingleSelectionModel<BusinessObject>(boKeyProvider);
-		selectionModel.addSelectionChangeHandler(new SelectionChangeEventHandler());
-		
-		teamDataProvider = new HashMap<List, ListDataProvider<Team>>();
-	}
-	
-	
-	public TeamListCellTreeTab(Person p, CellTreeViewModel ctvm) {
-		this.user = p;
-		this.cellTreeViewModel = ctvm;
-		
-		boKeyProvider = new BusinessObjectKeyProvider();
-		
-		selectionModel = new SingleSelectionModel<BusinessObject>(boKeyProvider);
-		selectionModel.addSelectionChangeHandler(new SelectionChangeEventHandler());
-		
-		teamDataProvider = new HashMap<List, ListDataProvider<Team>>();
-	}
-	
-	
 	private class SelectionChangeEventHandler implements SelectionChangeEvent.Handler {
 
 		@Override
 		public void onSelectionChange(SelectionChangeEvent event) {
 			BusinessObject selection = selectionModel.getSelectedObject();
 			if(selection instanceof Team) {
-				setSelectedTeam((Team) selection);
+				setSeletedTeam((Team) selection);
 			} else if(selection instanceof List) {
 				setSelectedList((List) selection);
 			}
@@ -130,32 +116,47 @@ public class TeamListCellTreeTab implements TreeViewModel {
 		
 	}
 	
+	public TeamListCellTreeTab() {
+		listenVerwaltung = ClientsideSettings.getShopItAdministration();
+		boKeyProvider = new BusinessObjectKeyProvider();
+		
+		selectionModel = new SingleSelectionModel<BusinessObject>(boKeyProvider);
+		selectionModel.addSelectionChangeHandler(new SelectionChangeEventHandler());
+		
+		teamListDataProvider = new HashMap<Team, ListDataProvider<List>>();
+	}
+	
+	void setListForm(ListForm lf) {
+		listForm = lf;
+	}
+	
+	void setTeamForm(TeamForm tf) {
+		teamForm = tf;
+	}
+	
 	public Team getSelectedTeam() {
 		return selectedTeam;
 	}
 	
-	public void setSelectedTeam(Team t) {
-		if(t != null) {
-			editorView.showTeam(t);
-		}
+	void setSeletedTeam(Team t) {
+		selectedTeam = t;
+		teamForm.setSelected(t);
+		selectedList = null;
+		listForm.setSelected(null);
 	}
 	
 	public List getSelectedList() {
 		return selectedList;
 	}
 	
-	public void setSelectedList(List l) {
-		if(l != null) {
-			editorView.showList(l);
-		}
-	}
 	
-	@Override
-	public <T> NodeInfo<?> getNodeInfo(T value) {
-		// TODO Auto-generated method stub
-		if(value.equals("Root")) {
-			teamListDataProviders = new ListDataProvider<List>();
-			listenVerwaltung.getAllListsOf(t, new AsyncCallback<Vector<List>>(){
+	
+	public void setSelectedList(List l) {
+		selectedList = l;
+		listForm.setSelected(l);
+		
+		if(l != null) {
+			listenVerwaltung.getTeamById(l.getOwnerID, new AsyncCallback<Team>() {
 
 				@Override
 				public void onFailure(Throwable caught) {
@@ -164,43 +165,173 @@ public class TeamListCellTreeTab implements TreeViewModel {
 				}
 
 				@Override
-				public void onSuccess(Vector<List> lists) {
-					for(List l : lists) {
-						teamListDataProviders.getList().add(l);					}
+				public void onSuccess(Team team) {
+					// TODO Auto-generated method stub
+					selectedTeam = team;
+					teamForm.setSelected(team);
+				}
+				
+				
+			});
+		}
+	}
+	
+	
+	void addTeam(Team team) {
+		teamDataProviders.getList().add(team);
+		selectionModel.setSelected(team, true);
+	}
+	
+	void updateTeam(Team team) {
+		List<Team> teamList = teamDataProviders.getList();
+		int i = 0;
+		for(Team t : teamList) {
+			if(t.getId() == team.getId()) {
+				teamList.set(i, team);
+				break;
+			} else {
+				i++;
+			}
+		}
+		teamDataProviders.refresh();
+	}
+	
+	void removeTeam(Team team) {
+		teamDataProviders.getList().remove(team);
+		teamListDataProvider.remove(team);
+	}
+	
+	void addListOfTeam(List list, Team team) {
+		if(!teamListDataProvider.containsKey(team)) {
+			return;
+		}
+		
+		ListDataProvider<List> listProvider = teamListDataProvider.get(team);
+		if(!listProvider.getList().contains(list)) {
+			listProvider.getList().add(list);
+			
+		}
+		selectionModel.setSelected(list, true);
+	}
+	
+	void removeListOfTeam(List list, Team team) {
+		if(!teamListDataProvider.containsKey(team)) {
+			return;
+		}
+		
+		teamListDataProvider.get(team).getList().remove(list);
+		selectionModel.setSelected(team, true);
+	}
+	
+	void updateList(List l) {
+		listenVerwaltung.getTeamById(l.getOwnerID(), new UpdateListCallback(l));
+	}
+	
+	private class UpdateListCallback implements AsyncCallback<Team> {
+		List list = null;
+		
+		UpdateListCallback(List l) {
+			list = l;
+		}
+
+		@Override
+		public void onFailure(Throwable caught) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onSuccess(Team result) {
+			// TODO Auto-generated method stub
+			List<List> lists = teamListDataProvider.get(team).getList();
+			
+			for(int i = 0; i<lists.size(); i++) {
+				if (list.getId() == lists.get(i).getId()) {
+					lists.set(i, list);
+					break;
+				}
+			}
+		}
+	}
+
+	
+	public SingleSelectionModel<BusinessObject> getSelectionModel() {
+		return this.selectionModel;
+	}
+	
+//	import java.util.List;
+//	public void updateList(List list) {
+//		List<List> teamList = teamListDataProviders.getList();
+//		int i = 0;
+//		for(List l : teamList) {
+//			if(l.getId() == list.getId()) {
+//				teamList.set(i, list);
+//				break;
+//			} else {
+//				i++;
+//			}
+//		}
+//		teamListDataProviders.refresh();
+//	}
+	
+	
+	
+	
+	
+	@Override
+	public <T> NodeInfo<?> getNodeInfo(T value) {
+		// TODO Auto-generated method stub
+		if(value.equals("Root")) {
+			teamDataProviders = new ListDataProvider<Team>();
+			listenVerwaltung.getAllTeams(new AsyncCallback<Vector<Team>>() {
+
+				@Override
+				public void onFailure(Throwable caught) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onSuccess(Vector<Team> teams) {
+					for(Team t : teams) {
+						teamDataProviders.getList().add(t);					}
 					
 				}
 
 			});
 			
-			return new DefaultNodeInfo<List>(teamListDataProviders, 
+			return new DefaultNodeInfo<Team>(teamDataProviders,	
+					new TeamCell(), selectionModel, null);
+		}
+		
+		
+		if(value instanceof Team) {
+			final ListDataProvider<List> listProvider = new ListDataProvider<List>();
+			teamListDataProvider.put((Team) value, listProvider);
+			
+			/**
+			 * ??????????
+			 */
+			listenVerwaltung.getListOf((Team) value, 
+					new AsyncCallback<Vector<List>>() {
+				@Override
+				public void onFailure(Throwable t) {
+				}
+
+				@Override
+				public void onSuccess(Vector<List> list) {
+					for (List l : list) {
+						listProvider.getList().add(l);
+					}
+				}
+				
+			});
+			
+			return new DefaultNodeInfo<List>(listProvider, 
 					new ListCell(), selectionModel, null);
 		}
 		
-//		if(value instanceof List) {
-//			final ListDataProvider<Team> teamProvider = new ListDataProvider<Team>();
-//			teamDataProvider.put((List) value, teamProvider);
-//			
-//			/**
-//			 * ??????????
-//			 */
-//			listenVerwaltung.getTeamById((Person) value, 
-//					new AsyncCallback<Vector<List>>() {
-//				@Override
-//				public void onFailure(Throwable t) {
-//				}
-//
-//				@Override
-//				public void onSuccess(Vector<Team> teams) {
-//					for (team t : teams) {
-//						teamProvider.getList().add(t);
-//					}
-//				}
-//				
-//			});
-//			
-//			return new DefaultNodeInfo<List>(teamProvider, 
-//					new TeamCell(), selectionModel, null);
-//		}
+		return null;
 	}
 
 	@Override

@@ -40,12 +40,6 @@ public class EditorAdminView {
 		cellTreeViewModel = new CellTreeViewModel();
 		navPanel.add(cellTreeViewModel.getStackMenuPanel());
 
-		//cellTreeViewModel = new CellTreeViewModel();
-		//navigationPanel.add(cellTreeViewModel.getStackMenuPanel());
-
-		
-
-		navPanel.add(cellTreeViewModel);
 
 		//navigationPanel.add(cellTreeViewModel);
 		
@@ -56,6 +50,9 @@ public class EditorAdminView {
 	
 	public void loadEditor() {
 		RootPanel.get("nav").add(mainPanel);
+		RootPanel.get("nav").add(navPanel);
 	}
+	
+	
  	
 }
