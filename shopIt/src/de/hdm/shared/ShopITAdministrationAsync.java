@@ -120,6 +120,8 @@ public interface ShopITAdministrationAsync {
 	void setTeam(Team t, AsyncCallback<Void> callback);
 
 	void getItemsByTeamWithTime(Team t, AsyncCallback<Vector<Item>> callback);
+
+	void getItemsByTeamAndShopWithTime(Shop s, Team t, AsyncCallback<Vector<Item>> callback);
 	
 
 }

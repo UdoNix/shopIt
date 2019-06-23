@@ -182,75 +182,72 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		if (this.getShopITAdministration() == null) {
 			return null;
 		}
-		//Team t = admin.getTeamById(teamid);
-		
-		//if (t != null) {
 			
-			//Einen leeren Report anlegen.
-			TeamStatisticReport result = new TeamStatisticReport();
+		//Einen leeren Report anlegen.
+		TeamStatisticReport result = new TeamStatisticReport();
 			
-			//Jeder Report hat einen Titel
-			result.setTitle("Teamstatistik");
+		//Jeder Report hat einen Titel
+		result.setTitle("Teamstatistik");
 			
-			//Impressumsbezeichnung hinzufügen
-			result.addImprint(result); 
+		//Impressumsbezeichnung hinzufügen
+		result.addImprint(result); 
 			
-			/*Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
-		     *"Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts
-		     */
+		/*Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
+		*"Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts
+		*/
 			
-			result.setCreated(new Date()); 
+		result.setCreated(new Date()); 
 			
-			/*
-			 * Jetzt erfolgt die Zusammenstellung der allgemeinen Daten.
-			 * Diese Kopfdaten werden am Anfang des Reports erscheinen und
-			 * mit Hife eines CompositeParagraph dargestellt, da dies mehrzeilig ist
-			 */
+		/*
+		 * Jetzt erfolgt die Zusammenstellung der allgemeinen Daten.
+		 * Diese Kopfdaten werden am Anfang des Reports erscheinen und
+		 * mit Hife eines CompositeParagraph dargestellt, da dies mehrzeilig ist
+		 */
 			
-			CompositeParagraph header = new CompositeParagraph();
+		CompositeParagraph header = new CompositeParagraph();
 			
-			//Gruppenname aufnehmen
-			header.addSubParagraph(new SimpleParagraph(t.getName()));
+		//Gruppenname aufnehmen
+		header.addSubParagraph(new SimpleParagraph(t.getName()));
 			
 			
-			//Hinzufügen des zusammengestellten Kopfdaten
-			result.setHeaderData(header);
+		//Hinzufügen des zusammengestellten Kopfdaten
+		result.setHeaderData(header);
 			
 			
-			//Erstellen und Abrufen der benötigten Ergebnisvektoren mittels PinnwandVerwaltung
-			//Vector<Article> articles = this.getArticlesbyTeamWithTime(teamId, firstDate, lastDate);
+		//Erstellen und Abrufen der benötigten Ergebnisvektoren mittels PinnwandVerwaltung
+		//Vector<Article> articles = this.getArticlesbyTeamWithTime(teamId, firstDate, lastDate);
 			
 			
-			//Kopfzeile für die Teamstatistik Tabelle
-			Row headline = new Row();
+		//Kopfzeile für die Teamstatistik Tabelle
+		Row headline = new Row();
 			
-			/*
-			 * In der Tabelle wird in der ersten Spalte
-			 * der Name des Artikels angezeigt und
-			 * in der zweiten Spalte wird die Anzahl augegeben,
-			 * wie oft der Artikel auf die Liste geschrieben worden ist
-			 * 
-			 * -es wird nur gezählt, wie oft ein Artikel zu einer Liste hinzugefügt wurde,
-			 * es wird nicht nachgeprüpft ob der Artikel tatsächich gekauft wurde bzw. 
-			 * abgehakt wurde
-			 * desweiteren wird auch nicht anhand der Mengeneinheit zusammengerechnet
-			 * sondern nur die Anzahl der Häufigkeit der Auflistung angezeigt 
-			 */
+		/*
+		 * In der Tabelle wird in der ersten Spalte
+		 * der Name des Artikels angezeigt und
+		 * in der zweiten Spalte wird die Anzahl augegeben,
+		 * wie oft der Artikel auf die Liste geschrieben worden ist
+		 * 
+		 * -es wird nur gezählt, wie oft ein Artikel zu einer Liste hinzugefügt wurde,
+		 * es wird nicht nachgeprüpft ob der Artikel tatsächich gekauft wurde bzw. 
+		 * abgehakt wurde
+		 * desweiteren wird auch nicht anhand der Mengeneinheit zusammengerechnet
+		 * sondern nur die Anzahl der Häufigkeit der Auflistung angezeigt 
+		 */
 			
-			//Headline Spalte: Name des Artikels
-			headline.addColumn(new Column("Artikel"));
-			//Zweite Headline Spalte: Die Anzahl zeigt an wie häufig der Artikel gekauft wurde
-			headline.addColumn(new Column("Anzahl"));
+		//Headline Spalte: Artikel Id
+		headline.addColumn(new Column("Artikel"));
+		//Zweite Headline Spalte: Die Anzahl zeigt an wie häufig der Artikel gekauft wurde
+		headline.addColumn(new Column("Anzahl"));
 			
-			//Hinzufügen der Kopfzeile
-			result.addRow(headline);
+		//Hinzufügen der Kopfzeile
+		result.addRow(headline);
 			
-			/*
-			 * Nun werden alle Artikel einer Gruppe ausgelesen und anhand deren
-			 * Häufigkeit in die Tabelle eingetragen.
-			 */
+		/*
+		* Nun werden alle Artikel einer Gruppe ausgelesen und anhand deren
+		* Häufigkeit in die Tabelle eingetragen.
+     	 */
 			
-			Vector<Item> items = this.iMapper.getItemsByTeamWithTime(t); 
+		Vector<Item> items = this.admin.getItemsByTeamWithTime(t); 
 			
 			for (Item i: items) {
 				//Eine leere Zeile anlegen.
@@ -277,89 +274,98 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	 * @author IlonaBrinkmann
 	 */
 	
-	private int shopid;
+	//private int shopid;
 	
-	private int teamid;
+	//private int teamid;
 	
-	public TeamAndShopStatistikReport createTeamAndShopStatistikReport(String tname, String sname, Date firstDate, Date lastdate) throws IllegalArgumentException {
+	public TeamAndShopStatistikReport createTeamAndShopStatistikReport(Shop s, Team t, Date firstDate, Date lastdate) throws IllegalArgumentException {
 		
-		Shop s1 = this.getShopbyName(sname);
-		
-		shopid = s1.getId();
-		
-		Team t1 = this.getTeambyName(tname);
-		
-		teamid = t1.getId();
-		
-		Shop s = this.getShopITAdministration().getShopById(shopid);
-		
-		Team t = this.getShopITAdministration().getTeamById(teamid);
-		
-		if ( s != null) {
-			
-			// einen leeren Report anlegen
-			TeamAndShopStatistikReport result = new TeamAndShopStatistikReport();
-			
-			//Jeder Report hat einen Titel
-			result.setTitle("TeamAndShopStatistik:");
-			
-			/*
-			 * 
-			 * Nun folgt die Zusammenstellung der Kopfdaten des Reports
-			 * Die Kopfdaten sind mehrzeilig, daher die Verwendung des
-			 * CompositeParagraph
-			 * 
-			 * 
-			 */
-			
-			CompositeParagraph header = new CompositeParagraph();
-			//Impressumsbezeichnung hinzufügen
-			header.addSubParagraph(new SimpleParagraph("Impressum: "));
-			//Hinzufügen des zusammengestellten Kopfdaten
-			result.setHeaderDate(header);
-			
-			//Erstellen und Abrufen der benötigten Ergebnisvektoren mittels ShopITVerwaltung
-			Vector<Article> articles = this.getShopITVerwaltung().getArticlesbyTeamAndShopWithTime(t, s, firstDate, lastdate);
-			
-			
-			//Kopfzeil dür die Team/Shop Statistik Tabelle
-			Row headline = new Row();
-			
-			/*
-			 * Es wird eine Tabelle mit 3 Spalten erzeugt. In die erste Spalte 
-			 * wird der Name des Artikels hingeschrieben. In die zweite Spalte kommt der Name des Shops und 
-			 * in die dritte Spalte kommt die Anzahl der Häufigkeit. Also wie oft der 
-			 * Artikel den Listen aufgelistet war.
-			 */
-			
-			headline.addColumn(new Column("Artikel"));
-			headline.addColumn(new Column("Einzelhändler"));
-			headline.addColumn(new Column("Anzahl"));
-			
-			//Hinzufügen der Kopfzeile
-			result.addRow(headline);
-			
-			//Eine leere Zeile anlegen
-			Row row = new Row();
-			
-			//Erste Spalte: Artikelname
-			row.addColumn(new Column(articles.size() + "");
-			
-			//die Zeilen werden zu dem Report hinzugefügt
-			result.addRow(row);
-			
-			//Impressum hinzufügen
-			this.addImprint(result);
-			
-			//es wird zum Schluss wird der fertige Report abgegeben
-			return result;
-
-			
-		}else {
+		if (this.getShopITAdministration() == null) {
 			return null;
+			
+		}
+			
+		//Einen leeren Report anlegen
+		TeamAndShopStatistikReport result = new TeamAndShopStatistikReport();
+			
+		//Jeder Report hat einen Titel
+		result.setTitle("TeamAndShopStatistik:");
+		
+		//Impressum hinzufügen
+		result.addImprint(result);
+		
+		/*
+		 * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
+         * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
+		 */
+		
+		result.setCreated(new Date()); 
+			
+		/*
+		 * 
+		 * Nun folgt die Zusammenstellung der Kopfdaten des Reports
+		 * Die Kopfdaten sind mehrzeilig, daher die Verwendung des
+		 * CompositeParagraph
+		 * 			
+		 * 
+		 */
+			
+		CompositeParagraph header = new CompositeParagraph();
+		
+		//Team Name aufnehmen
+		header.addSubParagraph(new SimpleParagraph(t.getName()));
+		
+		//Shop Name aufnehmen
+		header.addSubParagraph(new SimpleParagraph(s.getName()));
+		
+		//Hinzufügen des zusammengestellten Kopfdaten
+		result.setHeaderData(header);
+		
+		//Kopfzeil dür die Team/Shop Statistik Tabelle
+		Row headline = new Row();
+			
+		/*
+		 * Es wird eine Tabelle mit 3 Spalten erzeugt. In die erste Spalte 
+		 * wird der Name des Artikels hingeschrieben. In die zweite Spalte kommt der Name des Shops und 
+		 * in die dritte Spalte kommt die Anzahl der Häufigkeit. Also wie oft der 
+		 * Artikel den Listen aufgelistet war.
+		 */
+			
+		headline.addColumn(new Column("Artikel"));
+		headline.addColumn(new Column("Einzelhändler"));
+		headline.addColumn(new Column("Anzahl"));
+			
+		//Hinzufügen der Kopfzeile
+		result.addRow(headline);
+		
+		/*
+		 * Nun werden alle Artikel einer Gruppe ausgelesen und anhand deren Häufigkeit
+		 * und deren Händler in die Tabelle eingetragen.
+		 */
+		
+		Vector<Item> items = this.admin.getItemsByTeamAndShopWithTime(s,t);
+		
+		for (Item i: items) {
+			//Eine leere Zeile anlegen.
+			Row itemRow = new Row();
+			
+			//Erste Spalte: Artikel Id
+			itemRow.addColumn(new Column(String.valueOf(i.getArticleId())));
+			
+			//Zweite Spalte: Anzahl
+			itemRow.addColumn(new Column(String.valueOf(i.getCount())));
+			
+			//die Zeile werden zu dem Report hinzugefügt
+			result.addRow(itemRow);
+
 		}
 		
+		//es wird zum Schluss wird der fertige Report abgegeben
+		return result;
 		
 	}
+		
+	
+	}
 
-}
+
