@@ -102,8 +102,7 @@ public interface ShopITAdministration extends RemoteService {
 	//Auslesen eines Artikels anhand seiner Id
 	public Article getArticleById(int id) throws IllegalArgumentException;
 	
-	//Auslesen eines Artikels anhand seinem Namen
-	public Vector<Article> getArticleByName(Article article) throws IllegalArgumentException;
+	public Article getArticleByName(String article) throws IllegalArgumentException;
 	
 	//Auslesen aller Artikel 
 	public Vector<Article> getAllArticles() throws IllegalArgumentException;

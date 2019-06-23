@@ -75,7 +75,7 @@ public interface ShopITAdministrationAsync {
 
 	void getArticleById(int id, AsyncCallback<Article> callback);
 
-	void getArticleByName(Article article, AsyncCallback<Vector<Article>> callback);
+	void getArticleByName(String article, AsyncCallback<Article> callback);
 
 	void getItemById(int id, AsyncCallback<Item> callback);
 

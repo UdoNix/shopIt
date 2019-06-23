@@ -425,7 +425,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	}
 	
 	//Auslesen eines Artikels anhand seinem Namen
-	public Vector<Article> getArticleByName(Article article) throws IllegalArgumentException {
+	public Article getArticleByName(String article) throws IllegalArgumentException {
 		return this.aMapper.findByName(article); 
 	}
 	

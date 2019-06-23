@@ -21,7 +21,7 @@ import de.hdm.shared.bo.Article;
 	 * welche durch den eingeloggten User angelegt werden können.
 	 * @author Alexander Gerlings
 	 */
-
+@Deprecated
 public class AddNewArticleForm extends VerticalPanel {
 	
 	private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
