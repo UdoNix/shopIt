@@ -173,6 +173,8 @@ public interface ShopITAdministration extends RemoteService {
 	
 	//Auslesen aller Einträge eines Teams mit Zeitangabe.
 	public Vector<Item> getItemsByTeamWithTime(Team t);
+
+	public Vector<Item> getItemsByTeamAndShopWithTime(Shop s, Team t);
 	
 	
 	
