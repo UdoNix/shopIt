@@ -33,11 +33,6 @@ import java.io.Serializable;
 		
 		private String emailAddress = "";
 
-		/*
-		 * Abspeichern des Nutzernames
-		 */
-		
-		private String nickname = "";
 		
 		/*
 		 * Prüfung, ob Nutzer bereits eingeloggt ist
@@ -105,25 +100,6 @@ import java.io.Serializable;
 			this.emailAddress = emailAddress;
 		}
 
-		/*
-		  * Auslesen vom Nickname
-		 * 
-		 * @return nickname
-		 */
-
-		public String getNickname() {
-			return nickname;
-		}
-
-		/*
-		 * * Setzen vom Nickname
-		 * 
-		 * @param nickname
-		 */
-		
-		public void setNickname(String nickname) {
-			this.nickname = nickname;
-		}
 	}
 		
 

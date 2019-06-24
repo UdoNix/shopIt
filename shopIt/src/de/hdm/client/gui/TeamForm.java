@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.shared.bo.Team;
 import de.hdm.shared.bo.List;
 
-
+@Deprecated
 public class TeamForm extends VerticalPanel {
 	/**
 	 * Erstellung verschiedener Panels
