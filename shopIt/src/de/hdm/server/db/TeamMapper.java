@@ -2,6 +2,7 @@ package de.hdm.server.db;
 
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -133,8 +134,15 @@ public Team insert(Team t) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO team (id, name) " + "VALUES ("
-          + t.getId() + ", '"  + t.getName() + "' )");
+      
+      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO TEAM (id, name) " + "VALUES (?, ?)");
+      stmt2.setInt(1, t.getId());
+      stmt2.setString(2, t.getName());
+      
+//      stmt.executeUpdate("INSERT INTO team (id, name) " + "VALUES ("
+//          + t.getId() + ", '"  + t.getName() + "' )");
+      
+      stmt2.execute();
     }
   }
   catch (SQLException e2) {
