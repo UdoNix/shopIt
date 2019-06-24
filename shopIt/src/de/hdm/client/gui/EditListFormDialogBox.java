@@ -11,6 +11,7 @@ import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopItAdministrationAsync;
 import de.hdm.shared.bo.List;
 
+@Deprecated
 public class EditListFormDialogBox{
 	{
 		

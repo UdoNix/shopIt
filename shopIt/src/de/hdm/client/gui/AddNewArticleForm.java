@@ -15,7 +15,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.Article;
-
+@Deprecated
 	/**
 	 * Die Klasse <code>AddNewArticleForm</code> dient zur Erstellung neuer Artikel
 	 * welche durch den eingeloggten User angelegt werden k�nnen.

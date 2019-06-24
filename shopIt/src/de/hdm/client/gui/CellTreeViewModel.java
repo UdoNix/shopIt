@@ -20,7 +20,6 @@ import de.hdm.shared.bo.BusinessObject;
 import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Team;
 
-
 /**
  * @author Alexander Gerlings
  * 

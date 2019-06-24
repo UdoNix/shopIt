@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+@Deprecated
 public class AuthenticationForm {
 	
 		private Label welcomeLbl = new Label("Zugang über deinen Google Account");
