@@ -50,7 +50,7 @@ public class ClientsideSettings extends CommonSettings {
 	/*
 	 * Name des client-seitigen Loggers
 	 */
-	private static final String LOGGER_NAME = "PinnwandVerwaltung Web Client";
+	private static final String LOGGER_NAME = "ShopIT Client";
 	/*
 	 * Instanz des client-seitigen Loggers
 	 */
