@@ -1,7 +1,8 @@
 package de.hdm.server.db;
 
 import java.sql.Connection;
-	import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 	import java.sql.SQLException;
 	import java.sql.Statement;
 	import java.util.Vector;
@@ -133,9 +134,14 @@ public UnitOfMeasure insert(UnitOfMeasure u) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO UnitOfMeasure (id, unit, quantity) " + "VALUES ("
-	          + u.getId() +"," + u.getUnit() + "," + u.getQuantity() +")");
-  
+      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO UNITOFMEASURE(id, unit, quantity) VALUES (?, ?, ?)");
+      		stmt2.setInt(1, u.getId());
+      		stmt2.setString(2, u.getUnit());
+      		stmt2.setFloat(3, u.getQuantity());
+//      stmt.executeUpdate("INSERT INTO UnitOfMeasure (id, unit, quantity) " + "VALUES ("
+//	          + u.getId() +"," + u.getUnit() + "," + u.getQuantity() +")");
+      		
+      		stmt2.execute();
     }
   }
 

@@ -2,6 +2,7 @@ package de.hdm.server.db;
 
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -132,8 +133,18 @@ public Responsibility insert(Responsibility r) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO responsibility (id, personId, shopId, itemId) " + "VALUES ("
-          + r.getId() + "," +r.getPersonId() + ","  + "," +r.getShopId() + "," + r.getItemId());
+//      stmt.executeUpdate("INSERT INTO responsibility (id, personId, shopId, itemId) " + "VALUES ("
+//          + r.getId() + "," +r.getPersonId() + ","  + "," +r.getShopId() + "," + r.getItemId());
+      
+      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO responsibility (id, personId, shopId, itemId) " + "VALUES (?, ?, ?, ?)");
+      stmt2.setInt(1, r.getId());
+      stmt2.setInt(2, r.getPersonId());
+      stmt2.setInt(3, r.getShopId());
+      stmt2.setInt(4, r.getItemId());
+      
+      stmt2.execute();
+      
+      
     }
   }
   catch (SQLException e2) {
