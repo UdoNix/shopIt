@@ -17,6 +17,7 @@ import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.Membership;
 import de.hdm.shared.bo.Person;
+import de.hdm.shared.bo.Shop;
 import de.hdm.shared.bo.Team;
 
 
@@ -38,9 +39,7 @@ import de.hdm.shared.bo.Team;
 			return selectedTeam;
 		}
 
-		public void setSelectedTeam(Team selectedTeam) {
-			this.selectedTeam = selectedTeam;
-		}
+
 		
 		public CellTreeViewModel getViewModel() {
 			return ViewModel;
@@ -202,7 +201,7 @@ import de.hdm.shared.bo.Team;
 
 			Membership membership = null;
 
-			deleteMemebershipCallback(Membership m) {
+			void deleteMemebershipCallback(Membership m) {
 				membership = m;
 			}
 
@@ -284,7 +283,7 @@ import de.hdm.shared.bo.Team;
 					Window.alert("Kein Team ausgewählt");
 				} else {
 					listenVerwaltung.getPersonByEmail(emailTextBox.getText(), new GetPersonCallback());
-					listenVerwaltung.createMembership(selectedTeam ,,
+					listenVerwaltung.createMembership(selectedTeam ,
 							new CreateMembershipCallback(selectedTeam));
 					
 				}
@@ -329,6 +328,31 @@ import de.hdm.shared.bo.Team;
 			}
 		}
 
+		
+		void setSelectedTeam(Team t) {
+			if (t != null) {
+				teamToDisplay = t;
+				deleteButton.setEnabled(true);
+				newButton.setEnabled(true);
+				addButton.setEnabled(true);
+				leaveButton.setEnabled(true);
+				
+				
+		
+				
+				emailTextBox.setText(teamToDisplay.getEmail());
+				nameTextBox.setText(teamToDisplay.getName());
+				
+				
+			} else {
+				nameTextBox.setText("");
+			    emailTextBox.setText("");
+			    deleteButton.setEnabled(false);
+				newButton.setEnabled(false);
+				addButton.setEnabled(false);
+				leaveButton.setEnabled(false);
+			}
+		}
 		
 		
 		}

@@ -29,11 +29,8 @@ public class ShopView extends VerticalPanel{
 public Shop getSelctedShop() {
 	return selectedShop;
 }
-public void setSelctedShop(Shop selctedShop) {
-	this.selectedShop = selctedShop;
-}
 
-	
+
 
 		
 	Shop shopToDisplay = null;
@@ -93,9 +90,7 @@ public void setSelctedShop(Shop selctedShop) {
 				if (selectedShop == null) {
 					Window.alert("kein Shop ausgewählt");
 				} else {
-					listenVerwaltung.delete().getShopId();
-							new deleteShopCallback(
-									shopToDisplay);
+					listenVerwaltung.delete( shopToDisplay, new deleteShopCallback(shopToDisplay));
 				}
 				
 			}
@@ -185,6 +180,36 @@ public void setSelctedShop(Shop selctedShop) {
 				}
 			}
 		}
+		
+		void setSelectedShop(Shop s) {
+			if (s != null) {
+				shopToDisplay = s;
+				deleteButton.setEnabled(true);
+				newButton.setEnabled(true);
+				saveButton.setEnabled(true);
+				
+				
+				String name = nameTextBox.getText();
+				String postalCode = postalCodeTextBox.getText();
+				String city = cityTextBox.getText();
+				String street = streetTextBox.getText();
+				
+				nameTextBox.setText(shopToDisplay.getName());
+				postalCodeTextBox.setText(shopToDisplay.getPostalCode());
+				streetTextBox.setText(shopToDisplay.getStreet());
+				cityTextBox.setText(shopToDisplay.getStreet());
+				
+			} else {
+				nameTextBox.setText("");
+				postalCodeTextBox.setText("");
+				streetTextBox.setText("");
+				cityTextBox.setText("");
+				deleteButton.setEnabled(false);
+				saveButton.setEnabled(false);
+				newButton.setEnabled(false);
+			}
+		}
+
 		
 }
 
