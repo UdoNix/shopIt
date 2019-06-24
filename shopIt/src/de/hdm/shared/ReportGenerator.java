@@ -10,6 +10,7 @@ import de.hdm.shared.report.AllArticlesOfShopReport;
 import de.hdm.shared.report.Report;
 import de.hdm.shared.report.TeamAndShopStatistikReport;
 import de.hdm.shared.report.TeamStatisticReport;
+import de.hdm.shared.ReportGeneratorAsync;
 
 /**
  * Das ist die Synchrone Schnittstelle fÃ¼r eine RPC-fÃ¤hige Klasse zur Erstellung von Reports. Diese Schnittstelle benutzt die gleiche Realisierungsgrundlage wir
@@ -18,12 +19,12 @@ import de.hdm.shared.report.TeamStatisticReport;
  * Durch den ReportGenerator werden die Berichte, also Reports erstellt, welche *  die Menge von Daten bzgl. Bestimmter Sachverhalte des Systems zweckspezifisch darstellen.
  * </p>
  * <p>
- * Die Klasse erstellt mit Hilfe von create…-Methoden den Report. Jede dieser Methoden besitzt eine dem Anwendungsfall entsprechende Parameterliste. Diese Parameter benötigt der der Generator, um den Report erstellen zu kÃ¶nnen.
+ * Die Klasse erstellt mit Hilfe von createï¿½-Methoden den Report. Jede dieser Methoden besitzt eine dem Anwendungsfall entsprechende Parameterliste. Diese Parameter benï¿½tigt der der Generator, um den Report erstellen zu kÃ¶nnen.
  * </p>
  * <p> 
  * Bei neu hinzukommenden Bedarfen an Berichten, kann diese Klasse auf einfache
- * Weise erweitert werden. Hierzu können zusätzliche create…-Methoden implementiert werden. Die bestehenden Methoden bleiben davon
- * unbeeinflusst, so dass bestehende Programmlogik nicht verändert werden muss.
+ * Weise erweitert werden. Hierzu kï¿½nnen zusï¿½tzliche createï¿½-Methoden implementiert werden. Die bestehenden Methoden bleiben davon
+ * unbeeinflusst, so dass bestehende Programmlogik nicht verï¿½ndert werden muss.
  * </p>
  * @author ilona
  *
@@ -33,7 +34,7 @@ public interface ReportGenerator extends RemoteService{
 
 /**
  * Initialisierung des Objekts. Diese Methode ist vor dem Hintergrundon GWT
- * RPC zusätzlich zum No Argument Constructor, der implementieren Klasse
+ * RPC zusï¿½tzlich zum No Argument Constructor, der implementieren Klasse
  * ShopITAdministrationImpl notwendig. Diese Methode wird direkt nach der
  * Instantiierung aufgerufen.
  * 
@@ -48,7 +49,7 @@ public interface ReportGenerator extends RemoteService{
 	public ShopITAdministration getShopITAdministration();
 	
 	/**
-	  * Setzen der zugehörigen Gruppe
+	  * Setzen der zugehï¿½rigen Gruppe
 	  * 
 	  */
 	public void setTeam(Team t) ;
@@ -58,7 +59,7 @@ public interface ReportGenerator extends RemoteService{
 	 */
 	public void addImprint(Report report);
 	
-	/**Diese Methode soll eine Statistik über häufig einkaufte Artikel von einem Händler anzeigen.
+	/**Diese Methode soll eine Statistik ï¿½ber hï¿½ufig einkaufte Artikel von einem Hï¿½ndler anzeigen.
 	 * 
 	 */
 	
@@ -73,15 +74,18 @@ public interface ReportGenerator extends RemoteService{
 	 * 
 	 */
 	
-	public TeamStatisticReport createTeamStatisticReport(Team t, Date firstDate, Date lastDate) throws IllegalArgumentException {
+	public TeamStatisticReport createTeamStatisticReport(Team t, Date firstDate, Date lastDate) throws IllegalArgumentException;
 
 
 		
 	/**
-	 * Die Methode soll alle Artikel eines gewissen Zeitraums anhand eines Händlers anzeigen 
+	 * Die Methode soll alle Artikel eines gewissen Zeitraums anhand eines Hï¿½ndlers anzeigen 
 	 * 
-     * Zurückgegeben wird ein fertiger Report
+     * Zurï¿½ckgegeben wird ein fertiger Report
 	 *
 	 */
 		
 		public TeamAndShopStatistikReport createTeamAndShopStatistikReport(String tname, String sname, Date firstDate, Date lastdate) throws IllegalArgumentException;
+		
+		
+}
