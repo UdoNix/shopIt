@@ -43,6 +43,7 @@ import de.hdm.shared.bo.Team;
 		
 		private Team selectedTeam = null; 
 		private Membership selectedMembership = null;
+		private Person selectedPerson = null;
 		
 		public Team getSelectedTeam() {
 			return selectedTeam;
@@ -251,7 +252,8 @@ import de.hdm.shared.bo.Team;
 						new createTeamCallback());
 				
 				
-				class createTeamCallback implements AsyncCallback<Team> {
+				
+				class CreateTeamCallback implements AsyncCallback<Team> {
 
 					@Override
 					public void onFailure(Throwable caught) {
@@ -262,7 +264,7 @@ import de.hdm.shared.bo.Team;
 					public void onSuccess(Team team) {
 						if (team != null) {
 						
-							CellTreeViewModel.addTeam(team);
+							viewModel.addTeam(team);
 						}
 					}
 				}
@@ -304,8 +306,7 @@ import de.hdm.shared.bo.Team;
 					Window.alert("Kein Team ausgewählt");
 				} else {
 					listenVerwaltung.getPersonByEmail(emailTextBox.getText(), new GetPersonCallback());
-					listenVerwaltung.createMembership(selectedTeam ,
-							new CreateMembershipCallback(selectedTeam));
+					listenVerwaltung.createMembership(selectedPerson.getId(), selectedTeam.getId(), new createMembershipCallback());
 					
 				}
 			}
@@ -344,10 +345,11 @@ import de.hdm.shared.bo.Team;
 			@Override
 			public void onSuccess(Membership membership) {
 				if (membership != null && team != null) {
-					CellTreeViewModel.addMembershipOfTeam(membership, team);
+					viewModel.addMembershipOfTeam(membership, team);
 				}
 			}
 		}
+	
 
 		
 		void setSelectedTeam(Team t) {
@@ -361,7 +363,7 @@ import de.hdm.shared.bo.Team;
 				
 		
 				
-				emailTextBox.setText(teamToDisplay.getEmail());
+				emailTextBox.setText(personToDisplay.getEmail());
 				nameTextBox.setText(teamToDisplay.getName());
 				
 				

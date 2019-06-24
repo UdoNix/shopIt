@@ -52,7 +52,7 @@ public class ShopTimeReportForm extends HorizontalPanel{
 			flex.setWidget(3, 0, endDateBox);
 			flex.setWidget(3, 1, teamListBox);
 			flex.setWidget(1, 1, startButton);
-			
+		
 			startButton.addClickHandler(new StartReportClickHandler());
 			reportVerwaltung.getAllShops(new GetAllShopsCallback());
 			reportVerwaltung.getAllTeams(new GetAllTeamsCallback());

@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.shared.bo.List;
 import de.hdm.shared.bo.Item;
 
+@
 public class ListForm extends Form{
 	
 	/*

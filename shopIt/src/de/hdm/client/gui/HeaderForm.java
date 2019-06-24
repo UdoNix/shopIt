@@ -11,12 +11,11 @@ import com.google.gwt.event.dom.client.ClickEvent;
 	import de.hdm.shared.ShopItAdministrationAsync;
 	import de.hdm.shared.bo.Person;
 
+	@Deprecated
 	/**
 	 * Klasse zur Erstellung der HeaderForm
-	 * 
-	 * @author dibasegmen
 	 */
-
+	
 	public class HeaderForm extends Form{
 
 		/**

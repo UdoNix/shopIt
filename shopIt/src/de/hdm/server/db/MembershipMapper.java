@@ -2,7 +2,8 @@ package de.hdm.server.db;
 
 
 	import java.sql.Connection;
-	import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 	import java.sql.SQLException;
 	import java.sql.Statement;
 	import java.util.Vector;
@@ -164,9 +165,14 @@ import de.hdm.shared.bo.Person;
 	      stmt = con.createStatement();
 
 	      // Es erfolgt die tatsächliche Einfuegeoperation
-	      stmt.executeUpdate("INSERT INTO membership (id, creationDate, changeDate,  personId, teamId) "
-	      		+ "VALUES ("
-	          + m.getId() + ", CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, "   + m.getPersonId() + "," + m.getTeamId() + ")");
+	      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO membership (id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,  personId, teamId) "
+		      		+ "VALUES (?, ?, ?, ?, ?)");
+	      
+	      stmt2.setInt(1, m.getId());
+	      stmt2.setInt(4, m.getPersonId());
+	      stmt2.setInt(5, m.getTeamId());
+	      
+	      stmt2.execute();
 	    }
 	  }
 	  catch (SQLException e2) {

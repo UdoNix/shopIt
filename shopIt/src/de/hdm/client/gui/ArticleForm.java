@@ -1,5 +1,4 @@
 package de.hdm.client.gui;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -17,6 +16,7 @@ import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.Article;
 
+@Deprecated
 	/**
 	 * 
 	 * Die <code>ArticleForm</code> wird verwendet um alle angelegten Artikel anzuzeigen
@@ -32,14 +32,14 @@ public class ArticleForm extends VerticalPanel {
 	
 	
 	/**
-	 * Erzeugung der benötigten Panels der Klasse ArticleForm
+	 * Erzeugung der benï¿½tigten Panels der Klasse ArticleForm
 	 */
 	private HorizontalPanel buttonPanel = new HorizontalPanel();
 	private HorizontalPanel contentPanel = new HorizontalPanel();
 	private VerticalPanel mainPanel = new VerticalPanel();
 	
 	/**
-	 * Erzeugung der benötigten GUI-Elemente
+	 * Erzeugung der benï¿½tigten GUI-Elemente
 	 */
 	private Button newArticle = new Button("neuer Artikel");
 	private Button cancelButton = new Button("Abbrechen");
