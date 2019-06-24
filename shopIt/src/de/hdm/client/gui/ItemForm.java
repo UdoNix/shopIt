@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.Widget;
 import de.hdm.shared.bo.Item;
 import de.hdm.shared.bo.Article;
 
+@Deprecated
 public class ItemForm extends Form{
 	/**
 	 * Erstellung verschiedener Panels

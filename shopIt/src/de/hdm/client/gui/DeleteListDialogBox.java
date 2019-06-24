@@ -66,16 +66,6 @@ public class DeleteListDialogBox extends DialogBox {
 			
 		}
 				
-		
-		public List getSelectedList() {
-			return selectedList;
-		}
-		
-		
-		
-		public void setSelectedList(List selectedList) {
-			this.selectedList = selectedList;
-		}
 	
 
 
@@ -130,6 +120,31 @@ public class DeleteListDialogBox extends DialogBox {
 				}
 			}
 
+		}
+		
+		void setSelectedTeam(Team t) {
+			if (t != null) {
+				teamToDisplay = t;
+				deleteButton.setEnabled(true);
+				newButton.setEnabled(true);
+				addButton.setEnabled(true);
+				leaveButton.setEnabled(true);
+				
+				
+		
+				
+				emailTextBox.setText(personToDisplay.getEmail());
+				nameTextBox.setText(teamToDisplay.getName());
+				
+				
+			} else {
+				nameTextBox.setText("");
+			    emailTextBox.setText("");
+			    deleteButton.setEnabled(false);
+				newButton.setEnabled(false);
+				addButton.setEnabled(false);
+				leaveButton.setEnabled(false);
+			}
 		}
 		
 		

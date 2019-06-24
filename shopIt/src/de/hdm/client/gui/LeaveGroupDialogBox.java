@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.client.ClientsideSettings;
+import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.ShopItAdministration;
 import de.hdm.shared.ShopItAdministrationAsync;
 import de.hdm.shared.bo.*;
@@ -26,7 +27,7 @@ public class LeaveGroupDialogBox extends DialogBox {
 	
 	//Entsprechendes Interface wird noch angepasst
 	
-	private ShopItAdministrationAsync listenverwaltung = ClientsideSettings.getEditorService();
+	private ShopITAdministrationAsync listenverwaltung = ClientsideSettings.getShopItAdministration();
 	
 	//private Person p = currentPerson.getPerson();
 	private Team selectedGroup = null;
@@ -64,16 +65,7 @@ public class LeaveGroupDialogBox extends DialogBox {
 		this.center();
 		
 	}
-	
-	public Group getSelectedGroup(){
-		return selectedGroup;
-		
-	}
-	
-	public void setSelectedGroup(Group selectedGroup){
-		this.selectedGroup = selectedGroup;
-		
-	}
+
 	
 	//Anpassung in TreeViewModel fehlt noch!!!
 	
