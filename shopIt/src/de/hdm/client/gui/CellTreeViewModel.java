@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
 
+import de.hdm.shared.bo.Article;
 import de.hdm.shared.bo.BusinessObject;
 import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Team;
@@ -29,9 +30,11 @@ import de.hdm.shared.bo.Team;
 public class CellTreeViewModel extends VerticalPanel {
 
 	private TeamListCellTreeTab teamListView;
+	private ArticleCellListTab articleCellListTab;
 	private StackPanel firstStackPanel;
 	private Person user;
 	private Team team;
+	private Article article;
 	
 	private CellTreeResources groupListRes = GWT.create(CellTreeResources.class);
 
@@ -46,9 +49,12 @@ public class CellTreeViewModel extends VerticalPanel {
 		//menuPanel.add(showGroupListView(), "Alle Gruppen");
 		//firstStackPanel.add(showGroupListView(), "Alle Gruppen");
 		firstStackPanel.add(displayTeamListView(team), "Gruppen");
+		firstStackPanel.add(displayAllArticle(article), "Alle Artikel");
 		
 	}
 	
+	
+
 	public void onLoad() {
 		this.add(this.firstStackPanel);
 	}
@@ -60,6 +66,13 @@ public class CellTreeViewModel extends VerticalPanel {
 		tree.setAnimationEnabled(true);
 		
 		return tree;
+	}
+	
+	private Widget displayAllArticle(Article a) {
+		this.articleCellListTab = new ArticleCellListTab();
+		articleCellListTab.onLoad();
+		return articleCellListTab.getCellList();
+		
 	}
 
 //	public void setPerson(Person user) {
