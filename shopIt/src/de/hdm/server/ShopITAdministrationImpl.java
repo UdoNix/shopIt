@@ -247,7 +247,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * Zustï¿½ndigkeit zum Eintrag hinzufï¿½gen
 	 */
 	public Item addResponsibilityToItem(Responsibility r, Item i) {
-		i.setResponsibility(r);
+		i.setResponsibilityId(r.getId());
+		return i;
 	}
 	/*
 	 * Eintrag anhand der Id finden
@@ -564,8 +565,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	
 	public Responsibility createResponsibility(Person p, Shop s) throws IllegalArgumentException{
 		Responsibility r = new Responsibility();
-		r.setPerson(p);
-		r.setShop(s);
+		r.setPersonId(p.getId());
+		r.setShopId(s.getId());
 		
 		return this.rMapper.insert(r);
 		
@@ -579,7 +580,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * alle Zustï¿½ndigkeiten einer Person aufzeigen
 	 */
-	public Vector<Item> getAllResponsibilityOfPerson(Person p) throws IllegalArgumentException{
+	public Vector<Responsibility> getAllResponsibilityOfPerson(Person p) throws IllegalArgumentException{
 		return this.rMapper.findByPerson(p.getId());
 	}
 	/*
@@ -633,8 +634,9 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * alle Gruppen einer Person aufzeigen
 	 */
-	public Vector<Teams> getAllMembershipOfPerson(Person p) throws IllegalArgumentException{
-		return this.mMapper.findByPerson(p);
+	public Vector<Membership> getAllMembershipOfPerson(Person p) throws IllegalArgumentException{
+		return this.mMapper.getAllMembershipsOf(p);
+
 	}
 	/*
 	 * eine Gruppenmitgliedschaft ï¿½ndern
@@ -655,11 +657,11 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	   * ***************************************************************************
 	   */
 
-	@Override
-	public Person createPerson(String first, String last) throws IllegalArgumentException {
+	//@Override
+	//public Person createPerson(String first, String last) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
-		return null;
-	}
+	//	return null;
+	//}
 
 	@Override
 	public void delete(Person p) throws IllegalArgumentException {
@@ -669,10 +671,10 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	@Override
 	public Vector<Item> getItemsbyTeamAndShop(Shop shop) throws IllegalArgumentException {
-		//TODO Parameter Team muss noch übergeben werden
+		//TODO Parameter Team muss noch ï¿½bergeben werden
 		
 
-		return this.iMapper.getItemsbyTeamAndShop(teamId, shopId);
+		//return this.iMapper.getItemsbyTeamAndShop(teamId, shopId);
 		
 		
 

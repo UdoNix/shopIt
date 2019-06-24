@@ -15,7 +15,7 @@ import de.hdm.client.gui.AccountForm.EditAccountFormDialogBox;
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.ShopItAdministrationAsync;
 import de.hdm.shared.bo.Person;
-
+@Deprecated
 	/**
 	 * Die Klasse <code>EditAccountForm</code> dient der Veränderung der
 	 * Account-Daten eines im Systems eingeloggten Users

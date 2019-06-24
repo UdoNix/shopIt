@@ -25,7 +25,7 @@ public interface ShopITAdministrationAsync {
 
 	void createListFor(Team t, String name, AsyncCallback<List> callback);
 
-	void createMembership(int personId, int teamI, AsyncCallback<Membership> callback);
+	void createMembership(int personId, int teamId, AsyncCallback<Membership> callback);
 
 	void createPerson(String first, String last, String email, AsyncCallback<Person> callback);
 
@@ -122,6 +122,7 @@ public interface ShopITAdministrationAsync {
 	void getItemsByTeamWithTime(Team t, AsyncCallback<Vector<Item>> callback);
 
 	void getItemsByTeamAndShopWithTime(Shop s, Team t, AsyncCallback<Vector<Item>> callback);
+
 	
 
 }

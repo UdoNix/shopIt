@@ -1,7 +1,8 @@
-//package de.hdm.client.gui;
+
+package de.hdm.client.gui;
 //import de.hdm.client.ClientsideSettings;
 //
-//
+@Deprecated 
 //import java.util.Vector;
 //
 //import com.google.gwt.event.dom.client.ClickEvent;
@@ -26,7 +27,7 @@
 // *
 // */
 //
-//public class SearchField extends HorizontalPanel {
+public class SearchField  {
 //
 //	/**
 //	 * Erzeugen eines EditorService-Objekts um eine Applikationsverwaltung zu
@@ -94,5 +95,5 @@
 //		RootPanel.get("main").add(contentPanel);
 //		
 //	}
-//}
+}
 	

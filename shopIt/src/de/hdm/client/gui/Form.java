@@ -38,7 +38,7 @@ import de.hdm.shared.bo.Person;
 
 import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopItAdministrationAsync;
-
+@Deprecated
 
 	public class Form extends VerticalPanel {
 		

@@ -19,7 +19,7 @@ import de.hdm.shared.EditorServiceAsync;
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.Team;
 import de.hdm.shared.bo.Person;
-
+@Deprecated
 	/**
 	 * Die Klasse <code>AddPersonToGroupForm</code> dient zur Darstellung einer DialogBox, die das Hinzufügen neuer Personen
 	 * zu einer Gruppe ermöglicht.
