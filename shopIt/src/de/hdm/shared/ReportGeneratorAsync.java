@@ -5,7 +5,12 @@ import java.util.Date;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.hdm.shared.bo.Shop;
+import de.hdm.shared.bo.Team;
+import de.hdm.shared.report.AllArticlesOfShopReport;
+import de.hdm.shared.report.Report;
 import de.hdm.shared.report.ShopStatisticReport;
+import de.hdm.shared.report.TeamAndShopStatistikReport;
+import de.hdm.shared.report.TeamStatisticReport;
 
 /**
  * Das asynchrone Gegenst�ck des Interface ReportGenerator. Es
@@ -17,14 +22,20 @@ import de.hdm.shared.report.ShopStatisticReport;
 
 public interface ReportGeneratorAsync {
 
-	void init(AsyncCallback<Void> initReportGeneratorCallback);
+	void addImprint(Report report, AsyncCallback<Void> callback);
 
-	void getAllTeams(GetAllTeamsCallback getAllTeamsCallback);
+	void createAllArticlesOfShopReport(Shop shop, AsyncCallback<AllArticlesOfShopReport> callback);
 
-	void getAllShops(GetAllShopsCallback getAllShopsCallback);
+	void createTeamAndShopStatistikReport(String tname, String sname, Date firstDate, Date lastdate,
+			AsyncCallback<TeamAndShopStatistikReport> callback);
 
+	void createTeamStatisticReport(Team t, Date firstDate, Date lastDate, AsyncCallback<TeamStatisticReport> callback);
 
-	
+	void getShopITAdministration(AsyncCallback<ShopITAdministration> callback);
+
+	void init(AsyncCallback<Void> callback);
+
+	void setTeam(Team t, AsyncCallback<Void> callback);
 
 
 
