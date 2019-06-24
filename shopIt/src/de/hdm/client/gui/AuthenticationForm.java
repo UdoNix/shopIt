@@ -25,7 +25,7 @@ public class AuthenticationForm {
 		}
 		
 		public AuthenticationForm(String loginUrl) {
-			this.loginURL = loginUrl;		
+			//this.loginURL = loginUrl;		
 		}
 		
 		public void onLoad(){

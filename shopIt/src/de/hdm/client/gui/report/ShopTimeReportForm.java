@@ -54,8 +54,8 @@ public class ShopTimeReportForm extends HorizontalPanel{
 			flex.setWidget(1, 1, startButton);
 		
 			startButton.addClickHandler(new StartReportClickHandler());
-			reportVerwaltung.getAllShops(new GetAllShopsCallback());
-			reportVerwaltung.getAllTeams(new GetAllTeamsCallback());
+//			reportVerwaltung.getAllShops(new GetAllShopsCallback());
+//			reportVerwaltung.getAllTeams(new GetAllTeamsCallback());
 			
 			this.add(flex);
 			
@@ -99,7 +99,7 @@ public class ShopTimeReportForm extends HorizontalPanel{
 				}
 				else{
 					flex.clear();
-					flex.add(new ShopTimeReportCallback(teamListBox.getSelectedValue(), listBox.getSelectedValue(), startDateBox.getValue(), endDateBox.getValue()));	
+//					flex.add(new ShopTimeReportCallback(teamListBox.getSelectedValue(), listBox.getSelectedValue(), startDateBox.getValue(), endDateBox.getValue()));	
 					RootPanel.get("contentReport").add(flex);
 				}
 			}

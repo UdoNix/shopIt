@@ -1,18 +1,15 @@
 package de.hdm.client.gui;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
-
-import com.google.gwt.dev.util.collect.HashMap;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.ProvidesKey;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
-import com.google.gwt.view.client.TreeViewModel.DefaultNodeInfo;
 
 import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopITAdministrationAsync;
@@ -142,9 +139,9 @@ public class TeamListCellTreeTab implements TreeViewModel {
 	
 	void setSeletedTeam(Team t) {
 		selectedTeam = t;
-		teamView.setSelected(t);
+		teamView.setSelectedTeam(t);
 		selectedList = null;
-		listForm.setSelected(null);
+		//listForm.setSelected(null);
 	}
 	
 	public List getSelectedList() {
@@ -155,10 +152,10 @@ public class TeamListCellTreeTab implements TreeViewModel {
 	
 	public void setSelectedList(List l) {
 		selectedList = l;
-		listForm.setSelected(l);
+		// listForm.setSelected(l);
 		
 		if(l != null) {
-			listenVerwaltung.getTeamById(l.getOwnerID, new AsyncCallback<Team>() {
+			listenVerwaltung.getTeamById(0, new AsyncCallback<Team>() {
 
 				@Override
 				public void onFailure(Throwable caught) {
@@ -170,7 +167,7 @@ public class TeamListCellTreeTab implements TreeViewModel {
 				public void onSuccess(Team team) {
 					// TODO Auto-generated method stub
 					selectedTeam = team;
-					teamView.setSelected(team);
+					teamView.setSelectedTeam(team);
 				}
 				
 				
@@ -226,7 +223,7 @@ public class TeamListCellTreeTab implements TreeViewModel {
 	}
 	
 	void updateList(List l) {
-		listenVerwaltung.getTeamById(l.getOwnerID(), new UpdateListCallback(l));
+		//listenVerwaltung.getTeamById(l.getOwnerID(), new UpdateListCallback(l));
 	}
 	
 	private class UpdateListCallback implements AsyncCallback<Team> {
@@ -259,7 +256,7 @@ public class TeamListCellTreeTab implements TreeViewModel {
 		public void delete(Team t){
 			int teamId = t.getId();
 			int userId = user.getId();
-			java.util.List<List> lists = membershipDataProviders.getList();
+			// java.util.List<List> lists = membershipDataProviders.getList();
 			
 		}
 	}
@@ -321,20 +318,20 @@ public class TeamListCellTreeTab implements TreeViewModel {
 			/**
 			 * ??????????
 			 */
-			listenVerwaltung.getListOf((Team) value, 
-					new AsyncCallback<Vector<List>>() {
-				@Override
-				public void onFailure(Throwable t) {
-				}
-
-				@Override
-				public void onSuccess(Vector<List> list) {
-					for (List l : list) {
-						listProvider.getList().add(l);
-					}
-				}
-				
-			});
+//			listenVerwaltung.getListOf((Team) value, 
+//					new AsyncCallback<Vector<List>>() {
+//				@Override
+//				public void onFailure(Throwable t) {
+//				}
+//
+//				@Override
+//				public void onSuccess(Vector<List> list) {
+//					for (List l : list) {
+//						listProvider.getList().add(l);
+//					}
+//				}
+//				
+//			});
 			
 			return new DefaultNodeInfo<List>(listProvider, 
 					new ListCell(), selectionModel, null);

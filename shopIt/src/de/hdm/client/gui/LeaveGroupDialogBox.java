@@ -11,9 +11,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopITAdministrationAsync;
-import de.hdm.shared.ShopItAdministration;
-import de.hdm.shared.ShopItAdministrationAsync;
-import de.hdm.shared.bo.*;
+import de.hdm.shared.bo.Team;
 
 /*
  * Die Klasse <code>LeaveGroupDialogBox</code> dient der Darstellung einer Dialogbox, die

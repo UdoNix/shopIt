@@ -59,11 +59,11 @@ public class PersonForm extends VerticalPanel{
 		HorizontalPanel personButtonsPanel = new HorizontalPanel();
 		personGrid.setWidget(4, 0, personButtonsPanel);
 		
-		changeButton.addClickHandler(new ChangeClickHandler());
+		// changeButton.addClickHandler(new ChangeClickHandler());
 		changeButton.setEnabled(true);
 		personButtonsPanel.add(changeButton);
 		
-		deleteButton.addClickHandler(new DeleteClickHandler());
+		// deleteButton.addClickHandler(new DeleteClickHandler());
 		deleteButton.setEnabled(false);
 		personButtonsPanel.add(deleteButton);
 		
@@ -80,8 +80,8 @@ public class PersonForm extends VerticalPanel{
 				Window.alert("Fehlgeschlagen");
 			}
 			else{
-				listenVerwaltung.delete(personToDisplay
-						, new deletePersonChallback(personToDisplay));
+//				listenVerwaltung.delete(personToDisplay
+//						, new deletePersonChallback(personToDisplay));
 			}
 		}
 	}
@@ -101,7 +101,7 @@ public class PersonForm extends VerticalPanel{
 			public void onSuccess(Void result){
 				if(person != null){
 					setSelected(null);
-					ctvm.removePerson(person);
+//					ctvm.removePerson(person);
 				}
 			}
 			
@@ -113,7 +113,7 @@ public class PersonForm extends VerticalPanel{
 				if(personToDisplay != null){
 					personToDisplay.setFirstName(firstNameTextBox.getText());
 					personToDisplay.setLastName(lastNameTextBox.getText());
-					personToDisplay.save(personToDisplay , new SaveCallBack());
+//					personToDisplay.save(personToDisplay , new SaveCallBack());
 				}
 				else{
 					Window.alert("Fehlgeschlagen.");
@@ -128,7 +128,7 @@ public class PersonForm extends VerticalPanel{
 			
 			//Die Namensänderung wird zum Personenbaum  weitergeleitet.
 			public void onSuccess(Void result){
-				ctvm.updatePerson(personToDisplay);
+//				ctvm.updateerson(personToDisplay);
 			}
 		}	
 	}

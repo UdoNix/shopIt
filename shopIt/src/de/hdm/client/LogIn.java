@@ -1,30 +1,35 @@
 package de.hdm.client;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.resources.client.ClientBundle.Source;
+import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.hdm.shared.LoginService;
-import de.hdm.shared.LoginServiceAsync;
-import de.hdm.shared.ShopITAdministrationAsync;
+import de.hdm.client.gui.TeamView;
 import de.hdm.shared.bo.Person;
 
 //author emily kretzschmar
 
 public class LogIn implements EntryPoint{
 
-	ShopITAdministrationAsync shopITVerwaltung = ClientsideSettings.getShopItAdministrationAsync();
+	//ShopITAdministrationAsync shopITVerwaltung = ClientsideSettings.getShopItAdministrationAsync();
+	
+	static interface BankTreeResources extends CellTree.Resources {
+		@Source("cellTreeClosedItem.gif")
+	    ImageResource cellTreeClosedItem();
+
+		@Source("cellTreeOpenItem.gif")
+	    ImageResource cellTreeOpenItem();
+
+		@Source("BankCellTree.css")
+	    CellTree.Style cellTreeStyle(); 
+	}
 	
 	private LoginInformation loginInfo = null;
 	Person p = new Person();
@@ -47,23 +52,29 @@ public class LogIn implements EntryPoint{
     private Anchor signOutLink = new Anchor ("Ausloggen");
     private Button buttonlogin = new Button ("Login");
     
+    @Override
 	public void onModuleLoad() {
-		LoginServiceAsync loginService = GWT.create(LoginService.class);
-		loginService.login(GWT.getHostPageBaseURL()+ "ShopIt.html", new AsyncCallback<LoginInformation>() {
-			public void onFailure (Throwable caught) {
-				RootPanel.get().add(new HTML(caught.toString()));
-			}
-			
-			public void onSuccess (LoginInformation result ) {
-				loginInfo = result;
-				if (loginInfo.isLoggedIn()) {
-					loadPersonAbruf(result);
-				} else {
-					loadLogin();
-					
-				}
-			}
-		});
+		//LoginServiceAsync loginService = GWT.create(LoginService.class);
+		
+		//RootPanel.get().add (new ShopView());
+		RootPanel.get().add( new TeamView());
+		
+		
+//		loginService.login(GWT.getHostPageBaseURL()+ "ShopIt.html", new AsyncCallback<LoginInformation>() {
+//			public void onFailure (Throwable caught) {
+//				RootPanel.get().add(new HTML(caught.toString()));
+//			}
+//			
+//			public void onSuccess (LoginInformation result ) {
+//				loginInfo = result;
+//				if (loginInfo.isLoggedIn()) {
+//					loadPersonAbruf(result);
+//				} else {
+//					loadLogin();
+//					
+//				}
+//			}
+//		});
 	}
 	
 	/*private void loadLogin () {

@@ -1,12 +1,12 @@
 package de.hdm.client.gui;
 
 /**
- * Prüfen ob Klasse benötigt wird.
+ * Prï¿½fen ob Klasse benï¿½tigt wird.
  */
 
 /**
  * Die Klasse <code>TeamCellTreeTab</code> bildet alle Gruppen eines Users ab,
- * sodass diese in einem StackPanel im TreeViewModel aufgerufen werden können.
+ * sodass diese in einem StackPanel im TreeViewModel aufgerufen werden kï¿½nnen.
  * @author Alexander Gerlings
  * 
  * Aufbau und Funktionen @author Thies
@@ -20,6 +20,7 @@ import java.util.Vector;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dev.util.collect.HashMap;
+import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.resources.client.ClientBundle.Source;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.cellview.client.CellTree;
@@ -113,7 +114,7 @@ public class TeamCellTreeTab implements TreeViewModel{
 	
 	public void setSelectedTeam(Team t) {
 		if(t != null) {
-			editor.showTeam(t);
+//			editor.showTeam(t);
 		}
 	}
 	
@@ -123,17 +124,24 @@ public class TeamCellTreeTab implements TreeViewModel{
 	
 	public void setSelectedPerson(Person p) {
 		if (p != null) {
-			editor.showPerson(p);
+//			editor.showPerson(p);
 		}
 	}
 	
 	public Person getSelectedPerson() {
-		return selectedPerson;
+//		return selectedPerson;
+		return null;
 	}
 	
 	public interface CellTreeResources extends CellList.Resources {
 		@Source("ShopItCellTree.css")
 		CellTree.Style cellTreeStyle();
+		
+		@Source("cellTreeClosedItem.jpg")
+		ImageResource cellTreeClosedItem();
+		
+		@Source("cellTreeOpenItem.jpg")
+		ImageResource cellTreeOpenItem();
 	}
 
 	@Override

@@ -1,10 +1,11 @@
 package de.hdm.server.db;
 
 import java.sql.Connection;
-	import java.sql.ResultSet;
-	import java.sql.SQLException;
-	import java.sql.Statement;
-	import java.util.Vector;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Vector;
 
 import de.hdm.shared.bo.Shop;
 
@@ -136,13 +137,19 @@ public Shop insert(Shop s) {
        
       s.setId(rs.getInt("maxid") + 1);
 
-      stmt = con.createStatement();
-
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO Shop (id, name, street, plz, city) " + "VALUES ("
-	          + s.getId() + "," + s.getName() + ","+ s.getPostalCode() + "," + s.getCity() + ","+ s.getStreet()  +")");
+      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO SHOP (id, name, postalCode, city, street) VALUES (?, ?, ?, ?, ?)");
+      stmt2.setInt(1, s.getId());
+      stmt2.setString(2, s.getName());
+      stmt2.setString(3, s.getPostalCode());
+      stmt2.setString(4, s.getCity());
+      stmt2.setString(5, s.getStreet());
+     
+      stmt2.execute();
       
-  
+      
+      
+      
   	
   
     }
@@ -164,8 +171,8 @@ public Shop insert(Shop s) {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE list " + "SET name=\"" + s.getName()
-      + "\", " + "plz=\"" + s.getPostalCode()+"\", "+ "city=\"" + s.getCity() +"\", "+ "street=\"" + s.getStreet()+"\", "+"WHERE id=" + s.getId());
+      stmt.executeUpdate("UPDATE shop SET name=\"" + s.getName()
+      + "\", " + "postalCode=\"" + s.getPostalCode()+"\", "+ "city=\"" + s.getCity() +"\", "+ "street=\"" + s.getStreet()+"\" WHERE id=" + s.getId());
 
     }
     catch (SQLException e2) {

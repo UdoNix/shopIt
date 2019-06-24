@@ -139,12 +139,12 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		}	
 		
 		//Löschen von Membershipobjekten in denen der zu löschende Anwender auftritt.
-		Vector<Membership> memberships = this.mMapper.getAllMembershipsOf(personId);
-		if (memberships != null){
-			for (Membership m : memberships){
-				this.delete(personId);
-			}
-		}
+//		Vector<Membership> memberships = this.mMapper.getAllMembershipsOf(personId);
+//		if (memberships != null){
+//			for (Membership m : memberships){
+//				this.delete(personId);
+//			}
+//		}
 		
 		
 		
@@ -313,8 +313,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	   */
 	
 	
-	//Erstellen einer Gruppe mit Name, Anwender 
-	public Team createTeam(String name, Person p) throws IllegalArgumentException {
+	//Erstellen einer Gruppe mit Name 
+	public Team createTeam(String name) throws IllegalArgumentException {
 		Team t = new Team();
 		t.setName(name); 
 		
@@ -336,7 +336,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 //		
 //		this.mMapper.insert(m);
 		
-		this.createMembership(p, t);
+		
 		//Speichern des Gruppe-Objekts in der DB.
 		return t; 
 		
@@ -678,6 +678,36 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		
 		
 
+		return null;
+	}
+
+	@Override
+	public Responsibility createResponsibility(Person p, Shop s, Item i) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Membership createMembership(int personId, int teamId) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setTeam(Team t) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Vector<Item> getItemsByTeamWithTime(Team t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Vector<Item> getItemsByTeamAndShopWithTime(Shop s, Team t) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

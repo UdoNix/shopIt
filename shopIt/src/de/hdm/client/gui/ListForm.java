@@ -1,7 +1,6 @@
 package de.hdm.client.gui;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -9,9 +8,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.shared.bo.List;
-import de.hdm.shared.bo.Item;
 
-@
+
 public class ListForm extends Form{
 	
 	/*
