@@ -29,7 +29,16 @@ import de.hdm.shared.bo.Team;
 		
 
 		
-		private CellTreeViewModel ViewModel = null;
+		public TeamListCellTreeTab getTeamModel() {
+			return teamModel;
+		}
+
+		public void setTeamModel(TeamListCellTreeTab teamModel) {
+			this.teamModel = teamModel;
+		}
+
+		private CellTreeViewModel viewModel = null;
+		private TeamListCellTreeTab teamModel = null;
 
 		
 		private Team selectedTeam = null; 
@@ -42,15 +51,27 @@ import de.hdm.shared.bo.Team;
 
 		
 		public CellTreeViewModel getViewModel() {
-			return ViewModel;
+			return viewModel;
 		}
 
 		public void setViewModel(CellTreeViewModel viewModel) {
-			ViewModel = viewModel;
+			this.viewModel = viewModel;
 		}
 
 		Team teamToDisplay = null;
 		Person personToDisplay = null;
+		
+		void setSelected(Team t){
+			if(t != null){
+				teamToDisplay = t;
+				deleteButton.setEnabled(true);
+				nameTextBox.setText(teamToDisplay.getName());
+			}
+			else{
+				teamToDisplay = null;
+				deleteButton.setEnabled(false);
+			}
+		}
 		
 
 		
@@ -128,9 +149,9 @@ import de.hdm.shared.bo.Team;
 				if (selectedTeam == null) {
 					Window.alert("kein Team ausgewählt");
 				} else {
-					listenVerwaltung.delete().getTeamId();
+					listenVerwaltung.delete(teamToDisplay,
 							new deleteTeamCallback(
-									teamToDisplay);
+									teamToDisplay));
 				}
 				
 			}
@@ -152,7 +173,7 @@ import de.hdm.shared.bo.Team;
 			public void onSuccess(Void result) {
 				if (team != null) {
 					setSelectedTeam(null);
-					ViewModel.delete(team);
+					teamModel.removeTeam(team);
 				}
 			}
 			
@@ -190,20 +211,21 @@ import de.hdm.shared.bo.Team;
 				if (selectedTeam == null) {
 					Window.alert("Kein Team ausgewählt");
 				} else {
-					listenVerwaltung.delete(selectedMembership, new deleteMembershipCallback());
+					listenVerwaltung.delete(selectedMembership, new DeleteMembershipCallback(selectedTeam));
 							
 				}
 				}
 				
 			}
 		
-		class deleteMembershipCallback implements AsyncCallback<Void> {
+		class DeleteMembershipCallback implements AsyncCallback<Void> {
 
-			Membership membership = null;
+			Team t = null;
 
-			void deleteMemebershipCallback(Membership m) {
-				membership = m;
-			}
+
+			 DeleteMembershipCallback(Team t) {
+				this.t = t;
+			 }
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -212,9 +234,8 @@ import de.hdm.shared.bo.Team;
 
 			@Override
 			public void onSuccess(Void result) {
-				if (membership != null) {
-					setSelectedMembership(null);
-					ViewModel.delete(membership);
+				if (t != null) {
+					teamModel.delete(t);
 				}
 			}
 		}
@@ -270,7 +291,7 @@ import de.hdm.shared.bo.Team;
 			@Override
 			public void onSuccess(Void result) {
 				
-				CellTreeViewModel.updateTeam(teamToDisplay);
+				teamModel.updateTeam(teamToDisplay);
 			}
 		}
 			

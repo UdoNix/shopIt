@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ReportGeneratorAsync;
+import de.hdm.shared.bo.Team;
 import de.hdm.shared.report.HTMLReportWriter;
 import de.hdm.shared.report.ShopStatisticReport;
 import de.hdm.shared.report.TeamStatisticReport;
@@ -23,7 +24,7 @@ ReportGeneratorAsync reportverwaltung = ClientsideSettings.getReportGenerator();
 	public TimeReportCallback(String string, Date firstDate, Date lastDate) {
 		
 			
-			reportverwaltung.createTimeReport(firstDate, lastDate, new ShopStatisticReport());
+			reportverwaltung.createTeamStatisticReport(Team t, Date firstDate, Date lastDate);
 			
 			
 			

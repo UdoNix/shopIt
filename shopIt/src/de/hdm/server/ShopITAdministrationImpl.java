@@ -636,6 +636,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 */
 	public Vector<Membership> getAllMembershipOfPerson(Person p) throws IllegalArgumentException{
 		return this.mMapper.getAllMembershipsOf(p);
+
 	}
 	/*
 	 * eine Gruppenmitgliedschaft ï¿½ndern
@@ -670,7 +671,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	@Override
 	public Vector<Item> getItemsbyTeamAndShop(Shop shop) throws IllegalArgumentException {
-		//TODO Parameter Team muss noch übergeben werden
+		//TODO Parameter Team muss noch ï¿½bergeben werden
 		
 
 		//return this.iMapper.getItemsbyTeamAndShop(teamId, shopId);

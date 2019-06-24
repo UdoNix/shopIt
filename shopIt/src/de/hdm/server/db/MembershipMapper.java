@@ -275,6 +275,8 @@ import de.hdm.shared.bo.Person;
 
 			    // Ergebnisvektor zurückgeben
 			    return result;
-			  }		   
+			  }
+
+			   
 	}
 

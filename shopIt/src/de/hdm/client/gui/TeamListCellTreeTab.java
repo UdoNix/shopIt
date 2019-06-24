@@ -18,13 +18,14 @@ import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.BusinessObject;
 import de.hdm.shared.bo.List;
+import de.hdm.shared.bo.Membership;
 import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Team;
 
 /**
  * Die Klasse <code>TeamListCellTreeTab</code> stellt alle Einkaufslisten eines Nutzers da.
- * Und wird im Cell Tree Menü dargestellt
- * @author Alexander Gerlings
+ * Und wird im Cell Tree Menï¿½ dargestellt
+ * @author Alexander Gerlings, Ines Werner
  *
  */
 
@@ -33,7 +34,7 @@ public class TeamListCellTreeTab implements TreeViewModel {
 	private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
 	
 	private ListForm listForm;
-	private TeamForm teamForm;
+	private TeamView teamView;
 	
 	private Team selectedTeam;
 	private List selectedList;
@@ -45,17 +46,17 @@ public class TeamListCellTreeTab implements TreeViewModel {
 	
 	private CellTreeViewModel cellTreeViewModel;
 	
-	private ArrayList<List> teamList;
+	private java.util.List<List> teamList;
 	
 	/*
-	 * Durch den <code>ListDataProvider</code> werden alle Änderungen aktualisiert.
+	 * Durch den <code>ListDataProvider</code> werden alle ï¿½nderungen aktualisiert.
 	 * 
 	 */
 	
 	//private ListDataProvider<List> teamListDataProviders;
 	//Unten verwenden
 	private ListDataProvider<Team> teamDataProviders;
-	
+	private ListDataProvider<Membership> membershipDataProviders;
 	
 	/*
 	 * in der Map wird die Liste mit den Gruppen verbunden, die Werte werden durch einzigartige Keys
@@ -65,16 +66,16 @@ public class TeamListCellTreeTab implements TreeViewModel {
 	
 	//private Map<List, ListDataProvider<Team>> teamDataProvider = null;
 	private Map<Team, ListDataProvider<List>> teamListDataProvider = null;
-	
+	private Map <Person, ListDataProvider<Membership>> personMembershipDataProvider = null;
 	private BusinessObjectKeyProvider boKeyProvider = null;
 	private SingleSelectionModel<BusinessObject> selectionModel = null;
 	
 	/**
 	 * Die Klasse BusinessObjectKeyProvider bildet BusinessObjects auf eindeutige
-	 * Zahlenobjekte ab, welche dann als Schlüssel für Baumknoten dienen.
+	 * Zahlenobjekte ab, welche dann als Schlï¿½ssel fï¿½r Baumknoten dienen.
 	 * 
 	 * Da das Teamobject eine positive Zahl und das Listenobject eine negative Zahl
-	 * ist, können diese unterschieden werden, auch wenn diese die selbe ID haben.
+	 * ist, kï¿½nnen diese unterschieden werden, auch wenn diese die selbe ID haben.
 	 * 
 	 * Orientiert an @author Thies
 	 * 
@@ -107,7 +108,7 @@ public class TeamListCellTreeTab implements TreeViewModel {
 				setSelectedList((List) selection);
 			}
 			/*
-			 * Müssen die Tabs noch geleert werden???
+			 * Mï¿½ssen die Tabs noch geleert werden???
 			 * 
 			 */
 			//cellTreeViewModel.clearSelectionModelAccount();
@@ -124,14 +125,15 @@ public class TeamListCellTreeTab implements TreeViewModel {
 		selectionModel.addSelectionChangeHandler(new SelectionChangeEventHandler());
 		
 		teamListDataProvider = new HashMap<Team, ListDataProvider<List>>();
+		personMembershipDataProvider = new HashMap<Person, ListDataProvider<Membership>>();
 	}
 	
 	void setListForm(ListForm lf) {
 		listForm = lf;
 	}
 	
-	void setTeamForm(TeamForm tf) {
-		teamForm = tf;
+	void setTeamForm(TeamView tf) {
+		teamView = tf;
 	}
 	
 	public Team getSelectedTeam() {
@@ -140,7 +142,7 @@ public class TeamListCellTreeTab implements TreeViewModel {
 	
 	void setSeletedTeam(Team t) {
 		selectedTeam = t;
-		teamForm.setSelected(t);
+		teamView.setSelected(t);
 		selectedList = null;
 		listForm.setSelected(null);
 	}
@@ -168,7 +170,7 @@ public class TeamListCellTreeTab implements TreeViewModel {
 				public void onSuccess(Team team) {
 					// TODO Auto-generated method stub
 					selectedTeam = team;
-					teamForm.setSelected(team);
+					teamView.setSelected(team);
 				}
 				
 				
@@ -183,7 +185,7 @@ public class TeamListCellTreeTab implements TreeViewModel {
 	}
 	
 	void updateTeam(Team team) {
-		List<Team> teamList = teamDataProviders.getList();
+		java.util.List<Team> teamList = teamDataProviders.getList();
 		int i = 0;
 		for(Team t : teamList) {
 			if(t.getId() == team.getId()) {
@@ -243,7 +245,7 @@ public class TeamListCellTreeTab implements TreeViewModel {
 		@Override
 		public void onSuccess(Team result) {
 			// TODO Auto-generated method stub
-			List<List> lists = teamListDataProvider.get(team).getList();
+			java.util.List<List> lists = teamListDataProvider.get(team).getList();
 			
 			for(int i = 0; i<lists.size(); i++) {
 				if (list.getId() == lists.get(i).getId()) {
@@ -252,6 +254,14 @@ public class TeamListCellTreeTab implements TreeViewModel {
 				}
 			}
 		}
+		
+		/**Diese Methode lÃ¶scht nicht das Team, sondern nur die Membership des Users zum ausgewÃ¤hlten Team. **/
+		public void delete(Team t){
+			int teamId = t.getId();
+			int userId = user.getId();
+			java.util.List<List> lists = membershipDataProviders.getList();
+			
+		}
 	}
 
 	
@@ -259,9 +269,8 @@ public class TeamListCellTreeTab implements TreeViewModel {
 		return this.selectionModel;
 	}
 	
-//	import java.util.List;
 //	public void updateList(List list) {
-//		List<List> teamList = teamListDataProviders.getList();
+//		java.util.List<List> teamList = teamListDataProviders.getList();
 //		int i = 0;
 //		for(List l : teamList) {
 //			if(l.getId() == list.getId()) {
