@@ -11,6 +11,7 @@ import de.hdm.shared.ReportGeneratorAsync;
 import de.hdm.shared.bo.Shop;
 import de.hdm.shared.bo.Team;
 import de.hdm.shared.report.HTMLReportWriter;
+import de.hdm.shared.report.Paragraph;
 import de.hdm.shared.report.TeamAndShopStatistikReport;
 
 public class ShopTimeReportCallback extends Widget  {
@@ -40,6 +41,8 @@ public class ShopTimeReportCallback extends Widget  {
 				append(hrw.getReportText());
 			}
 		}
+
+
 
 		
 	}
