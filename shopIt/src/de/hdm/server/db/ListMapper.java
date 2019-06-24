@@ -2,7 +2,8 @@ package de.hdm.server.db;
 
 
 	import java.sql.Connection;
-	import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 	import java.sql.SQLException;
 	import java.sql.Statement;
 	import java.util.Vector;
@@ -201,8 +202,12 @@ public class ListMapper {
 	      stmt = con.createStatement();
 
 	      // Es erfolgt die tatsächliche Einfuegeoperation
-	      stmt.executeUpdate("INSERT INTO list (id, creationDate, changeDate, name, teamId) " + "VALUES ("
-	          + l.getId() + ", CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '" + l.getName() + "',"+ l.getTeamId() +")");
+	     
+	      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO list (id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, name, teamId) VALUES (?, ?, ?, ?, ?)");
+	      
+	    		stmt2.setInt(1, l.getId());
+	    		stmt2.setString(4, l.getName());
+	    		stmt2.setInt(5, l.getId());
 	    }
 	  }
 	  catch (SQLException e2) {

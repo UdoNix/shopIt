@@ -50,7 +50,7 @@ public Item findByKey (int id) {
 		//Anlegen einen leeren SQL-Statement
 		Statement stmt =con.createStatement();
 		// Ausfüllen des Statements, als Query an die DB schicken
-		ResultSet rs =stmt.executeQuery("SELECT * from item WHERE item.id =" + id );
+		ResultSet rs =stmt.executeQuery("SELECT * from item WHERE item.id = " + id );
 		
 		//Da id Primärschlüssel ist, kann nur ein Tupel zurueckgeg werden. 
 		//Es wird geprueft, ob ein Ergebnis vorliegt.
@@ -132,7 +132,7 @@ public Vector<Item> findByList (List l){
 	      Statement stmt = con.createStatement();
 
 	      ResultSet rs = stmt.executeQuery("SELECT * FROM Item "
-	          + "WHERE listId=" + listId + " ORDER BY id");
+	          + "WHERE listId= " + listId + " ORDER BY id");
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt erstellt.
 	      while (rs.next()) {
@@ -230,8 +230,8 @@ public Item insert(Item i) {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE list " + "SET id=\"" + i.getId()
-       + "\", teamId=\"" + i.getTeamId()+ i.getShopId()+ "\", " + "unitId=\"" + i.getUnitId()+ "\", " + "articleId=\"" + i.getArticleId()+ "\", " + "isStatus=\"" + "\", " + "listid=\"" + i.getListId()+ i.isStatus()+ "\", " + "isFavorit=\"" + i.isFavorit()+"\", "+ " WHERE id=" + i.getId());
+      stmt.executeUpdate("UPDATE list " + "SET id= \"" + i.getId()
+       + "\", teamId= \"" + i.getTeamId()+ i.getShopId()+ "\", " + "unitId= \"" + i.getUnitId()+ "\", " + "articleId= \"" + i.getArticleId()+ "\", " + "isStatus= \"" + "\", " + "listid= \"" + i.getListId()+ i.isStatus()+ "\", " + "isFavorit= \"" + i.isFavorit()+"\", "+ " WHERE id= " + i.getId());
 
     }
     catch (SQLException e2) {
@@ -255,7 +255,7 @@ public Item insert(Item i) {
      try {
        Statement stmt = con.createStatement();
 
-       stmt.executeUpdate("DELETE FROM item " + "WHERE id=" + i.getId());
+       stmt.executeUpdate("DELETE FROM item " + "WHERE id= " + i.getId());
 
      }
      catch (SQLException e2) {
@@ -365,7 +365,7 @@ public Vector<Item> getItemsbyTeamAndShop(int teamId, int shopId) {
 
 	      ResultSet rs = stmt.executeQuery("SELECT item.id AS id,  COUNT(item.id) AS count, responsibility.shopId AS shopId, teamId FROM item INNER JOIN responsibility"
 	      		+ "ON item.id = responsibility.itemId"
-	      +"WHERE item.teamID=" + teamId + " AND item.shopId=" + shopId);
+	      +"WHERE item.teamID= " + teamId + " AND item.shopId= " + shopId);
 	      				
 	      
 	      while (rs.next()) {
@@ -400,7 +400,7 @@ public Vector<Item> getItemsByTeamAndShopWithTime (int teamId, int shopId, Date 
 	      ResultSet rs = stmt.executeQuery("SELECT item.id, COUNT(item.id) AS 'count', shop.Id AS 'shopId', team.id AS 'team.id', item.changeDate"
 	      		+ " FROM item INNER JOIN responsibility"
 		      		+ "ON item.id = responsibility.itemId"
-		  	      +"WHERE item.teamId=" + teamId + " AND responsibility.shopId=" + shopId + "AND item.changeDate BETWEEN "+ firstDate +" AND "+ lastDate +""
+		  	      +"WHERE item.teamId= " + teamId + " AND responsibility.shopId= " + shopId + "AND item.changeDate BETWEEN "+ firstDate +" AND "+ lastDate +""
 		  		+ "GROUP BY item.id ORDER BY COUNT(item.articleId) DESC");
 	      				
 	      

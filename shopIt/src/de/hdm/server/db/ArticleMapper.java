@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 
+import com.google.cloud.sql.jdbc.PreparedStatement;
+
 import de.hdm.shared.bo.Article;
 
 public class ArticleMapper {
@@ -38,13 +40,13 @@ public static ArticleMapper articleMapper() {
 
 public Article findByKey (int id) {
 	//DB-Verbindung holen
-	Connection con =DBConnection.connection();
+	Connection con = DBConnection.connection();
 	
 	try {
 		//Anlegen einen leeren SQL-Statement
 		Statement stmt =con.createStatement();
 		// Ausfüllen des Statements, als Query an die DB schicken
-		ResultSet rs =stmt.executeQuery("SELECT * from article WHERE article.id =" + id );
+		ResultSet rs =stmt.executeQuery("SELECT * from article WHERE article.id = " + id );
 		
 		//Da id Primärschlüssel ist, kann nur ein Tupel zurueckgeg werden. 
 		//Es wird geprueft, ob ein Ergebnis vorliegt.
@@ -127,11 +129,13 @@ public Article insert(Article a) {
        
       a.setId(rs.getInt("maxid") + 1);
 
-      stmt = con.createStatement();
+    // Es erfolgt die tatsächliche Einfuegeoperation
 
-      // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO article (id, creationDate, changeDate, name) " + "VALUES ("
-          + a.getId() + ", CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '" + a.getName() + "')");
+      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO article (id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, name) VALUES (?, ?, ?, ?)");
+      stmt2.setInt(1, a.getId());
+      stmt2.setString(4, a.getName());
+      
+      
     }
   }
   catch (SQLException e2) {
@@ -154,6 +158,7 @@ public Article insert(Article a) {
       stmt.executeUpdate("UPDATE article SET name = '" + a.getName() + "', changeDate = CURRENT_TIMESTAMP "
       		+ "WHERE id= " + a.getId());
 
+      
     }
     catch (SQLException e2) {
       e2.printStackTrace();
@@ -173,7 +178,7 @@ public Article insert(Article a) {
      try {
        Statement stmt = con.createStatement();
 
-       stmt.executeUpdate("DELETE FROM article " + "WHERE id=" + a.getId());
+       stmt.executeUpdate("DELETE FROM article " + "WHERE id= " + a.getId());
 
      }
      catch (SQLException e2) {
