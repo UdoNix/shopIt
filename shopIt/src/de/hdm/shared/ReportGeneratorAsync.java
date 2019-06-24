@@ -1,6 +1,11 @@
 package de.hdm.shared;
 
+import java.util.Date;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
+
+import de.hdm.shared.bo.Shop;
+import de.hdm.shared.report.ShopStatisticReport;
 
 /**
  * Das asynchrone Gegenst�ck des Interface ReportGenerator. Es
@@ -17,5 +22,10 @@ public interface ReportGeneratorAsync {
 	void getAllTeams(GetAllTeamsCallback getAllTeamsCallback);
 
 	void getAllShops(GetAllShopsCallback getAllShopsCallback);
+
+
+	
+
+
 
 }
