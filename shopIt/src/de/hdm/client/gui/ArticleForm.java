@@ -27,7 +27,7 @@ import de.hdm.shared.bo.Article;
 
 public class ArticleForm extends VerticalPanel {
 	
-	ShopITAdministrationAsync articleVerwaltung = ClientsideSettings.getShopItAdministrationAsync();
+	ShopITAdministrationAsync articleVerwaltung = ClientsideSettings.getShopItAdministration();
 	
 	
 	

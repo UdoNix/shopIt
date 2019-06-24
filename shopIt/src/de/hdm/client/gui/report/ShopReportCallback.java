@@ -22,7 +22,7 @@ public class ShopReportCallback extends Widget {
 	public ShopReportCallback(Shop shop) {
 		
 			
-			reportverwaltung.createAllArticlesOfShopReport(shop);
+			//reportverwaltung.createAllArticlesOfShopReport(shop);
 			
 			
 			
@@ -42,7 +42,7 @@ public class ShopReportCallback extends Widget {
 				}else {
 					HTMLReportWriter hrw = new HTMLReportWriter();
 					hrw.process(result);
-					append(hrw.getReportText());
+					//append(hrw.getReportText());
 				}
 			}
 

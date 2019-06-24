@@ -3,6 +3,7 @@ package de.hdm.shared;
 import java.util.Vector;
 
 import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import de.hdm.shared.bo.*;
 
@@ -10,7 +11,7 @@ import de.hdm.shared.bo.*;
  * Synchrone Schnittstelle fï¿½r eine RPC-fï¿½hige Klasse zur Verwaltung.
  *
  */
-
+@RemoteServiceRelativePath("shop")
 public interface ShopITAdministration extends RemoteService {
 	
 	/*
@@ -76,7 +77,7 @@ public interface ShopITAdministration extends RemoteService {
 	public void delete(Item i) throws IllegalArgumentException;
 	
 	//Eine Gruppe mit Name, Person erstellen.
-	public Team createTeam(String name, Person p) throws IllegalArgumentException;
+	public Team createTeam(String name) throws IllegalArgumentException;
 	
 	//Auslesen einer Gruppe anhand seiner Gruppe-Id.
 	public Team getTeamById(int id) throws IllegalArgumentException;
@@ -165,13 +166,13 @@ public interface ShopITAdministration extends RemoteService {
 	//eine Gruppenmitgliedschaft lï¿½schen.
 	public void delete(Membership m) throws IllegalArgumentException;
 	
-	//Auslesen aller eingekauften Artikeln von einem Händler
+	//Auslesen aller eingekauften Artikeln von einem Hï¿½ndler
 	public Vector<Item> getItemsbyTeamAndShop(Shop shop) throws IllegalArgumentException;
 	
-	//Setzen des zugehörigen Team-Objekts. 
+	//Setzen des zugehï¿½rigen Team-Objekts. 
 	public void setTeam(Team t) throws IllegalArgumentException;
 	
-	//Auslesen aller Einträge eines Teams mit Zeitangabe.
+	//Auslesen aller Eintrï¿½ge eines Teams mit Zeitangabe.
 	public Vector<Item> getItemsByTeamWithTime(Team t);
 
 	public Vector<Item> getItemsByTeamAndShopWithTime(Shop s, Team t);

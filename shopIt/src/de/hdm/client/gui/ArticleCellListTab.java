@@ -29,24 +29,24 @@ public class ArticleCellListTab {
 	private ArticleKeyProvider articleKeyProvider = null;
 	
 	private SingleSelectionModel<Article> selectionModel = null;
-	private CellListResources cellListRes = GWT.create(CellListResources.class);
+//	private CellListResources cellListRes = GWT.create(CellListResources.class);
 	
 	public ArticleCellListTab() {
-		articleKeyProvider = new ArticleKeyProvider();
-		selectionModel = new SingleSelectionModel<Article>(articleKeyProvider);
-		selectionModel.addSelectionChangeHandler(new SelectionChangeEventHandler());
-		articleCell = new CellList<Article>(new ArticleCell(), cellListRes, articleKeyProvider);
-		articleDataProvider = new ListDataProvider<Article>();
-		articleDataProvider.addDataDisplay(articleCell);
-		articleCell.setSelectionModel(selectionModel);
+//		articleKeyProvider = new ArticleKeyProvider();
+//		selectionModel = new SingleSelectionModel<Article>(articleKeyProvider);
+//		selectionModel.addSelectionChangeHandler(new SelectionChangeEventHandler());
+//		articleCell = new CellList<Article>(new ArticleCell(), cellListRes, articleKeyProvider);
+//		articleDataProvider = new ListDataProvider<Article>();
+//		articleDataProvider.addDataDisplay(articleCell);
+//		articleCell.setSelectionModel(selectionModel);
 		
 	}
 	
-	public interface CellListResources extends CellList.Resources {
-		@Override
-		@Source("ShopItCellTree.css")
-		CellList.Style cellListStyle();
-	}
+//	public interface CellListResources extends CellList.Resources {
+//		@Override
+//		@Source("ShopItCellTree.css")
+//		CellList.Style cellListStyle();
+//	}
 	
 	private class ArticleKeyProvider implements ProvidesKey<Article> {
 

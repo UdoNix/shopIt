@@ -53,7 +53,7 @@ public class TimeReportForm extends HorizontalPanel{
 		endDateBox.addValueChangeHandler(new EndDate());
 		
 		startButton.addClickHandler(new StartReportClickHandler());
-		reportVerwaltung.getAllTeams(new GetAllTeamsCallback());
+//		reportVerwaltung.getAllTeams(new GetAllTeamsCallback());
 		
 		this.add(timeGrid);
 	

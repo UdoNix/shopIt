@@ -6,15 +6,10 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.hdm.shared.bo.Shop;
 import de.hdm.shared.bo.Team;
-<<<<<<< HEAD
 import de.hdm.shared.report.AllArticlesOfShopReport;
 import de.hdm.shared.report.Report;
-import de.hdm.shared.report.ShopStatisticReport;
 import de.hdm.shared.report.TeamAndShopStatistikReport;
 import de.hdm.shared.report.TeamStatisticReport;
-=======
-import de.hdm.shared.report.TeamAndShopStatistikReport;
->>>>>>> refs/heads/Larisa
 
 /**
  * Das asynchrone Gegenst�ck des Interface ReportGenerator. Es
@@ -43,7 +38,7 @@ public interface ReportGeneratorAsync {
 
 
 
-	void createTeamAndShopStatistikReport(Shop s, Team t, Date firstdate, Date lastdate, AsyncCallback<TeamAndShopStatistikReport> callback);
+	//void createTeamAndShopStatistikReport(Shop s, Team t, Date firstdate, Date lastdate, AsyncCallback<TeamAndShopStatistikReport> callback);
 
 	
 

@@ -14,213 +14,171 @@ import de.hdm.client.ClientsideSettings;
 
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.Shop;
-import de.hdm.shared.bo.Team;
 
-
-
-public class ShopView extends VerticalPanel{
-	//@emily kretzschmar
+public class ShopView extends VerticalPanel {
+	// @emily kretzschmar
 
 	private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
-	
-	
+
 	private Shop selectedShop = null;
-	
-public Shop getSelctedShop() {
-	return selectedShop;
-}
 
+	public Shop getSelctedShop() {
+		return selectedShop;
+	}
 
-
-		
 	Shop shopToDisplay = null;
-	
+
 	TextBox nameTextBox = new TextBox();
 	TextBox postalCodeTextBox = new TextBox();
 	TextBox cityTextBox = new TextBox();
 	TextBox streetTextBox = new TextBox();
-	
-	 Button deleteButton = new Button("Shop löschen");
-	 Button newButton = new Button("Als neuer Shop speichern");
-	 Button saveButton = new Button ("Speichern");
 
-	 
-	 public void onLoad() {
-		 
-	 Grid shopGrid = new Grid (7,2);
-	 this.add(shopGrid);
-		
-	 deleteButton.addClickHandler(new DeleteClickHandler());
-	 deleteButton.setEnabled(false);
-     shopGrid.setWidget(4, 1, deleteButton);
-     
-     Label name = new Label ("Name:");
-     shopGrid.setWidget(1, 0, name);
-	 shopGrid.setWidget(1,1, nameTextBox );
-		
-	 Label plz = new Label ("Postleizahl:");
-	 shopGrid.setWidget (3,1, plz);
-	 shopGrid.setWidget(3,2,postalCodeTextBox);
-	 
-	 Label city = new Label ("City:");
-	 shopGrid.setWidget (4,1, city);
-	 shopGrid.setWidget(4,2, cityTextBox);
-	 
-	 Label street = new Label ("Street:");
-	 shopGrid.setWidget (2,1, street);
-	 shopGrid.setWidget(2,2, streetTextBox);
-	 
-	 newButton.addClickHandler(new NewClickHandler());
-	 newButton.setEnabled(false);
-     shopGrid.setWidget(5, 1, newButton);
-     
- 	saveButton.addClickHandler(new ChangeClickHandler());
-	saveButton.setEnabled(true);
-	shopGrid.setWidget(6,1,saveButton);
-	
-	deleteButton.addClickHandler(new DeleteClickHandler());
-	deleteButton.setEnabled(false);
-	shopGrid.setWidget(7, 1, deleteButton);
-	 
-	 }
-		private class DeleteClickHandler implements ClickHandler {
+	Button deleteButton = new Button("Shop löschen");
+	Button newButton = new Button("Als neuer Shop speichern");
+	Button saveButton = new Button("Speichern");
 
-			
-			public void onClick(ClickEvent event) {
-				if (selectedShop == null) {
-					Window.alert("kein Shop ausgewählt");
-				} else {
-					listenVerwaltung.delete( shopToDisplay, new deleteShopCallback(shopToDisplay));
-				}
-				
-			}
-		}
-		class deleteShopCallback implements AsyncCallback<Void> {
+	public void onLoad() {
 
-			Shop shop = null;
+		Grid shopGrid = new Grid(7, 2);
+		this.add(shopGrid);
 
-			deleteShopCallback(Shop s) {
-				shop = s;
-			}
+		deleteButton.addClickHandler(new DeleteClickHandler());
+		deleteButton.setEnabled(false);
+		shopGrid.setWidget(4, 1, deleteButton);
 
-			
-			public void onFailure(Throwable caught) {
-				Window.alert("Das Löschen des Shops ist fehlgeschlagen!");
-			}
+		Label name = new Label("Name:");
+		shopGrid.setWidget(1, 0, name);
+		shopGrid.setWidget(1, 1, nameTextBox);
 
-			
-			public void onSuccess(Void result) {
-				if (shop != null) {
-					setSelectedShop(null);
-					CellTreeViewModel.delete(shop);
-				}
-			}
-		}
-		
-		
-		private class ChangeClickHandler implements ClickHandler {
-			
-			public void onClick(ClickEvent event) {
-				if (shopToDisplay != null) {
-					shopToDisplay.setName(nameTextBox.getText());
-					shopToDisplay.setStreet(postalCodeTextBox.getText());
-					shopToDisplay.setCity(cityTextBox.getText());
-					shopToDisplay.setPostalCode(streetTextBox.getText());
-					
-					listenVerwaltung.save(shopToDisplay, new saveCallback());
-					
-				} else {
-					Window.alert("Kein Shop ausgewählt!");
-				}
-			}
-		}
+		Label plz = new Label("Postleizahl:");
+		shopGrid.setWidget(3, 0, plz);
+		shopGrid.setWidget(3, 1, postalCodeTextBox);
 
-		private class saveCallback implements AsyncCallback<Void> {
-			
-			public void onFailure(Throwable caught) {
-				Window.alert("Die Änderung ist fehlgeschlagen!");
-			}
+		Label city = new Label("City:");
+		shopGrid.setWidget(4, 0, city);
+		shopGrid.setWidget(4, 1, cityTextBox);
 
-			
-			public void onSuccess(Void result) {
-				// Die Änderung wird zum Kunden- und Kontenbaum propagiert.
-				CellTreeViewModel.updateShop(shopToDisplay);
-			}
-		}
-		
+		Label street = new Label("Street:");
+		shopGrid.setWidget(2, 0, street);
+		shopGrid.setWidget(2, 1, streetTextBox);
 
-		private class NewClickHandler implements ClickHandler {
+		newButton.addClickHandler(new NewClickHandler());
+		newButton.setEnabled(true);
+		shopGrid.setWidget(5, 0, newButton);
 
-			
-			public void onClick(ClickEvent event) {
-				String name = nameTextBox.getText();
-				String postalCode = postalCodeTextBox.getText();
-				String city = cityTextBox.getText();
-				String street = streetTextBox.getText();
-				
-				
-				listenVerwaltung.createShop(name,postalCode, city, street, 
-						new createShopCallback());
-				
-				
-				class createShopCallback implements AsyncCallback<Team> {
+		saveButton.addClickHandler(new ChangeClickHandler());
+		saveButton.setEnabled(true);
+		shopGrid.setWidget(5, 1, saveButton);
 
-					
-					public void onFailure(Throwable caught) {
-						Window.alert("Das Anlegen eines Shops ist fehlgeschlagen!");
-					}
+		deleteButton.addClickHandler(new DeleteClickHandler());
+		deleteButton.setEnabled(true);
+		shopGrid.setWidget(6, 1, deleteButton);
 
-				
-					public void onSuccess(Shop shop) {
-						if (shop != null) {
-							
-							CellTreeViewModel.addShop(shop);
-						}
-					}
-				}
-			}
-		}
-		
-		void setSelectedShop(Shop s) {
-			if (s != null) {
-				shopToDisplay = s;
-				deleteButton.setEnabled(true);
-				newButton.setEnabled(true);
-				saveButton.setEnabled(true);
-				
-				
-				String name = nameTextBox.getText();
-				String postalCode = postalCodeTextBox.getText();
-				String city = cityTextBox.getText();
-				String street = streetTextBox.getText();
-				
-				nameTextBox.setText(shopToDisplay.getName());
-				postalCodeTextBox.setText(shopToDisplay.getPostalCode());
-				streetTextBox.setText(shopToDisplay.getStreet());
-				cityTextBox.setText(shopToDisplay.getStreet());
-				
+	}
+
+	private class DeleteClickHandler implements ClickHandler {
+
+		public void onClick(ClickEvent event) {
+			if (shopToDisplay == null) {
+				Window.alert("kein Shop ausgewählt");
 			} else {
-				nameTextBox.setText("");
-				postalCodeTextBox.setText("");
-				streetTextBox.setText("");
-				cityTextBox.setText("");
-				deleteButton.setEnabled(false);
-				saveButton.setEnabled(false);
-				newButton.setEnabled(false);
+				listenVerwaltung.delete(shopToDisplay, new deleteShopCallback(shopToDisplay));
 			}
+
+		}
+	}
+
+	class deleteShopCallback implements AsyncCallback<Void> {
+
+		Shop shop = null;
+
+		deleteShopCallback(Shop s) {
+			shop = s;
 		}
 
-		
+		public void onFailure(Throwable caught) {
+			Window.alert("Das Löschen des Shops ist fehlgeschlagen!");
+		}
+
+		public void onSuccess(Void result) {
+			if (shop != null) {
+				setSelectedShop(null);
+//					CellTreeViewModel.delete(shop);
+			}
+		}
+	}
+
+	private class ChangeClickHandler implements ClickHandler {
+
+		public void onClick(ClickEvent event) {
+			if (shopToDisplay != null) {
+				shopToDisplay.setName(nameTextBox.getText());
+				shopToDisplay.setStreet(postalCodeTextBox.getText());
+				shopToDisplay.setCity(cityTextBox.getText());
+				shopToDisplay.setPostalCode(streetTextBox.getText());
+
+				listenVerwaltung.save(shopToDisplay, new saveCallback());
+
+			} else {
+				Window.alert("Kein Shop ausgewählt!");
+			}
+		}
+	}
+
+	private class saveCallback implements AsyncCallback<Void> {
+
+		public void onFailure(Throwable caught) {
+			Window.alert("Die Änderung ist fehlgeschlagen!");
+		}
+
+		public void onSuccess(Void result) {
+			// Die Änderung wird zum Kunden- und Kontenbaum propagiert.
+//				CellTreeViewModel.updateShop(shopToDisplay);
+		}
+	}
+
+	private class NewClickHandler implements ClickHandler {
+
+		public void onClick(ClickEvent event) {
+			String name = nameTextBox.getText();
+			String postalCode = postalCodeTextBox.getText();
+			String city = cityTextBox.getText();
+			String street = streetTextBox.getText();
+
+			listenVerwaltung.createShop(name, postalCode, city, street, new CreateShopCallback());
+		}
+
+		class CreateShopCallback implements AsyncCallback<Shop> {
+
+			public void onFailure(Throwable caught) {
+				Window.alert("Das Anlegen eines Shops ist fehlgeschlagen!");
+			}
+
+			public void onSuccess(Shop shop) {
+				Window.alert("Success");
+				if (shop != null) {
+						setSelectedShop(shop);
+//						CellTreeViewModel.addShop(shop);
+				}
+			}
+		}
+	}
+
+	void setSelectedShop(Shop s) {
+		if (s != null) {
+			shopToDisplay = s;
+
+			nameTextBox.setText(shopToDisplay.getName());
+			postalCodeTextBox.setText(shopToDisplay.getPostalCode());
+			streetTextBox.setText(shopToDisplay.getStreet());
+			cityTextBox.setText(shopToDisplay.getStreet());
+
+		} else {
+			nameTextBox.setText("");
+			postalCodeTextBox.setText("");
+			streetTextBox.setText("");
+			cityTextBox.setText("");
+		}
+	}
+
 }
-
-
-			
-	
-	
-	
-
-	
-	
-	
-	
-

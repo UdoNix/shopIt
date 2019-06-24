@@ -20,7 +20,7 @@ public class ShopTimeReportCallback extends Widget  {
 
 	public ShopTimeReportCallback(Shop s, Team t, Date firstdate, Date lastdate) {
 		
-		reportverwaltung.createTeamAndShopStatistikReport(s, t, firstdate, lastdate, new TeamAndShopStatistikReport()); 
+		//reportverwaltung.createTeamAndShopStatistikReport(s, t, firstdate, lastdate, new TeamAndShopStatistikReport()); 
 		
 	}
 	
@@ -32,14 +32,14 @@ public class ShopTimeReportCallback extends Widget  {
 		}
 		
 		public void onSuccess(TeamAndShopStatistikReport result) {
-			int resultSize = result.getRows().size();  
-			if (resultSize == 0) {
-				Window.alert("Es wurden keine Daten geladen");
-			} else {
-				HTMLReportWriter hrw = new HTMLReportWriter();
-				hrw.process(result);
-				append(hrw.getReportText());
-			}
+			//int resultSize = result.getRows().size();  
+//			if (resultSize == 0) {
+//				Window.alert("Es wurden keine Daten geladen");
+//			} else {
+//				HTMLReportWriter hrw = new HTMLReportWriter();
+//				hrw.process(result);
+//				append(hrw.getReportText());
+//			}
 		}
 
 
