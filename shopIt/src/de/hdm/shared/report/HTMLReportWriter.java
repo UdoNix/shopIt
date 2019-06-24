@@ -4,6 +4,8 @@ import java.util.*;
  * @author Thies Ilona
  */
 
+import de.hdm.client.gui.report.ShopTimeReportCallback.TeamAndShopStatistikReport;
+
 public class HTMLReportWriter extends ReportWriter{
 
 	private String reportText ="";
@@ -113,8 +115,10 @@ public class HTMLReportWriter extends ReportWriter{
 	     * Prozessieren des ï¿½bergebenden Report und Ablage im Zielformat
 	     * Auslesen durch getReportText()
 	     * r ist der zu prozessierende Report
+	     * 
+	     * @author Larisa in Anlehung Thies
 	     */
-	public void process(AllArticlesOfAllPersonsReport r) {
+	public void process(TeamAndShopStatistikReport r) {
 		// Zunï¿½chst lï¿½schen wir das Ergebnis vorhergehender Prozessierungen
 		this.resetReport();
 		//Ergebnisse werden in diesen Buffer geschrieben
@@ -122,30 +126,48 @@ public class HTMLReportWriter extends ReportWriter{
 		//Nun werden alle Bestandteile des Reports ausgelesen und in HTML
 		//Form ï¿½bersetzt
 		result.append("<H1>" + r.getTitle() + "</H1>");
-	    result.append("<table><tr>");
-
-	    if (r.getHeaderData() != null) {
-	      result.append("<td>" + paragraph2HTML(r.getHeaderData()) + "</td>");
-	    }
-
-	    result.append("<td>" + paragraph2HTML(r.getImprint()) + "</td>");
+	    result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
+	    result.append("<td valign=\"top\"><b>" + paragraph2HTML(r.getHeaderData())
+	        + "</b></td>");
+	    result.append("<td valign=\"top\">" + paragraph2HTML(r.getImprint())
+	        + "</td>");
 	    result.append("</tr><tr><td></td><td>" + r.getCreated().toString()
 	        + "</td></tr></table>");
-	    //fï¿½r alle Teilreports von AllItemsOfPerson wird processAllItemsOfPersonReport aufgerufen
-	    //Das Ergebnis wird dann in den Buffer hinzugefï¿½gt
-	    for (int i = 0; i < r.getNumSubReports(); i++) {
-	    	//Wenn ein Bestandteil des Reports nicht mehr gilt, sollte hier eine 
-	    	// detaillierte Implementierung erfolgen
-	    	AllArticlesOfPersonReport subReport = (AllArticlesOfPersonReport) r.getSubReportAt(i);
-	    	
-	    	this.process(subReport);
-	    	
-	    	result.append(this.reportText + "\n");
-	    	//nach jeder ï¿½nderung eines Teilreport und anschlieï¿½endem auslesen, sollte die 
-	    	//Ergebnisvariable zurï¿½ckgesetzt werden
-	    	this.resetReport();
-	    }
-	    this.reportText = result.toString();
+
+	    Vector<Row> rows = r.getRows();
+	    result.append("<table style=\"width:400px\">");
+	    
+	    for (int i = 0; i < rows.size(); i++) {
+	        Row row = rows.elementAt(i);
+	        result.append("<tr>");
+	        for (int k = 0; k < row.getNumColumns(); k++) {
+	          if (i == 0) {
+	            result.append("<td style=\"background:silver;font-weight:bold\">" + row.getColumnAt(k)
+	                + "</td>");
+	          }
+	          else {
+	            if (i > 1) {
+	              result.append("<td style=\"border-top:1px solid silver\">"
+	                  + row.getColumnAt(k) + "</td>");
+	            }
+	            else {
+	              result.append("<td valign=\"top\">" + row.getColumnAt(k) + "</td>");
+	            }
+	          }
+	        }
+	        result.append("</tr>");
+	      }
+
+	      result.append("</table>");
+	    
+	      /*
+	       * Zum Schluss muss der Arbeits-Buffer in einem String umgewandelt werden
+	       * und der reportText-Variable zugewisen. Auf diese Weise ist es möglich
+	       * das Ergebnis mittels getReportText() auszulesen. 
+	       * 
+	       * @author Larisa in Anlehung Thies
+	       */
+	      this.reportText = result.toString();
 	}
 	/*
 	 * auslesen des Ergebnisses der zuletzt aufgerufenen Prozessierungsmetghoden
@@ -154,4 +176,5 @@ public class HTMLReportWriter extends ReportWriter{
 	public String getReportText() {
 		return this.getHeader() + this.reportText + this.getTrailer();
 	}
+	
 }

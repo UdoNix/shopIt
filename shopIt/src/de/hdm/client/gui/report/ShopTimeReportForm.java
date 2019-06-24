@@ -30,7 +30,7 @@ public class ShopTimeReportForm extends HorizontalPanel{
 	//Erstellung der GUI-Elemente
 		private Button startButton = new Button("Report starten");
 		private Label shopLabel = new Label("Shop: ");
-		private ListBox listBox = new ListBox();
+		private ListBox shopListBox = new ListBox();
 		private Label startDateLabel = new Label("Startdatum");
 		private DateBox startDateBox = new DateBox();
 		private Label endDateLabel = new Label("Enddatum");
@@ -45,7 +45,7 @@ public class ShopTimeReportForm extends HorizontalPanel{
 		public ShopTimeReportForm(){
 			
 			flex.setWidget(0, 0, shopLabel);
-			flex.setWidget(0, 1, listBox);
+			flex.setWidget(0, 1, shopListBox);
 			flex.setWidget(1, 1, startDateLabel);
 			flex.setWidget(2, 0, startDateBox);
 			flex.setWidget(2, 1, endDateLabel);
@@ -86,7 +86,7 @@ public class ShopTimeReportForm extends HorizontalPanel{
 			
 			public void onSuccess(Vector<Shop> results){
 				for(Shop shop : results){
-					listBox.addItem(shop.getName());
+					shopListBox.addItem(shop.getName());
 				}
 			}
 		}
@@ -94,12 +94,12 @@ public class ShopTimeReportForm extends HorizontalPanel{
 		private class StartReportClickHandler implements ClickHandler{
 			
 			public void onClick(ClickEvent event){
-				if(listBox.getSelectedValue().equals("")){
+				if(shopListBox.getSelectedValue().equals("")){
 					Window.alert("Bitte einen Shop auswählen :)");
 				}
 				else{
 					flex.clear();
-					flex.add(new ShopTimeReportCallback(teamListBox.getSelectedValue(), listBox.getSelectedValue(), startDateBox.getValue(), endDateBox.getValue()));	
+					flex.add(new ShopTimeReportCallback(teamListBox.getSelectedValue(), shopListBox.getSelectedValue(), startDateBox.getValue(), endDateBox.getValue()));	
 					RootPanel.get("contentReport").add(flex);
 				}
 			}
