@@ -11,7 +11,6 @@ import de.hdm.shared.report.AllArticlesOfShopReport;
 import de.hdm.shared.report.Report;
 import de.hdm.shared.report.TeamAndShopStatistikReport;
 import de.hdm.shared.report.TeamStatisticReport;
-import de.hdm.shared.ReportGeneratorAsync;
 
 /**
  * Das ist die Synchrone Schnittstelle für eine RPC-fähige Klasse zur Erstellung von Reports. Diese Schnittstelle benutzt die gleiche Realisierungsgrundlage wir

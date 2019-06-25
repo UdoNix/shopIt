@@ -44,7 +44,7 @@ public UnitOfMeasure findByKey (int id) {
 		//Anlegen einen leeren SQL-Statement
 		Statement stmt =con.createStatement();
 		// Ausfüllen des Statements, als Query an die DB schicken
-		ResultSet rs =stmt.executeQuery("SELECT * from unitOfMeasure" + "WHERE unitOfMeasure.id =" + id );
+		ResultSet rs =stmt.executeQuery("SELECT * from unitOfMeasure" + "WHERE unitOfMeasure.id = " + id );
 		
 		//Da id Primärschlüssel ist, kann nur ein Tupel zurueckgeg werden. 
 		//Es wird geprueft, ob ein Ergebnis vorliegt.
@@ -161,7 +161,7 @@ public UnitOfMeasure insert(UnitOfMeasure u) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE list " + "SET unit=\"" + u.getUnit()
-      + "\", " + "quantity=\"" + u.getQuantity()+"\", "+ "WHERE id=" + u.getId());
+      + "\", " + "quantity=\"" + u.getQuantity()+"\", "+ "WHERE id= " + u.getId());
 
     }
     catch (SQLException e2) {
@@ -182,7 +182,7 @@ public UnitOfMeasure insert(UnitOfMeasure u) {
      try {
        Statement stmt = con.createStatement();
 
-       stmt.executeUpdate("DELETE FROM unitOfMeasure " + "WHERE id=" + u.getId());
+       stmt.executeUpdate("DELETE FROM unitOfMeasure " + "WHERE id= " + u.getId());
 
      }
      catch (SQLException e2) {

@@ -7,10 +7,15 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.hdm.shared.bo.Shop;
 import de.hdm.shared.bo.Team;
+
 import de.hdm.shared.report.AllArticlesOfShopReport;
 import de.hdm.shared.report.Report;
 import de.hdm.shared.report.TeamAndShopStatistikReport;
 import de.hdm.shared.report.TeamStatisticReport;
+
+
+
+
 
 /**
  * Das asynchrone Gegenst�ck des Interface ReportGenerator. Es

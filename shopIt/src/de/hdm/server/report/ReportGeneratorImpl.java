@@ -215,6 +215,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		result.setHeaderData(header);
 			
 			
+
 		//Erstellen und Abrufen der ben�tigten Ergebnisvektoren mittels PinnwandVerwaltung
 		Vector<Item> itemsTeamTime = this.admin.getItemsByTeamWithTime(teamId, firstDate, lastDate);
 			
@@ -272,7 +273,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	 * 
 	 * Zur�ckgegeben wird ein fertiger Report
 	 * 
-	 * @author IlonaBrinkmann
+	 * @author IlonaBrinkmann & Larisa
 	 */
 	
 	//private int shopid;
