@@ -37,7 +37,6 @@ public class TeamView extends VerticalPanel {
 	private TeamListCellTreeTab teamModel = null;
 
 	private Team selectedTeam = null;
-	private Membership selectedMembership = null;
 	private Person selectedPerson = null;
 
 	public Team getSelectedTeam() {
@@ -171,11 +170,29 @@ public class TeamView extends VerticalPanel {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			if (selectedTeam == null) {
-				Window.alert("Kein Team ausgewählt");
-			} else {
-				listenVerwaltung.delete(selectedMembership, new DeleteMembershipCallback(selectedTeam));
+			listenVerwaltung.getPersonByEmail(emailTextBox.getText(), new GetPersonForDeleteCallback());
+		}
 
+	}
+
+	private class GetPersonForDeleteCallback implements AsyncCallback<Person> {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Fehler!");
+		}
+
+		@Override
+		public void onSuccess(Person result) {
+			if (result == null) {
+				Window.alert("Person nicht vorhanden!");
+			} else {
+				if (selectedTeam == null) {
+					Window.alert("Kein Team ausgewählt");
+				} else {
+					listenVerwaltung.delete(selectedPerson.getId(), selectedTeam.getId(),
+							new DeleteMembershipCallback(selectedTeam));
+				}
 			}
 		}
 
@@ -196,9 +213,7 @@ public class TeamView extends VerticalPanel {
 
 		@Override
 		public void onSuccess(Void result) {
-			if (t != null) {
-//					teamModel.delete(t);
-			}
+			Window.alert("Success");
 		}
 	}
 
@@ -272,7 +287,6 @@ public class TeamView extends VerticalPanel {
 			} else {
 
 				listenVerwaltung.getPersonByEmail(emailTextBox.getText(), new GetPersonCallback());
-				
 
 			}
 		}
@@ -288,9 +302,13 @@ public class TeamView extends VerticalPanel {
 
 		@Override
 		public void onSuccess(Person result) {
-			selectedPerson = result;
-			listenVerwaltung.createMembership(selectedPerson.getId(), selectedTeam.getId(),
-					new CreateMembershipCallback());
+			if (result == null) {
+				Window.alert("Person nicht vorhanden!");
+			} else {
+				selectedPerson = result;
+				listenVerwaltung.createMembership(selectedPerson.getId(), selectedTeam.getId(),
+						new CreateMembershipCallback());
+			}
 		}
 
 	}

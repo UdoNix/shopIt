@@ -50,7 +50,7 @@ public interface ShopITAdministrationAsync {
 
 	void delete(List l, AsyncCallback<Void> callback);
 
-	void delete(Membership m, AsyncCallback<Void> callback);
+	void delete(int personId, int teamId, AsyncCallback<Void> callback);
 
 	void delete(Team t, AsyncCallback<Void> callback);
 

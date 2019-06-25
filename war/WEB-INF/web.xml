@@ -16,6 +16,9 @@
     <url-pattern>/shopit/shop</url-pattern>
   </servlet-mapping>
   
+   <welcome-file-list>
+    <welcome-file>GWTTest1.html</welcome-file>
+  </welcome-file-list>
 
 
 </web-app>
