@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.shared.bo.Team;
-import de.hdm.shared.bo.List;
+import de.hdm.shared.bo.ShoppingList;
 
 @Deprecated
 public class TeamForm extends VerticalPanel {

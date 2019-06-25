@@ -9,7 +9,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.client.ClientsideSettings;
 //import de.hdm.shared.ShopItAdministrationAsync;
-import de.hdm.shared.bo.List;
+import de.hdm.shared.bo.ShoppingList;
 
 @Deprecated
 public class EditListFormDialogBox{

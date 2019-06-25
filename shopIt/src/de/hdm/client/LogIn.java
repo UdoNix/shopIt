@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.client.gui.TeamView;
 import de.hdm.shared.LoginService;
 import de.hdm.shared.LoginServiceAsync;
+import de.hdm.client.gui.Tree;
 import de.hdm.shared.bo.Person;
 
 //author emily kretzschmar
@@ -78,7 +79,7 @@ public class LogIn implements EntryPoint{
 		});
 		
 		//RootPanel.get().add (new ShopView());
-		RootPanel.get().add( new TeamView());
+		RootPanel.get().add( new Layout());
 		
 		
 //		loginService.login(GWT.getHostPageBaseURL()+ "ShopIt.html", new AsyncCallback<LoginInformation>() {

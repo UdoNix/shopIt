@@ -1,4 +1,5 @@
 package de.hdm.server.report;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Vector;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -175,9 +176,9 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	 * @author IlonaBrinkmann, Thies
 	 */
 	
-	public TeamStatisticReport createTeamStatisticReport(Team t, Date firstDate, Date lastDate) throws IllegalArgumentException {
+	public TeamStatisticReport createTeamStatisticReport(Team t, Timestamp firstDate, Timestamp lastDate) throws IllegalArgumentException {
 		
-		//int teamid = t.getId();
+		int teamId = t.getId();
 		
 		if (this.getShopITAdministration() == null) {
 			return null;
@@ -215,7 +216,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			
 			
 		//Erstellen und Abrufen der ben�tigten Ergebnisvektoren mittels PinnwandVerwaltung
-		//Vector<Article> articles = this.getArticlesbyTeamWithTime(teamId, firstDate, lastDate);
+		Vector<Item> itemsTeamTime = this.admin.getItemsByTeamWithTime(teamId, firstDate, lastDate);
 			
 			
 		//Kopfzeile f�r die Teamstatistik Tabelle
@@ -278,6 +279,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	
 	//private int teamid;
 	
+
 	public TeamAndShopStatistikReport createTeamAndShopStatistikReport(Shop s, Team t, Date firstDate, Date lastdate) throws IllegalArgumentException {
 		
 		if (this.getShopITAdministration() == null) {

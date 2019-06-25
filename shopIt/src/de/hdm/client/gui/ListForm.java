@@ -7,7 +7,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.hdm.shared.bo.List;
+import de.hdm.shared.bo.ShoppingList;
 
 
 public class ListForm extends Form{
@@ -37,7 +37,7 @@ public class ListForm extends Form{
 
 	private DateTimeFormat dateFormat = DateTimeFormat.getFormat("dd.MM.yyyy k:mm");
 
-	private List list = new List();
+	private ShoppingList list = new ShoppingList();
 	
 	/*
 	 * 
@@ -45,7 +45,7 @@ public class ListForm extends Form{
 
 	public ListForm(long serializableID) {
 
-		List l = new List();
+		ShoppingList l = new ShoppingList();
 		
 		l.setSerializableID(serializableID);
 

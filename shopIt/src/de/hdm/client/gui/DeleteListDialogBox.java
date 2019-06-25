@@ -13,7 +13,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopITAdministrationAsync;
-import de.hdm.shared.bo.List;
+import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Team;
 
 public class DeleteListDialogBox extends DialogBox {
@@ -22,7 +22,7 @@ public class DeleteListDialogBox extends DialogBox {
 
 	private CellTreeViewModel ViewModel = new CellTreeViewModel();
 
-	private List selectedList = null;
+	private ShoppingList selectedList = null;
 	private Team selectedTeam = null;
 
 	public Team getSelectedTeam() {
@@ -86,9 +86,9 @@ public class DeleteListDialogBox extends DialogBox {
 
 		private class DeleteListCallback implements AsyncCallback<Void> {
 
-			List list = null;
+			ShoppingList list = null;
 
-			DeleteListCallback(List l) {
+			DeleteListCallback(ShoppingList l) {
 				this.list = l;
 			}
 

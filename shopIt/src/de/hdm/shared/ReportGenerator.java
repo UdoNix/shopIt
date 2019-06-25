@@ -1,5 +1,6 @@
 package de.hdm.shared;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -74,7 +75,7 @@ public interface ReportGenerator extends RemoteService{
 	 * 
 	 */
 	
-	public TeamStatisticReport createTeamStatisticReport(Team t, Date firstDate, Date lastDate) throws IllegalArgumentException;
+	public TeamStatisticReport createTeamStatisticReport(Team t, Timestamp firstDate, Timestamp lastDate) throws IllegalArgumentException;
 
 
 		

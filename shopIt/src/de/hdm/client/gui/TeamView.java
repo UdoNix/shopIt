@@ -242,7 +242,7 @@ public class TeamView extends VerticalPanel {
 		}
 	}
 
-	void setSelectedTeam(Team t) {
+	public void setSelectedTeam(Team t) {
 		if (t != null) {
 			selectedTeam = t;
 
