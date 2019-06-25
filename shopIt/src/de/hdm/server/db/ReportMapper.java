@@ -3,6 +3,8 @@ package de.hdm.server.db;
 import java.sql.Timestamp;
 import java.util.Vector;
 
+import de.hdm.shared.bo.ReportObject;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,7 +40,12 @@ public class ReportMapper {
 			
 			while(rs.next()) {
 				ReportObject r = new ReportObject();
-				
+				r.setCount(rs.getInt("count"));
+				r.setArticle(rs.getString("name"));
+				r.setQuantity(rs.getFloat("quantity"));
+				r.setUnit(rs.getString("unit"));
+				r.setChangeDate(rs.getTimestamp("timeStamp"));
+				r.setShop(rs.getInt("shopId"));
 			}
 			
 			
