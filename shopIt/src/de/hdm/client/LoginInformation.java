@@ -1,108 +1,48 @@
 package de.hdm.client;
 
-
 import java.io.Serializable;
 
-/* Mit Hilfe der LoginInfo Klasse soll der Login RPC-Dienst die Logininformation eines Nutzers als
- * Ergebnis ausgeben.
- */
+public class LoginInformation implements Serializable {
 
-	public class LoginInformation implements Serializable{
-		
-		private static final long serialVersionUID = 1L;
-		
-		/* 
-		 * Prüfung, ob Anmeldung schon stattfand
-		 */
-		
-		private boolean alreadyLoggedIn = false;
-		
-		/*
-		 * Speichern der LoginURL und der LogoutURL
-		 */
-		
-		private String loginURL = "";
-		
-		
-		private String logoutURL = "";
-		
-		
-		/*
-		 * Speichern der hinterlegten Email-Adresse
-		 */
-		
-		private String emailAddress = "";
+	private static final long serialVersionUID = 1L;
 
-		
-		/*
-		 * Prüfung, ob Nutzer bereits eingeloggt ist
-		 */
+	private boolean loggedIn = false;
+	private String loginURL = "";
+	private String logoutURL = "";
+	private String emailAddress = "";
 
-		public boolean isLoggedIn() {
-			return alreadyLoggedIn;
-		}
-		
-		/*
-		 * Setzen des Logins
-		 */
-
-		public void setLoggedIn(boolean loggedIn) {
-			this.alreadyLoggedIn = loggedIn;
-		}
-
-		/*
-		 *  Auslesen der LoginURL
-		 */
-		public String getLoginURL() {
-			return loginURL;
-		}
-
-		/*
-		 * Setzen der LoginURL
-		 */
-		public void setLoginURL(String loginURL) {
-			this.loginURL = loginURL;
-		}
-
-		/*
-		 * Auslesen des LogoutURL
-		 */
-		
-		public String getLogoutURL() {
-			return logoutURL;
-		}
-
-		/*
-		 * Setzen der LogoutURL 
-		 */
-		
-		public void setLogoutURL(String logoutURL) {
-			this.logoutURL = logoutURL;
-		}
-		
-		/*
-		 * Auslesen der E-Mail Adresse
-		 * 
-		 * @return emailAdresse
-		 */
-
-		public String getEmailAddress() {
-			return emailAddress;
-		}
-		
-		/*
-		 * Setzen der E-Mail Adresse
-		 * 
-		 * @param emailAddress
-		 */
-
-		public void setEmailAddress(String emailAddress) {
-			this.emailAddress = emailAddress;
-		}
-
+	public boolean isLoggedIn() {
+		return loggedIn;
 	}
-		
+
+	public void setLoggedIn(boolean loggedIn) {
+		this.loggedIn = loggedIn;
+	}
+
+	public String getLoginURL() {
+		return loginURL;
+	}
+
+	public void setLoginURL(String loginURL) {
+		this.loginURL = loginURL;
+	}
+
+	public String getLogoutURL() {
+		return logoutURL;
+	}
+
+	public void setLogoutURL(String logoutURL) {
+		this.logoutURL = logoutURL;
+	}
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
 
 
 
-
+}
