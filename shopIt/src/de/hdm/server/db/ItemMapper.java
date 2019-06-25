@@ -2,6 +2,7 @@ package de.hdm.server.db;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -189,9 +190,16 @@ public Item insert(Item i) {
 
       // Es erfolgt die tatsächliche Einfuegeoperation
 
-      stmt.executeUpdate("INSERT INTO Item (id, changeDate, unitId, articleId, teamId, listId, favorit, status) "
-      		+ "VALUES (" + i.getId() + ", CURRENT_TIMESTAMP, " + i.getUnitId() + "," + i.getArticleId() + "," + i.getTeamId()+ "," + i.isFavorit()+ "," + i.isStatus() +")");
-
+      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO Item (id, changeDate, unitId, articleId, teamId, listId, favorit, status)"
+      		+ "VALUES ( ?, CURRENT_TIMESTAMP, ?, ?, ?, ?, ? ,? )");
+      
+      stmt2.setInt(1, i.getId());
+      stmt2.setInt(3, i.getUnitId());
+      stmt2.setInt(4, i.getArticleId());
+      stmt2.setInt(5, i.getTeamId());
+      stmt2.setBoolean(6, i.isFavorit());
+      stmt2.setBoolean(7, i.isStatus());
+      
     }
   }
 
