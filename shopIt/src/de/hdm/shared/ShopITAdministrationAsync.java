@@ -3,9 +3,7 @@ package de.hdm.shared;
 import java.util.Vector;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
-
-import de.hdm.shared.bo.Team;
-import de.hdm.shared.bo.UnitOfMeasure;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import de.hdm.shared.bo.Article;
 import de.hdm.shared.bo.Item;
@@ -14,6 +12,9 @@ import de.hdm.shared.bo.Membership;
 import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Responsibility;
 import de.hdm.shared.bo.Shop;
+import de.hdm.shared.bo.Team;
+import de.hdm.shared.bo.UnitOfMeasure;
+
 
 public interface ShopITAdministrationAsync {
 
@@ -33,7 +34,7 @@ public interface ShopITAdministrationAsync {
 
 	void createShop(String name, String street, String postalCode, String city, AsyncCallback<Shop> callback);
 
-	void createTeam(String name, Person p, AsyncCallback<Team> callback);
+	void createTeam(String name, AsyncCallback<Team> callback);
 
 	void createUnitOfMeasure(float quantity, String unit, AsyncCallback<UnitOfMeasure> callback);
 
@@ -49,7 +50,7 @@ public interface ShopITAdministrationAsync {
 
 	void delete(List l, AsyncCallback<Void> callback);
 
-	void delete(Membership m, AsyncCallback<Void> callback);
+	void delete(int personId, int teamId, AsyncCallback<Void> callback);
 
 	void delete(Team t, AsyncCallback<Void> callback);
 

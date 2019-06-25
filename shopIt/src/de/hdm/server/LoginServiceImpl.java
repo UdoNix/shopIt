@@ -10,21 +10,22 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 	private static final long serialVersionUID = 1L;
 	
 	public LoginInformation login(String requestUri) throws IllegalArgumentException{
-		UserService userService = UserServiceFactory.getUserService();
-		User user = userService.getCurrentUser();
-		LoginInformation loginInformation = new LoginInformation();
-		
-		if (user != null){
-			loginInformation.setLoggedIn(true);
-			loginInformation.setEmailAdress(user.getEmailAdress());
-			loginInformation.setLogoutUrl(userService.createLogoutURL(requestUri));
-			
-		}
-		else{
-			loginInformation.setLoggedIn(false);
-			loginInformation.setLoginUrl(userService.createLoginURL(requestUri));
-		}
-		return loginInformation;
+		return null;
+//		UserService userService = UserServiceFactory.getUserService();
+//		User user = userService.getCurrentUser();
+//		LoginInformation loginInformation = new LoginInformation();
+//		
+//		if (user != null){
+//			loginInformation.setLoggedIn(true);
+//			loginInformation.setEmailAdress(user.getEmailAdress());
+//			loginInformation.setLogoutUrl(userService.createLogoutURL(requestUri));
+//			
+//		}
+//		else{
+//			loginInformation.setLoggedIn(false);
+//			loginInformation.setLoginUrl(userService.createLoginURL(requestUri));
+//		}
+//		return loginInformation;
 	}
 	
 }

@@ -203,11 +203,27 @@ public class ListMapper {
 
 	      // Es erfolgt die tatsächliche Einfuegeoperation
 	     
-	      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO list (id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, name, teamId) VALUES (?, ?, ?, ?, ?)");
+	      //PreparedStatement stmt2 = con.prepareStatement("INSERT INTO list (id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, name, teamId) VALUES (?, ?, ?, ?, ?)");
 	      
-	    		stmt2.setInt(1, l.getId());
-	    		stmt2.setString(4, l.getName());
-	    		stmt2.setInt(5, l.getId());
+	    		//stmt2.setInt(1, l.getId());
+	    		//stmt2.setString(4, l.getName());
+	    		//stmt2.setInt(5, l.getId());
+	      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO list (id, creationDate, changeDate, name, teamId)+ "
+	      		+ "VALUES (?,CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?");
+	      
+	      stmt2.setInt(1, l.getId());
+	      stmt2.setString(2, l.getName());
+	      stmt2.setInt(3, l.getTeamId());
+	      stmt2.execute();
+	      
+	      
+	      
+	    
+	      
+	      
+	      
+	      //.executeUpdate("INSERT INTO list (id, creationDate, changeDate, name, teamId) " + "VALUES ("
+	        //  + l.getId() + ", CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '" + l.getName() + "',"+ l.getTeamId() +")");
 	    }
 	  }
 	  catch (SQLException e2) {

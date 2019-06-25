@@ -1,6 +1,7 @@
 package de.hdm.server.db;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -135,9 +136,15 @@ public Person insert(Person p) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO person (id, creationDate, changeDate, firstName, lastName, email) " + "VALUES ("
-          + p.getId() + " ,CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '"+ p.getFirstName() +  "' , '"+ p.getLastName() +"' , '"+ p.getEmail()  +  "')");
-    }
+      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO PERSON (id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, firstName, lastName, email) VALUES(?,?,?,?,?,?)");
+      stmt2.setInt(1, p.getId());
+      stmt2.setString(2, p.getFirstName());
+      stmt2.setString(3, p.getLastName());
+      stmt2.setString(4, p.getEmail());
+      
+      stmt2.execute();
+      
+       }
   }
   catch (SQLException e2) {
     e2.printStackTrace();
@@ -178,7 +185,7 @@ public Person insert(Person p) {
      try {
        Statement stmt = con.createStatement();
 
-       stmt.executeUpdate("DELETE FROM person " + " WHERE id=" + p.getId());
+       stmt.executeUpdate("DELETE FROM person " + " WHERE id= " + p.getId());
 
      }
      catch (SQLException e2) {

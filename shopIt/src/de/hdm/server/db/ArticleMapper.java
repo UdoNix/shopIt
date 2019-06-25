@@ -1,6 +1,7 @@
 package de.hdm.server.db;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,7 +41,7 @@ public static ArticleMapper articleMapper() {
 
 public Article findByKey (int id) {
 	//DB-Verbindung holen
-	Connection con = DBConnection.connection();
+	Connection con =DBConnection.connection();
 	
 	try {
 		//Anlegen einen leeren SQL-Statement
@@ -129,13 +130,21 @@ public Article insert(Article a) {
        
       a.setId(rs.getInt("maxid") + 1);
 
-    // Es erfolgt die tatsächliche Einfuegeoperation
+      stmt = con.createStatement();
 
-      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO article (id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, name) VALUES (?, ?, ?, ?)");
-      stmt2.setInt(1, a.getId());
-      stmt2.setString(4, a.getName());
+      //PreparedStatement stmt2 = con.prepareStatement("INSERT INTO article (id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, name) VALUES (?, ?, ?, ?)");
+      //stmt2.setInt(1, a.getId());
+      //stmt2.setString(4, a.getName());
       
       
+      // Es erfolgt die tatsächliche Einfuegeoperation
+      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO article (id, creationDate, changeDate, name) " + 
+      "VALUES (?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, )");
+      
+      stmt2.setInt(1,  a.getId());
+      stmt2.setString(2, a.getName());
+      
+      stmt2.execute();
     }
   }
   catch (SQLException e2) {

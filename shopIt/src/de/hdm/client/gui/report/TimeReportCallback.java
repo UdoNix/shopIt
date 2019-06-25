@@ -24,7 +24,7 @@ ReportGeneratorAsync reportverwaltung = ClientsideSettings.getReportGenerator();
 	public TimeReportCallback(String string, Date firstDate, Date lastDate) {
 		
 			
-			reportverwaltung.createTeamStatisticReport(Team t, Date firstDate, Date lastDate);
+//			reportverwaltung.createTeamStatisticReport(Team t, Date firstDate, Date lastDate);
 			
 			
 			
@@ -44,12 +44,12 @@ ReportGeneratorAsync reportverwaltung = ClientsideSettings.getReportGenerator();
 				}else {
 					HTMLReportWriter hrw = new HTMLReportWriter();
 					hrw.process(result);
-					append(hrw.getReportText());
+//					append(hrw.getReportText());
 				}
 			}
 		}
 
-		}
+	
 	}
 
 }
