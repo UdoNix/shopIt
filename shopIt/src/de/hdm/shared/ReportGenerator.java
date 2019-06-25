@@ -1,5 +1,6 @@
 package de.hdm.shared;
 
+
 import java.util.Date;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -10,7 +11,6 @@ import de.hdm.shared.report.AllArticlesOfShopReport;
 import de.hdm.shared.report.Report;
 import de.hdm.shared.report.TeamAndShopStatistikReport;
 import de.hdm.shared.report.TeamStatisticReport;
-import de.hdm.shared.ReportGeneratorAsync;
 
 /**
  * Das ist die Synchrone Schnittstelle für eine RPC-fähige Klasse zur Erstellung von Reports. Diese Schnittstelle benutzt die gleiche Realisierungsgrundlage wir
@@ -78,14 +78,8 @@ public interface ReportGenerator extends RemoteService{
 
 
 		
-	/**
-	 * Die Methode soll alle Artikel eines gewissen Zeitraums anhand eines H�ndlers anzeigen 
-	 * 
-     * Zur�ckgegeben wird ein fertiger Report
-	 *
-	 */
-		
-		public TeamAndShopStatistikReport createTeamAndShopStatistikReport(String tname, String sname, Date firstDate, Date lastdate) throws IllegalArgumentException;
+	public TeamAndShopStatistikReport createTeamAndShopStatistikReport(Shop s, Team t, Date firstdate, Date lastdate) throws IllegalArgumentException;
+	
 		
 		
 }
