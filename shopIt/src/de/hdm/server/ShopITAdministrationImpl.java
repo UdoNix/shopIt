@@ -27,6 +27,7 @@ import de.hdm.shared.bo.Shop;
 import de.hdm.shared.bo.UnitOfMeasure;
 import de.hdm.shared.bo.Responsibility;
 
+@SuppressWarnings("serial")
 public class ShopITAdministrationImpl extends RemoteServiceServlet implements ShopITAdministration {
 
 	// Referenz auf die MapperKlassen, um die Objekte mit der Datenbank abzugleichen
@@ -698,6 +699,12 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	@Override
 	public void delete(int personId, int teamId) throws IllegalArgumentException {
 		this.mMapper.delete(personId, teamId);
+	}
+
+	@Override
+	public Vector<Item> getItemsByTeamWithTime(int teamId, Timestamp firstDate, Timestamp lastDate) {
+		Vector <Item> items = this.iMapper.getItemsbyTeamWithTime(teamId, firstDate, lastDate);
+		return items;
 	}
 
 }

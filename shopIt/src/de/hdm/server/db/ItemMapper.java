@@ -1,7 +1,7 @@
 package de.hdm.server.db;
 
 import java.sql.Connection;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -328,7 +328,7 @@ public Item insert(Item i) {
 	    return result;
 		
 }
-	 public Vector<Item> getItemsbyTeamWithTime (int TeamId, Date firstDate, Date lastDate) {
+	 public Vector<Item> getItemsbyTeamWithTime (int TeamId, Timestamp firstDate, Timestamp lastDate) {
 		   Connection con = DBConnection.connection();
 		    Vector<Item> result = new Vector<Item>();
 
@@ -398,7 +398,7 @@ public Vector<Item> getItemsbyTeamAndShop(int teamId, int shopId) {
 }
 
 
-public Vector<Item> getItemsByTeamAndShopWithTime (int teamId, int shopId, Date firstDate, Date lastDate) {
+public Vector<Item> getItemsByTeamAndShopWithTime (int teamId, int shopId, Timestamp firstDate, Timestamp lastDate) {
 	   Connection con = DBConnection.connection();
 	    Vector<Item> result = new Vector<Item>();
 

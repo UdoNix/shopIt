@@ -1,5 +1,7 @@
 package de.hdm.shared;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Vector;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -123,6 +125,8 @@ public interface ShopITAdministrationAsync {
 	void getItemsByTeamWithTime(Team t, AsyncCallback<Vector<Item>> callback);
 
 	void getItemsByTeamAndShopWithTime(Shop s, Team t, AsyncCallback<Vector<Item>> callback);
+
+	void getItemsByTeamWithTime(int teamId, Timestamp firstDate, Timestamp lastDate, AsyncCallback<Vector<Item>> callback);
 
 	
 

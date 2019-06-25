@@ -1,5 +1,7 @@
 package de.hdm.shared;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Vector;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -176,6 +178,8 @@ public interface ShopITAdministration extends RemoteService {
 	public Vector<Item> getItemsByTeamWithTime(Team t);
 
 	public Vector<Item> getItemsByTeamAndShopWithTime(Shop s, Team t);
+
+	public Vector<Item> getItemsByTeamWithTime(int teamId, Timestamp firstDate, Timestamp lastDate);
 	
 	
 	

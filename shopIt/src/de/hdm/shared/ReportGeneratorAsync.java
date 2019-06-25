@@ -1,5 +1,6 @@
 package de.hdm.shared;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -28,7 +29,7 @@ public interface ReportGeneratorAsync {
 	void createTeamAndShopStatistikReport(String tname, String sname, Date firstDate, Date lastdate,
 			AsyncCallback<TeamAndShopStatistikReport> callback);
 
-	void createTeamStatisticReport(Team t, Date firstDate, Date lastDate, AsyncCallback<TeamStatisticReport> callback);
+	void createTeamStatisticReport(Team t, Timestamp firstDate, Timestamp lastDate, AsyncCallback<TeamStatisticReport> callback);
 
 	void getShopITAdministration(AsyncCallback<ShopITAdministration> callback);
 
