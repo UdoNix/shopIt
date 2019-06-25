@@ -7,7 +7,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import de.hdm.shared.bo.Article;
 import de.hdm.shared.bo.Item;
-import de.hdm.shared.bo.List;
+import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Membership;
 import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Responsibility;
@@ -22,9 +22,9 @@ public interface ShopITAdministrationAsync {
 
 	void createArticle(String name, AsyncCallback<Article> callback);
 
-	void createItem(List l, Article a, AsyncCallback<Item> callback);
+	void createItem(ShoppingList l, Article a, AsyncCallback<Item> callback);
 
-	void createListFor(Team t, String name, AsyncCallback<List> callback);
+	void createListFor(Team t, String name, AsyncCallback<ShoppingList> callback);
 
 	void createMembership(int personId, int teamId, AsyncCallback<Membership> callback);
 
@@ -48,7 +48,7 @@ public interface ShopITAdministrationAsync {
 
 	void delete(Shop s, AsyncCallback<Void> callback);
 
-	void delete(List l, AsyncCallback<Void> callback);
+	void delete(ShoppingList l, AsyncCallback<Void> callback);
 
 	void delete(int personId, int teamId, AsyncCallback<Void> callback);
 
@@ -58,9 +58,9 @@ public interface ShopITAdministrationAsync {
 
 	void getAllItems(AsyncCallback<Vector<Item>> callback);
 
-	void getAllItemsOfList(List l, AsyncCallback<Vector<Item>> callback);
+	void getAllItemsOfList(ShoppingList l, AsyncCallback<Vector<Item>> callback);
 
-	void getAllListsOf(Team t, AsyncCallback<Vector<List>> callback);
+	void getAllListsOf(Team t, AsyncCallback<Vector<ShoppingList>> callback);
 
 	void getAllMembershipOfPerson(Person p, AsyncCallback<Vector<Membership>> callback);
 
@@ -80,7 +80,7 @@ public interface ShopITAdministrationAsync {
 
 	void getItemById(int id, AsyncCallback<Item> callback);
 
-	void getListById(int id, AsyncCallback<List> callback);
+	void getListById(int id, AsyncCallback<ShoppingList> callback);
 
 	void getMembershipById(int id, AsyncCallback<Membership> callback);
 
@@ -114,7 +114,7 @@ public interface ShopITAdministrationAsync {
 
 	void update(Item i, AsyncCallback<Void> callback);
 
-	void update(List l, AsyncCallback<Void> callback);
+	void update(ShoppingList l, AsyncCallback<Void> callback);
 
 	void getItemsbyTeamAndShop(Shop shop, AsyncCallback<Vector<Item>> callback);
 

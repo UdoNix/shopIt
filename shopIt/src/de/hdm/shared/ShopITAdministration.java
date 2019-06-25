@@ -45,21 +45,21 @@ public interface ShopITAdministration extends RemoteService {
 	public void delete(Person p) throws IllegalArgumentException;
 	
 	//Erstellen einer neuen Liste.
-	public List createListFor(Team t, String name) throws IllegalArgumentException;
+	public ShoppingList createListFor(Team t, String name) throws IllegalArgumentException;
 	
 	//Liste anhand Id finden.
-	public List getListById(int id) throws IllegalArgumentException;
+	public ShoppingList getListById(int id) throws IllegalArgumentException;
 	
 	//Einträge einer Liste aufzeigen.
-	public Vector<Item> getAllItemsOfList(List l)throws IllegalArgumentException;
+	public Vector<Item> getAllItemsOfList(ShoppingList l)throws IllegalArgumentException;
 	
-	public void update(List l) throws IllegalArgumentException;
+	public void update(ShoppingList l) throws IllegalArgumentException;
 	
 	//Liste löschen.
-	public void delete(List l)throws IllegalArgumentException;
+	public void delete(ShoppingList l)throws IllegalArgumentException;
 	
 	//Eintrag erstellen.
-	public Item createItem(List l, Article a)throws IllegalArgumentException;
+	public Item createItem(ShoppingList l, Article a)throws IllegalArgumentException;
 	
 	//Zuständigkeit zum Eintrag hinzufügen
 	public Item addResponsibilityToItem(Responsibility r, Item i)throws IllegalArgumentException;
@@ -92,7 +92,7 @@ public interface ShopITAdministration extends RemoteService {
 	public Vector<Person> getAllPersonsOf(Team t) throws IllegalArgumentException;
 	
 	//Auslesen aller Listen einer Gruppe.
-	public Vector<List> getAllListsOf(Team t) throws IllegalArgumentException;
+	public Vector<ShoppingList> getAllListsOf(Team t) throws IllegalArgumentException;
 	
 	//L�schen einer Gruppe.
 	public void delete(Team t) throws IllegalArgumentException;
