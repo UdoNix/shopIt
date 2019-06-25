@@ -1,4 +1,5 @@
 package de.hdm.server.report;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Vector;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -175,7 +176,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	 * @author IlonaBrinkmann, Thies
 	 */
 	
-	public TeamStatisticReport createTeamStatisticReport(Team t, Date firstDate, Date lastDate) throws IllegalArgumentException {
+	public TeamStatisticReport createTeamStatisticReport(Team t, Timestamp firstDate, Timestamp lastDate) throws IllegalArgumentException {
 		
 		//int teamid = t.getId();
 		
@@ -212,11 +213,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			
 		//Hinzuf�gen des zusammengestellten Kopfdaten
 		result.setHeaderData(header);
-			
-			
-		//Erstellen und Abrufen der ben�tigten Ergebnisvektoren mittels PinnwandVerwaltung
-		//Vector<Article> articles = this.getArticlesbyTeamWithTime(teamId, firstDate, lastDate);
-			
 			
 		//Kopfzeile f�r die Teamstatistik Tabelle
 		Row headline = new Row();
@@ -278,7 +274,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	
 	//private int teamid;
 	
-	public TeamAndShopStatistikReport createTeamAndShopStatistikReport(Shop s, Team t, Date firstDate, Date lastdate) throws IllegalArgumentException {
+	public TeamAndShopStatistikReport createTeamAndShopStatistikReport(Shop s, Team t, Timestamp firstDate, Timestamp lastdate) throws IllegalArgumentException {
 		
 		if (this.getShopITAdministration() == null) {
 			return null;
@@ -295,8 +291,8 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		result.addImprint(result);
 		
 		/*
-		 * Datum der Erstellung hinzuf�gen. new Date() erzeugt autom. einen
-         * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
+		 * Datum der Erstellung hinzuf�gen. new Timestamp() erzeugt autom. einen
+         * "Timestamp" des Zeitpunkts der Instantiierung des Timestamp-Objekts.
 		 */
 		
 		result.setCreated(new Date()); 
@@ -363,13 +359,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		//es wird zum Schluss wird der fertige Report abgegeben
 		return result;
 		
-	}
-
-	@Override
-	public TeamAndShopStatistikReport createTeamAndShopStatistikReport(String tname, String sname, Date firstDate,
-			Date lastdate) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 		
 	

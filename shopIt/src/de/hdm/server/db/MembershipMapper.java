@@ -68,24 +68,6 @@ public class MembershipMapper {
 			      e2.printStackTrace();
 			      return null;
 			    }
->>>>>>> refs/heads/Larisa
-
-			// Da id Primärschlüssel ist, kann nur ein Tupel zurueckgeg werden.
-			// Es wird geprueft, ob ein Ergebnis vorliegt.
-			if (rs.next()) {
-				// Ergebnis-Tupel in Objekt umwandeln
-				Membership m = new Membership();
-				m.setId(rs.getInt("id"));
-				m.setPersonId(rs.getInt("personId"));
-				m.setTeamId(rs.getInt("teamId"));
-				return m;
-			}
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-			return null;
-		}
-
-		return null;
 	}
 
 	// Auslesen aller Memberships.
