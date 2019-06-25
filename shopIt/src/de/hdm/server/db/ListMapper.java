@@ -233,7 +233,7 @@ public class ListMapper {
 	      Statement stmt = con.createStatement();
 
 	      stmt.executeUpdate("UPDATE list " + "SET name=\"" + l.getName()
-          + "\", " + "teamId=\"" + l.getTeamId()+"\", "+ "WHERE id=" + l.getId());
+          + "\", " + "teamId=\"" + l.getTeamId()+"\", "+ "WHERE id= " + l.getId());
 
 	    }
 	    catch (SQLException e2) {
@@ -254,7 +254,7 @@ public class ListMapper {
 	     try {
 	       Statement stmt = con.createStatement();
 
-	       stmt.executeUpdate("DELETE FROM list " + "WHERE id=" + l.getId());
+	       stmt.executeUpdate("DELETE FROM list " + "WHERE id= " + l.getId());
 
 	     }
 	     catch (SQLException e2) {
