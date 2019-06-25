@@ -178,7 +178,7 @@ public Person insert(Person p) {
      try {
        Statement stmt = con.createStatement();
 
-       stmt.executeUpdate("DELETE FROM person " + " WHERE id=" + p.getId());
+       stmt.executeUpdate("DELETE FROM person " + " WHERE id= " + p.getId());
 
      }
      catch (SQLException e2) {

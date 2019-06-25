@@ -1,6 +1,7 @@
 package de.hdm.server.db;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,7 +45,7 @@ public Article findByKey (int id) {
 		//Anlegen einen leeren SQL-Statement
 		Statement stmt =con.createStatement();
 		// Ausfüllen des Statements, als Query an die DB schicken
-		ResultSet rs =stmt.executeQuery("SELECT * from article WHERE article.id =" + id );
+		ResultSet rs =stmt.executeQuery("SELECT * from article WHERE article.id = " + id );
 		
 		//Da id Primärschlüssel ist, kann nur ein Tupel zurueckgeg werden. 
 		//Es wird geprueft, ob ein Ergebnis vorliegt.
@@ -130,8 +131,13 @@ public Article insert(Article a) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      stmt.executeUpdate("INSERT INTO article (id, creationDate, changeDate, name) " + "VALUES ("
-          + a.getId() + ", CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '" + a.getName() + "')");
+      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO article (id, creationDate, changeDate, name) " + 
+      "VALUES (?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, )");
+      
+      stmt2.setInt(1,  a.getId());
+      stmt2.setString(2, a.getName());
+      
+      stmt2.execute();
     }
   }
   catch (SQLException e2) {
@@ -173,7 +179,7 @@ public Article insert(Article a) {
      try {
        Statement stmt = con.createStatement();
 
-       stmt.executeUpdate("DELETE FROM article " + "WHERE id=" + a.getId());
+       stmt.executeUpdate("DELETE FROM article " + "WHERE id= " + a.getId());
 
      }
      catch (SQLException e2) {

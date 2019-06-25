@@ -45,7 +45,7 @@ import de.hdm.shared.bo.Person;
 			//Anlegen einen leeren SQL-Statement
 			Statement stmt =con.createStatement();
 			// Ausfüllen des Statements, als Query an die DB schicken
-			ResultSet rs =stmt.executeQuery("SELECT * from membership" + "WHERE membership.id =" + id );
+			ResultSet rs =stmt.executeQuery("SELECT * from membership" + "WHERE membership.id = " + id );
 			
 			//Da id Primärschlüssel ist, kann nur ein Tupel zurueckgeg werden. 
 			//Es wird geprueft, ob ein Ergebnis vorliegt.
