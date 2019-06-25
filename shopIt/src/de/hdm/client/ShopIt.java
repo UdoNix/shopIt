@@ -1,100 +1,59 @@
-/**package de.hdm.client;
+package de.hdm.client;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.hdm.client.gui.AccountForm;
-import de.hdm.client.gui.AddPersonToGroupForm;
-import de.hdm.client.gui.ListForm;
-import de.hdm.client.gui.ListItemForm;
+import de.hdm.shared.LoginService;
+import de.hdm.shared.LoginServiceAsync;
 
-/**
- * Entry point classes define <code>onModuleLoad()</code>.
- */
-/*public class ShopIt implements EntryPoint{
-	
+public class ShopIt implements EntryPoint {
 
-ListItemForm liForm = new ListItemForm();
+	private LoginInformation loginInfo = null;
+	private VerticalPanel loginPanel = new VerticalPanel();
+	private Label loginLabel = new Label("Klicken Sie hier, um sich mit ihrem Google Konto anzumelden!");
+	private Anchor signInLink = new Anchor ("Einloggen");
+	private Anchor signOutLink = new Anchor ("Ausloggen");
 
-	
-	/**
-	 * This is the entry point method.
-	 */
-/*
+
 	public void onModuleLoad() {
-		
-<<<<<<< HEAD
-VerticalPanel vPanel = new VerticalPanel();
 
-vPanel.add(liForm);
+		LoginServiceAsync loginService = GWT.create(LoginService.class);
+		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInformation>() {
 
-			
-	RootPanel.get().add(vPanel);
-=======
-		acForm = new AccountForm();
-<<<<<<< HEAD
-//		grForm = new GroupForm();
-=======
-		grForm = new GroupForm();
-		//addPerson = new AddPersonToGroupForm();
+			@Override
+			public void onSuccess(LoginInformation result) {
+				loginInfo = result;
+				if (loginInfo.isLoggedIn()) {
+					loadShopIt();
+				} else {
+					loadLogin();
+				}
+			}
+
+			@Override
+			public void onFailure(Throwable arg0) {
+				Window.alert("Login fehlgeschlagen");
+
+			}
+		});
+	}
+
+	private void loadLogin() {
+		signInLink.setHref(loginInfo.getLoginURL());
+		loginPanel.add(loginLabel);
+		loginPanel.add(signInLink);
+		//TODO richtiges Rootpanel setzen
+		RootPanel.get("ROOTPANEL").add(loginPanel);
 		
->>>>>>> refs/heads/master
-*/
-		/**
-		 * The Vertical Panel is a gwt standard, it content vertically
-		 */
-	//	VerticalPanel vPanel = new VerticalPanel();
-/*		
-<<<<<<< HEAD
-		acForm.loadAccount();
-//		grForm.loadGroup();
-=======
-		acForm.onLoad();
-		grForm.onLoad();
-		
-		vPanel.add(settings);
-		vPanel.add(logoutBtn);
-		vPanel.add(grForm);
-		
-		**/
-		//addPerson.onLoad();
-		//
-//>>>>>>> refs/heads/master
-//		Label myLbl = new Label("Hallo");
-//		
-//		HorizontalPanel hPanel = new HorizontalPanel();
-//		
-//		Button btn1 = new Button("horizontal");
-//		hPanel.add(btn1);
-//		
-//		Button btn2 = new Button("buton 2");
-//		
-//		hPanel.add(btn2);
-//		vPanel.add(hPanel);
-//		
-//		HorizontalPanel hPanel2 = new HorizontalPanel();
-//		
-//		Button btn3 = new Button("horizontal");
-//		
-//		hPanel2.add(btn3);
-//		
-//		Button btn4 = new Button("buton 2");
-//		
-//		
-//		hPanel2.add(btn4);
-//		vPanel.add(hPanel2);
-//		//vPanel.add(myLbl);
-//		
-//		Button btn = new Button("Press");
-//		vPanel.add(btn);
-//		
-//		
-//		RootPanel.get().add(vPanel);
-	
-//}
-//}
-//
+	}
+
+	private void loadShopIt() {
+		signOutLink.setHref(loginInfo.getLogoutURL());
+	}
+}

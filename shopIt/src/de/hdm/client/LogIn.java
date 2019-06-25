@@ -1,9 +1,12 @@
 package de.hdm.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.resources.client.ClientBundle.Source;
 import com.google.gwt.user.cellview.client.CellTree;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
@@ -12,24 +15,27 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.client.gui.TeamView;
+import de.hdm.shared.LoginService;
+import de.hdm.shared.LoginServiceAsync;
 import de.hdm.shared.bo.Person;
 
 //author emily kretzschmar
 
+@Deprecated
 public class LogIn implements EntryPoint{
 
 	//ShopITAdministrationAsync shopITVerwaltung = ClientsideSettings.getShopItAdministrationAsync();
 	
-	static interface BankTreeResources extends CellTree.Resources {
-		@Source("cellTreeClosedItem.gif")
-	    ImageResource cellTreeClosedItem();
-
-		@Source("cellTreeOpenItem.gif")
-	    ImageResource cellTreeOpenItem();
-
-		@Source("BankCellTree.css")
-	    CellTree.Style cellTreeStyle(); 
-	}
+//	static interface BankTreeResources extends CellTree.Resources {
+//		@Source("cellTreeClosedItem.gif")
+//	    ImageResource cellTreeClosedItem();
+//
+//		@Source("cellTreeOpenItem.gif")
+//	    ImageResource cellTreeOpenItem();
+//
+//		@Source("BankCellTree.css")
+//	    CellTree.Style cellTreeStyle(); 
+//	}
 	
 	private LoginInformation loginInfo = null;
 	Person p = new Person();
@@ -54,7 +60,22 @@ public class LogIn implements EntryPoint{
     
     @Override
 	public void onModuleLoad() {
-		//LoginServiceAsync loginService = GWT.create(LoginService.class);
+		LoginServiceAsync loginService = GWT.create(LoginService.class);
+		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInformation>() {
+			
+			@Override
+			public void onSuccess(LoginInformation result) {
+				loginInfo = result;
+				if (loginInfo.isLoggedIn()) {
+					return;
+				}
+			}
+			
+			@Override
+			public void onFailure(Throwable arg0) {
+				Window.alert("Login fehlgeschlagen");
+			}
+		});
 		
 		//RootPanel.get().add (new ShopView());
 		RootPanel.get().add( new TeamView());
