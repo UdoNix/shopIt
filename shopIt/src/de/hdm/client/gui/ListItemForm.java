@@ -27,6 +27,7 @@ import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.Article;
 import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Shop;
+import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.UnitOfMeasure;
 
 /*
@@ -44,7 +45,7 @@ public class ListItemForm extends VerticalPanel {
 
 	private CellTreeViewModel ViewModel = null;
 
-	private ListForm ListToDisplay = null;
+	private ShoppingList selectedShoppingList = null;
 
 	private NumberFormat decimalFormatter = NumberFormat.getDecimalFormat();
 
@@ -56,13 +57,7 @@ public class ListItemForm extends VerticalPanel {
 		ViewModel = viewModel;
 	}
 
-	public ListForm getListToDisplay() {
-		return ListToDisplay;
-	}
-
-	public void setListToDisplay(ListForm listToDisplay) {
-		ListToDisplay = listToDisplay;
-	}
+	
 
 	/*
 	 * Instanziieren von den genannten Objekten, der Rest Realisierung über TextBox,
@@ -123,38 +118,38 @@ public class ListItemForm extends VerticalPanel {
 		 * Strukturierung der Darstellung mit Hilfe von Grid
 		 */
 
-		ListGrid = new Grid(5, 2);
+		ListGrid = new Grid(7, 2);
 
 		Label newArticleLabel = new Label("Artikel: ");
-		ListGrid.setWidget(0, 0, newArticleLabel);
-		ListGrid.setWidget(0, 1, articleTextBox);
+		ListGrid.setWidget(1, 0, newArticleLabel);
+		ListGrid.setWidget(1, 1, articleTextBox);
 
 		Label newAmountLabel = new Label("Anzahl: ");
-		ListGrid.setWidget(1, 0, newAmountLabel);
-		ListGrid.setWidget(1, 1, amountTextBox);
+		ListGrid.setWidget(2, 0, newAmountLabel);
+		ListGrid.setWidget(2, 1, amountTextBox);
 
 		/*
 		 * Hinzufügen von ClickHandlern
 		 */
 
 		Label newUnitLabel = new Label("Mengeneinheit: ");
-		ListGrid.setWidget(2, 0, newUnitLabel);
-		ListGrid.setWidget(2, 1, unitListBox);
+		ListGrid.setWidget(3, 0, newUnitLabel);
+		ListGrid.setWidget(3, 1, unitListBox);
 //		unitListBox.addChangeHandler(new UnitListBoxChangeHandler());
 
 		Label newPersonLabel = new Label("Person: ");
-		ListGrid.setWidget(3, 0, newPersonLabel);
-		ListGrid.setWidget(3, 1, personListBox);
+		ListGrid.setWidget(4, 0, newPersonLabel);
+		ListGrid.setWidget(4, 1, personListBox);
 //		personListBox.addChangeHandler(new PersonListBoxChangeHandler());
 
 		Label shopLabel = new Label("Haendler: ");
-		ListGrid.setWidget(4, 0, shopLabel);
-		ListGrid.setWidget(4, 1, shopListBox);
+		ListGrid.setWidget(5, 0, shopLabel);
+		ListGrid.setWidget(5, 1, shopListBox);
 //		shopListBox.addChangeHandler(new ShopListBoxChangeHandler());
 
 		Label standardizeLabel = new Label("favorisieren: ");
-		ListGrid.setWidget(5, 0, standardizeLabel);
-		ListGrid.setWidget(5, 1, standardizeBtn);
+		ListGrid.setWidget(6, 0, standardizeLabel);
+		ListGrid.setWidget(6, 1, standardizeBtn);
 //		standardizeBtn.addClickHandler(new StandardizeClickHandler);
 
 		HorizontalPanel updateBtnPanel = new HorizontalPanel();
@@ -168,13 +163,17 @@ public class ListItemForm extends VerticalPanel {
 
 		btnPanel.add(saveBtn);
 		btnPanel.add(cancelBtn);
+		
+		contentPanel.add(new ListForm());
 		contentPanel.add(ListGrid);
 		contentPanel.add(btnPanel);
+		
+		add(contentPanel);
 
 	}
-
-	public void onLoad() {
-		RootPanel.get("main").add(contentPanel);
+	
+	public void setSelectedShoppingList(ShoppingList selectedShoppingList) {
+		this.selectedShoppingList = selectedShoppingList;
 	}
 
 	private class GetAllArticlesCallback implements AsyncCallback<Vector<Article>> {
@@ -343,9 +342,7 @@ public class ListItemForm extends VerticalPanel {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				if (ListToDisplay != null) {
-					RootPanel.get("main").clear();
-				}
+				
 			}
 
 		}

@@ -50,7 +50,7 @@ public class Tree extends CellTree {
 		public <T> NodeInfo<?> getNodeInfo(T value) {
 			if (value == null) {
 				ListDataProvider<String> dataProvider = new ListDataProvider<String>(
-						Arrays.asList("Account", "Gruppe", "Arikel", "Shop"));
+						Arrays.asList("Account", "Gruppe", "Artikel", "Shop"));
 
 				Cell<String> cell = new AbstractCell<String>("click") {
 					@Override
@@ -63,7 +63,12 @@ public class Tree extends CellTree {
 							ValueUpdater<String> valueUpdater) {
 						if ("click".equals(event.getType())) {
 							if (value.equals("Account")) {
+								// TODO aktuellen Nutzer laden
 								layout.setPanel(new PersonForm());
+							} else if (value.equals("Artikel")) {
+								layout.setPanel(new ArticleForm());
+							} else if (value.equals("Shop")) {
+								layout.setPanel(new ShopView());
 							}
 						}
 					}
@@ -90,7 +95,7 @@ public class Tree extends CellTree {
 					}
 				};
 
-				Cell<Team> cell = new AbstractCell<Team>() {
+				Cell<Team> cell = new AbstractCell<Team>("click") {
 					@Override
 					public void render(Context context, Team value, SafeHtmlBuilder sb) {
 						sb.appendHtmlConstant(value.getName());
@@ -100,7 +105,12 @@ public class Tree extends CellTree {
 					public void onBrowserEvent(Context context, Element parent, Team value, NativeEvent event,
 							ValueUpdater<Team> valueUpdater) {
 						if ("click".equals(event.getType())) {
-
+							
+							TeamView teamView = new TeamView();
+							teamView.setSelectedTeam(value);
+							
+							layout.setPanel(teamView);
+							
 						}
 					}
 
@@ -128,10 +138,23 @@ public class Tree extends CellTree {
 					}
 				};
 
-				Cell<ShoppingList> cell = new AbstractCell<ShoppingList>() {
+				Cell<ShoppingList> cell = new AbstractCell<ShoppingList>("click") {
 					@Override
 					public void render(Context context, ShoppingList value, SafeHtmlBuilder sb) {
 						sb.appendHtmlConstant(value.getName());
+					}
+					
+					@Override
+					public void onBrowserEvent(Context context, Element parent, ShoppingList value, NativeEvent event,
+							ValueUpdater<ShoppingList> valueUpdater) {
+						
+						if ("click".equals(event.getType())) {
+							
+							ListItemForm listItemForm = new ListItemForm();
+							listItemForm.setSelectedShoppingList(value);
+							
+							layout.setPanel(listItemForm);
+						}
 					}
 				};
 
