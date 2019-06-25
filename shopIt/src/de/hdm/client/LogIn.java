@@ -58,7 +58,7 @@ public class LogIn implements EntryPoint{
 		//LoginServiceAsync loginService = GWT.create(LoginService.class);
 		
 		//RootPanel.get().add (new ShopView());
-		RootPanel.get().add( new Tree(null));
+		RootPanel.get().add( new Layout());
 		
 		
 //		loginService.login(GWT.getHostPageBaseURL()+ "ShopIt.html", new AsyncCallback<LoginInformation>() {

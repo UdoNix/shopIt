@@ -1,35 +1,50 @@
 package de.hdm.client.gui;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Vector;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.Cell;
+import com.google.gwt.cell.client.ValueUpdater;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.TreeViewModel;
 
 import de.hdm.client.ClientsideSettings;
+import de.hdm.client.Layout;
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.ShoppingList;
-import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Team;
 
 public class Tree extends CellTree {
 
-	public Tree(Object rootValue) {
-		super(new TreeModel(), rootValue);
+	private final Layout layout;
+
+	/**
+	 * @param layout Das Layout zum setzen des Inhalt Panels
+	 */
+	public Tree(Layout layout) {
+		super(new TreeModel(layout), null);
+		this.layout = layout;
 	}
 
 	public static class TreeModel implements TreeViewModel {
 
 		private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
+
+		private final Layout layout;
+
+		public TreeModel(Layout layout) {
+			this.layout = layout;
+		}
 
 		@Override
 		public <T> NodeInfo<?> getNodeInfo(T value) {
@@ -37,10 +52,20 @@ public class Tree extends CellTree {
 				ListDataProvider<String> dataProvider = new ListDataProvider<String>(
 						Arrays.asList("Account", "Gruppe", "Arikel", "Shop"));
 
-				Cell<String> cell = new AbstractCell<String>() {
+				Cell<String> cell = new AbstractCell<String>("click") {
 					@Override
 					public void render(Context context, String value, SafeHtmlBuilder sb) {
 						sb.appendHtmlConstant(value);
+					}
+
+					@Override
+					public void onBrowserEvent(Context context, Element parent, String value, NativeEvent event,
+							ValueUpdater<String> valueUpdater) {
+						if ("click".equals(event.getType())) {
+							if (value.equals("Account")) {
+								layout.setPanel(new PersonForm());
+							}
+						}
 					}
 				};
 
@@ -70,6 +95,15 @@ public class Tree extends CellTree {
 					public void render(Context context, Team value, SafeHtmlBuilder sb) {
 						sb.appendHtmlConstant(value.getName());
 					}
+
+					@Override
+					public void onBrowserEvent(Context context, Element parent, Team value, NativeEvent event,
+							ValueUpdater<Team> valueUpdater) {
+						if ("click".equals(event.getType())) {
+
+						}
+					}
+
 				};
 
 				return new DefaultNodeInfo<Team>(asyncDataProvider, cell);
