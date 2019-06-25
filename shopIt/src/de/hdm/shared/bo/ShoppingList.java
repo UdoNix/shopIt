@@ -1,7 +1,7 @@
 package de.hdm.shared.bo;
 
 
-public class List extends BusinessObject{
+public class ShoppingList extends BusinessObject{
 
 	private static final long serialVersionUID = 1L;
 
