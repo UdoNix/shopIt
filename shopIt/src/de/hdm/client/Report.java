@@ -28,8 +28,8 @@ public class Report implements EntryPoint {
 
 	Person p = new Person();
 
-	private Label forNameLabel = new Label("Vorname");
-	private TextBox forNameBox = new TextBox();
+	private Label firstNameLabel = new Label("Vorname");
+	private TextBox firstNameBox = new TextBox();
 	private Label lastNameLabel = new Label("Nachname");
 	private TextBox lastNameBox = new TextBox();
 
