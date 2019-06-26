@@ -252,7 +252,7 @@ public Item insert(Item i) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE list " + "SET id= \"" + i.getId()
-       + "\", teamId= \"" + i.getTeamId()+ i.getShopId()+ "\", " + "unitId= \"" + i.getUnitId()+ "\", " + "articleId= \"" + i.getArticleId()+ "\", " + "isStatus= \"" + "\", " + "listid= \"" + i.getListId()+ i.isStatus()+ "\", " + "isFavorit= \"" + i.isFavorit()+"\", "+ " WHERE id= " + i.getId());
+       + "\", teamId= \"" + i.getTeamId()+ i.getShopId()+ "\", " + "unitId= \"" + i.getUnitId()+ "\", " + "articleId= \"" + i.getArticleId()+ "\", " + "isStatus= \"" + "\", " + "listid= \"" + i.getListId()+ i.isStatus()+ "\", " + "isFavorit= \"" + i.isFavorit()+"\" "+ " WHERE id= " + i.getId());
 
     }
     catch (SQLException e2) {
