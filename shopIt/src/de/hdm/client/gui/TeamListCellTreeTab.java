@@ -30,7 +30,7 @@ public class TeamListCellTreeTab implements TreeViewModel {
 
 	private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
 	
-	private ListForm listForm;
+	private ShoppingListForm listForm;
 	private TeamView teamView;
 	
 	private Team selectedTeam;
@@ -125,7 +125,7 @@ public class TeamListCellTreeTab implements TreeViewModel {
 		personMembershipDataProvider = new HashMap<Person, ListDataProvider<Membership>>();
 	}
 	
-	void setListForm(ListForm lf) {
+	void setListForm(ShoppingListForm lf) {
 		listForm = lf;
 	}
 	

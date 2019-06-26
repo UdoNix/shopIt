@@ -22,24 +22,26 @@ public class ShopIt implements EntryPoint {
 
 	public void onModuleLoad() {
 
-		LoginServiceAsync loginService = GWT.create(LoginService.class);
-		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInformation>() {
-
-			@Override
-			public void onSuccess(LoginInformation result) {
-				loginInfo = result;
-				if (loginInfo.isLoggedIn()) {
-					loadShopIt(result);
-				} else {
-					loadLogin();
-				}
-			}
-
-			@Override
-			public void onFailure(Throwable arg0) {
-				loadLogin();
-			}
-		});
+		RootPanel.get("content").add(new Layout(new LoginInformation()));
+		
+//		LoginServiceAsync loginService = GWT.create(LoginService.class);
+//		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInformation>() {
+//
+//			@Override
+//			public void onSuccess(LoginInformation result) {
+//				loginInfo = result;
+//				if (loginInfo.isLoggedIn()) {
+//					loadShopIt(result);
+//				} else {
+//					loadLogin();
+//				}
+//			}
+//
+//			@Override
+//			public void onFailure(Throwable arg0) {
+//				loadLogin();
+//			}
+//		});
 	}
 
 	private void loadLogin() {

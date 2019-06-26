@@ -24,7 +24,7 @@ public interface ShopITAdministrationAsync {
 
 	void createArticle(String name, AsyncCallback<Article> callback);
 
-	void createItem(ShoppingList l, Article a, AsyncCallback<Item> callback);
+	void createItem(int listId, int count, int articleId, int personId, int shopId, AsyncCallback<Item> callback);
 
 	void createListFor(Team t, String name, AsyncCallback<ShoppingList> callback);
 

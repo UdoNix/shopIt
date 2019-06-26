@@ -49,7 +49,7 @@ public class TeamForm extends VerticalPanel {
 
 		this.addStyleName("teamForm");
 		
-		ListForm listForm = new ListForm(serializableID);
+		ShoppingListForm listForm = new ShoppingListForm();
 
 		this.add(listForm);
 

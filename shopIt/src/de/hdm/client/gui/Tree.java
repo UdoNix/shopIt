@@ -150,8 +150,7 @@ public class Tree extends CellTree {
 						
 						if ("click".equals(event.getType())) {
 							
-							ListItemForm listItemForm = new ListItemForm();
-							listItemForm.setSelectedShoppingList(value);
+							ListItemForm listItemForm = new ListItemForm(value);
 							
 							layout.setPanel(listItemForm);
 						}

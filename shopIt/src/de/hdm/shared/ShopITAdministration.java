@@ -61,7 +61,7 @@ public interface ShopITAdministration extends RemoteService {
 	public void delete(ShoppingList l)throws IllegalArgumentException;
 	
 	//Eintrag erstellen.
-	public Item createItem(ShoppingList l, Article a)throws IllegalArgumentException;
+	public Item createItem(int listId, int count, int articleId, int personId, int shopId) throws IllegalArgumentException;
 	
 	//Zuständigkeit zum Eintrag hinzufügen
 	public Item addResponsibilityToItem(Responsibility r, Item i)throws IllegalArgumentException;

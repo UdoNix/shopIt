@@ -234,14 +234,24 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * neuen Eintrag erstellen
 	 */
-	public Item createItem(ShoppingList l, Article a) throws IllegalArgumentException {
+	public Item createItem(int listId, int count, int articleId, int personId, int shopId) throws IllegalArgumentException {
 		Item i = new Item();
 		// i.setCreationDate();//aktuelles Datum einf�gen Muss nicht gesetzt werden, das
 		// macht die DB
 
 		i.setId(1);
-		i.setListId(l.getId());
-		return this.iMapper.insert(i);
+		i.setListId(listId);
+		i.setCount(count);
+		i.setArticleId(articleId);
+		i = this.iMapper.insert(i);
+		
+		Responsibility r = new Responsibility();
+		r.setItemId(i.getId());
+		r.setPersonId(personId);
+		r.setShopId(shopId);
+		this.rMapper.insert(r);
+		
+		return i;
 	}
 
 	/*

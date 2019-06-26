@@ -3,6 +3,7 @@ package de.hdm.client;
 
 import java.util.logging.Logger;
 
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -15,34 +16,35 @@ import de.hdm.shared.ShopITAdministration;
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.CommonSettings;
 
+/**
+ * @author dibasegmen
+ */
+
 
 public class ClientsideSettings extends CommonSettings {
 	
 	private static ShopITAdministrationAsync shopItAdministration = null;
 
-	/**
-	 * Remote Service Proxy zur Verbindungsaufnahme mit dem Server-seitigen
-	 * Dienst ReportGenerator
-	 */
 	
-	/*
+	/**
 	 * Report Service Proxy für Verbindungsaufnahme mit server-seitigem Dienst ReportGenerator
 	 */
 	
 	private static ReportGeneratorAsync reportGenerator = null;
 	
 	
-	/*
+	/**
 	 * Report Service Proxy für Verbindungsaufnahme mit server-seitigem Dienst ReportGenerator
 	 */
 	
 	private static LoginServiceAsync loginService = null;
 	
-	/*
+	/**
 	 * Name des client-seitigen Loggers
 	 */
 	private static final String LOGGER_NAME = "ShopIT Client";
-	/*
+	
+	/**
 	 * Instanz des client-seitigen Loggers
 	 */
 	
@@ -51,7 +53,7 @@ public class ClientsideSettings extends CommonSettings {
 	 */
 	private static final Logger log = Logger.getLogger(LOGGER_NAME);
 	
-	/*
+	/**
 	 * Auslesen des applikationsweiten (Client-seitigen) zentralen Loggers
 	 * 
 	 * @return Logger-Instanz
@@ -62,7 +64,7 @@ public class ClientsideSettings extends CommonSettings {
 	}
 	
 	
-	/*
+	/**
 	 * Anlegen und Auslesen des ShopItAdministration
 	 */
 
@@ -78,7 +80,7 @@ public class ClientsideSettings extends CommonSettings {
 	}
 	
 	
-	/*
+	/**
 	 * Anlegen und Auslesen des Login Service
 	 */
 	public static LoginServiceAsync getLoginService() {
