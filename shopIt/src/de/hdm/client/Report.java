@@ -40,13 +40,14 @@ public class Report implements EntryPoint {
 	private Anchor signOutLink = new Anchor("Ausloggen");
 	private Button loginButton = new Button("Login :)");
 
-	public void onModuleLoad(){
+	public Report() {
 		
-		LoginServiceAsync loginService = GWT.create(LoginService.class);
-//		loginService.login(GWT.getHostPageBaseURL() + "ShopIt.html", new AsyncCallback<LoginInformation>());
-
 	}
-		
+
+	public void onModuleLoad() {
+		Window.alert("Report");
+	}
+
 	public void onFailure(Throwable caught) {
 		RootPanel.get().add(new HTML(caught.toString()));
 	}
@@ -82,7 +83,8 @@ public class Report implements EntryPoint {
 	}
 
 	private void loadPersonAbruf(LoginInformation loginInformation) {
-		//reportVerwaltung.findPersonByEmail(loginInformation.getEmailAddress(), new PersonAbrufCallback());
+		// reportVerwaltung.findPersonByEmail(loginInformation.getEmailAddress(),
+		// new PersonAbrufCallback());
 	}
 
 	private void loadReportGenerator() {

@@ -244,17 +244,17 @@ CREATE TABLE `unit` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `amount` int(11) NOT NULL,
-  `measure` varchar(20) NOT NULL default ''
+  `quantity` float(11) NOT NULL,
+  `unit` varchar(20) NOT NULL default ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Daten für Tabelle unit
 #
 
-INSERT INTO unit VALUES (1, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 3, 'Kilo');
-INSERT INTO unit VALUES (2, '2019-01-02 00:00:00', '2019-01-02 00:00:00', 5, 'Stück');
-INSERT INTO unit VALUES (3, '2019-01-02 00:00:00', '2019-01-03 00:00:00', 2, 'Packungen');
+INSERT INTO unit VALUES (1, '2019-01-02 00:00:00', '2019-01-01 00:00:00', '3.4', 'Kilo');
+INSERT INTO unit VALUES (2, '2019-01-02 00:00:00', '2019-01-02 00:00:00', '5.8', 'Stück');
+INSERT INTO unit VALUES (3, '2019-01-02 00:00:00', '2019-01-03 00:00:00', '2.9', 'Packungen');
 
 -- --------------------------------------------------------
 

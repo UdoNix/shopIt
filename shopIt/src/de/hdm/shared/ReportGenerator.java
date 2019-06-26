@@ -1,5 +1,6 @@
 package de.hdm.shared;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -10,7 +11,6 @@ import de.hdm.shared.report.AllArticlesOfShopReport;
 import de.hdm.shared.report.Report;
 import de.hdm.shared.report.TeamAndShopStatistikReport;
 import de.hdm.shared.report.TeamStatisticReport;
-import de.hdm.shared.ReportGeneratorAsync;
 
 /**
  * Das ist die Synchrone Schnittstelle für eine RPC-fähige Klasse zur Erstellung von Reports. Diese Schnittstelle benutzt die gleiche Realisierungsgrundlage wir
@@ -74,7 +74,7 @@ public interface ReportGenerator extends RemoteService{
 	 * 
 	 */
 	
-	public TeamStatisticReport createTeamStatisticReport(Team t, Date firstDate, Date lastDate) throws IllegalArgumentException;
+	public TeamStatisticReport createTeamStatisticReport(Team t, Timestamp firstDate, Timestamp lastDate) throws IllegalArgumentException;
 
 
 		

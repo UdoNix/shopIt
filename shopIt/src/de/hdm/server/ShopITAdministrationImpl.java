@@ -4,7 +4,6 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Vector;
 
 import de.hdm.server.db.ArticleMapper;
@@ -20,13 +19,14 @@ import de.hdm.shared.ShopITAdministration;
 import de.hdm.shared.bo.Article;
 import de.hdm.shared.bo.Team;
 import de.hdm.shared.bo.Item;
-import de.hdm.shared.bo.List;
+import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Membership;
 import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Shop;
 import de.hdm.shared.bo.UnitOfMeasure;
 import de.hdm.shared.bo.Responsibility;
 
+@SuppressWarnings("serial")
 public class ShopITAdministrationImpl extends RemoteServiceServlet implements ShopITAdministration {
 
 	// Referenz auf die MapperKlassen, um die Objekte mit der Datenbank abzugleichen
@@ -167,9 +167,9 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * neue Liste erstellen
 	 */
 
-	public List createListFor(Team t, String name) throws IllegalArgumentException {
+	public ShoppingList createListFor(Team t, String name) throws IllegalArgumentException {
 
-		List l = new List();
+		ShoppingList l = new ShoppingList();
 
 		// creationDate + modification Date noch hinzuf�gen
 
@@ -184,28 +184,28 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * Liste anhand der Id finden
 	 */
-	public List getListById(int id) throws IllegalArgumentException {
+	public ShoppingList getListById(int id) throws IllegalArgumentException {
 		return this.lMapper.findByKey(id);
 	}
 
 	/*
 	 * alle Eintr�ge einer Liste aufzeigen
 	 */
-	public Vector<Item> getAllItemsOfList(List l) throws IllegalArgumentException {
+	public Vector<Item> getAllItemsOfList(ShoppingList l) throws IllegalArgumentException {
 		return this.iMapper.findByList(l);
 	}
 
 	/*
 	 * eine Liste �ndern
 	 */
-	public void update(List l) throws IllegalArgumentException {
+	public void update(ShoppingList l) throws IllegalArgumentException {
 		lMapper.update(l);
 	}
 
 	/*
 	 * eine Liste l�schen
 	 */
-	public void delete(List l) throws IllegalArgumentException {
+	public void delete(ShoppingList l) throws IllegalArgumentException {
 		// alle Eintr�ge der Liste suchen und ggf. l�schen
 		Vector<Item> items = iMapper.findByList(l);
 
@@ -234,14 +234,24 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * neuen Eintrag erstellen
 	 */
-	public Item createItem(List l, Article a) throws IllegalArgumentException {
+	public Item createItem(int listId, int count, int articleId, int personId, int shopId) throws IllegalArgumentException {
 		Item i = new Item();
 		// i.setCreationDate();//aktuelles Datum einf�gen Muss nicht gesetzt werden, das
 		// macht die DB
 
 		i.setId(1);
-		i.setListId(l.getId());
-		return this.iMapper.insert(i);
+		i.setListId(listId);
+		i.setCount(count);
+		i.setArticleId(articleId);
+		i = this.iMapper.insert(i);
+		
+		Responsibility r = new Responsibility();
+		r.setItemId(i.getId());
+		r.setPersonId(personId);
+		r.setShopId(shopId);
+		this.rMapper.insert(r);
+		
+		return i;
 	}
 
 	/*
@@ -361,7 +371,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	}
 
 	// Auslesen aller Listen einer Gruppe.
-	public Vector<List> getAllListsOf(Team t) throws IllegalArgumentException {
+	public Vector<ShoppingList> getAllListsOf(Team t) throws IllegalArgumentException {
 		return this.lMapper.findByTeam(t.getId());
 	}
 
@@ -381,10 +391,10 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 			}
 		}
 
-		Vector<List> lists = this.getAllListsOf(t);
+		Vector<ShoppingList> lists = this.getAllListsOf(t);
 
 		if (lists != null) {
-			for (List l : lists) {
+			for (ShoppingList l : lists) {
 				this.lMapper.delete(l);
 			}
 		}
@@ -698,6 +708,12 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	@Override
 	public void delete(int personId, int teamId) throws IllegalArgumentException {
 		this.mMapper.delete(personId, teamId);
+	}
+
+	@Override
+	public Vector<Item> getItemsByTeamWithTime(int teamId, Timestamp firstDate, Timestamp lastDate) {
+		Vector <Item> items = this.iMapper.getItemsbyTeamWithTime(teamId, firstDate, lastDate);
+		return items;
 	}
 
 }

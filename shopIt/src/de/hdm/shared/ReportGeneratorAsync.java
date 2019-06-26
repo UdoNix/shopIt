@@ -1,15 +1,21 @@
 package de.hdm.shared;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.hdm.shared.bo.Shop;
 import de.hdm.shared.bo.Team;
+
 import de.hdm.shared.report.AllArticlesOfShopReport;
 import de.hdm.shared.report.Report;
 import de.hdm.shared.report.TeamAndShopStatistikReport;
 import de.hdm.shared.report.TeamStatisticReport;
+
+
+
+
 
 /**
  * Das asynchrone Gegenst�ck des Interface ReportGenerator. Es
@@ -28,7 +34,7 @@ public interface ReportGeneratorAsync {
 	void createTeamAndShopStatistikReport(String tname, String sname, Date firstDate, Date lastdate,
 			AsyncCallback<TeamAndShopStatistikReport> callback);
 
-	void createTeamStatisticReport(Team t, Date firstDate, Date lastDate, AsyncCallback<TeamStatisticReport> callback);
+	void createTeamStatisticReport(Team t, Timestamp firstDate, Timestamp lastDate, AsyncCallback<TeamStatisticReport> callback);
 
 	void getShopITAdministration(AsyncCallback<ShopITAdministration> callback);
 
