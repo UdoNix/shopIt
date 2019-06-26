@@ -133,8 +133,15 @@ public Vector<Item> findByList (ShoppingList l){
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("SELECT * FROM Item "
-	          + "WHERE listId= " + listId + " ORDER BY id");
+	      ResultSet rs = stmt.executeQuery("SELECT * , article.name, unitOfMeasure.quantity"
+	      		+ "unitOfMeasure.unit, person.firstname, shop.name,  FROM Item INNER JOIN ON "
+	      		+ "article.id = item.articleId"
+	      		+ "INNER JOIN unitOfMeasure ON unitOfMeasure.id ="
+	      		+ "item.unitId INNER JOIN responsibility ON item.personId = responsibility.personId "
+	      		+ "INNER JOIN person ON responsibilitiy.personId = person.id"
+	      		+ "INNER JOIN responsibility ON item.shopId = responsibility.shopId INNER JOIN"
+	      		+ "shop ON responsibility.shopId = shop.id"
+	            + "WHERE listId= " + listId + " ORDER BY id");
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt erstellt.
 	      while (rs.next()) {
