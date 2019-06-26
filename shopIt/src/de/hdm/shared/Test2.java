@@ -4,6 +4,9 @@ package de.hdm.shared;
 
 import de.hdm.server.ShopITAdministrationImpl;
 import de.hdm.server.report.ReportGeneratorImpl;
+import de.hdm.shared.bo.Article;
+import de.hdm.shared.bo.Item;
+import de.hdm.shared.bo.List;
 import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Shop;
 import de.hdm.shared.bo.Team;
@@ -61,6 +64,39 @@ public class Test2 {
 		Shop s1 = new Shop();
 		s1 = admin.getShopById(1);
 		System.out.println(radmin.createAllArticlesOfShopReport(s1));
+		
+		
+		/**
+		 * Test für List
+		 */
+		
+		List l1 = new List();
+		//admin.createListFor(t3, "Wocheneinkauf");
+		
+		System.out.println(admin.getListById(1));
+		
+		admin.getAllItemsOfList(l1);
+		
+		admin.delete(l1);
+		
+		/**
+		 * Test für Artikel
+		 */
+		
+		Article a = new Article();
+		//admin.createArticle("Banane");
+		
+		/**
+		 * Test für Eintrag
+		 */
+		
+		Item i = new Item();
+		admin.createItem(l1, a);
+		
+		admin.getItemById(1);
+		System.out.println("Item gefunden: " i.getId());
+		admin.getAllItems();
+		
 		
 	}
 
