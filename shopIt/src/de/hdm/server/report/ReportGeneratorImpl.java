@@ -178,7 +178,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	
 	public TeamStatisticReport createTeamStatisticReport(Team t, Timestamp firstDate, Timestamp lastDate) throws IllegalArgumentException {
 		
-		//int teamid = t.getId();
+		int teamId = t.getId();
 		
 		if (this.getShopITAdministration() == null) {
 			return null;
@@ -214,6 +214,15 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		//Hinzuf�gen des zusammengestellten Kopfdaten
 		result.setHeaderData(header);
 			
+<<<<<<< HEAD
+=======
+			
+
+		//Erstellen und Abrufen der ben�tigten Ergebnisvektoren mittels PinnwandVerwaltung
+		Vector<Item> itemsTeamTime = this.admin.getItemsByTeamWithTime(teamId, firstDate, lastDate);
+			
+			
+>>>>>>> refs/remotes/origin/master
 		//Kopfzeile f�r die Teamstatistik Tabelle
 		Row headline = new Row();
 			
@@ -267,14 +276,19 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	 * 
 	 * Zur�ckgegeben wird ein fertiger Report
 	 * 
-	 * @author IlonaBrinkmann
+	 * @author IlonaBrinkmann & Larisa
 	 */
 	
 	//private int shopid;
 	
 	//private int teamid;
 	
+<<<<<<< HEAD
 	public TeamAndShopStatistikReport createTeamAndShopStatistikReport(Shop s, Team t, Timestamp firstDate, Timestamp lastdate) throws IllegalArgumentException {
+=======
+
+	public TeamAndShopStatistikReport createTeamAndShopStatistikReport(Shop s, Team t, Date firstDate, Date lastdate) throws IllegalArgumentException {
+>>>>>>> refs/remotes/origin/master
 		
 		if (this.getShopITAdministration() == null) {
 			return null;

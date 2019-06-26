@@ -2,6 +2,11 @@ package de.hdm.client.gui;
 
 import java.util.Vector;
 
+import com.google.gwt.cell.client.ButtonCell;
+import com.google.gwt.cell.client.FieldUpdater;
+import com.google.gwt.cell.client.Cell.Context;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -9,6 +14,9 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.i18n.client.NumberFormat;
+import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -25,26 +33,28 @@ import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopITAdministration;
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.Article;
+import de.hdm.shared.bo.Item;
 import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Shop;
+import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.UnitOfMeasure;
 
-/*
+/**
  * Die Klasse <code>ListItemForm</code> dient dem Anlegen neuer Listeneinträge
  */
 
 public class ListItemForm extends VerticalPanel {
 
-	private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
+	private final ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
 
-	/*
+	/**
 	 * Instanziieren und Zugriff ermöglichen auf die <code>ViewModel, ListToDisplay,
 	 * ListShowCase</code>
 	 */
 
 	private CellTreeViewModel ViewModel = null;
 
-	private ListForm ListToDisplay = null;
+	private final ShoppingList selectedShoppingList;
 
 	private NumberFormat decimalFormatter = NumberFormat.getDecimalFormat();
 
@@ -56,15 +66,7 @@ public class ListItemForm extends VerticalPanel {
 		ViewModel = viewModel;
 	}
 
-	public ListForm getListToDisplay() {
-		return ListToDisplay;
-	}
-
-	public void setListToDisplay(ListForm listToDisplay) {
-		ListToDisplay = listToDisplay;
-	}
-
-	/*
+	/**
 	 * Instanziieren von den genannten Objekten, der Rest Realisierung über TextBox,
 	 * da Inhalt komplett variabel
 	 */
@@ -74,7 +76,7 @@ public class ListItemForm extends VerticalPanel {
 	private Shop selectedShop = null;
 	private Person selectedPerson = null;
 
-	/*
+	/**
 	 * Verwendung eines Vectors als Datenstruktur zur Aufnahme der Artikel, Händler,
 	 * Personen und Mengenheiten entsprechend ihres generischen Typs.
 	 */
@@ -84,7 +86,7 @@ public class ListItemForm extends VerticalPanel {
 	private Vector<UnitOfMeasure> unitList;
 	private Vector<Person> personList;
 
-	/*
+	/**
 	 * Instanziierung aller notwendigen GUI Elemente
 	 */
 
@@ -94,73 +96,70 @@ public class ListItemForm extends VerticalPanel {
 	private Button saveBtn = new Button("Speichern");
 	private Button cancelBtn = new Button("Zurueck");
 
-	private TextBox amountTextBox = new TextBox();
+	private final TextBox amountTextBox = new TextBox();
 
-	/*
+	/**
 	 * Generiert Artikel-Vorschläge via RPC Call zum Server
 	 */
 
-	private TextBox articleTextBox = new TextBox();
+	private final ListBox articleListBox = new ListBox();
 
-	/*
+	/**
 	 * ListBox, um die Auswahl aus vorgegebenen Werten zu ermöglichen
 	 */
 
-	private ListBox unitListBox = new ListBox();
-	private ListBox personListBox = new ListBox();
-	private ListBox shopListBox = new ListBox();
+	private final ListBox unitListBox = new ListBox();
+	private final ListBox personListBox = new ListBox();
+	private final ListBox shopListBox = new ListBox();
 
-	/*
+	/**
 	 * Anlegen eines Favorisieren-Buttons und einer Abhaken-CheckBox
 	 */
 
 	private Button standardizeBtn = new Button();
 	private CheckBox check = new CheckBox();
 
-	public ListItemForm() {
+	public ListItemForm(final ShoppingList selectedShoppingList) {
+		this.selectedShoppingList = selectedShoppingList;
 
-		/*
+		/**
 		 * Strukturierung der Darstellung mit Hilfe von Grid
 		 */
 
-		ListGrid = new Grid(5, 2);
+		ListGrid = new Grid(7, 2);
 
 		Label newArticleLabel = new Label("Artikel: ");
-		ListGrid.setWidget(0, 0, newArticleLabel);
-		ListGrid.setWidget(0, 1, articleTextBox);
+		ListGrid.setWidget(1, 0, newArticleLabel);
+		ListGrid.setWidget(1, 1, articleListBox);
 
 		Label newAmountLabel = new Label("Anzahl: ");
-		ListGrid.setWidget(1, 0, newAmountLabel);
-		ListGrid.setWidget(1, 1, amountTextBox);
+		ListGrid.setWidget(2, 0, newAmountLabel);
+		ListGrid.setWidget(2, 1, amountTextBox);
 
 		/*
 		 * Hinzufügen von ClickHandlern
 		 */
 
 		Label newUnitLabel = new Label("Mengeneinheit: ");
-		ListGrid.setWidget(2, 0, newUnitLabel);
-		ListGrid.setWidget(2, 1, unitListBox);
+		ListGrid.setWidget(3, 0, newUnitLabel);
+		ListGrid.setWidget(3, 1, unitListBox);
 //		unitListBox.addChangeHandler(new UnitListBoxChangeHandler());
 
 		Label newPersonLabel = new Label("Person: ");
-		ListGrid.setWidget(3, 0, newPersonLabel);
-		ListGrid.setWidget(3, 1, personListBox);
+		ListGrid.setWidget(4, 0, newPersonLabel);
+		ListGrid.setWidget(4, 1, personListBox);
 //		personListBox.addChangeHandler(new PersonListBoxChangeHandler());
 
 		Label shopLabel = new Label("Haendler: ");
-		ListGrid.setWidget(4, 0, shopLabel);
-		ListGrid.setWidget(4, 1, shopListBox);
+		ListGrid.setWidget(5, 0, shopLabel);
+		ListGrid.setWidget(5, 1, shopListBox);
 //		shopListBox.addChangeHandler(new ShopListBoxChangeHandler());
 
-		Label standardizeLabel = new Label("favorisieren: ");
-		ListGrid.setWidget(5, 0, standardizeLabel);
-		ListGrid.setWidget(5, 1, standardizeBtn);
 //		standardizeBtn.addClickHandler(new StandardizeClickHandler);
 
 		HorizontalPanel updateBtnPanel = new HorizontalPanel();
 //		ListGrid.setWidget(, , updateBtnPanel);
 
-//		saveBtn.addClickHandler(new NewListitemClickHandler());
 		saveBtn.setEnabled(true);
 
 //		cancelBtn.addClickHandler(new CancelClickhandler());
@@ -168,13 +167,191 @@ public class ListItemForm extends VerticalPanel {
 
 		btnPanel.add(saveBtn);
 		btnPanel.add(cancelBtn);
+
+		contentPanel.add(new ShoppingListForm());
 		contentPanel.add(ListGrid);
 		contentPanel.add(btnPanel);
 
+		add(contentPanel);
+
+		unitListBox.addItem("Stück", "0");
+		unitListBox.addItem("Packungen", "1");
+
+		listenVerwaltung.getAllArticles(new AsyncCallback<Vector<Article>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Fehler");
+			}
+
+			@Override
+			public void onSuccess(Vector<Article> result) {
+				for (Article article : result) {
+					articleListBox.addItem(article.getName(), article.getId() + "");
+				}
+			}
+		});
+		listenVerwaltung.getAllPersons(new AsyncCallback<Vector<Person>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Fehler");
+			}
+
+			@Override
+			public void onSuccess(Vector<Person> result) {
+				for (Person person : result) {
+					personListBox.addItem(person.getFirstName() + " " + person.getLastName(), person.getId() + "");
+				}
+			}
+		});
+		listenVerwaltung.getAllShops(new AsyncCallback<Vector<Shop>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Fehler");
+			}
+
+			@Override
+			public void onSuccess(Vector<Shop> result) {
+				for (Shop shop : result) {
+					shopListBox.addItem(shop.getName(), shop.getId() + "");
+				}
+			}
+		});
+
+		final CellTable<Item> cellTable = new CellTable<Item>();
+
+		final AsyncCallback<Vector<Item>> getAllCallback = new AsyncCallback<Vector<Item>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Fehler");
+			}
+
+			@Override
+			public void onSuccess(Vector<Item> result) {
+				cellTable.setRowData(0, result);
+			}
+		};
+
+		TextColumn<Item> idColumn = new TextColumn<Item>() {
+			@Override
+			public String getValue(Item object) {
+				return "" + object.getArticleId();
+			}
+		};
+		Column<Item, String> like = new Column<Item, String>(new ButtonCell()) {
+			public String getValue(Item object) {
+				return object.isFavorit() ? "Unlike" : "Like";
+			}
+		};
+		like.setFieldUpdater(new FieldUpdater<Item, String>() {
+
+			@Override
+			public void update(int index, Item object, String value) {
+
+				object.setFavorit(!object.isFavorit());
+				listenVerwaltung.update(object, new AsyncCallback<Void>() {
+					@Override
+					public void onSuccess(Void result) {
+						cellTable.redraw();
+					}
+
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Fehler");
+					}
+				});
+
+			}
+		});
+		Column<Item, String> check = new Column<Item, String>(new ButtonCell()) {
+			public String getValue(Item object) {
+				return object.isStatus() ? "Uncheck" : "Check";
+			}
+		};
+		check.setFieldUpdater(new FieldUpdater<Item, String>() {
+
+			@Override
+			public void update(int index, Item object, String value) {
+
+				object.setStatus(!object.isStatus());
+				listenVerwaltung.update(object, new AsyncCallback<Void>() {
+					@Override
+					public void onSuccess(Void result) {
+						cellTable.redraw();
+					}
+
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Fehler");
+					}
+				});
+
+			}
+		});
+		Column<Item, String> preview = new Column<Item, String>(new ButtonCell()) {
+			public String getValue(Item object) {
+				return "Entfernen";
+			}
+		};
+		preview.setFieldUpdater(new FieldUpdater<Item, String>() {
+
+			@Override
+			public void update(int index, Item object, String value) {
+				listenVerwaltung.delete(object, new AsyncCallback<Void>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Fehler");
+					}
+
+					@Override
+					public void onSuccess(Void result) {
+						listenVerwaltung.getAllItemsOfList(getSelectedShoppingList(), getAllCallback);
+					}
+				});
+			}
+		});
+
+		cellTable.addColumn(idColumn, "Id");
+		cellTable.addColumn(like, "");
+		cellTable.addColumn(check, "");
+		cellTable.addColumn(preview, "");
+
+		listenVerwaltung.getAllItemsOfList(selectedShoppingList, getAllCallback);
+
+		add(cellTable);
+
+		saveBtn.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				int articleId = Integer.valueOf(articleListBox.getSelectedValue());
+				int count = Integer.valueOf(amountTextBox.getValue());
+				int personId = Integer.valueOf(personListBox.getSelectedValue());
+				int shopId = Integer.valueOf(shopListBox.getSelectedValue());
+
+				listenVerwaltung.createItem(selectedShoppingList.getId(), count, articleId, personId, shopId,
+						new AsyncCallback<Item>() {
+
+							@Override
+							public void onFailure(Throwable caught) {
+								Window.alert("Fehler");
+							}
+
+							@Override
+							public void onSuccess(Item result) {
+								listenVerwaltung.getAllItemsOfList(getSelectedShoppingList(), getAllCallback);
+							}
+						});
+			}
+		});
 	}
 
-	public void onLoad() {
-		RootPanel.get("main").add(contentPanel);
+	public ShoppingList getSelectedShoppingList() {
+		return selectedShoppingList;
 	}
 
 	private class GetAllArticlesCallback implements AsyncCallback<Vector<Article>> {
@@ -242,7 +419,7 @@ public class ListItemForm extends VerticalPanel {
 
 		}
 
-		/*
+		/**
 		 * Callback, der die Überführung von Serverdaten der Händler in die
 		 * Dropdown-Liste ermöglicht.
 		 */
@@ -304,7 +481,7 @@ public class ListItemForm extends VerticalPanel {
 			}
 		}
 
-		/*
+		/**
 		 * Mit Hilfe des ChangeHandlers wird ermöglicht einen Person aus der
 		 * DropDown-Liste auszuwählen
 		 */
@@ -317,7 +494,7 @@ public class ListItemForm extends VerticalPanel {
 			}
 		}
 
-		/*
+		/**
 		 * Mit Hilfe des ChangeHandlers wird ermöglicht einen Shop aus der
 		 * DropDown-Liste auszuwählen
 		 */
@@ -334,7 +511,7 @@ public class ListItemForm extends VerticalPanel {
 
 		}
 
-		/*
+		/**
 		 * Mit Hilfe des CancelClickhandlers wird ermöglicht, das Ausfüllen des Eintrags
 		 * abzubrechen
 		 */
@@ -343,9 +520,7 @@ public class ListItemForm extends VerticalPanel {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				if (ListToDisplay != null) {
-					RootPanel.get("main").clear();
-				}
+
 			}
 
 		}

@@ -16,6 +16,16 @@
     <url-pattern>/shopit/shop</url-pattern>
   </servlet-mapping>
   
+   <servlet>
+    <servlet-name>loginServlet</servlet-name>
+    <servlet-class>de.hdm.server.LoginServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>loginServlet</servlet-name>
+    <url-pattern>/shopit/login</url-pattern>
+  </servlet-mapping>
+  
    <welcome-file-list>
     <welcome-file>GWTTest1.html</welcome-file>
   </welcome-file-list>

@@ -1,12 +1,14 @@
 package de.hdm.server.db;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
+import java.sql.PreparedStatement;
+
+//import com.google.cloud.sql.jdbc.PreparedStatement;
 
 import de.hdm.shared.bo.Article;
 
@@ -45,7 +47,7 @@ public Article findByKey (int id) {
 		//Anlegen einen leeren SQL-Statement
 		Statement stmt =con.createStatement();
 		// Ausfüllen des Statements, als Query an die DB schicken
-		ResultSet rs =stmt.executeQuery("SELECT * from article WHERE article.id = " + id );
+		ResultSet rs =stmt.executeQuery("SELECT * from article WHERE article.id= " + id );
 		
 		//Da id Primärschlüssel ist, kann nur ein Tupel zurueckgeg werden. 
 		//Es wird geprueft, ob ein Ergebnis vorliegt.
@@ -130,14 +132,16 @@ public Article insert(Article a) {
 
       stmt = con.createStatement();
 
+      //PreparedStatement stmt2 = con.prepareStatement("INSERT INTO article (id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, name) VALUES (?, ?, ?, ?)");
+      //stmt2.setInt(1, a.getId());
+      //stmt2.setString(4, a.getName());
+      
+      
       // Es erfolgt die tatsächliche Einfuegeoperation
       PreparedStatement stmt2 = con.prepareStatement("INSERT INTO article (id, creationDate, changeDate, name) " + 
       "VALUES (?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, )");
       
-      stmt2.setInt(1,  a.getId());
-      stmt2.setString(2, a.getName());
       
-      stmt2.execute();
     }
   }
   catch (SQLException e2) {
@@ -160,6 +164,7 @@ public Article insert(Article a) {
       stmt.executeUpdate("UPDATE article SET name = '" + a.getName() + "', changeDate = CURRENT_TIMESTAMP "
       		+ "WHERE id= " + a.getId());
 
+      
     }
     catch (SQLException e2) {
       e2.printStackTrace();

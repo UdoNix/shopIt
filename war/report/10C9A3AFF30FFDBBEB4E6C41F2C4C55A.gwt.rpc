@@ -1,0 +1,25 @@
+@FinalFields, false
+com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException, true, true, true, true, com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException/3936916533, 3936916533
+com.google.gwt.user.client.rpc.RpcTokenException, true, true, false, false, com.google.gwt.user.client.rpc.RpcTokenException/2345075298, 2345075298
+com.google.gwt.user.client.rpc.XsrfToken, false, false, true, true, com.google.gwt.user.client.rpc.XsrfToken/4254043109, 4254043109
+de.hdm.shared.ShopITAdministration, false, false, false, false, _, 1530665585
+de.hdm.shared.bo.Article, true, true, true, true, de.hdm.shared.bo.Article/589747241, 589747241
+de.hdm.shared.bo.BusinessObject, true, false, true, false, de.hdm.shared.bo.BusinessObject/202193031, 202193031
+de.hdm.shared.bo.Item, true, true, true, true, de.hdm.shared.bo.Item/2087509102, 2087509102
+de.hdm.shared.bo.Membership, true, true, true, true, de.hdm.shared.bo.Membership/1306473777, 1306473777
+de.hdm.shared.bo.Person, true, true, true, true, de.hdm.shared.bo.Person/4099258532, 4099258532
+de.hdm.shared.bo.Responsibility, true, true, true, true, de.hdm.shared.bo.Responsibility/2457796983, 2457796983
+de.hdm.shared.bo.Shop, true, true, true, true, de.hdm.shared.bo.Shop/1940471243, 1940471243
+de.hdm.shared.bo.ShoppingList, true, true, true, true, de.hdm.shared.bo.ShoppingList/1919834064, 1919834064
+de.hdm.shared.bo.Team, true, true, true, true, de.hdm.shared.bo.Team/3394844673, 3394844673
+de.hdm.shared.bo.UnitOfMeasure, true, true, true, true, de.hdm.shared.bo.UnitOfMeasure/3984580626, 3984580626
+java.lang.Exception, true, false, true, false, java.lang.Exception/1920171873, 1920171873
+java.lang.IllegalArgumentException, true, true, false, false, java.lang.IllegalArgumentException/1755012560, 1755012560
+java.lang.NumberFormatException, true, true, false, false, java.lang.NumberFormatException/3305228476, 3305228476
+java.lang.RuntimeException, true, false, true, false, java.lang.RuntimeException/515124647, 515124647
+java.lang.String, true, true, true, true, java.lang.String/2004016611, 2004016611
+java.lang.Throwable, true, false, true, false, java.lang.Throwable/2953622131, 2953622131
+java.sql.Timestamp, true, true, true, true, java.sql.Timestamp/3040052672, 3040052672
+java.util.Date, true, false, true, false, java.util.Date/3385151746, 3385151746
+java.util.Stack, true, true, false, false, java.util.Stack/1346942793, 1346942793
+java.util.Vector, true, true, false, false, java.util.Vector/3057315478, 3057315478

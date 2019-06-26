@@ -27,7 +27,7 @@ public class HeaderForm extends Form {
 
 	// private ItemForm item = new ItemForm();
 	private TeamForm group = new TeamForm();
-	private ListForm list = new ListForm();
+	private ShoppingListForm list = new ShoppingListForm();
 
 	public class HeaderGUI implements EntryPoint {
 

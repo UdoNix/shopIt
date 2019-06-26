@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 	import java.sql.Statement;
 	import java.util.Vector;
 
-import de.hdm.shared.bo.List;
+import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Person;
 
 public class ListMapper {	
@@ -37,7 +37,7 @@ public class ListMapper {
 	//@parameter id Primärschlüsselattribut
 	//@return Listenobjekt des übergebenen Schlüssel, null bei nicht vorhandenem Datenbank-Tupel
 
-	public List findByKey (int id) {
+	public ShoppingList findByKey (int id) {
 		//DB-Verbindung holen
 		Connection con =DBConnection.connection();
 		
@@ -51,7 +51,7 @@ public class ListMapper {
 			//Es wird geprueft, ob ein Ergebnis vorliegt.
 			   if (rs.next()) {
 			        // Ergebnis-Tupel in Objekt umwandeln
-			        List l = new List();
+			        ShoppingList l = new ShoppingList();
 			        l.setId(rs.getInt("id"));
 			        l.setName(rs.getString("name"));
 			        l.setCreationDate(rs.getTimestamp("creationDate"));
@@ -72,11 +72,11 @@ public class ListMapper {
 	 //        repräsentieren. Bei Exceptions: Ein partiell gefüllter
 //	        oder eben leerer Vetor wird zurückgeliefert.
 
-	public Vector<List> findAll() {
+	public Vector<ShoppingList> findAll() {
 	  Connection con = DBConnection.connection();
 
 	  // Ergebnisvektor vorbereiten
-	  Vector<List> result = new Vector<List>();
+	  Vector<ShoppingList> result = new Vector<ShoppingList>();
 
 	  try {
 	    Statement stmt = con.createStatement();
@@ -86,7 +86,7 @@ public class ListMapper {
 
 	    // Für jeden Eintrag im Suchergebnis wird nun ein List-Objekt erstellt.
 	    while (rs.next()) {
-	      List l = new List();
+	      ShoppingList l = new ShoppingList();
 	      l.setId(rs.getInt("id"));
 	      l.setName(rs.getString("name"));
 	      l.setCreationDate(rs.getTimestamp("creationDate"));
@@ -105,10 +105,10 @@ public class ListMapper {
 	  return result;
 	}
 	
-	public Vector<List> findByTeam(int teamId) {
+	public Vector<ShoppingList> findByTeam(int teamId) {
 		Connection con = DBConnection.connection();
 		
-		Vector<List> result = new Vector<List>();
+		Vector<ShoppingList> result = new Vector<ShoppingList>();
 		
 		try {
 			Statement stmt = con.createStatement();
@@ -116,7 +116,7 @@ public class ListMapper {
 		      ResultSet rs = stmt.executeQuery("SELECT * FROM list "
 		          + "WHERE teamId = " + teamId + " ORDER BY id");
 		      while (rs.next()) {
-		    	  List l = new List();
+		    	  ShoppingList l = new ShoppingList();
 			        l.setId(rs.getInt("id"));
 			        l.setName(rs.getString("name"));
 			        l.setCreationDate(rs.getTimestamp("creationDate"));
@@ -138,10 +138,10 @@ public class ListMapper {
 	/*
 	 * @author Udo Nix
 	 */
-	public Vector<List>getAllListsOf(Person p) {
+	public Vector<ShoppingList>getAllListsOf(Person p) {
 		Connection con = DBConnection.connection();
 		
-		Vector<List> result = new Vector<List>();
+		Vector<ShoppingList> result = new Vector<ShoppingList>();
 		
 		
 		
@@ -154,7 +154,7 @@ public class ListMapper {
 		      		+ "JOIN Membership M ON G.Id = M.teamId"
 		      		+ "WHERE personId = " + p.getId() + " ORDER BY id");
 		      while (rs.next()) {
-		    	  List l = new List();
+		    	  ShoppingList l = new ShoppingList();
 			        l.setId(rs.getInt("id"));
 			        l.setName(rs.getString("name"));
 			        l.setCreationDate(rs.getTimestamp("creationDate"));
@@ -182,7 +182,7 @@ public class ListMapper {
 	//@return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
 	 //        <code>id</code>.
 
-	public List insert(List l) {
+	public ShoppingList insert(ShoppingList l) {
 	  Connection con = DBConnection.connection();
 
 	  try {
@@ -202,6 +202,12 @@ public class ListMapper {
 	      stmt = con.createStatement();
 
 	      // Es erfolgt die tatsächliche Einfuegeoperation
+	     
+	      //PreparedStatement stmt2 = con.prepareStatement("INSERT INTO list (id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, name, teamId) VALUES (?, ?, ?, ?, ?)");
+	      
+	    		//stmt2.setInt(1, l.getId());
+	    		//stmt2.setString(4, l.getName());
+	    		//stmt2.setInt(5, l.getId());
 	      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO list (id, creationDate, changeDate, name, teamId)+ "
 	      		+ "VALUES (?,CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?");
 	      
@@ -209,6 +215,10 @@ public class ListMapper {
 	      stmt2.setString(2, l.getName());
 	      stmt2.setInt(3, l.getTeamId());
 	      stmt2.execute();
+	      
+	      
+	      
+	    
 	      
 	      
 	      
@@ -226,14 +236,14 @@ public class ListMapper {
 	  // @param l  Objekt, das in die Datenbank geschrieben werden soll
 	  //@return das als Parameter übergebene Objekt
 	   
-	  public List update(List l) {
+	  public ShoppingList update(ShoppingList l) {
 	    Connection con = DBConnection.connection();
 
 	    try {
 	      Statement stmt = con.createStatement();
 
 	      stmt.executeUpdate("UPDATE list " + "SET name=\"" + l.getName()
-          + "\", " + "teamId=\"" + l.getTeamId()+"\", "+ "WHERE id= " + l.getId());
+          + "\", " + "teamId=\"" + l.getTeamId()+"\", "+ "WHERE id=" + l.getId());
 
 	    }
 	    catch (SQLException e2) {
@@ -248,13 +258,13 @@ public class ListMapper {
 	   // Daten eines <code>List</code>-Objekts aus der Datenbank loeschen.
 	    // @param l das aus der DB zu loeschende "Objekt"
 	   
-	   public void delete(List l) {
+	   public void delete(ShoppingList l) {
 	     Connection con = DBConnection.connection();
 
 	     try {
 	       Statement stmt = con.createStatement();
 
-	       stmt.executeUpdate("DELETE FROM list " + "WHERE id= " + l.getId());
+	       stmt.executeUpdate("DELETE FROM list " + "WHERE id=" + l.getId());
 
 	     }
 	     catch (SQLException e2) {

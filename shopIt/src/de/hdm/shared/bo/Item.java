@@ -16,7 +16,7 @@ public class Item extends BusinessObject{
 	//FremdschlÃ¼sselbeziehung zur Liste.
 	private int listId = 0;
 	
-	//FremdschlÃ¼sselbeziehung zur Zuständigkeit.
+	//FremdschlÃ¼sselbeziehung zur Zustï¿½ndigkeit.
 	private int responsibilityId = 0;
 	
 	//FremdschlÃ¼sselbeziehung zur UnitOfMeasure.
@@ -64,12 +64,12 @@ public class Item extends BusinessObject{
 		this.listId = listId;
 	}
 	
-	//Auslesen des Fremdschlüssels der Zuständigkeit. 
+	//Auslesen des Fremdschlï¿½ssels der Zustï¿½ndigkeit. 
 	public int getResponsibilityId() {
 		return responsibilityId; 
 	}
 	
-	//Setzen des Fremdschlüssels der Zuständigkeit. 
+	//Setzen des Fremdschlï¿½ssels der Zustï¿½ndigkeit. 
 	public void setResponsibilityId(int responsibilityId) {
 		this.responsibilityId = responsibilityId; 
 	}

@@ -74,9 +74,9 @@ public class ArticleForm extends VerticalPanel {
 		mainPanel.add(contentPanel);
 		//this.add(contentPanel);
 		
-		RootPanel.get("main").clear();
-		RootPanel.get("main").add(buttonPanel);
-		RootPanel.get("main").add(mainPanel);
+		
+		add(buttonPanel);
+		add(mainPanel);
 		//RootPanel.get("main").add(this);
 	}
 

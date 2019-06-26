@@ -68,7 +68,7 @@ public class MembershipMapper {
 			      e2.printStackTrace();
 			      return null;
 			    }
-	}
+
 
 	// Auslesen aller Memberships.
 	// @return Ein Vektor mit Membership-Objekten, die sämtliche Memberships
