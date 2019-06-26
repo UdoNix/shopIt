@@ -7,6 +7,11 @@ import de.hdm.shared.report.*;
 
 import de.hdm.client.gui.report.ShopTimeReportCallback.TeamAndShopStatistikReport;
 
+/**
+ * 
+ * @author ilona, Thies
+ *
+ */
 public class HTMLReportWriter extends ReportWriter{
 
 	private String reportText ="";

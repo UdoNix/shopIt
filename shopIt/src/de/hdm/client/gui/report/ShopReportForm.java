@@ -17,6 +17,11 @@ import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ReportGeneratorAsync;
 import de.hdm.shared.bo.Shop;
 
+/**
+ * 
+ * @author ilona
+ *
+ */
 public class ShopReportForm extends VerticalPanel{
 
 	//Erstellung der GUI-Elemente

@@ -15,7 +15,11 @@ import de.hdm.shared.report.HTMLReportWriter;
 import de.hdm.shared.report.ShopStatisticReport;
 import de.hdm.shared.report.TeamStatisticReport;
 
-
+/**
+ * 
+ * @author ilona
+ *
+ */
 
 public class TimeReportCallback extends Widget {
 	
