@@ -20,7 +20,7 @@
   <!-- Other module inherits                                      -->
 
   <!-- Specify the app entry point class.                         -->
-  <entry-point class='de.hdm.client.LogIn'/>
+  <entry-point class='de.hdm.client.ShopIt'/>
 
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>

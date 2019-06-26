@@ -17,9 +17,8 @@ public class ShopIt implements EntryPoint {
 	private LoginInformation loginInfo = null;
 	private VerticalPanel loginPanel = new VerticalPanel();
 	private Label loginLabel = new Label("Klicken Sie hier, um sich mit ihrem Google Konto anzumelden!");
-	private Anchor signInLink = new Anchor ("Einloggen");
-	private Anchor signOutLink = new Anchor ("Ausloggen");
 
+	private Anchor signOutLink = new Anchor("Ausloggen");
 
 	public void onModuleLoad() {
 
@@ -30,7 +29,7 @@ public class ShopIt implements EntryPoint {
 			public void onSuccess(LoginInformation result) {
 				loginInfo = result;
 				if (loginInfo.isLoggedIn()) {
-					loadShopIt();
+					loadShopIt(result);
 				} else {
 					loadLogin();
 				}
@@ -38,22 +37,21 @@ public class ShopIt implements EntryPoint {
 
 			@Override
 			public void onFailure(Throwable arg0) {
-				Window.alert("Login fehlgeschlagen");
-
+				loadLogin();
 			}
 		});
 	}
 
 	private void loadLogin() {
+		Anchor signInLink = new Anchor("Einloggen");
 		signInLink.setHref(loginInfo.getLoginURL());
-		loginPanel.add(loginLabel);
-		loginPanel.add(signInLink);
-		//TODO richtiges Rootpanel setzen
-		RootPanel.get("ROOTPANEL").add(loginPanel);
-		
+		RootPanel.get("content").clear();
+		RootPanel.get("content").add(signInLink);
+
 	}
 
-	private void loadShopIt() {
-		signOutLink.setHref(loginInfo.getLogoutURL());
+	private void loadShopIt(LoginInformation loginInformation) {
+		RootPanel.get("content").clear();
+		RootPanel.get("content").add(new Layout(loginInformation));
 	}
 }
