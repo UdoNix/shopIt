@@ -225,6 +225,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		result.setHeaderData(header);
 
 		// Kopfzeile f�r die Teamstatistik Tabelle
+
 		Row headline = new Row();
 
 		/*
@@ -286,6 +287,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 
 	public TeamAndShopStatistikReport createTeamAndShopStatistikReport(Shop s, Team t, Timestamp firstDate,
 			Timestamp lastDate) throws IllegalArgumentException {
+
 
 		if (this.getShopITAdministration() == null) {
 			return null;
