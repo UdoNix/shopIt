@@ -29,10 +29,9 @@ public interface ReportGeneratorAsync {
 
 	void addImprint(Report report, AsyncCallback<Void> callback);
 
-	void createAllArticlesOfShopReport(Shop shop, AsyncCallback<AllArticlesOfShopReport> callback);
+	void createAllArticlesOfShopReport(Shop shop, Team team, AsyncCallback<AllArticlesOfShopReport> callback);
 
-	void createTeamAndShopStatistikReport(String tname, String sname, Date firstDate, Date lastdate,
-			AsyncCallback<TeamAndShopStatistikReport> callback);
+	void createTeamAndShopStatistikReport(Shop s, Team t, Timestamp firstDate, Timestamp lastDate, AsyncCallback<TeamAndShopStatistikReport> callback);
 
 	void createTeamStatisticReport(Team t, Timestamp firstDate, Timestamp lastDate, AsyncCallback<TeamStatisticReport> callback);
 

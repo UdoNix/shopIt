@@ -50,25 +50,28 @@ public class MembershipMapper {
 			// Anlegen einen leeren SQL-Statement
 			Statement stmt = con.createStatement();
 			// Ausfüllen des Statements, als Query an die DB schicken
-			ResultSet rs = stmt.executeQuery("SELECT * from membership" + "WHERE membership.id =" + id);
 
-			// Da id Primärschlüssel ist, kann nur ein Tupel zurueckgeg werden.
-			// Es wird geprueft, ob ein Ergebnis vorliegt.
-			if (rs.next()) {
-				// Ergebnis-Tupel in Objekt umwandeln
-				Membership m = new Membership();
-				m.setId(rs.getInt("id"));
-				m.setPersonId(rs.getInt("personId"));
-				m.setTeamId(rs.getInt("teamId"));
-				return m;
-			}
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-			return null;
-		}
-
+			ResultSet rs =stmt.executeQuery("SELECT * from membership" + "WHERE membership.id = " + id );
+			
+			//Da id Primärschlüssel ist, kann nur ein Tupel zurueckgeg werden. 
+			//Es wird geprueft, ob ein Ergebnis vorliegt.
+			   if (rs.next()) {
+			        // Ergebnis-Tupel in Objekt umwandeln
+			        Membership m = new Membership();
+			        m.setId(rs.getInt("id"));
+			        m.setPersonId(rs.getInt("personId"));
+			        m.setTeamId(rs.getInt("teamId"));
+			        return m;
+			      }
+			    }
+			    catch (SQLException e2) {
+			      e2.printStackTrace();
+			      return null;
+			    }
 		return null;
 	}
+
+
 
 	// Auslesen aller Memberships.
 	// @return Ein Vektor mit Membership-Objekten, die sämtliche Memberships

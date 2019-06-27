@@ -20,7 +20,7 @@ public class EditListFormDialogBox{
 	 * Instanziierung des EditorService-Objekts um eine
 	 * Applikationsverwaltung zu initialisieren
 	 */
-//	EditorServiceAsync pinnwandVerwaltung = ClientsideSettings.getEditorServiceAsync();
+//	EditorServiceAsync admin = ClientsideSettings.getEditorServiceAsync();
 
 	/**
 	 * Deklarierung des verwendeten BO

@@ -168,18 +168,17 @@ public interface ShopITAdministration extends RemoteService {
 	//eine Gruppenmitgliedschaft l�schen.
 	public void delete(int personId, int teamId) throws IllegalArgumentException;
 	
-	//Auslesen aller eingekauften Artikeln von einem H�ndler
-	public Vector<Item> getItemsbyTeamAndShop(Shop shop) throws IllegalArgumentException;
-	
 	//Setzen des zugeh�rigen Team-Objekts. 
 	public void setTeam(Team t) throws IllegalArgumentException;
 	
+	//Auslesen aller eingekauften Artikeln von einem H�ndler
+	public Vector<ReportObject> getItemsbyTeamAndShop(Shop shop, Team team) throws IllegalArgumentException;
+	
 	//Auslesen aller Eintr�ge eines Teams mit Zeitangabe.
-	public Vector<Item> getItemsByTeamWithTime(Team t);
+	public Vector<ReportObject> getItemsByTeamWithTime(Team t,  Timestamp firstDate, Timestamp lastDate);
 
-	public Vector<Item> getItemsByTeamAndShopWithTime(Shop s, Team t);
-
-	public Vector<Item> getItemsByTeamWithTime(int teamId, Timestamp firstDate, Timestamp lastDate);
+	//Auslesen aller Eintr�ge eines Teams, gefiltert nach Shop mit Zeitangabe.
+	public Vector<ReportObject> getItemsByTeamAndShopWithTime(Shop s, Team t, Timestamp firstDate, Timestamp lastDate);
 	
 	
 	

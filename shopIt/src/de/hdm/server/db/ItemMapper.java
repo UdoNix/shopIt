@@ -197,14 +197,14 @@ public Item insert(Item i) {
 
       // Es erfolgt die tatsächliche Einfuegeoperation
 
-      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO ITEM(id, CURRENT_TIMESTAMP, unitId, articleId, teamId, listId, favorit, status)VALUES (?,?,?,? ?,?,?,?)");
+      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO item (id, creationDate, unitId, articleId, teamId, listId, favorit, status) VALUES (?, CURRENT_TIMESTAMP, ?,?,?,?,?,?)");
       stmt2.setInt(1, i.getId());
-      stmt2.setInt(3, i.getUnitId());
-      stmt2.setInt(4, i.getArticleId());
-      stmt2.setInt(5, i.getTeamId());
-      stmt2.setInt(6, i.getListId());
-      stmt2.setBoolean(7, i.isFavorit());
-      stmt2.setBoolean(8, i.isStatus());
+      stmt2.setInt(2, i.getUnitId());
+      stmt2.setInt(3, i.getArticleId());
+      stmt2.setInt(4, i.getTeamId());
+      stmt2.setInt(5, i.getListId());
+      stmt2.setBoolean(6, i.isFavorit());
+      stmt2.setBoolean(7, i.isStatus());
       
       stmt2.execute();
 
@@ -229,29 +229,10 @@ public Item insert(Item i) {
   public Item update(Item i) {
     Connection con = DBConnection.connection();
     
-    if (i.isFavorit()== true) {
-    	
-    	Item item = new Item ();
-    	 item.setId(i.getId());
-         item.setCreationDate(i.getCreationDate());
-         item.setChangeDate(i.getChangeDate());
-         item.setArticleId(i.getArticleId());
-         item.setFavorit(i.isFavorit());
-         item.setStatus(i.isStatus());
-	     item.setUnitId(i.getUnitId());
-	     item.setListId(i.getListId());
-	     item.setTeamId(i.getTeamId());
-         
-         ItemMapper.itemMapper().insert(item);
-    }
-    
-    
-
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE list " + "SET id= \"" + i.getId()
-       + "\", teamId= \"" + i.getTeamId()+ i.getShopId()+ "\", " + "unitId= \"" + i.getUnitId()+ "\", " + "articleId= \"" + i.getArticleId()+ "\", " + "isStatus= \"" + "\", " + "listid= \"" + i.getListId()+ i.isStatus()+ "\", " + "isFavorit= \"" + i.isFavorit()+"\" "+ " WHERE id= " + i.getId());
+      stmt.executeUpdate("UPDATE item SET id=" + i.getId() + ", teamId=" + i.getTeamId() + ", unitId=" + i.getUnitId() + ", articleId=" + i.getArticleId() + ", status=" + i.isStatus() + ", listid=" + i.getListId() + ", favorit=" + i.isFavorit() + " WHERE id= " + i.getId());
 
     }
     catch (SQLException e2) {

@@ -12,6 +12,7 @@ import de.hdm.shared.bo.Item;
 import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Membership;
 import de.hdm.shared.bo.Person;
+import de.hdm.shared.bo.ReportObject;
 import de.hdm.shared.bo.Responsibility;
 import de.hdm.shared.bo.Shop;
 import de.hdm.shared.bo.Team;
@@ -118,16 +119,13 @@ public interface ShopITAdministrationAsync {
 
 	void update(ShoppingList l, AsyncCallback<Void> callback);
 
-	void getItemsbyTeamAndShop(Shop shop, AsyncCallback<Vector<Item>> callback);
-
 	void setTeam(Team t, AsyncCallback<Void> callback);
+	
+	void getItemsbyTeamAndShop(Shop shop, Team team, AsyncCallback<Vector<ReportObject>> callback);
 
-	void getItemsByTeamWithTime(Team t, AsyncCallback<Vector<Item>> callback);
+	void getItemsByTeamAndShopWithTime(Shop s, Team t, Timestamp firstDate, Timestamp lastDate, AsyncCallback<Vector<ReportObject>> callback);
 
-	void getItemsByTeamAndShopWithTime(Shop s, Team t, AsyncCallback<Vector<Item>> callback);
-
-	void getItemsByTeamWithTime(int teamId, Timestamp firstDate, Timestamp lastDate, AsyncCallback<Vector<Item>> callback);
-
+	void getItemsByTeamWithTime(Team t, Timestamp firstDate, Timestamp lastDate, AsyncCallback<Vector<ReportObject>> callback);
 	
 
 }

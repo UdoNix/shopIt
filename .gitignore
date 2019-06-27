@@ -39,8 +39,9 @@ proguard/
 
 # gwt caches and compiled units #
 shopIt/war/shopit/
+shopIt/war/report/
 war/shopit/
-war/shopIt/
+war/report/
 gwt-unitCache/
 
 # boilerplate generated classes #
