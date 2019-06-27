@@ -8,7 +8,8 @@ public class ReportObject extends BusinessObject{
 
 	private String article;
 	private String unit;
-	private int shop;
+	private String shopName;
+	private int shopId;
 	private Float quantity;
 	private Timestamp changeDate;
 	private int count;
@@ -25,11 +26,17 @@ public class ReportObject extends BusinessObject{
 	public void setUnit(String unit) {
 		this.unit = unit;
 	}
-	public int getShop() {
-		return shop;
+	public String getShopName() {
+		return shopName;
 	}
-	public void setShop(int shop) {
-		this.shop = shop;
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+	public int getShopId() {
+		return shopId;
+	}
+	public void setShopId(int shop) {
+		this.shopId = shop;
 	}
 	public Float getQuantity() {
 		return quantity;

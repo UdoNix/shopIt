@@ -188,8 +188,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	public TeamStatisticReport createTeamStatisticReport(Team t, Timestamp firstDate, Timestamp lastDate)
 			throws IllegalArgumentException {
 
-		int teamId = t.getId();
-
 		if (this.getShopITAdministration() == null) {
 			return null;
 		}
@@ -246,6 +244,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		headline.addColumn(new Column("Artikel"));
 		headline.addColumn(new Column("Menge"));
 		headline.addColumn(new Column("Maßeinheit"));
+		headline.addColumn(new Column("Name des Shops"));
 
 		// Hinzufï¿½gen der Kopfzeile
 		result.addRow(headline);
@@ -266,6 +265,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			itemRow.addColumn(new Column(String.valueOf(r.getArticle())));
 			itemRow.addColumn(new Column(String.valueOf(r.getQuantity())));
 			itemRow.addColumn(new Column(String.valueOf(r.getUnit())));
+			itemRow.addColumn(new Column(r.getShopName()));
 
 			// Schliesslich die Zeile dem Report hinzufï¿½gen
 			result.addRow(itemRow);
