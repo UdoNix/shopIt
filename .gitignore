@@ -40,7 +40,7 @@ proguard/
 # gwt caches and compiled units #
 shopIt/war/shopit/
 war/shopit/
-war/shopIt/
+war/report/
 gwt-unitCache/
 
 # boilerplate generated classes #
