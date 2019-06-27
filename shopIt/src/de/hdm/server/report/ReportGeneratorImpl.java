@@ -288,7 +288,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	public TeamAndShopStatistikReport createTeamAndShopStatistikReport(Shop s, Team t, Timestamp firstDate,
 			Timestamp lastDate) throws IllegalArgumentException {
 
-
 		if (this.getShopITAdministration() == null) {
 			return null;
 

@@ -1,7 +1,6 @@
 /** Add css rules here for your application. */
-/**Styling der Div-Elemente */
-
 /**@author Larisa */
+
 
 body {
 	background-color: light grey; 
@@ -150,14 +149,65 @@ div {
 	color: #abd0d6; 
 }
 
-
-* Example rules used by the template application (remove for your app)
 h1 {
   font-size: 2em;
   font-weight: bold;
   color: #777777;
   margin: 40px 0px 70px;
   text-align: center;
+}
+
+html *{
+	font-family: "Arial", Helvetica, sans-serif; 
+	font-size: 18px;
+	font-weight: light; 
+}
+
+div {
+	padding: 8px;
+	background-color: light grey;
+}
+
+/**Styling der HTML Div-Elemente */
+
+#container {
+	float: none;
+	height: 100%;
+	margin: 5px;
+	width: 100%;
+	background-color: light grey; 
+	border-radius: 20px; 
+}
+
+#Header {
+	background-color: #abd0d6;
+	border-radius: 10px;
+	font-size: 22px;
+	font-weight: bold;
+	border-style: inset; 
+	margin-bottom: 10px;
+}
+
+#trailer {
+	clear: both;
+	padding: 10px;
+	boarder-top: 1px light grey;
+	font-size: 80%; 
+	text-allign: center;
+	background: #abd0d6; 
+	color: light grey; 
+	boarder-radius: 10px;
+	boarder-style: inset; 
+}
+
+#InhaltDiv {
+	float: left;
+	margin-left: 10px;
+	padding: 10px;
+	width: 65%;
+	font-size: 10pt;
+	border-left: 2px solid #93a3a3; 
+	margin-bottom: 10px; 
 }
 
 /**Stylen des Reports */
@@ -211,9 +261,3 @@ h1 {
 /* #closeButton { */
 /*   margin: 15px 6px 6px; */
 /* } */
-
-
-
-
-
-
