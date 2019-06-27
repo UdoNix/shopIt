@@ -60,7 +60,7 @@ public class Test2 {
 		
 		Shop s1 = new Shop();
 		s1 = admin.getShopById(1);
-		System.out.println(radmin.createAllArticlesOfShopReport(s1));
+		//System.out.println(radmin.createAllArticlesOfShopReport(s1));
 		
 	}
 

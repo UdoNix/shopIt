@@ -39,6 +39,7 @@ proguard/
 
 # gwt caches and compiled units #
 shopIt/war/shopit/
+shopIt/war/report/
 war/shopit/
 war/report/
 gwt-unitCache/
