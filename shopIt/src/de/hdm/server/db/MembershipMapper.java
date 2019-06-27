@@ -72,7 +72,6 @@ public class MembershipMapper {
 	}
 
 
-
 	// Auslesen aller Memberships.
 	// @return Ein Vektor mit Membership-Objekten, die sämtliche Memberships
 	// repräsentieren. Bei Exceptions: Ein partiell gefüllter

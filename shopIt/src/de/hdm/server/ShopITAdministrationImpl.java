@@ -23,10 +23,7 @@ import de.hdm.shared.bo.Item;
 import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Membership;
 import de.hdm.shared.bo.Person;
-<<<<<<< HEAD
 import de.hdm.shared.bo.ReportObject;
-=======
->>>>>>> refs/heads/Ilona
 import de.hdm.shared.bo.Shop;
 import de.hdm.shared.bo.UnitOfMeasure;
 import de.hdm.shared.bo.Responsibility;
@@ -46,12 +43,10 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	private ResponsibilityMapper rMapper = null;
 	private UnitOfMeasureMapper uMapper = null;
 	private MembershipMapper mMapper = null;
-<<<<<<< HEAD
 	private ReportMapper reportMapper = null;
-=======
->>>>>>> refs/heads/Ilona
 
-	// Um die Klasse übersichtlicher zu gestalten, wird sie mithilfe von Abschnitten
+	// Um die Klasse übersichtlicher zu gestalten, wird sie mithilfe von
+	// Abschnitten
 	// unterteilt.
 	/*
 	 * ***************************************************************************
@@ -74,11 +69,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		this.rMapper = ResponsibilityMapper.responsibilityMapper();
 		this.uMapper = UnitOfMeasureMapper.unitOfMeasureMapper();
 		this.mMapper = MembershipMapper.membershipMapper();
-<<<<<<< HEAD
 		this.reportMapper = ReportMapper.reportMapper();
-=======
 
->>>>>>> refs/heads/Ilona
 	}
 
 	/*
@@ -247,27 +239,26 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * neuen Eintrag erstellen
 	 */
-	public Item createItem(int listId, int count, int articleId, int personId, int shopId) throws IllegalArgumentException {
+	public Item createItem(int listId, int count, int articleId, int personId, int shopId)
+			throws IllegalArgumentException {
 		Item i = new Item();
-		// i.setCreationDate();//aktuelles Datum einf�gen Muss nicht gesetzt werden, das
+		// i.setCreationDate();//aktuelles Datum einf�gen Muss nicht gesetzt werden,
+		// das
 		// macht die DB
 
 		i.setId(1);
 		i.setListId(listId);
 		i.setCount(count);
 		i.setArticleId(articleId);
-<<<<<<< HEAD
 		i.setUnitId(1); // TODO
-=======
->>>>>>> refs/heads/Ilona
 		i = this.iMapper.insert(i);
-		
+
 		Responsibility r = new Responsibility();
 		r.setItemId(i.getId());
 		r.setPersonId(personId);
 		r.setShopId(shopId);
 		this.rMapper.insert(r);
-		
+
 		return i;
 	}
 
@@ -396,8 +387,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	public void delete(Team t) throws IllegalArgumentException {
 		/*
-		 * Zun�chst werden alle Anwender und Einkaufslisten der Gruppe aus der Datenbank
-		 * entfernt.
+		 * Zun�chst werden alle Anwender und Einkaufslisten der Gruppe aus der
+		 * Datenbank entfernt.
 		 */
 
 		Vector<Membership> membership = this.mMapper.findByTeam(t.getId());
@@ -437,7 +428,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		Article a = new Article();
 		a.setName(name);
 
-		// Setzen einer vorläufigen Artikel-Id, welche nach Kommunikation mit DB auf den
+		// Setzen einer vorläufigen Artikel-Id, welche nach Kommunikation mit DB auf
+		// den
 		// nächsthhöheren Wert gesetzt wird.
 		a.setId(1);
 
@@ -491,8 +483,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		s.setName(name);
 
 		/*
-		 * Setzen einer vorläufigen H�ndler-Id, welche nach Kommunikation mit DB auf den
-		 * nächsthhöheren Wert gesetzt wird.
+		 * Setzen einer vorläufigen H�ndler-Id, welche nach Kommunikation mit DB auf
+		 * den nächsthhöheren Wert gesetzt wird.
 		 *
 		 */
 		s.setId(1);
@@ -577,7 +569,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	/*
 	 * ***************************************************************************
-	 * ABSCHNITT, Beginn: Methoden f�r Zust�ndigkeits-Objekte @author IlonaBrinkmann
+	 * ABSCHNITT, Beginn: Methoden f�r Zust�ndigkeits-Objekte @author
+	 * IlonaBrinkmann
 	 * ***************************************************************************
 	 */
 
@@ -676,40 +669,18 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	public void delete(Person p) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 
-<<<<<<< HEAD
-	}
-
-
-	@Override
-	public Responsibility createResponsibility(Person p, Shop s, Item i) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
-=======
->>>>>>> refs/heads/Ilona
 	}
 
 	@Override
-<<<<<<< HEAD
 	public Membership createMembership(int personId, int teamId) throws IllegalArgumentException {
 		System.out.println("createMembership");
-=======
-	public Vector<Item> getItemsbyTeamAndShop(Shop shop) throws IllegalArgumentException {
-		// TODO Parameter Team muss noch �bergeben werden
->>>>>>> refs/heads/Ilona
 
-<<<<<<< HEAD
 		Membership m = new Membership();
 		m.setPersonId(personId);
 		m.setTeamId(teamId);
-=======
-		// return this.iMapper.getItemsbyTeamAndShop(teamId, shopId);
->>>>>>> refs/heads/Ilona
 
 		return this.mMapper.insert(m);
 	}
-<<<<<<< HEAD
-	
-	
 
 	@Override
 	public void setTeam(Team t) throws IllegalArgumentException {
@@ -717,84 +688,32 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	}
 
-
 	@Override
 	public void delete(int personId, int teamId) throws IllegalArgumentException {
 		this.mMapper.delete(personId, teamId);
 	}
-	
-	 /**	###################################
-	  * 	#####Methoden des Report Generators#####
-	 *		###################################
-	  **/
-	
+
+	/**
+	 * ################################### #####Methoden des Report Generators#####
+	 * ###################################
+	 **/
+
 	@Override
 	public Vector<ReportObject> getItemsByTeamWithTime(Team t, Timestamp firstDate, Timestamp lastDate) {
-		Vector <ReportObject> result = this.reportMapper.createTeamTimeReport(t.getId(), firstDate, lastDate);
+		Vector<ReportObject> result = this.reportMapper.createTeamTimeReport(t.getId(), firstDate, lastDate);
 		return result;
 	}
-	
+
 	@Override
 	public Vector<ReportObject> getItemsbyTeamAndShop(Shop s, Team t) throws IllegalArgumentException {
 		Vector<ReportObject> result = this.reportMapper.createTeamShopReport(s.getId(), t.getId());
 		return result;
 	}
-	
+
 	@Override
-	public Vector <ReportObject> getItemsByTeamAndShopWithTime(Shop s, Team t, Timestamp firstDate, Timestamp lastDate){
-		Vector<ReportObject> result = this.reportMapper.createTeamTimeShopReport(t.getId(), firstDate, lastDate, s.getId());
+	public Vector<ReportObject> getItemsByTeamAndShopWithTime(Shop s, Team t, Timestamp firstDate, Timestamp lastDate) {
+		Vector<ReportObject> result = this.reportMapper.createTeamTimeShopReport(t.getId(), firstDate, lastDate,
+				s.getId());
 		return result;
 	}
-	
-	
-	
-=======
-
-	@Override
-	public Responsibility createResponsibility(Person p, Shop s, Item i) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Membership createMembership(int personId, int teamId) throws IllegalArgumentException {
-		System.out.println("createMembership");
-
-		Membership m = new Membership();
-		m.setPersonId(personId);
-		m.setTeamId(teamId);
-
-		return this.mMapper.insert(m);
-	}
-
-	@Override
-	public void setTeam(Team t) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Vector<Item> getItemsByTeamWithTime(Team t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Vector<Item> getItemsByTeamAndShopWithTime(Shop s, Team t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void delete(int personId, int teamId) throws IllegalArgumentException {
-		this.mMapper.delete(personId, teamId);
-	}
-
-	@Override
-	public Vector<Item> getItemsByTeamWithTime(int teamId, Timestamp firstDate, Timestamp lastDate) {
-		Vector <Item> items = this.iMapper.getItemsbyTeamWithTime(teamId, firstDate, lastDate);
-		return items;
-	}
-
->>>>>>> refs/heads/Ilona
 }

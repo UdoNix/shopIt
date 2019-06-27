@@ -11,35 +11,37 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ReportMapper {
-	
+
 	public static ReportMapper reportMapper = null;
-	
+
 	protected ReportMapper() {
-		
+
 	}
 
-<<<<<<< HEAD
 	public static ReportMapper reportMapper() {
 		if (reportMapper == null) {
 			reportMapper = new ReportMapper();
 		}
 		return reportMapper;
 	}
-	
-	public Vector<ReportObject> createTeamTimeShopReport(int teamId, Timestamp startDate, Timestamp endDate, int shopId) {
-		
+
+	public Vector<ReportObject> createTeamTimeShopReport(int teamId, Timestamp startDate, Timestamp endDate,
+			int shopId) {
+
 		Connection con = DBConnection.connection();
-		Vector <ReportObject> result = new Vector<ReportObject>();
-		
+		Vector<ReportObject> result = new Vector<ReportObject>();
+
 		try {
 			Statement stmt = con.createStatement();
-			
-			ResultSet rs = stmt.executeQuery("SELECT COUNT(item.id) AS 'count', article.name AS 'name', unit.quantity AS 'quantity', unit.unit AS 'unit', item.changeDate AS 'changeDate', responsibility.shopId AS 'shopId', item.teamId AS 'teamId' "
-					+ "FROM item JOIN article ON item.articleId = article.id JOIN unit ON item.unitId = unit.id JOIN team ON item.teamId = team.id JOIN responsibility ON item.id = responsibility.itemId "
-					+ "WHERE item.teamId = " + teamId + "AND item.changeDate BETWEEN '"+ startDate +"' AND '" + endDate + "' AND shopId = " + shopId + " "
+
+			ResultSet rs = stmt.executeQuery(
+					"SELECT COUNT(item.id) AS 'count', article.name AS 'name', unit.quantity AS 'quantity', unit.unit AS 'unit', item.changeDate AS 'changeDate', responsibility.shopId AS 'shopId', item.teamId AS 'teamId' "
+							+ "FROM item JOIN article ON item.articleId = article.id JOIN unit ON item.unitId = unit.id JOIN team ON item.teamId = team.id JOIN responsibility ON item.id = responsibility.itemId "
+							+ "WHERE item.teamId = " + teamId + "AND item.changeDate BETWEEN '" + startDate + "' AND '"
+							+ endDate + "' AND shopId = " + shopId + " "
 							+ "GROUP BY item.id ORDER BY COUNT(item.articleId) DESC");
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				ReportObject r = new ReportObject();
 				r.setCount(rs.getInt("count"));
 				r.setArticle(rs.getString("name"));
@@ -48,32 +50,30 @@ public class ReportMapper {
 				r.setChangeDate(rs.getTimestamp("timeStamp"));
 				r.setShopId(rs.getInt("shopId"));
 			}
-			
-			
-		} catch (SQLException e){
+
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
-	
-public Vector<ReportObject> createTeamTimeReport(int teamId, Timestamp startDate, Timestamp endDate) {
-		
+
+	public Vector<ReportObject> createTeamTimeReport(int teamId, Timestamp startDate, Timestamp endDate) {
+
 		Connection con = DBConnection.connection();
-		Vector <ReportObject> result = new Vector<ReportObject>();
-		
+		Vector<ReportObject> result = new Vector<ReportObject>();
+
 		try {
 			Statement stmt = con.createStatement();
-			
-			ResultSet rs = stmt.executeQuery("SELECT COUNT(item.id) AS 'count', article.name AS 'name', unit.quantity AS 'quantity', unit.unit AS 'unit', shop.name AS 'shopName' , item.changeDate AS 'changeDate', item.teamId AS 'teamId' " + 
-					"FROM item " + 
-					"JOIN article ON item.articleId = article.id " + 
-					"JOIN unit ON item.unitId = unit.id " + 
-					"JOIN team ON item.teamId = team.id " + 
-					"JOIN (responsibility JOIN shop ON responsibility.shopId = shop.id) ON item.id = responsibility.itemId "
-					+ "WHERE item.teamId = " + teamId + "AND item.changeDate BETWEEN '"+ startDate +"' AND '" + endDate + "' "
-							+ "GROUP BY item.id ORDER BY COUNT(item.articleId) DESC");
-			
-			while(rs.next()) {
+
+			ResultSet rs = stmt.executeQuery(
+					"SELECT COUNT(item.id) AS 'count', article.name AS 'name', unit.quantity AS 'quantity', unit.unit AS 'unit', shop.name AS 'shopName' , item.changeDate AS 'changeDate', item.teamId AS 'teamId' "
+							+ "FROM item " + "JOIN article ON item.articleId = article.id "
+							+ "JOIN unit ON item.unitId = unit.id " + "JOIN team ON item.teamId = team.id "
+							+ "JOIN (responsibility JOIN shop ON responsibility.shopId = shop.id) ON item.id = responsibility.itemId "
+							+ "WHERE item.teamId = " + teamId + "AND item.changeDate BETWEEN '" + startDate + "' AND '"
+							+ endDate + "' " + "GROUP BY item.id ORDER BY COUNT(item.articleId) DESC");
+
+			while (rs.next()) {
 				ReportObject r = new ReportObject();
 				r.setCount(rs.getInt("count"));
 				r.setArticle(rs.getString("name"));
@@ -82,29 +82,29 @@ public Vector<ReportObject> createTeamTimeReport(int teamId, Timestamp startDate
 				r.setChangeDate(rs.getTimestamp("timeStamp"));
 				r.setShopName(rs.getString("shopName"));
 			}
-			
-			
-		} catch (SQLException e){
+
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
-	
-	public Vector<ReportObject> createTeamShopReport(int teamId, int shopId){
-		
+
+	public Vector<ReportObject> createTeamShopReport(int teamId, int shopId) {
+
 		Connection con = DBConnection.connection();
-		Vector <ReportObject>  result = new Vector<ReportObject>();
-		
+		Vector<ReportObject> result = new Vector<ReportObject>();
+
 		try {
-			
+
 			Statement stmt = con.createStatement();
-			
-			ResultSet rs = stmt.executeQuery("SELECT COUNT(item.id) AS 'count', article.name AS 'name', unit.quantity AS 'quantity', unit.unit AS 'unit', responsibility.shopId AS 'shopId', item.teamId AS teamId "
-					+ "FROM item JOIN article ON item.articleId = article.id JOIN unit ON item.unitId = unit.id JOIN team ON item.teamId = team.id JOIN responsibility ON item.id = responsibility.itemId "
-					+ "WHERE item.teamId = " + teamId + " AND shopId = " + shopId + " "
-					+ "GROUP BY item.id ORDER BY COUNT(item.articleId) DESC");
-			
-			while(rs.next()) {
+
+			ResultSet rs = stmt.executeQuery(
+					"SELECT COUNT(item.id) AS 'count', article.name AS 'name', unit.quantity AS 'quantity', unit.unit AS 'unit', responsibility.shopId AS 'shopId', item.teamId AS teamId "
+							+ "FROM item JOIN article ON item.articleId = article.id JOIN unit ON item.unitId = unit.id JOIN team ON item.teamId = team.id JOIN responsibility ON item.id = responsibility.itemId "
+							+ "WHERE item.teamId = " + teamId + " AND shopId = " + shopId + " "
+							+ "GROUP BY item.id ORDER BY COUNT(item.articleId) DESC");
+
+			while (rs.next()) {
 				ReportObject r = new ReportObject();
 				r.setCount(rs.getInt("count"));
 				r.setArticle(rs.getString("name"));
@@ -112,51 +112,11 @@ public Vector<ReportObject> createTeamTimeReport(int teamId, Timestamp startDate
 				r.setUnit(rs.getString("unit"));
 				r.setShopId(rs.getInt("shopId"));
 			}
-			
-		} catch(SQLException e){
+
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return result;
 	}
-	
-=======
-	public static ReportMapper reportMaooer() {
-		if (reportMapper == null) {
-			reportMapper = new ReportMapper();
-		}
-		return reportMapper;
-	}
-	
-	public Vector<ReportObject> createTeamTimeShopReport(int teamId, Timestamp startDate, Timestamp endDate, int shopId) {
-		
-		Connection con = DBConnection.connection();
-		Vector <ReportObject> result = new Vector<ReportObject>();
-		
-		try {
-			Statement stmt = con.createStatement();
-			
-			ResultSet rs = stmt.executeQuery("SELECT COUNT(item.id) AS 'count', article.name AS 'name', unit.quantity AS 'quantity', unit.unit AS 'unit', item.changeDate AS 'changeDate', responsibility.shopId AS 'shopId' "
-					+ "FROM item JOIN article ON item.articleId = article.id JOIN unit ON item.unitId = unit.id JOIN team ON item.teamId = team.id JOIN responsibility ON item.id = responsibility.itemId "
-					+ "WHERE item.teamId = " + teamId + "AND item.changeDate BETWEEN '"+ startDate +"' AND '" + endDate + "' AND shopId = " + shopId + " "
-							+ "GROUP BY item.id ORDER BY COUNT(item.articleId) DESC");
-			
-			while(rs.next()) {
-				ReportObject r = new ReportObject();
-				r.setCount(rs.getInt("count"));
-				r.setArticle(rs.getString("name"));
-				r.setQuantity(rs.getFloat("quantity"));
-				r.setUnit(rs.getString("unit"));
-				r.setChangeDate(rs.getTimestamp("timeStamp"));
-				r.setShop(rs.getInt("shopId"));
-			}
-			
-			
-		} catch (SQLException e){
-			e.printStackTrace();
-		}
-		return result;
-	}
->>>>>>> refs/heads/Ilona
-	
 }

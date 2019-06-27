@@ -8,7 +8,6 @@ import de.hdm.server.ShopITAdministrationImpl;
 import de.hdm.server.report.ReportGeneratorImpl;
 import de.hdm.shared.bo.Article;
 import de.hdm.shared.bo.Item;
-import de.hdm.shared.bo.List;
 import de.hdm.shared.bo.Membership;
 import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Responsibility;
@@ -179,9 +178,9 @@ public class Test2 {
 		
 		System.out.println(admin.getMembershipById(1));
 		
-		System.out.println(admin.getAllMembership(p1));
+		//System.out.println(admin.getAllMembership(p1));
 		
-		admin.delete(ms);
+		//admin.delete(ms);
 		
 		
 		
