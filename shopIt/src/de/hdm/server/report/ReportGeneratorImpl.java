@@ -11,15 +11,12 @@ import de.hdm.shared.ShopITAdministration;
 import de.hdm.shared.report.CompositeParagraph;
 import de.hdm.shared.report.Report;
 import de.hdm.shared.report.Row;
-import de.hdm.shared.bo.Article;
 import de.hdm.shared.report.Column;
 import de.hdm.shared.report.AllArticlesOfShopReport;
 import de.hdm.shared.report.SimpleParagraph;
 import de.hdm.shared.report.TeamAndShopStatistikReport;
 import de.hdm.shared.report.TeamStatisticReport;
 import de.hdm.shared.bo.*;
-import de.hdm.server.db.*;
-import de.hdm.server.*;
 
 /**
  * Implementierung des ReportGenerator.
@@ -187,8 +184,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 
 	public TeamStatisticReport createTeamStatisticReport(Team t, Timestamp firstDate, Timestamp lastDate)
 			throws IllegalArgumentException {
-
-		int teamId = t.getId();
 
 		if (this.getShopITAdministration() == null) {
 			return null;

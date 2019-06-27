@@ -21,6 +21,7 @@ import de.hdm.shared.LoginServiceAsync;
 import de.hdm.shared.ReportGeneratorAsync;
 import de.hdm.shared.bo.Person;
 
+@Deprecated
 public class Report implements EntryPoint {
 
 	ReportGeneratorAsync reportVerwaltung = ClientsideSettings.getReportGenerator();
