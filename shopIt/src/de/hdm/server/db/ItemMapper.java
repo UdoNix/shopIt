@@ -1,7 +1,8 @@
 package de.hdm.server.db;
 
 import java.sql.Connection;
-import java.sql.Date;
+
+import java.sql.Timestamp;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +11,7 @@ import java.util.Vector;
 
 import de.hdm.shared.bo.Article;
 import de.hdm.shared.bo.Item;
-import de.hdm.shared.bo.List;
+import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Responsibility;
 import de.hdm.shared.bo.Shop;
@@ -121,7 +122,7 @@ public Vector<Item> findAll() {
   //Der Ergebnisvektor wird zurueckgegeben
   return result;
 }
-public Vector<Item> findByList (List l){
+public Vector<Item> findByList (ShoppingList l){
 	
 	int listId = l.getId();
 	
@@ -132,8 +133,14 @@ public Vector<Item> findByList (List l){
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("SELECT * FROM Item "
-	          + "WHERE listId= " + listId + " ORDER BY id");
+	      ResultSet rs = stmt.executeQuery(
+	      "SELECT *, article.name, unit.measure, unit.amount, person.firstName, shop.name\n" + 
+"FROM item\n" + 
+"INNER JOIN article ON article.id = item.articleId\n" + 
+"INNER JOIN unit ON unit.id = item.unitId\n" + 
+"INNER JOIN responsibility ON responsibility.itemId = item.id\n" + 
+"INNER JOIN person ON responsibility.personId = person.id\n" + 
+"INNER JOIN shop ON responsibility.shopId = shop.id WHERE listId=" + listId + " ORDER BY item.id");
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt erstellt.
 	      while (rs.next()) {
@@ -190,15 +197,20 @@ public Item insert(Item i) {
 
       // Es erfolgt die tatsächliche Einfuegeoperation
 
-      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO Item (id, changeDate, unitId, articleId, teamId, listId, favorit, status)"
-      		+ "VALUES ( ?, CURRENT_TIMESTAMP, ?, ?, ?, ?, ? ,? )");
-      
+      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO ITEM(id, CURRENT_TIMESTAMP, unitId, articleId, teamId, listId, favorit, status)VALUES (?,?,?,? ?,?,?,?)");
       stmt2.setInt(1, i.getId());
       stmt2.setInt(3, i.getUnitId());
       stmt2.setInt(4, i.getArticleId());
       stmt2.setInt(5, i.getTeamId());
-      stmt2.setBoolean(6, i.isFavorit());
-      stmt2.setBoolean(7, i.isStatus());
+      stmt2.setInt(6, i.getListId());
+      stmt2.setBoolean(7, i.isFavorit());
+      stmt2.setBoolean(8, i.isStatus());
+      
+      stmt2.execute();
+
+      
+      
+      
       
     }
   }
@@ -239,7 +251,7 @@ public Item insert(Item i) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE list " + "SET id= \"" + i.getId()
-       + "\", teamId= \"" + i.getTeamId()+ i.getShopId()+ "\", " + "unitId= \"" + i.getUnitId()+ "\", " + "articleId= \"" + i.getArticleId()+ "\", " + "isStatus= \"" + "\", " + "listid= \"" + i.getListId()+ i.isStatus()+ "\", " + "isFavorit= \"" + i.isFavorit()+"\", "+ " WHERE id= " + i.getId());
+       + "\", teamId= \"" + i.getTeamId()+ i.getShopId()+ "\", " + "unitId= \"" + i.getUnitId()+ "\", " + "articleId= \"" + i.getArticleId()+ "\", " + "isStatus= \"" + "\", " + "listid= \"" + i.getListId()+ i.isStatus()+ "\", " + "isFavorit= \"" + i.isFavorit()+"\" "+ " WHERE id= " + i.getId());
 
     }
     catch (SQLException e2) {
@@ -328,7 +340,7 @@ public Item insert(Item i) {
 	    return result;
 		
 }
-	 public Vector<Item> getItemsbyTeamWithTime (int TeamId, Date firstDate, Date lastDate) {
+	 public Vector<Item> getItemsbyTeamWithTime (int TeamId, Timestamp firstDate, Timestamp lastDate) {
 		   Connection con = DBConnection.connection();
 		    Vector<Item> result = new Vector<Item>();
 
@@ -398,7 +410,7 @@ public Vector<Item> getItemsbyTeamAndShop(int teamId, int shopId) {
 }
 
 
-public Vector<Item> getItemsByTeamAndShopWithTime (int teamId, int shopId, Date firstDate, Date lastDate) {
+public Vector<Item> getItemsByTeamAndShopWithTime (int teamId, int shopId, Timestamp firstDate, Timestamp lastDate) {
 	   Connection con = DBConnection.connection();
 	    Vector<Item> result = new Vector<Item>();
 

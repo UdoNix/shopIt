@@ -17,6 +17,11 @@ import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ReportGeneratorAsync;
 import de.hdm.shared.bo.Shop;
 
+/**
+ * 
+ * @author ilona
+ *
+ */
 public class ShopReportForm extends VerticalPanel{
 
 	//Erstellung der GUI-Elemente
@@ -34,7 +39,7 @@ public class ShopReportForm extends VerticalPanel{
 		flex.setWidget(1, 1, startButton);
 		
 		startButton.addClickHandler(new StartReportClickHandler());
-		reportVerwaltung.getAllShops(new GetAllShopsCallback());
+//		reportVerwaltung.getAllShops(new GetAllShopsCallback());
 		
 		this.add(flex);
 		
@@ -64,7 +69,7 @@ public class ShopReportForm extends VerticalPanel{
 			}
 			else{
 				flex.clear();
-				flex.add(new ShopReportCallback(listBox.getSelectedValue()));	
+				//flex.add(new ShopReportCallback(listBox.getSelectedValue()));	
 				RootPanel.get("contentReport").add(flex);
 			}
 		}

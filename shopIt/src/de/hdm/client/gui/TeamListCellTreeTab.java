@@ -1,23 +1,20 @@
 package de.hdm.client.gui;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
-
-import com.google.gwt.dev.util.collect.HashMap;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.ProvidesKey;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
-import com.google.gwt.view.client.TreeViewModel.DefaultNodeInfo;
 
 import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.BusinessObject;
-import de.hdm.shared.bo.List;
+import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Membership;
 import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Team;
@@ -33,11 +30,11 @@ public class TeamListCellTreeTab implements TreeViewModel {
 
 	private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
 	
-	private ListForm listForm;
+	private ShoppingListForm listForm;
 	private TeamView teamView;
 	
 	private Team selectedTeam;
-	private List selectedList;
+	private ShoppingList selectedList;
 	private Team team;
 	
 	private Person user;
@@ -46,7 +43,7 @@ public class TeamListCellTreeTab implements TreeViewModel {
 	
 	private CellTreeViewModel cellTreeViewModel;
 	
-	private java.util.List<List> teamList;
+	private java.util.List<ShoppingList> teamList;
 	
 	/*
 	 * Durch den <code>ListDataProvider</code> werden alle �nderungen aktualisiert.
@@ -65,7 +62,7 @@ public class TeamListCellTreeTab implements TreeViewModel {
 	 */
 	
 	//private Map<List, ListDataProvider<Team>> teamDataProvider = null;
-	private Map<Team, ListDataProvider<List>> teamListDataProvider = null;
+	private Map<Team, ListDataProvider<ShoppingList>> teamListDataProvider = null;
 	private Map <Person, ListDataProvider<Membership>> personMembershipDataProvider = null;
 	private BusinessObjectKeyProvider boKeyProvider = null;
 	private SingleSelectionModel<BusinessObject> selectionModel = null;
@@ -104,8 +101,8 @@ public class TeamListCellTreeTab implements TreeViewModel {
 			BusinessObject selection = selectionModel.getSelectedObject();
 			if(selection instanceof Team) {
 				setSeletedTeam((Team) selection);
-			} else if(selection instanceof List) {
-				setSelectedList((List) selection);
+			} else if(selection instanceof ShoppingList) {
+				setSelectedList((ShoppingList) selection);
 			}
 			/*
 			 * M�ssen die Tabs noch geleert werden???
@@ -124,11 +121,11 @@ public class TeamListCellTreeTab implements TreeViewModel {
 		selectionModel = new SingleSelectionModel<BusinessObject>(boKeyProvider);
 		selectionModel.addSelectionChangeHandler(new SelectionChangeEventHandler());
 		
-		teamListDataProvider = new HashMap<Team, ListDataProvider<List>>();
+		teamListDataProvider = new HashMap<Team, ListDataProvider<ShoppingList>>();
 		personMembershipDataProvider = new HashMap<Person, ListDataProvider<Membership>>();
 	}
 	
-	void setListForm(ListForm lf) {
+	void setListForm(ShoppingListForm lf) {
 		listForm = lf;
 	}
 	
@@ -142,23 +139,23 @@ public class TeamListCellTreeTab implements TreeViewModel {
 	
 	void setSeletedTeam(Team t) {
 		selectedTeam = t;
-		teamView.setSelected(t);
+		teamView.setSelectedTeam(t);
 		selectedList = null;
-		listForm.setSelected(null);
+		//listForm.setSelected(null);
 	}
 	
-	public List getSelectedList() {
+	public ShoppingList getSelectedList() {
 		return selectedList;
 	}
 	
 	
 	
-	public void setSelectedList(List l) {
+	public void setSelectedList(ShoppingList l) {
 		selectedList = l;
-		listForm.setSelected(l);
+		// listForm.setSelected(l);
 		
 		if(l != null) {
-			listenVerwaltung.getTeamById(l.getOwnerID, new AsyncCallback<Team>() {
+			listenVerwaltung.getTeamById(0, new AsyncCallback<Team>() {
 
 				@Override
 				public void onFailure(Throwable caught) {
@@ -170,7 +167,7 @@ public class TeamListCellTreeTab implements TreeViewModel {
 				public void onSuccess(Team team) {
 					// TODO Auto-generated method stub
 					selectedTeam = team;
-					teamView.setSelected(team);
+					teamView.setSelectedTeam(team);
 				}
 				
 				
@@ -203,12 +200,12 @@ public class TeamListCellTreeTab implements TreeViewModel {
 		teamListDataProvider.remove(team);
 	}
 	
-	void addListOfTeam(List list, Team team) {
+	void addListOfTeam(ShoppingList list, Team team) {
 		if(!teamListDataProvider.containsKey(team)) {
 			return;
 		}
 		
-		ListDataProvider<List> listProvider = teamListDataProvider.get(team);
+		ListDataProvider<ShoppingList> listProvider = teamListDataProvider.get(team);
 		if(!listProvider.getList().contains(list)) {
 			listProvider.getList().add(list);
 			
@@ -216,7 +213,7 @@ public class TeamListCellTreeTab implements TreeViewModel {
 		selectionModel.setSelected(list, true);
 	}
 	
-	void removeListOfTeam(List list, Team team) {
+	void removeListOfTeam(ShoppingList list, Team team) {
 		if(!teamListDataProvider.containsKey(team)) {
 			return;
 		}
@@ -225,14 +222,14 @@ public class TeamListCellTreeTab implements TreeViewModel {
 		selectionModel.setSelected(team, true);
 	}
 	
-	void updateList(List l) {
-		listenVerwaltung.getTeamById(l.getOwnerID(), new UpdateListCallback(l));
+	void updateList(ShoppingList l) {
+		//listenVerwaltung.getTeamById(l.getOwnerID(), new UpdateListCallback(l));
 	}
 	
 	private class UpdateListCallback implements AsyncCallback<Team> {
-		List list = null;
+		ShoppingList list = null;
 		
-		UpdateListCallback(List l) {
+		UpdateListCallback(ShoppingList l) {
 			list = l;
 		}
 
@@ -245,7 +242,7 @@ public class TeamListCellTreeTab implements TreeViewModel {
 		@Override
 		public void onSuccess(Team result) {
 			// TODO Auto-generated method stub
-			java.util.List<List> lists = teamListDataProvider.get(team).getList();
+			java.util.List<ShoppingList> lists = teamListDataProvider.get(team).getList();
 			
 			for(int i = 0; i<lists.size(); i++) {
 				if (list.getId() == lists.get(i).getId()) {
@@ -259,7 +256,7 @@ public class TeamListCellTreeTab implements TreeViewModel {
 		public void delete(Team t){
 			int teamId = t.getId();
 			int userId = user.getId();
-			java.util.List<List> lists = membershipDataProviders.getList();
+			// java.util.List<List> lists = membershipDataProviders.getList();
 			
 		}
 	}
@@ -315,28 +312,28 @@ public class TeamListCellTreeTab implements TreeViewModel {
 		
 		
 		if(value instanceof Team) {
-			final ListDataProvider<List> listProvider = new ListDataProvider<List>();
+			final ListDataProvider<ShoppingList> listProvider = new ListDataProvider<ShoppingList>();
 			teamListDataProvider.put((Team) value, listProvider);
 			
 			/**
 			 * ??????????
 			 */
-			listenVerwaltung.getListOf((Team) value, 
-					new AsyncCallback<Vector<List>>() {
-				@Override
-				public void onFailure(Throwable t) {
-				}
-
-				@Override
-				public void onSuccess(Vector<List> list) {
-					for (List l : list) {
-						listProvider.getList().add(l);
-					}
-				}
-				
-			});
+//			listenVerwaltung.getListOf((Team) value, 
+//					new AsyncCallback<Vector<List>>() {
+//				@Override
+//				public void onFailure(Throwable t) {
+//				}
+//
+//				@Override
+//				public void onSuccess(Vector<List> list) {
+//					for (List l : list) {
+//						listProvider.getList().add(l);
+//					}
+//				}
+//				
+//			});
 			
-			return new DefaultNodeInfo<List>(listProvider, 
+			return new DefaultNodeInfo<ShoppingList>(listProvider, 
 					new ListCell(), selectionModel, null);
 		}
 		
