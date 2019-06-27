@@ -2,13 +2,11 @@ package de.hdm.server.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.Timestamp;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 
-import com.google.cloud.sql.jdbc.PreparedStatement;
 
 import de.hdm.shared.bo.Article;
 
