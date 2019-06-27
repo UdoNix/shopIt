@@ -94,6 +94,10 @@ public class ListItemForm extends VerticalPanel {
 	private HorizontalPanel btnPanel = new HorizontalPanel();
 	private Grid ListGrid;
 	private Button saveBtn = new Button("Speichern");
+<<<<<<< HEAD
+=======
+	private Button cancelBtn = new Button("Zurueck");
+>>>>>>> refs/heads/Ilona
 
 	private final TextBox amountTextBox = new TextBox();
 
@@ -153,14 +157,36 @@ public class ListItemForm extends VerticalPanel {
 		ListGrid.setWidget(5, 0, shopLabel);
 		ListGrid.setWidget(5, 1, shopListBox);
 //		shopListBox.addChangeHandler(new ShopListBoxChangeHandler());
+<<<<<<< HEAD
+=======
 
 //		standardizeBtn.addClickHandler(new StandardizeClickHandler);
+>>>>>>> refs/heads/Ilona
 
+<<<<<<< HEAD
+//		standardizeBtn.addClickHandler(new StandardizeClickHandler);
+=======
+		HorizontalPanel updateBtnPanel = new HorizontalPanel();
+//		ListGrid.setWidget(, , updateBtnPanel);
+>>>>>>> refs/heads/Ilona
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> refs/heads/Ilona
 		saveBtn.setEnabled(true);
 
+<<<<<<< HEAD
+=======
+//		cancelBtn.addClickHandler(new CancelClickhandler());
+		cancelBtn.setEnabled(true);
+>>>>>>> refs/heads/Ilona
 
 		btnPanel.add(saveBtn);
+<<<<<<< HEAD
+=======
+		btnPanel.add(cancelBtn);
+>>>>>>> refs/heads/Ilona
 
 		contentPanel.add(new ShoppingListForm());
 		contentPanel.add(ListGrid);
@@ -225,6 +251,7 @@ public class ListItemForm extends VerticalPanel {
 
 			@Override
 			public void onSuccess(Vector<Item> result) {
+<<<<<<< HEAD
 				cellTable.setRowData(result);
 			}
 		};
@@ -233,6 +260,16 @@ public class ListItemForm extends VerticalPanel {
 			@Override
 			public String getValue(Item object) {
 				return "" + object.getId();
+=======
+				cellTable.setRowData(0, result);
+			}
+		};
+
+		TextColumn<Item> idColumn = new TextColumn<Item>() {
+			@Override
+			public String getValue(Item object) {
+				return "" + object.getArticleId();
+>>>>>>> refs/heads/Ilona
 			}
 		};
 		Column<Item, String> like = new Column<Item, String>(new ButtonCell()) {

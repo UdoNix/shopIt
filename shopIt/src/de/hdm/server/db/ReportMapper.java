@@ -18,6 +18,7 @@ public class ReportMapper {
 		
 	}
 
+<<<<<<< HEAD
 	public static ReportMapper reportMapper() {
 		if (reportMapper == null) {
 			reportMapper = new ReportMapper();
@@ -114,5 +115,43 @@ public Vector<ReportObject> createTeamTimeReport(int teamId, Timestamp startDate
 		return result;
 	}
 	
+=======
+	public static ReportMapper reportMaooer() {
+		if (reportMapper == null) {
+			reportMapper = new ReportMapper();
+		}
+		return reportMapper;
+	}
+	
+	public Vector<ReportObject> createTeamTimeShopReport(int teamId, Timestamp startDate, Timestamp endDate, int shopId) {
+		
+		Connection con = DBConnection.connection();
+		Vector <ReportObject> result = new Vector<ReportObject>();
+		
+		try {
+			Statement stmt = con.createStatement();
+			
+			ResultSet rs = stmt.executeQuery("SELECT COUNT(item.id) AS 'count', article.name AS 'name', unit.quantity AS 'quantity', unit.unit AS 'unit', item.changeDate AS 'changeDate', responsibility.shopId AS 'shopId' "
+					+ "FROM item JOIN article ON item.articleId = article.id JOIN unit ON item.unitId = unit.id JOIN team ON item.teamId = team.id JOIN responsibility ON item.id = responsibility.itemId "
+					+ "WHERE item.teamId = " + teamId + "AND item.changeDate BETWEEN '"+ startDate +"' AND '" + endDate + "' AND shopId = " + shopId + " "
+							+ "GROUP BY item.id ORDER BY COUNT(item.articleId) DESC");
+			
+			while(rs.next()) {
+				ReportObject r = new ReportObject();
+				r.setCount(rs.getInt("count"));
+				r.setArticle(rs.getString("name"));
+				r.setQuantity(rs.getFloat("quantity"));
+				r.setUnit(rs.getString("unit"));
+				r.setChangeDate(rs.getTimestamp("timeStamp"));
+				r.setShop(rs.getInt("shopId"));
+			}
+			
+			
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return result;
+	}
+>>>>>>> refs/heads/Ilona
 	
 }

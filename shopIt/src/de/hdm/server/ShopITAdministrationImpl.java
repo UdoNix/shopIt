@@ -23,7 +23,10 @@ import de.hdm.shared.bo.Item;
 import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Membership;
 import de.hdm.shared.bo.Person;
+<<<<<<< HEAD
 import de.hdm.shared.bo.ReportObject;
+=======
+>>>>>>> refs/heads/Ilona
 import de.hdm.shared.bo.Shop;
 import de.hdm.shared.bo.UnitOfMeasure;
 import de.hdm.shared.bo.Responsibility;
@@ -43,7 +46,10 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	private ResponsibilityMapper rMapper = null;
 	private UnitOfMeasureMapper uMapper = null;
 	private MembershipMapper mMapper = null;
+<<<<<<< HEAD
 	private ReportMapper reportMapper = null;
+=======
+>>>>>>> refs/heads/Ilona
 
 	// Um die Klasse übersichtlicher zu gestalten, wird sie mithilfe von Abschnitten
 	// unterteilt.
@@ -68,7 +74,11 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		this.rMapper = ResponsibilityMapper.responsibilityMapper();
 		this.uMapper = UnitOfMeasureMapper.unitOfMeasureMapper();
 		this.mMapper = MembershipMapper.membershipMapper();
+<<<<<<< HEAD
 		this.reportMapper = ReportMapper.reportMapper();
+=======
+
+>>>>>>> refs/heads/Ilona
 	}
 
 	/*
@@ -246,7 +256,10 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		i.setListId(listId);
 		i.setCount(count);
 		i.setArticleId(articleId);
+<<<<<<< HEAD
 		i.setUnitId(1); // TODO
+=======
+>>>>>>> refs/heads/Ilona
 		i = this.iMapper.insert(i);
 		
 		Responsibility r = new Responsibility();
@@ -663,6 +676,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	public void delete(Person p) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 
+<<<<<<< HEAD
 	}
 
 
@@ -670,18 +684,30 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	public Responsibility createResponsibility(Person p, Shop s, Item i) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return null;
+=======
+>>>>>>> refs/heads/Ilona
 	}
 
 	@Override
+<<<<<<< HEAD
 	public Membership createMembership(int personId, int teamId) throws IllegalArgumentException {
 		System.out.println("createMembership");
+=======
+	public Vector<Item> getItemsbyTeamAndShop(Shop shop) throws IllegalArgumentException {
+		// TODO Parameter Team muss noch �bergeben werden
+>>>>>>> refs/heads/Ilona
 
+<<<<<<< HEAD
 		Membership m = new Membership();
 		m.setPersonId(personId);
 		m.setTeamId(teamId);
+=======
+		// return this.iMapper.getItemsbyTeamAndShop(teamId, shopId);
+>>>>>>> refs/heads/Ilona
 
 		return this.mMapper.insert(m);
 	}
+<<<<<<< HEAD
 	
 	
 
@@ -722,4 +748,53 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	
 	
 	
+=======
+
+	@Override
+	public Responsibility createResponsibility(Person p, Shop s, Item i) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Membership createMembership(int personId, int teamId) throws IllegalArgumentException {
+		System.out.println("createMembership");
+
+		Membership m = new Membership();
+		m.setPersonId(personId);
+		m.setTeamId(teamId);
+
+		return this.mMapper.insert(m);
+	}
+
+	@Override
+	public void setTeam(Team t) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Vector<Item> getItemsByTeamWithTime(Team t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Vector<Item> getItemsByTeamAndShopWithTime(Shop s, Team t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void delete(int personId, int teamId) throws IllegalArgumentException {
+		this.mMapper.delete(personId, teamId);
+	}
+
+	@Override
+	public Vector<Item> getItemsByTeamWithTime(int teamId, Timestamp firstDate, Timestamp lastDate) {
+		Vector <Item> items = this.iMapper.getItemsbyTeamWithTime(teamId, firstDate, lastDate);
+		return items;
+	}
+
+>>>>>>> refs/heads/Ilona
 }
