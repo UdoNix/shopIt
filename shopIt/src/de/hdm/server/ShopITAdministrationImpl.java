@@ -578,11 +578,11 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * Zust�ndigkeit erstellen
 	 */
 
-	public Responsibility createResponsibility(Person p, Shop s) throws IllegalArgumentException {
+	public Responsibility createResponsibility(Person p, Shop s, Item i) throws IllegalArgumentException {
 		Responsibility r = new Responsibility();
 		r.setPersonId(p.getId());
 		r.setShopId(s.getId());
-
+		r.setItemId(i.getId());
 		return this.rMapper.insert(r);
 
 	}
