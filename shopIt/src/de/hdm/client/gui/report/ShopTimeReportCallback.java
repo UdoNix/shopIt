@@ -28,7 +28,6 @@ public class ShopTimeReportCallback extends Widget  {
 		
 		public void onFailure(Throwable caught) {
 			
-			
 		}
 		
 		public void onSuccess(TeamAndShopStatistikReport result) {

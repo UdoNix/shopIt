@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import de.hdm.shared.bo.Shop;
 import de.hdm.shared.bo.Team;
@@ -29,7 +30,7 @@ import de.hdm.shared.report.TeamStatisticReport;
  * @author ilona
  *
  */
-
+@RemoteServiceRelativePath("report")
 public interface ReportGenerator extends RemoteService{
 
 /**
@@ -46,7 +47,7 @@ public interface ReportGenerator extends RemoteService{
 	/**
 	 * Auslesen der ShopITAdministration.
 	 */
-	public ShopITAdministration getShopITAdministration();
+//	public ShopITAdministration getShopITAdministration();
 	
 	/**
 	  * Setzen der zugeh�rigen Gruppe

@@ -48,12 +48,12 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		
 	}
 	
-	/**
-	 * Auslesen der ShopITAdministration.
-	 */
-	public ShopITAdministration getShopITAdministration(){
-		return this.admin;
-	}
+//	/**
+//	 * Auslesen der ShopITAdministration.
+//	 */
+//	public ShopITAdministration getShopITAdministration(){
+//		return this.admin;
+//	}
 	
 
 	 /**
@@ -86,7 +86,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	public AllArticlesOfShopReport createAllArticlesOfShopReport(Shop shop)
 	throws IllegalArgumentException {
 		
-		if (this.getShopITAdministration() == null) {
+		if (this.admin == null) {
 			return null;
 		}  
 			
@@ -180,7 +180,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		
 		int teamId = t.getId();
 		
-		if (this.getShopITAdministration() == null) {
+		if (this.admin == null) {
 			return null;
 		}
 			
@@ -283,7 +283,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 
 	public TeamAndShopStatistikReport createTeamAndShopStatistikReport(Shop s, Team t, Date firstDate, Date lastdate) throws IllegalArgumentException {
 		
-		if (this.getShopITAdministration() == null) {
+		if (this.admin == null) {
 			return null;
 			
 		}

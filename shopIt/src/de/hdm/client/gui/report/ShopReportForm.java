@@ -15,7 +15,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ReportGeneratorAsync;
+import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.Shop;
+import de.hdm.shared.report.AllArticlesOfShopReport;
 
 public class ShopReportForm extends VerticalPanel{
 
@@ -26,6 +28,9 @@ public class ShopReportForm extends VerticalPanel{
 	private FlexTable flex = new FlexTable();
 	
 	private ReportGeneratorAsync reportVerwaltung = ClientsideSettings.getReportGenerator();
+	private ShopITAdministrationAsync verwaltung = ClientsideSettings.getShopItAdministration();
+	
+	private Vector<Shop> shops;
 	
 	public ShopReportForm(){
 		
@@ -34,7 +39,7 @@ public class ShopReportForm extends VerticalPanel{
 		flex.setWidget(1, 1, startButton);
 		
 		startButton.addClickHandler(new StartReportClickHandler());
-//		reportVerwaltung.getAllShops(new GetAllShopsCallback());
+		verwaltung.getAllShops(new GetAllShopsCallback());
 		
 		this.add(flex);
 		
@@ -50,8 +55,9 @@ public class ShopReportForm extends VerticalPanel{
 		}
 		
 		public void onSuccess(Vector<Shop> results){
-			for(Shop shop : results){
-				listBox.addItem(shop.getName());
+			shops = results;
+			for(Shop shop : results) {
+				listBox.addItem(shop.getName(), "" + shop.getId());
 			}
 		}
 	}
@@ -63,9 +69,23 @@ public class ShopReportForm extends VerticalPanel{
 				Window.alert("Bitte einen Shop auswählen :)");
 			}
 			else{
-				flex.clear();
-				//flex.add(new ShopReportCallback(listBox.getSelectedValue()));	
-				RootPanel.get("contentReport").add(flex);
+				for (Shop shop : shops) {
+					if((shop.getId() + "").equals(listBox.getSelectedValue())){
+						flex.clear();
+						reportVerwaltung.createAllArticlesOfShopReport(shop, new AsyncCallback<AllArticlesOfShopReport>() {
+							
+							@Override
+							public void onSuccess(AllArticlesOfShopReport result) {
+								flex.add(new Label(result.getTitle()));
+							}
+							
+							@Override
+							public void onFailure(Throwable caught) {
+								Window.alert("Fehler");
+							}
+						});
+					}
+				}
 			}
 		}
 	}

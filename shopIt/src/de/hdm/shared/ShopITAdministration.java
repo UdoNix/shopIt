@@ -1,5 +1,6 @@
 package de.hdm.shared;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Vector;

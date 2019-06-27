@@ -36,7 +36,7 @@ public interface ReportGeneratorAsync {
 
 	void createTeamStatisticReport(Team t, Timestamp firstDate, Timestamp lastDate, AsyncCallback<TeamStatisticReport> callback);
 
-	void getShopITAdministration(AsyncCallback<ShopITAdministration> callback);
+//	void getShopITAdministration(AsyncCallback<ShopITAdministration> callback);
 
 	void init(AsyncCallback<Void> callback);
 
