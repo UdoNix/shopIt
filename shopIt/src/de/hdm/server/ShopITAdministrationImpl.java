@@ -246,6 +246,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		i.setListId(listId);
 		i.setCount(count);
 		i.setArticleId(articleId);
+		i.setUnitId(1); // TODO
 		i = this.iMapper.insert(i);
 		
 		Responsibility r = new Responsibility();
