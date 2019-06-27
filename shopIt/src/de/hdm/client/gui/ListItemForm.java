@@ -94,7 +94,6 @@ public class ListItemForm extends VerticalPanel {
 	private HorizontalPanel btnPanel = new HorizontalPanel();
 	private Grid ListGrid;
 	private Button saveBtn = new Button("Speichern");
-	private Button cancelBtn = new Button("Zurueck");
 
 	private final TextBox amountTextBox = new TextBox();
 
@@ -157,16 +156,11 @@ public class ListItemForm extends VerticalPanel {
 
 //		standardizeBtn.addClickHandler(new StandardizeClickHandler);
 
-		HorizontalPanel updateBtnPanel = new HorizontalPanel();
-//		ListGrid.setWidget(, , updateBtnPanel);
 
 		saveBtn.setEnabled(true);
 
-//		cancelBtn.addClickHandler(new CancelClickhandler());
-		cancelBtn.setEnabled(true);
 
 		btnPanel.add(saveBtn);
-		btnPanel.add(cancelBtn);
 
 		contentPanel.add(new ShoppingListForm());
 		contentPanel.add(ListGrid);
@@ -231,14 +225,14 @@ public class ListItemForm extends VerticalPanel {
 
 			@Override
 			public void onSuccess(Vector<Item> result) {
-				cellTable.setRowData(0, result);
+				cellTable.setRowData(result);
 			}
 		};
 
 		TextColumn<Item> idColumn = new TextColumn<Item>() {
 			@Override
 			public String getValue(Item object) {
-				return "" + object.getArticleId();
+				return "" + object.getId();
 			}
 		};
 		Column<Item, String> like = new Column<Item, String>(new ButtonCell()) {
