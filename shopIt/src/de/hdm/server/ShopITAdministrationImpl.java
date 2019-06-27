@@ -12,6 +12,7 @@ import de.hdm.server.db.ItemMapper;
 import de.hdm.server.db.ListMapper;
 import de.hdm.server.db.MembershipMapper;
 import de.hdm.server.db.PersonMapper;
+import de.hdm.server.db.ReportMapper;
 import de.hdm.server.db.ResponsibilityMapper;
 import de.hdm.server.db.ShopMapper;
 import de.hdm.server.db.UnitOfMeasureMapper;
@@ -22,6 +23,7 @@ import de.hdm.shared.bo.Item;
 import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Membership;
 import de.hdm.shared.bo.Person;
+import de.hdm.shared.bo.ReportObject;
 import de.hdm.shared.bo.Shop;
 import de.hdm.shared.bo.UnitOfMeasure;
 import de.hdm.shared.bo.Responsibility;
@@ -41,6 +43,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	private ResponsibilityMapper rMapper = null;
 	private UnitOfMeasureMapper uMapper = null;
 	private MembershipMapper mMapper = null;
+	private ReportMapper reportMapper = null;
 
 	// Um die Klasse übersichtlicher zu gestalten, wird sie mithilfe von Abschnitten
 	// unterteilt.
@@ -65,7 +68,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		this.rMapper = ResponsibilityMapper.responsibilityMapper();
 		this.uMapper = UnitOfMeasureMapper.unitOfMeasureMapper();
 		this.mMapper = MembershipMapper.membershipMapper();
-
+		this.reportMapper = ReportMapper.reportMapper();
 	}
 
 	/*
@@ -661,14 +664,6 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	}
 
-	@Override
-	public Vector<Item> getItemsbyTeamAndShop(Shop shop) throws IllegalArgumentException {
-		// TODO Parameter Team muss noch �bergeben werden
-
-		// return this.iMapper.getItemsbyTeamAndShop(teamId, shopId);
-
-		return null;
-	}
 
 	@Override
 	public Responsibility createResponsibility(Person p, Shop s, Item i) throws IllegalArgumentException {
@@ -686,6 +681,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 		return this.mMapper.insert(m);
 	}
+	
+	
 
 	@Override
 	public void setTeam(Team t) throws IllegalArgumentException {
@@ -693,27 +690,35 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	}
 
-	@Override
-	public Vector<Item> getItemsByTeamWithTime(Team t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Vector<Item> getItemsByTeamAndShopWithTime(Shop s, Team t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void delete(int personId, int teamId) throws IllegalArgumentException {
 		this.mMapper.delete(personId, teamId);
 	}
-
+	
+	 /**	###################################
+	  * 	#####Methoden des Report Generators#####
+	 *		###################################
+	  **/
+	
 	@Override
-	public Vector<Item> getItemsByTeamWithTime(int teamId, Timestamp firstDate, Timestamp lastDate) {
-		Vector <Item> items = this.iMapper.getItemsbyTeamWithTime(teamId, firstDate, lastDate);
-		return items;
+	public Vector<ReportObject> getItemsByTeamWithTime(Team t, Timestamp firstDate, Timestamp lastDate) {
+		Vector <ReportObject> result = this.reportMapper.createTeamTimeReport(t.getId(), firstDate, lastDate);
+		return result;
 	}
-
+	
+	@Override
+	public Vector<ReportObject> getItemsbyTeamAndShop(Shop s, Team t) throws IllegalArgumentException {
+		Vector<ReportObject> result = this.reportMapper.createTeamShopReport(s.getId(), t.getId());
+		return result;
+	}
+	
+	@Override
+	public Vector <ReportObject> getItemsByTeamAndShopWithTime(Shop s, Team t, Timestamp firstDate, Timestamp lastDate){
+		Vector<ReportObject> result = this.reportMapper.createTeamTimeShopReport(t.getId(), firstDate, lastDate, s.getId());
+		return result;
+	}
+	
+	
+	
 }

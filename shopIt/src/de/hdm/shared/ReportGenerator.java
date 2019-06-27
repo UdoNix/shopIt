@@ -63,7 +63,7 @@ public interface ReportGenerator extends RemoteService{
 	 * 
 	 */
 	
-	public AllArticlesOfShopReport createAllArticlesOfShopReport(Shop shop)
+	public AllArticlesOfShopReport createAllArticlesOfShopReport(Shop shop, Team t)
 	throws IllegalArgumentException;
 	
 	/**
@@ -85,7 +85,7 @@ public interface ReportGenerator extends RemoteService{
 	 *
 	 */
 		
-		public TeamAndShopStatistikReport createTeamAndShopStatistikReport(String tname, String sname, Date firstDate, Date lastdate) throws IllegalArgumentException;
+		public TeamAndShopStatistikReport createTeamAndShopStatistikReport(Shop s, Team t, Timestamp firstDate, Timestamp lastDate) throws IllegalArgumentException;
 		
 		
 }
