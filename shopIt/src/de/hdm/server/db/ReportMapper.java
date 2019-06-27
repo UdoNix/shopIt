@@ -34,7 +34,7 @@ public class ReportMapper {
 		try {
 			Statement stmt = con.createStatement();
 			
-			ResultSet rs = stmt.executeQuery("SELECT COUNT(item.id) AS 'count', article.name AS 'name', unit.quantity AS 'quantity', unit.unit AS 'unit', item.changeDate AS 'changeDate', responsibility.shopId AS 'shopId', item.teamId AS teamId "
+			ResultSet rs = stmt.executeQuery("SELECT COUNT(item.id) AS 'count', article.name AS 'name', unit.quantity AS 'quantity', unit.unit AS 'unit', item.changeDate AS 'changeDate', responsibility.shopId AS 'shopId', item.teamId AS 'teamId' "
 					+ "FROM item JOIN article ON item.articleId = article.id JOIN unit ON item.unitId = unit.id JOIN team ON item.teamId = team.id JOIN responsibility ON item.id = responsibility.itemId "
 					+ "WHERE item.teamId = " + teamId + "AND item.changeDate BETWEEN '"+ startDate +"' AND '" + endDate + "' AND shopId = " + shopId + " "
 							+ "GROUP BY item.id ORDER BY COUNT(item.articleId) DESC");
@@ -46,7 +46,7 @@ public class ReportMapper {
 				r.setQuantity(rs.getFloat("quantity"));
 				r.setUnit(rs.getString("unit"));
 				r.setChangeDate(rs.getTimestamp("timeStamp"));
-				r.setShop(rs.getInt("shopId"));
+				r.setShopId(rs.getInt("shopId"));
 			}
 			
 			
@@ -64,9 +64,13 @@ public Vector<ReportObject> createTeamTimeReport(int teamId, Timestamp startDate
 		try {
 			Statement stmt = con.createStatement();
 			
-			ResultSet rs = stmt.executeQuery("SELECT COUNT(item.id) AS 'count', article.name AS 'name', unit.quantity AS 'quantity', unit.unit AS 'unit', item.changeDate AS 'changeDate', item.teamId AS teamId "
-					+ "FROM item JOIN article ON item.articleId = article.id JOIN unit ON item.unitId = unit.id JOIN team ON item.teamId = team.id JOIN responsibility ON item.id = responsibility.itemId "
-					+ "WHERE item.teamId = " + teamId + "AND item.changeDate BETWEEN '"+ startDate +"' AND '" + endDate + " "
+			ResultSet rs = stmt.executeQuery("SELECT COUNT(item.id) AS 'count', article.name AS 'name', unit.quantity AS 'quantity', unit.unit AS 'unit', shop.name AS 'shopName' , item.changeDate AS 'changeDate', item.teamId AS 'teamId' " + 
+					"FROM item " + 
+					"JOIN article ON item.articleId = article.id " + 
+					"JOIN unit ON item.unitId = unit.id " + 
+					"JOIN team ON item.teamId = team.id " + 
+					"JOIN (responsibility JOIN shop ON responsibility.shopId = shop.id) ON item.id = responsibility.itemId "
+					+ "WHERE item.teamId = " + teamId + "AND item.changeDate BETWEEN '"+ startDate +"' AND '" + endDate + "' "
 							+ "GROUP BY item.id ORDER BY COUNT(item.articleId) DESC");
 			
 			while(rs.next()) {
@@ -76,6 +80,7 @@ public Vector<ReportObject> createTeamTimeReport(int teamId, Timestamp startDate
 				r.setQuantity(rs.getFloat("quantity"));
 				r.setUnit(rs.getString("unit"));
 				r.setChangeDate(rs.getTimestamp("timeStamp"));
+				r.setShopName(rs.getString("shopName"));
 			}
 			
 			
@@ -105,7 +110,7 @@ public Vector<ReportObject> createTeamTimeReport(int teamId, Timestamp startDate
 				r.setArticle(rs.getString("name"));
 				r.setQuantity(rs.getFloat("quantity"));
 				r.setUnit(rs.getString("unit"));
-				r.setShop(rs.getInt("shopId"));
+				r.setShopId(rs.getInt("shopId"));
 			}
 			
 		} catch(SQLException e){
