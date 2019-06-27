@@ -68,11 +68,8 @@ public class MembershipMapper {
 			      e2.printStackTrace();
 			      return null;
 			    }
-<<<<<<< HEAD
+		return null;
 	}
-=======
-
->>>>>>> refs/heads/Larisa
 
 	// Auslesen aller Memberships.
 	// @return Ein Vektor mit Membership-Objekten, die sämtliche Memberships
