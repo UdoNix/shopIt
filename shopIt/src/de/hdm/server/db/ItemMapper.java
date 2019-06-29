@@ -134,13 +134,13 @@ public Vector<Item> findByList (ShoppingList l){
 	      Statement stmt = con.createStatement();
 
 	      ResultSet rs = stmt.executeQuery(
-	      "SELECT *, article.name, unit.measure, unit.amount, person.firstName, shop.name\n" + 
-"FROM item\n" + 
-"INNER JOIN article ON article.id = item.articleId\n" + 
-"INNER JOIN unit ON unit.id = item.unitId\n" + 
-"INNER JOIN responsibility ON responsibility.itemId = item.id\n" + 
-"INNER JOIN person ON responsibility.personId = person.id\n" + 
-"INNER JOIN shop ON responsibility.shopId = shop.id WHERE listId=" + listId + " ORDER BY item.id");
+	      "SELECT *, article.name, unit.measure, unit.amount, person.firstName, shop.name " + 
+"FROM item " + 
+"INNER JOIN article ON article.id = item.articleId" + 
+"INNER JOIN unit ON unit.id = item.unitId" + 
+"INNER JOIN responsibility ON responsibility.itemId = item.id" + 
+"INNER JOIN person ON responsibility.personId = person.id" + 
+"INNER JOIN shop ON responsibility.shopId = shop.id WHERE listId= " + listId + " ORDER BY item.id");
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt erstellt.
 	      while (rs.next()) {
@@ -230,7 +230,7 @@ public Item insert(Item i) {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE item SET id= " + i.getId() + ", teamId=" + i.getTeamId() + ", unitId=" + i.getUnitId() + ", articleId=" + i.getArticleId() + ", status=" + i.isStatus() + ", listid=" + i.getListId() + ", favorit=" + i.isFavorit() + " WHERE id= " + i.getId());
+      stmt.executeUpdate("UPDATE item SET id= " + i.getId() + ", teamId= " + i.getTeamId() + ", unitId= " + i.getUnitId() + ", articleId= " + i.getArticleId() + ", status= " + i.isStatus() + ", listid=  " + i.getListId() + ", favorit= " + i.isFavorit() + " WHERE id= " + i.getId());
 
     }
     catch (SQLException e2) {
