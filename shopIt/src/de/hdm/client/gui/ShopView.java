@@ -35,7 +35,7 @@ public class ShopView extends VerticalPanel {
 	TextBox streetTextBox = new TextBox();
 
 	Button deleteButton = new Button("Shop löschen");
-	Button newButton = new Button("Als neuer Shop speichern");
+	Button newButton = new Button("Als neuen Shop speichern");
 	Button saveButton = new Button("Speichern");
 
 	public void onLoad() {
@@ -59,11 +59,11 @@ public class ShopView extends VerticalPanel {
 		shopGrid.setWidget(3, 0, plz);
 		shopGrid.setWidget(3, 1, postalCodeTextBox);
 
-		Label city = new Label("City:");
+		Label city = new Label("Stadt:");
 		shopGrid.setWidget(4, 0, city);
 		shopGrid.setWidget(4, 1, cityTextBox);
 
-		Label street = new Label("Street:");
+		Label street = new Label("Strasse:");
 		shopGrid.setWidget(2, 0, street);
 		shopGrid.setWidget(2, 1, streetTextBox);
 
