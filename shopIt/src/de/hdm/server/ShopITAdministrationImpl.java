@@ -246,7 +246,6 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		// das
 		// macht die DB
 
-		i.setId(1);
 		i.setListId(listId);
 		i.setCount(count);
 		i.setArticleId(articleId);

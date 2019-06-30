@@ -255,7 +255,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		 * in die Tabelle eingetragen.
 		 */
 
-		//Umwandeln des Datums, welches aus der GUI als Date übergeben wurde in einen Timestamp
+		//Umwandeln des Datums, welches aus der GUI als Date ï¿½bergeben wurde in einen Timestamp
 		Timestamp firstTimestamp = new Timestamp(firstDate.getTime());
 		Timestamp lastTimestamp = new Timestamp(lastDate.getTime());
 		
@@ -361,7 +361,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		 * und deren Hï¿½ndler in die Tabelle eingetragen.
 		 */
 
-		//Umwandeln des Datums, welches aus der GUI als Date übergeben wurde in einen Timestamp
+		//Umwandeln des Datums, welches aus der GUI als Date ï¿½bergeben wurde in einen Timestamp
 		Timestamp firstTimestamp = new Timestamp(firstDate.getTime());
 		Timestamp lastTimestamp = new Timestamp(lastDate.getTime());
 		

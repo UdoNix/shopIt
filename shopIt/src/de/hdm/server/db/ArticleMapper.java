@@ -129,7 +129,6 @@ public Article insert(Article a) {
        
       a.setId(rs.getInt("maxid") + 1);
 
-      stmt = con.createStatement();
 
       //PreparedStatement stmt2 = con.prepareStatement("INSERT INTO article (id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, name) VALUES (?, ?, ?, ?)");
       //stmt2.setInt(1, a.getId());
@@ -138,7 +137,10 @@ public Article insert(Article a) {
       
       // Es erfolgt die tatsächliche Einfuegeoperation
       PreparedStatement stmt2 = con.prepareStatement("INSERT INTO article (id, creationDate, changeDate, name) " + 
-      "VALUES (?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, )");
+      "VALUES (?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?)");
+      stmt2.setInt(1, a.getId());
+      stmt2.setString(2, a.getName());
+      stmt2.execute();
       
       
     }
@@ -160,10 +162,11 @@ public Article insert(Article a) {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE article SET name = '" + a.getName() + "', changeDate = CURRENT_TIMESTAMP "
-      		+ "WHERE id= " + a.getId());
+      String sql = "UPDATE article SET name = '" + a.getName() + "', changeDate = CURRENT_TIMESTAMP "
+		+ "WHERE id= " + a.getId();
+      System.out.println(sql);
+      stmt.executeUpdate(sql);
 
-      
     }
     catch (SQLException e2) {
       e2.printStackTrace();
