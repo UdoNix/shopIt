@@ -58,6 +58,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		return this.admin;
 	}
 
+
 	/**
 	 * Setzen der zugehï¿½rigen Gruppe
 	 * 
@@ -88,9 +89,13 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	 * @Larisa in Anlehnung Thies
 	 */
 
-	public AllArticlesOfShopReport createAllArticlesOfShopReport(Shop shop, Team team) throws IllegalArgumentException {
 
-		if (this.getShopITAdministration() == null) {
+	
+	public AllArticlesOfShopReport createAllArticlesOfShopReport(Shop shop, Team team)
+	throws IllegalArgumentException {
+		
+		if (this.admin == null) {
+
 			return null;
 		}
 
@@ -140,7 +145,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		headline.addColumn(new Column("Anzahl"));
 		headline.addColumn(new Column("Artikelname"));
 		headline.addColumn(new Column("Menge"));
-		headline.addColumn(new Column("Maßeinheit"));
+		headline.addColumn(new Column("Maï¿½einheit"));
 
 		// Hinzufï¿½gen der Kopfzeile.
 		result.addRow1(headline);
@@ -182,10 +187,11 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	 * @author IlonaBrinkmann, Thies
 	 */
 
-	public TeamStatisticReport createTeamStatisticReport(Team t, Timestamp firstDate, Timestamp lastDate)
-			throws IllegalArgumentException {
-
-		if (this.getShopITAdministration() == null) {
+	public TeamStatisticReport createTeamStatisticReport(Team t, Timestamp firstDate, Timestamp lastDate) throws IllegalArgumentException {
+		
+		int teamId = t.getId();
+		
+		if (this.admin == null) {
 			return null;
 		}
 
@@ -240,7 +246,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		// Zweite Headline Spalte: Artikel Id
 		headline.addColumn(new Column("Artikel"));
 		headline.addColumn(new Column("Menge"));
-		headline.addColumn(new Column("Maßeinheit"));
+		headline.addColumn(new Column("Maï¿½einheit"));
 		headline.addColumn(new Column("Name des Shops"));
 
 		// Hinzufï¿½gen der Kopfzeile
@@ -282,10 +288,15 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	 * @author IlonaBrinkmann & Larisa
 	 */
 
-	public TeamAndShopStatistikReport createTeamAndShopStatistikReport(Shop s, Team t, Timestamp firstDate,
-			Timestamp lastDate) throws IllegalArgumentException {
+	
+	//private int shopid;
+	
+	//private int teamid;
+	
 
-		if (this.getShopITAdministration() == null) {
+	public TeamAndShopStatistikReport createTeamAndShopStatistikReport(Shop s, Team t, Date firstDate, Date lastDate) throws IllegalArgumentException {
+		
+		if (this.admin == null) {
 			return null;
 
 		}
@@ -338,8 +349,8 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		headline.addColumn(new Column("Anzahl"));
 		headline.addColumn(new Column("Artikel"));
 		headline.addColumn(new Column("Menge"));
-		headline.addColumn(new Column("Maßeinheit"));
-		headline.addColumn(new Column("Zuletzt Geändert"));
+		headline.addColumn(new Column("Maï¿½einheit"));
+		headline.addColumn(new Column("Zuletzt Geï¿½ndert"));
 
 		// Hinzufï¿½gen der Kopfzeile
 		result.addRow(headline);
@@ -349,7 +360,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		 * und deren Hï¿½ndler in die Tabelle eingetragen.
 		 */
 
-		Vector<ReportObject> ro = this.admin.getItemsByTeamAndShopWithTime(s, t, firstDate, lastDate);
+		Vector<ReportObject> ro = this.admin.getItemsByTeamAndShopWithsTime(s, t, firstDate, lastDate);
 
 		for (ReportObject r : ro) {
 			// Eine leere Zeile anlegen.
@@ -369,7 +380,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 
 		// es wird zum Schluss wird der fertige Report abgegeben
 		return result;
-
+s
 	}
 
 }

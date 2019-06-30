@@ -17,6 +17,16 @@
   </servlet-mapping>
   
    <servlet>
+    <servlet-name>reportShopServlet</servlet-name>
+    <servlet-class>de.hdm.server.ShopITAdministrationImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>reportShopServlet</servlet-name>
+    <url-pattern>/report/shop</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
     <servlet-name>loginServlet</servlet-name>
     <servlet-class>de.hdm.server.LoginServiceImpl</servlet-class>
   </servlet>
@@ -26,9 +36,19 @@
     <url-pattern>/shopit/login</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>reportServlet</servlet-name>
+    <servlet-class>de.hdm.server.report.ReportGeneratorImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>reportServlet</servlet-name>
+    <url-pattern>/report/report</url-pattern>
+  </servlet-mapping>
+  
+  
    <welcome-file-list>
     <welcome-file>GWTTest1.html</welcome-file>
   </welcome-file-list>
-
 
 </web-app>

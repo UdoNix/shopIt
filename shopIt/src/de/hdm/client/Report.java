@@ -27,13 +27,6 @@ public class Report implements EntryPoint {
 	ReportGeneratorAsync reportVerwaltung = ClientsideSettings.getReportGenerator();
 	private LoginInformation loginInformation = null;
 
-	Person p = new Person();
-
-	private Label firstNameLabel = new Label("Vorname");
-	private TextBox firstNameBox = new TextBox();
-	private Label lastNameLabel = new Label("Nachname");
-	private TextBox lastNameBox = new TextBox();
-
 	private VerticalPanel loginPanel = new VerticalPanel();
 	private Label loginGreet = new Label("Willkommen!");
 	private Label loginMessage = new Label("Bitte logge dich mit deinem Google Account ein");
@@ -41,12 +34,8 @@ public class Report implements EntryPoint {
 	private Anchor signOutLink = new Anchor("Ausloggen");
 	private Button loginButton = new Button("Login :)");
 
-	public Report() {
-		
-	}
-
 	public void onModuleLoad() {
-		Window.alert("Report");
+		loadReportGenerator();
 	}
 
 	public void onFailure(Throwable caught) {
@@ -90,7 +79,8 @@ public class Report implements EntryPoint {
 
 	private void loadReportGenerator() {
 		SelectMenu reportMenu = new SelectMenu();
-		RootPanel.get("header").add(reportMenu);
+		RootPanel.get("content").clear();
+		RootPanel.get("content").add(reportMenu);
 	}
 
 	class PersonAbrufCallback implements AsyncCallback<Person> {

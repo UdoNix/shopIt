@@ -1,10 +1,15 @@
 package de.hdm.shared.report;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Vector;
 
-public class TeamStatisticReport {
+public class TeamStatisticReport implements Serializable {
 
+	public TeamStatisticReport() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public void setTitle(String string) {
 		// TODO Auto-generated method stub
 	}
