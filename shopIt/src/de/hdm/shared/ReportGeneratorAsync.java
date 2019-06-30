@@ -1,6 +1,5 @@
 package de.hdm.shared;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -10,6 +9,7 @@ import de.hdm.shared.bo.Team;
 
 import de.hdm.shared.report.AllArticlesOfShopReport;
 import de.hdm.shared.report.Report;
+import de.hdm.shared.report.ShopStatisticReport;
 import de.hdm.shared.report.TeamAndShopStatistikReport;
 import de.hdm.shared.report.TeamStatisticReport;
 
@@ -29,22 +29,16 @@ public interface ReportGeneratorAsync {
 
 	void addImprint(Report report, AsyncCallback<Void> callback);
 
-	void createAllArticlesOfShopReport(Shop shop, Team team, AsyncCallback<AllArticlesOfShopReport> callback);
+	void createAllArticlesOfShopReport(Shop shop, Team team, AsyncCallback<ShopStatisticReport> callback);
 
-	void createTeamAndShopStatistikReport(Shop s, Team t, Timestamp firstDate, Timestamp lastDate, AsyncCallback<TeamAndShopStatistikReport> callback);
+	void createTeamAndShopStatistikReport(Shop s, Team t, Date firstDate, Date lastDate, AsyncCallback<TeamAndShopStatistikReport> callback);
 
-	void createTeamStatisticReport(Team t, Timestamp firstDate, Timestamp lastDate, AsyncCallback<TeamStatisticReport> callback);
+	void createTeamStatisticReport(Team t, Date firstDate, Date lastDate, AsyncCallback<TeamStatisticReport> callback);
 
 //	void getShopITAdministration(AsyncCallback<ShopITAdministration> callback);
 
 	void init(AsyncCallback<Void> callback);
 
 	void setTeam(Team t, AsyncCallback<Void> callback);
-
-
-
-	//void createTeamAndShopStatistikReport(Shop s, Team t, Date firstdate, Date lastdate, AsyncCallback<TeamAndShopStatistikReport> callback);
-
-	
 
 }

@@ -2,7 +2,8 @@ package de.hdm.shared.report;
 
 import java.io.Serializable;
 
-public class AllArticlesOfShopReport extends CompositeReport 
+@Deprecated
+public class AllArticlesOfShopReport extends SimpleReport 
 	implements Serializable {
 	
 	/**
@@ -14,15 +15,6 @@ public class AllArticlesOfShopReport extends CompositeReport
 	
 	private static final long serialVersionUID = 1L;
 
-	public void addRow1(Row headline) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void addRow(Row articleRow) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 
 }

@@ -55,6 +55,8 @@ public class TeamView extends VerticalPanel {
 	 * Label creationTime = new Label("Creationtime:"); Label numberOfMembers = new
 	 * Label("Number of Members:");
 	 */
+	
+	//Widgets werden als Attribute angelegt.
 
 	// Button changeButton = new Button("Name ändern");
 	Button deleteButton = new Button("Team löschen");
@@ -73,9 +75,10 @@ public class TeamView extends VerticalPanel {
 
 	public void onLoad() {
 
-		/**
-		 * Das Grid-Widget erlaubt die Anordnung anderer Widgets in einem Gitter.
-		 */
+		//Beim Anzeigen werden die Widgets z.T. erzeugt. Alle werden in einem
+		 //Raster angeordnet, dessen Größe sich aus dem Platzbedarf der enthaltenen
+		 // Widgets bestimmt.
+
 		Grid teamGrid = new Grid(6, 3);
 		this.add(teamGrid);
 
@@ -112,7 +115,10 @@ public class TeamView extends VerticalPanel {
 		teamGrid.setWidget(4, 1, emailTextBox);
 
 	}
-
+//Click handlers und abhängige AsyncCallback Klassen.
+	
+	//Clickhandler um ein Team zu löschen
+	
 	private class DeleteClickHandler implements ClickHandler {
 
 		@Override
@@ -166,6 +172,9 @@ public class TeamView extends VerticalPanel {
 	 * propagiert. CellTreeViewModel.updateTeam(teamToDisplay); } }
 	 */
 
+	
+	//ClickHandler um ein Team zu verlassen
+	
 	private class LeaveClickHandler implements ClickHandler {
 
 		@Override
@@ -216,6 +225,8 @@ public class TeamView extends VerticalPanel {
 			Window.alert("Success");
 		}
 	}
+	
+	//ClickHandler um ein neues Team zu speichern
 
 	private class NewClickHandler implements ClickHandler {
 
@@ -252,6 +263,8 @@ public class TeamView extends VerticalPanel {
 			nameTextBox.setText("");
 		}
 	}
+	
+	//ClickHandler um Team als neues Team speichern
 
 	private class ChangeClickHandler implements ClickHandler {
 		@Override
@@ -277,6 +290,7 @@ public class TeamView extends VerticalPanel {
 		}
 	}
 
+	//ClickHandler um eine Person der Gruppe zuzuordnen
 	private class AddClickHandler implements ClickHandler {
 
 		@Override

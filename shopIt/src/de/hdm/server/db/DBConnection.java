@@ -5,7 +5,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.logging.Logger;
 
+import com.google.appengine.api.utils.SystemProperty;
+
 import de.hdm.server.ServersideSettings;
+
+//@udo nix, emily kretzschmar
 
 
 // Verwalten der DB-Verbindung 
@@ -21,8 +25,8 @@ public class DBConnection {
 
     // Die URL, um die Datenbank anzusprechen
      
-    private static String googleUrl = "";
-    private static String localUrl = "jdbc:mysql://127.0.0.1:8889/shopit?characterEncoding=UTF-8&user=root&password=root";
+    private static String googleUrl = "jdbc:google:mysql://shopit-241614:europe-west1:shopit?user=demo&password=demo";
+    private static String localUrl = "jdbc:mysql://127.0.0.1:3306/shopit?characterEncoding=UTF-8&user=root&password=";
 
    // statische Methode --> Aufrufbr durch
    // <code>DBConnection.connection()</code>. Sie stellt die
@@ -35,15 +39,15 @@ public class DBConnection {
         if (con == null) {
             String url = null;
             try {
-//                if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
-//                    
-//                    Class.forName("");
-//                    url = googleUrl;
-//                } else {
+                if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
+                    
+                    Class.forName("cmysql.jdbc.GoogleDriver");
+                    url = googleUrl;
+                } else {
                     // Local MySQL instance to use during development.
                     Class.forName("com.mysql.jdbc.Driver");
                     url = localUrl;
-//                }
+                }
                 
                  // Erst dann kann uns der DriverManager eine Verbindung mit den
                  //oben in der Variable url angegebenen Verbindungsinformationen

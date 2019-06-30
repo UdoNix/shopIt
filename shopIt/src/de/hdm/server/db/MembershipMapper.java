@@ -1,6 +1,8 @@
 package de.hdm.server.db;
 
 import java.sql.Connection;
+//@udo nix, emily kretzschmar
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

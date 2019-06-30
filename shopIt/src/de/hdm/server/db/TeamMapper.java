@@ -11,6 +11,7 @@ import java.util.Vector;
 import de.hdm.shared.bo.Team;
 import de.hdm.shared.bo.Person;
 
+//@udo nix, emily kretzschmar
 
 public class TeamMapper {
 	

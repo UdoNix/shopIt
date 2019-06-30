@@ -27,6 +27,7 @@ public class ShopView extends VerticalPanel {
 	}
 
 	Shop shopToDisplay = null;
+	//Widgets, deren Inhalte variable sind, werden als Attribute angelegt.
 
 	TextBox nameTextBox = new TextBox();
 	TextBox postalCodeTextBox = new TextBox();
@@ -34,10 +35,14 @@ public class ShopView extends VerticalPanel {
 	TextBox streetTextBox = new TextBox();
 
 	Button deleteButton = new Button("Shop löschen");
-	Button newButton = new Button("Als neuer Shop speichern");
+	Button newButton = new Button("Als neuen Shop speichern");
 	Button saveButton = new Button("Speichern");
 
 	public void onLoad() {
+		
+		//Beim Anzeigen werden die Widgets z.T. erzeugt. Alle werden in einem
+		 //Raster angeordnet, dessen Größe sich aus dem Platzbedarf der enthaltenen
+		 // Widgets bestimmt.
 
 		Grid shopGrid = new Grid(7, 2);
 		this.add(shopGrid);
@@ -54,11 +59,11 @@ public class ShopView extends VerticalPanel {
 		shopGrid.setWidget(3, 0, plz);
 		shopGrid.setWidget(3, 1, postalCodeTextBox);
 
-		Label city = new Label("City:");
+		Label city = new Label("Stadt:");
 		shopGrid.setWidget(4, 0, city);
 		shopGrid.setWidget(4, 1, cityTextBox);
 
-		Label street = new Label("Street:");
+		Label street = new Label("Strasse:");
 		shopGrid.setWidget(2, 0, street);
 		shopGrid.setWidget(2, 1, streetTextBox);
 
@@ -75,6 +80,10 @@ public class ShopView extends VerticalPanel {
 		shopGrid.setWidget(6, 1, deleteButton);
 
 	}
+	
+	//Click handlers und abhängige AsyncCallback Klassen.
+	
+	// ClickHandler zum Löschen eines Shops
 
 	private class DeleteClickHandler implements ClickHandler {
 
@@ -108,6 +117,7 @@ public class ShopView extends VerticalPanel {
 		}
 	}
 
+	//Clickhandler zum Speichern eines Shops
 	private class ChangeClickHandler implements ClickHandler {
 
 		public void onClick(ClickEvent event) {
@@ -136,7 +146,8 @@ public class ShopView extends VerticalPanel {
 //				CellTreeViewModel.updateShop(shopToDisplay);
 		}
 	}
-
+	
+	//ClickHandler für einen neuen Shop
 	private class NewClickHandler implements ClickHandler {
 
 		public void onClick(ClickEvent event) {

@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 	import java.util.Vector;
 
 import de.hdm.shared.bo.UnitOfMeasure;
+//@udo nix, emily kretzschmar
 
 public class UnitOfMeasureMapper {
 	

@@ -10,6 +10,7 @@ import java.util.Vector;
 import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Person;
 
+//@udo nix, emily kretzschmar
 
 public class PersonMapper {	
 	// Klasse PersonMapper als Singleton

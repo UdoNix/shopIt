@@ -16,7 +16,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * @author dibasegmen
  *
  */
-
+@Deprecated
 public class AccountForm extends HorizontalPanel {
 	
 //	AccountForm account = new AccountForm();

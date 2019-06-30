@@ -40,9 +40,11 @@ public class TimeReportForm extends HorizontalPanel {
 	private VerticalPanel vpanel = new VerticalPanel();
 	private Grid timeGrid = new Grid(5, 2);
 	private Vector<Team> teams;
+	private ReportLayout reportLayout;
 
-	public TimeReportForm() {
+	public TimeReportForm(ReportLayout reportLayout) {
 
+		this.reportLayout = reportLayout;
 		timeGrid.setWidget(1, 0, startDateLabel);
 		timeGrid.setWidget(1, 1, startDateBox);
 		timeGrid.setWidget(2, 0, endDateLabel);
@@ -50,8 +52,8 @@ public class TimeReportForm extends HorizontalPanel {
 		timeGrid.setWidget(3, 0, teamListBox);
 		timeGrid.setWidget(4, 0, startButton);
 
-		startDateBox.setFormat( new DateBox.DefaultFormat( dateTimeFormat));
-		endDateBox.setFormat( new DateBox.DefaultFormat( dateTimeFormat));
+		startDateBox.setFormat(new DateBox.DefaultFormat(dateTimeFormat));
+		endDateBox.setFormat(new DateBox.DefaultFormat(dateTimeFormat));
 
 		startButton.addClickHandler(new StartReportClickHandler());
 		verwaltung.getAllTeams(new GetAllTeamsCallback());
@@ -70,7 +72,7 @@ public class TimeReportForm extends HorizontalPanel {
 
 			teams = results;
 			for (Team team : results) {
-				teamListBox.addItem(team.getName());
+				teamListBox.addItem(team.getName(), team.getId() + "");
 			}
 		}
 	}
@@ -81,10 +83,11 @@ public class TimeReportForm extends HorizontalPanel {
 			if (teamListBox.getSelectedValue().equals("")) {
 				Window.alert("Bitte wählen Sie eine Gruppe aus :)");
 			} else {
-				vpanel.clear();
-				vpanel.add(new TimeReportCallback(teamListBox.getSelectedValue(), startDateBox.getValue(),
-						endDateBox.getValue()));
-				RootPanel.get("content").add(vpanel);
+				for (Team team : teams) {
+					if (String.valueOf(team.getId()).equals(teamListBox.getSelectedValue())) {
+						reportLayout.setThree(new TimeReportCallback(team, startDateBox.getValue(), endDateBox.getValue()));
+					}
+				}
 			}
 		}
 	}

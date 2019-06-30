@@ -31,13 +31,13 @@ public class ShopTimeReportForm extends HorizontalPanel{
 	//Erstellung der GUI-Elemente
 		private Button startButton = new Button("Report starten");
 		private Label shopLabel = new Label("Shop: ");
-		private ListBox listBox = new ListBox();
+		private final ListBox listBox = new ListBox();
 		private Label startDateLabel = new Label("Startdatum");
-		private DateBox startDateBox = new DateBox();
+		private final DateBox startDateBox = new DateBox();
 		private Label endDateLabel = new Label("Enddatum");
-		private DateBox endDateBox = new DateBox();
+		private final DateBox endDateBox = new DateBox();
 		private Label teamLabel = new Label("Team");
-		private ListBox teamListBox = new ListBox();
+		private final ListBox teamListBox = new ListBox();
 		private FlexTable flex = new FlexTable();
 		
 		private ReportGeneratorAsync reportVerwaltung = ClientsideSettings.getReportGenerator();
@@ -45,8 +45,14 @@ public class ShopTimeReportForm extends HorizontalPanel{
 		private DateTimeFormat dateTimeFormat = DateTimeFormat.getFormat("dd.MM.yyyy");
 		private VerticalPanel vpanel = new VerticalPanel();
 		
-		public ShopTimeReportForm(){
+		private Vector<Shop> shops;
+		private Vector<Team> teams;
+		private ReportLayout reportLayout;
+
+		
+		public ShopTimeReportForm(ReportLayout reportLayout){
 			
+			this.reportLayout = reportLayout;
 			flex.setWidget(1, 0, shopLabel);
 			flex.setWidget(1, 1, listBox);
 			flex.setWidget(2, 0, startDateLabel);
@@ -73,13 +79,15 @@ public class ShopTimeReportForm extends HorizontalPanel{
 		
 		private class GetAllTeamsCallback implements AsyncCallback<Vector<Team>>{
 			
+		
 			public void onFailure(Throwable caught){
 				Window.alert("Fehler beim Abrufen der Teams: "+ caught.getMessage());
 			}
 			
 			public void onSuccess(Vector<Team> results){
+				teams = results;
 				for(Team team : results){
-					teamListBox.addItem(team.getName());
+					teamListBox.addItem(team.getName(), team.getId() + "");
 				}
 			}
 		}
@@ -91,8 +99,9 @@ public class ShopTimeReportForm extends HorizontalPanel{
 			}
 			
 			public void onSuccess(Vector<Shop> results){
+				shops = results;
 				for(Shop shop : results){
-					listBox.addItem(shop.getName());
+					listBox.addItem(shop.getName(), shop.getId() + "");
 				}
 			}
 		}
@@ -104,9 +113,15 @@ public class ShopTimeReportForm extends HorizontalPanel{
 					Window.alert("Bitte einen Shop auswählen :)");
 				}
 				else{
-					flex.clear();
-//					flex.add(new ShopTimeReportCallback(teamListBox.getSelectedValue(), listBox.getSelectedValue(), startDateBox.getValue(), endDateBox.getValue()));	
-					RootPanel.get("contentReport").add(flex);
+					for (Team team : teams) {
+						if (String.valueOf(team.getId()).equals(teamListBox.getSelectedValue())) {
+							for (Shop shop : shops) {
+								if (String.valueOf(shop.getId()).equals(listBox.getSelectedValue())) {
+									reportLayout.setThree(new ShopTimeReportCallback(shop, team, startDateBox.getValue(), endDateBox.getValue()));
+								}
+							}
+						}
+					}
 				}
 			}
 		}
