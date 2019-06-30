@@ -24,7 +24,7 @@ public class DBConnection {
     // Die URL, um die Datenbank anzusprechen
      
     private static String googleUrl = "jdbc:google:mysql://shopit-241614:europe-west1:shopit?user=demo&password=demo";
-    private static String localUrl = "jdbc:mysql://127.0.0.1:8889/shopit?characterEncoding=UTF-8&user=root&password=root";
+    private static String localUrl = "jdbc:mysql://127.0.0.1:3306/shopit?characterEncoding=UTF-8&user=root&password=";
 
    // statische Methode --> Aufrufbr durch
    // <code>DBConnection.connection()</code>. Sie stellt die
