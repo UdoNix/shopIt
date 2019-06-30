@@ -41,9 +41,11 @@ public class ShopReportForm extends VerticalPanel {
 
 	private Vector<Shop> shops;
 	private Vector<Team> teams;
+	private ReportLayout reportLayout;
 
-	public ShopReportForm() {
+	public ShopReportForm(ReportLayout reportLayout) {
 
+		this.reportLayout = reportLayout;
 		flex.setWidget(0, 0, shopLabel);
 		flex.setWidget(0, 1, listBox);
 		flex.setWidget(1, 0, teamLabel);
@@ -101,8 +103,7 @@ public class ShopReportForm extends VerticalPanel {
 					for (Team team : teams) {
 						if ((shop.getId() + "").equals(listBox.getSelectedValue())) {
 							if ((team.getId() + "").equals(listBoxTeam.getSelectedValue())) {
-								clear();
-								add(new ShopReportCallback(shop, team));
+								reportLayout.setThree(new ShopReportCallback(shop, team));
 							}
 						}
 					}

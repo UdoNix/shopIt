@@ -40,9 +40,11 @@ public class TimeReportForm extends HorizontalPanel {
 	private VerticalPanel vpanel = new VerticalPanel();
 	private Grid timeGrid = new Grid(5, 2);
 	private Vector<Team> teams;
+	private ReportLayout reportLayout;
 
-	public TimeReportForm() {
+	public TimeReportForm(ReportLayout reportLayout) {
 
+		this.reportLayout = reportLayout;
 		timeGrid.setWidget(1, 0, startDateLabel);
 		timeGrid.setWidget(1, 1, startDateBox);
 		timeGrid.setWidget(2, 0, endDateLabel);
@@ -83,8 +85,7 @@ public class TimeReportForm extends HorizontalPanel {
 			} else {
 				for (Team team : teams) {
 					if (String.valueOf(team.getId()).equals(teamListBox.getSelectedValue())) {
-						clear();
-						add(new TimeReportCallback(team, startDateBox.getValue(), endDateBox.getValue()));
+						reportLayout.setThree(new TimeReportCallback(team, startDateBox.getValue(), endDateBox.getValue()));
 					}
 				}
 			}

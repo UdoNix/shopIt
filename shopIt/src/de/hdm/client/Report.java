@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.hdm.client.gui.report.ReportLayout;
 import de.hdm.client.gui.report.SelectMenu;
 import de.hdm.shared.LoginService;
 import de.hdm.shared.LoginServiceAsync;
@@ -78,9 +79,11 @@ public class Report implements EntryPoint {
 	}
 
 	private void loadReportGenerator() {
-		SelectMenu reportMenu = new SelectMenu();
+		ReportLayout reportLayout = new ReportLayout();
+		reportLayout.setOne(new SelectMenu(reportLayout));
+		
 		RootPanel.get("content").clear();
-		RootPanel.get("content").add(reportMenu);
+		RootPanel.get("content").add(reportLayout);
 	}
 
 	class PersonAbrufCallback implements AsyncCallback<Person> {

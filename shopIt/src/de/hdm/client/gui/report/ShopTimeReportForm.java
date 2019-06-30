@@ -47,10 +47,12 @@ public class ShopTimeReportForm extends HorizontalPanel{
 		
 		private Vector<Shop> shops;
 		private Vector<Team> teams;
+		private ReportLayout reportLayout;
 
 		
-		public ShopTimeReportForm(){
+		public ShopTimeReportForm(ReportLayout reportLayout){
 			
+			this.reportLayout = reportLayout;
 			flex.setWidget(1, 0, shopLabel);
 			flex.setWidget(1, 1, listBox);
 			flex.setWidget(2, 0, startDateLabel);
@@ -115,8 +117,7 @@ public class ShopTimeReportForm extends HorizontalPanel{
 						if (String.valueOf(team.getId()).equals(teamListBox.getSelectedValue())) {
 							for (Shop shop : shops) {
 								if (String.valueOf(shop.getId()).equals(listBox.getSelectedValue())) {
-									clear();
-									add(new ShopTimeReportCallback(shop, team, startDateBox.getValue(), endDateBox.getValue()));	
+									reportLayout.setThree(new ShopTimeReportCallback(shop, team, startDateBox.getValue(), endDateBox.getValue()));
 								}
 							}
 						}
