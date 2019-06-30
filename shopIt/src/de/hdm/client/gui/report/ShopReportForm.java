@@ -32,7 +32,7 @@ public class ShopReportForm extends VerticalPanel {
 	private Button startButton = new Button("Report starten");
 	private Label shopLabel = new Label("Shop: ");
 	private ListBox listBox = new ListBox();
-	private Label teamLabel = new Label("Team");
+	private Label teamLabel = new Label("Team: ");
 	private ListBox listBoxTeam = new ListBox();
 	private FlexTable flex = new FlexTable();
 
@@ -53,7 +53,7 @@ public class ShopReportForm extends VerticalPanel {
 		flex.setWidget(2, 1, startButton);
 
 		shopLabel.setStylePrimaryName("label-style");
-		shopLabel.setStylePrimaryName("label-style");
+		teamLabel.setStylePrimaryName("label-style");
 		startButton.setStylePrimaryName("button-style");
 		startButton.addClickHandler(new StartReportClickHandler());
 		verwaltung.getAllShops(new GetAllShopsCallback());

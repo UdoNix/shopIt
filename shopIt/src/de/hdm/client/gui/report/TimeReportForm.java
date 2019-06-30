@@ -28,9 +28,9 @@ import de.hdm.shared.bo.Team;
 public class TimeReportForm extends HorizontalPanel {
 
 	private Button startButton = new Button("Report starten");
-	private Label startDateLabel = new Label("Startdatum");
+	private Label startDateLabel = new Label("Startdatum: ");
 	private final DateBox startDateBox = new DateBox();
-	private Label endDateLabel = new Label("Enddatum");
+	private Label endDateLabel = new Label("Enddatum: ");
 	private final DateBox endDateBox = new DateBox();
 	private ListBox teamListBox = new ListBox();
 
@@ -58,6 +58,9 @@ public class TimeReportForm extends HorizontalPanel {
 		startButton.setStylePrimaryName("button-style");
 		startButton.addClickHandler(new StartReportClickHandler());
 		verwaltung.getAllTeams(new GetAllTeamsCallback());
+		
+		startDateLabel.setStylePrimaryName("label-style");
+		endDateLabel.setStylePrimaryName("label-style");
 
 		this.add(timeGrid);
 
