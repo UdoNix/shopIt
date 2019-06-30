@@ -19,6 +19,7 @@ import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.Shop;
 import de.hdm.shared.bo.Team;
 import de.hdm.shared.report.AllArticlesOfShopReport;
+import de.hdm.shared.report.ShopStatisticReport;
 
 /**
  * 
@@ -47,7 +48,7 @@ public class ShopReportForm extends VerticalPanel {
 		flex.setWidget(0, 1, listBox);
 		flex.setWidget(1, 0, teamLabel);
 		flex.setWidget(1, 1, listBoxTeam);
-		flex.setWidget(1, 1, startButton);
+		flex.setWidget(2, 1, startButton);
 
 		startButton.addClickHandler(new StartReportClickHandler());
 		verwaltung.getAllShops(new GetAllShopsCallback());
@@ -83,7 +84,7 @@ public class ShopReportForm extends VerticalPanel {
 		public void onSuccess(Vector<Team> results) {
 			teams = results;
 			for (Team team : results) {
-				listBox.addItem(team.getName(), "" + team.getId());
+				listBoxTeam.addItem(team.getName(), "" + team.getId());
 			}
 		}
 	}
@@ -100,20 +101,8 @@ public class ShopReportForm extends VerticalPanel {
 					for (Team team : teams) {
 						if ((shop.getId() + "").equals(listBox.getSelectedValue())) {
 							if ((team.getId() + "").equals(listBoxTeam.getSelectedValue())) {
-								flex.clear();
-								reportVerwaltung.createAllArticlesOfShopReport(shop, team,
-										new AsyncCallback<AllArticlesOfShopReport>() {
-
-											@Override
-											public void onSuccess(AllArticlesOfShopReport result) {
-												flex.add(new Label(result.getTitle()));
-											}
-
-											@Override
-											public void onFailure(Throwable caught) {
-												Window.alert("Fehler");
-											}
-										});
+								clear();
+								add(new ShopReportCallback(shop, team));
 							}
 						}
 					}

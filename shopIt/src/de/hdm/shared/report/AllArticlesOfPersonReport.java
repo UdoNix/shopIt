@@ -4,6 +4,7 @@ package de.hdm.shared.report;
 import java.io.Serializable;
 import java.util.Vector;
 
+@Deprecated
 public class AllArticlesOfPersonReport extends CompositeReport implements Serializable{
 
 	/*

@@ -10,6 +10,7 @@ import de.hdm.shared.bo.Shop;
 import de.hdm.shared.bo.Team;
 import de.hdm.shared.report.AllArticlesOfShopReport;
 import de.hdm.shared.report.Report;
+import de.hdm.shared.report.ShopStatisticReport;
 import de.hdm.shared.report.TeamAndShopStatistikReport;
 import de.hdm.shared.report.TeamStatisticReport;
 
@@ -74,7 +75,7 @@ public interface ReportGenerator extends RemoteService {
 	 * 
 	 */
 
-	public AllArticlesOfShopReport createAllArticlesOfShopReport(Shop shop, Team t) throws IllegalArgumentException;
+	public ShopStatisticReport createAllArticlesOfShopReport(Shop shop, Team t) throws IllegalArgumentException;
 
 	/**
 	 * Die Methode soll die Anzahl der Artikel in einem Zeitraum von einer Gruppe

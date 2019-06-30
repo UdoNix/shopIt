@@ -1,6 +1,8 @@
 package de.hdm.client.gui.report;
 
 import java.util.Date;
+
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -25,7 +27,7 @@ public class ShopReportCallback extends VerticalPanel {
 
 	public ShopReportCallback(Shop shop, Team team) {
 
-		reportverwaltung.createAllArticlesOfShopReport(shop, team, new AsyncCallback<AllArticlesOfShopReport>() {
+		reportverwaltung.createAllArticlesOfShopReport(shop, team, new AsyncCallback<ShopStatisticReport>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -33,13 +35,13 @@ public class ShopReportCallback extends VerticalPanel {
 			}
 
 			@Override
-			public void onSuccess(AllArticlesOfShopReport result) {
+			public void onSuccess(ShopStatisticReport result) {
 				HTMLReportWriter hrw = new HTMLReportWriter();
-//				hrw.process(result);
-//				String reportText = hrw.getReportText();
-//
-//				clear();
-//				add(new Label(reportText));
+				hrw.process(result);
+				String reportText = hrw.getReportText();
+
+				clear();
+				add(new HTML(reportText));
 				Window.alert("Success");
 			}
 		});

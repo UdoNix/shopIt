@@ -11,6 +11,7 @@ import de.hdm.shared.ShopITAdministration;
 import de.hdm.shared.report.CompositeParagraph;
 import de.hdm.shared.report.Report;
 import de.hdm.shared.report.Row;
+import de.hdm.shared.report.ShopStatisticReport;
 import de.hdm.shared.report.Column;
 import de.hdm.shared.report.AllArticlesOfShopReport;
 import de.hdm.shared.report.SimpleParagraph;
@@ -88,7 +89,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	 * @Larisa in Anlehnung Thies
 	 */
 
-	public AllArticlesOfShopReport createAllArticlesOfShopReport(Shop shop, Team team) throws IllegalArgumentException {
+	public ShopStatisticReport createAllArticlesOfShopReport(Shop shop, Team team) throws IllegalArgumentException {
 
 		if (this.admin == null) {
 
@@ -96,7 +97,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		}
 
 		// Einen leeren Report anlegen.
-		AllArticlesOfShopReport result = new AllArticlesOfShopReport();
+		ShopStatisticReport result = new ShopStatisticReport();
 
 		// Jeder Report sollte einen Titel bzw. eine Bezeichnung haben.
 		result.setTitle("Alle Artikel des Teams " + team.getName() + " aus dem Shop " + shop.getName());
@@ -144,7 +145,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		headline.addColumn(new Column("Ma�einheit"));
 
 		// Hinzuf�gen der Kopfzeile.
-		result.addRow1(headline);
+		result.addRow(headline);
 
 		/**
 		 * Nun werden alle Artikel eines H�ndlers ausgelesen und anhand deren
@@ -199,7 +200,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		result.setTitle("Teamstatistik");
 
 		// Impressumsbezeichnung hinzuf�gen
-		result.addImprint(result);
+		addImprint(result);
 
 		/*
 		 * Datum der Erstellung hinzuf�gen. new Date() erzeugt autom. einen
@@ -308,7 +309,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		result.setTitle("TeamAndShopStatistik:");
 
 		// Impressum hinzuf�gen
-		result.addImprint(result);
+		addImprint(result);
 
 		/*
 		 * Datum der Erstellung hinzuf�gen. new Timestamp() erzeugt autom. einen
