@@ -29,9 +29,13 @@ public class SelectMenu extends VerticalPanel {
 	public SelectMenu(ReportLayout reportLayout) {
 
 		this.reportLayout = reportLayout;
+		shopButton.setStylePrimaryName("button-style");
 		shopButton.addClickHandler(new ShopReportClickHandler());
+		timeButton.setStylePrimaryName("button-style");
 		timeButton.addClickHandler(new TimeReportClickHandler());
+		shopTimeButton.setStylePrimaryName("button-style");
 		shopTimeButton.addClickHandler(new ShopTimeReportClickHandler());
+		zurueckButton.setStylePrimaryName("button-style");
 		zurueckButton.addClickHandler(new ZurueckClickHandler());
 
 		// Widgets werden dem Panel hinzugefügt

@@ -65,6 +65,7 @@ public class ShopTimeReportForm extends HorizontalPanel{
 		
 			startDateBox.setFormat( new DateBox.DefaultFormat( dateTimeFormat));
 			endDateBox.setFormat( new DateBox.DefaultFormat( dateTimeFormat));
+			startButton.setStylePrimaryName("button-style");
 			startButton.addClickHandler(new StartReportClickHandler());
 			verwaltung.getAllShops(new GetAllShopsCallback());
 			verwaltung.getAllTeams(new GetAllTeamsCallback());

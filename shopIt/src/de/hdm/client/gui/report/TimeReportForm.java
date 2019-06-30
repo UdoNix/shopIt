@@ -55,6 +55,7 @@ public class TimeReportForm extends HorizontalPanel {
 		startDateBox.setFormat(new DateBox.DefaultFormat(dateTimeFormat));
 		endDateBox.setFormat(new DateBox.DefaultFormat(dateTimeFormat));
 
+		startButton.setStylePrimaryName("button-style");
 		startButton.addClickHandler(new StartReportClickHandler());
 		verwaltung.getAllTeams(new GetAllTeamsCallback());
 
