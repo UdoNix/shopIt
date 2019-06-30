@@ -107,7 +107,7 @@ public class AddNewArticleForm extends VerticalPanel {
 		public void onClick(ClickEvent event) {
 			// TODO Auto-generated method stub
 			acForm = new ArticleForm();
-			acForm.onLoad();
+//			acForm.onLoad();
 		}
 		
 	}

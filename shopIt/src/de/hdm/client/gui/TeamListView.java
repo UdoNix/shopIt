@@ -49,7 +49,7 @@ public class TeamListView {
 		@Override
 		public void onClick(ClickEvent event) {
 			articleForm = new ArticleForm();
-			articleForm.onLoad();
+//			articleForm.onLoad();
 		}
 		
 	}

@@ -1,20 +1,16 @@
 package de.hdm.server.db;
 
 import java.sql.Connection;
-
-import java.sql.Timestamp;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.Vector;
 
-import de.hdm.shared.bo.Article;
 import de.hdm.shared.bo.Item;
-import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Person;
-import de.hdm.shared.bo.Responsibility;
-import de.hdm.shared.bo.Shop;
+import de.hdm.shared.bo.ShoppingList;
 
 //@udo nix, emily kretzschmar
 	
@@ -137,10 +133,10 @@ public Vector<Item> findByList (ShoppingList l){
 	      ResultSet rs = stmt.executeQuery(
 	      "SELECT *, article.name, unit.measure, unit.amount, person.firstName, shop.name " + 
 "FROM item " + 
-"INNER JOIN article ON article.id = item.articleId" + 
-"INNER JOIN unit ON unit.id = item.unitId" + 
-"INNER JOIN responsibility ON responsibility.itemId = item.id" + 
-"INNER JOIN person ON responsibility.personId = person.id" + 
+"INNER JOIN article ON article.id = item.articleId " + 
+"INNER JOIN unit ON unit.id = item.unitId " + 
+"INNER JOIN responsibility ON responsibility.itemId = item.id " + 
+"INNER JOIN person ON responsibility.personId = person.id " + 
 "INNER JOIN shop ON responsibility.shopId = shop.id WHERE listId= " + listId + " ORDER BY item.id");
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt erstellt.
@@ -157,8 +153,9 @@ public Vector<Item> findByList (ShoppingList l){
 	        i.setStatus(rs.getBoolean("status"));
 
 	        // Hinzufügen des neuen Objekts zum Ergebnisvektor
-	        result.addElement(i);
+	        result.add(i);
 	      }
+	      System.out.println(result.size());
 	    }
 	    catch (SQLException e2) {
 	      e2.printStackTrace();
@@ -199,15 +196,15 @@ public Item insert(Item i) {
       // Es erfolgt die tatsächliche Einfuegeoperation
 
 
-      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO ITEM(id, CURRENT_TIMESTAMP, unitId, articleId, teamId, listId, favorit, status)VALUES (?,?,?,? ?,?,?,?)");
+      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO ITEM(id, creationDate, unitId, articleId, teamId, listId, favorit, status) VALUES (?,CURRENT_TIMESTAMP,?,?,?,?,?,?)");
 
       stmt2.setInt(1, i.getId());
-      stmt2.setInt(3, i.getUnitId());
-      stmt2.setInt(4, i.getArticleId());
-      stmt2.setInt(5, i.getTeamId());
-      stmt2.setInt(6, i.getListId());
-      stmt2.setBoolean(7, i.isFavorit());
-      stmt2.setBoolean(8, i.isStatus());
+      stmt2.setInt(2, i.getUnitId());
+      stmt2.setInt(3, i.getArticleId());
+      stmt2.setInt(4, i.getTeamId());
+      stmt2.setInt(5, i.getListId());
+      stmt2.setBoolean(6, i.isFavorit());
+      stmt2.setBoolean(7, i.isStatus());
          
       stmt2.execute();
 
