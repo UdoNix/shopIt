@@ -14,6 +14,10 @@ public class ReportLayout extends HorizontalPanel {
 		add(one);
 		add(two);
 		add(three);
+		
+		one.addStyleName("one");
+		two.addStyleName("two");
+		three.addStyleName("three");
 	}
 	
 	public void setOne(Widget one) {
