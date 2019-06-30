@@ -58,7 +58,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		return this.admin;
 	}
 
-
 	/**
 	 * Setzen der zugehï¿½rigen Gruppe
 	 * 
@@ -89,11 +88,8 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	 * @Larisa in Anlehnung Thies
 	 */
 
+	public AllArticlesOfShopReport createAllArticlesOfShopReport(Shop shop, Team team) throws IllegalArgumentException {
 
-	
-	public AllArticlesOfShopReport createAllArticlesOfShopReport(Shop shop, Team team)
-	throws IllegalArgumentException {
-		
 		if (this.admin == null) {
 
 			return null;
@@ -187,10 +183,11 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	 * @author IlonaBrinkmann, Thies
 	 */
 
-	public TeamStatisticReport createTeamStatisticReport(Team t, Timestamp firstDate, Timestamp lastDate) throws IllegalArgumentException {
-		
+	public TeamStatisticReport createTeamStatisticReport(Team t, Date firstDate, Date lastDate)
+			throws IllegalArgumentException {
+
 		int teamId = t.getId();
-		
+
 		if (this.admin == null) {
 			return null;
 		}
@@ -257,7 +254,11 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		 * in die Tabelle eingetragen.
 		 */
 
-		Vector<ReportObject> ro = this.admin.getItemsByTeamWithTime(t, firstDate, lastDate);
+		//Umwandeln des Datums, welches aus der GUI als Date übergeben wurde in einen Timestamp
+		Timestamp firstTimestamp = new Timestamp(firstDate.getTime());
+		Timestamp lastTimestamp = new Timestamp(lastDate.getTime());
+		
+		Vector<ReportObject> ro = this.admin.getItemsByTeamWithTime(t, firstTimestamp, lastTimestamp);
 
 		for (ReportObject r : ro) {
 			// Eine leere Zeile anlegen.
@@ -288,14 +289,13 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	 * @author IlonaBrinkmann & Larisa
 	 */
 
-	
-	//private int shopid;
-	
-	//private int teamid;
-	
+	// private int shopid;
 
-	public TeamAndShopStatistikReport createTeamAndShopStatistikReport(Shop s, Team t, Date firstDate, Date lastDate) throws IllegalArgumentException {
-		
+	// private int teamid;
+
+	public TeamAndShopStatistikReport createTeamAndShopStatistikReport(Shop s, Team t, Date firstDate, Date lastDate)
+			throws IllegalArgumentException {
+
 		if (this.admin == null) {
 			return null;
 
@@ -360,7 +360,12 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		 * und deren Hï¿½ndler in die Tabelle eingetragen.
 		 */
 
-		Vector<ReportObject> ro = this.admin.getItemsByTeamAndShopWithsTime(s, t, firstDate, lastDate);
+		//Umwandeln des Datums, welches aus der GUI als Date übergeben wurde in einen Timestamp
+		Timestamp firstTimestamp = new Timestamp(firstDate.getTime());
+		Timestamp lastTimestamp = new Timestamp(lastDate.getTime());
+		
+		
+		Vector<ReportObject> ro = this.admin.getItemsByTeamAndShopWithTime(s, t, firstTimestamp, lastTimestamp);
 
 		for (ReportObject r : ro) {
 			// Eine leere Zeile anlegen.
@@ -380,7 +385,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 
 		// es wird zum Schluss wird der fertige Report abgegeben
 		return result;
-s
+
 	}
 
 }
