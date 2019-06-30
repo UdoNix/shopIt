@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.Widget;
 import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ReportGeneratorAsync;
 import de.hdm.shared.bo.Shop;
+import de.hdm.shared.bo.Team;
 import de.hdm.shared.report.AllArticlesOfShopReport;
 import de.hdm.shared.report.HTMLReportWriter;
 import de.hdm.shared.report.ShopStatisticReport;
@@ -22,9 +23,9 @@ public class ShopReportCallback extends VerticalPanel {
 
 	ReportGeneratorAsync reportverwaltung = ClientsideSettings.getReportGenerator();
 
-	public ShopReportCallback(Shop shop) {
+	public ShopReportCallback(Shop shop, Team team) {
 
-		reportverwaltung.createAllArticlesOfShopReport(shop, new AsyncCallback<AllArticlesOfShopReport>() {
+		reportverwaltung.createAllArticlesOfShopReport(shop, team, new AsyncCallback<AllArticlesOfShopReport>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
