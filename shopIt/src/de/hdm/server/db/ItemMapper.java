@@ -16,6 +16,7 @@ import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Responsibility;
 import de.hdm.shared.bo.Shop;
 
+//@udo nix, emily kretzschmar
 	
 public class ItemMapper {
 	

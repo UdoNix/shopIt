@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 
 import de.hdm.server.ServersideSettings;
 
+//@udo nix, emily kretzschmar
+
 
 // Verwalten der DB-Verbindung 
 
