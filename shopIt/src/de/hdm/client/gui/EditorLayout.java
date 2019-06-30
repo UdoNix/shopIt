@@ -1,23 +1,23 @@
-package de.hdm.client.gui.report;
+package de.hdm.client.gui;
 
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class ReportLayout extends HorizontalPanel {
+public class EditorLayout extends HorizontalPanel{
 
+	
 	private VerticalPanel one = new VerticalPanel();
 	private VerticalPanel two = new VerticalPanel();
-	private VerticalPanel three = new VerticalPanel();
 	
-	public ReportLayout() {
+	public EditorLayout() {
+		
 		add(one);
 		add(two);
-		add(three);
 		
 		one.addStyleName("one");
 		two.addStyleName("two");
-		three.addStyleName("three");
+		
 	}
 	
 	public void setOne(Widget one) {
@@ -27,12 +27,6 @@ public class ReportLayout extends HorizontalPanel {
 	
 	public void setTwo(Widget two) {
 		this.two.clear();
-		this.three.clear();
 		this.two.add(two);
-	}
-	
-	public void setThree(Widget three) {
-		this.three.clear();
-		this.three.add(three);
 	}
 }
