@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import de.hdm.shared.bo.Shop;
 
+//@udo nix, emily kretzschmar
 	
 public class ShopMapper {
 	

@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Person;
 
+//@udo nix, emily kretzschmar
+
 public class ListMapper {	
 		// Klasse ListMapper als Singleton
 		//Variable durch <code> static </code> nur einmal für Instanzen der Klassen vorhanden

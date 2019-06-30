@@ -9,6 +9,8 @@ import java.util.Vector;
 
 import de.hdm.shared.bo.Article;
 
+//@author udo nix, emily kretzschmar
+
 public class ArticleMapper {
 	
 	// Klasse ArticleMapper als Singleton

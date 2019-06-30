@@ -1,5 +1,6 @@
 package de.hdm.server.db;
 
+//@udo nix, emily kretzschmar
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

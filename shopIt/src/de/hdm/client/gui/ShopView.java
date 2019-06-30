@@ -27,6 +27,7 @@ public class ShopView extends VerticalPanel {
 	}
 
 	Shop shopToDisplay = null;
+	//Widgets, deren Inhalte variable sind, werden als Attribute angelegt.
 
 	TextBox nameTextBox = new TextBox();
 	TextBox postalCodeTextBox = new TextBox();
@@ -38,6 +39,10 @@ public class ShopView extends VerticalPanel {
 	Button saveButton = new Button("Speichern");
 
 	public void onLoad() {
+		
+		//Beim Anzeigen werden die Widgets z.T. erzeugt. Alle werden in einem
+		 //Raster angeordnet, dessen Größe sich aus dem Platzbedarf der enthaltenen
+		 // Widgets bestimmt.
 
 		Grid shopGrid = new Grid(7, 2);
 		this.add(shopGrid);
@@ -75,6 +80,10 @@ public class ShopView extends VerticalPanel {
 		shopGrid.setWidget(6, 1, deleteButton);
 
 	}
+	
+	//Click handlers und abhängige AsyncCallback Klassen.
+	
+	// ClickHandler zum Löschen eines Shops
 
 	private class DeleteClickHandler implements ClickHandler {
 
@@ -108,6 +117,7 @@ public class ShopView extends VerticalPanel {
 		}
 	}
 
+	//Clickhandler zum Speichern eines Shops
 	private class ChangeClickHandler implements ClickHandler {
 
 		public void onClick(ClickEvent event) {
@@ -136,7 +146,8 @@ public class ShopView extends VerticalPanel {
 //				CellTreeViewModel.updateShop(shopToDisplay);
 		}
 	}
-
+	
+	//ClickHandler für einen neuen Shop
 	private class NewClickHandler implements ClickHandler {
 
 		public void onClick(ClickEvent event) {

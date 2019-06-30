@@ -9,6 +9,8 @@ import com.google.appengine.api.utils.SystemProperty;
 
 import de.hdm.server.ServersideSettings;
 
+//@udo nix, emily kretzschmar
+
 
 // Verwalten der DB-Verbindung 
 
