@@ -94,36 +94,35 @@ public class ClientsideSettings extends CommonSettings {
 	 * Anlegen und Auslesen des Report Generators
 	 */
 	public static ReportGeneratorAsync getReportGenerator() {
-//		//Prüfung, ob es eine ReportGenerator-Instanz existiert
-//		if (reportGenerator == null) {
-//			//Instantiierung ReportGenerator
-//			reportGenerator = GWT.create(ReportGenerator.class);
-//			
-//			final AsyncCallback<Void> initReportGeneratorCallback = new AsyncCallback<Void>() {
-//
-//				@Override
-//				public void onFailure(Throwable caught) {
-//					ClientsideSettings.getLogger().severe(
-//							"Der ReportGenerator konnte nicht initialisiert werden!");
-//					
-//				}
-//
-//				@Override
-//				public void onSuccess(Void result) {
-//					ClientsideSettings.getLogger().info(
-//							"Der ReportGenerator wurde initialisiert.");
-//					
-//				}
-//				
-//			};
-//			
-//			reportGenerator.init(initReportGeneratorCallback);
-//		}
-//		
-//		//Rueckgabe des ReportGenerators
-//		return reportGenerator;
+		//Prüfung, ob es eine ReportGenerator-Instanz existiert
+		if (reportGenerator == null) {
+			//Instantiierung ReportGenerator
+			reportGenerator = GWT.create(ReportGenerator.class);
+			
+			final AsyncCallback<Void> initReportGeneratorCallback = new AsyncCallback<Void>() {
+
+				@Override
+				public void onFailure(Throwable caught) {
+					ClientsideSettings.getLogger().severe(
+							"Der ReportGenerator konnte nicht initialisiert werden!");
+					
+				}
+
+				@Override
+				public void onSuccess(Void result) {
+					ClientsideSettings.getLogger().info(
+							"Der ReportGenerator wurde initialisiert.");
+					
+				}
+				
+			};
+			
+			reportGenerator.init(initReportGeneratorCallback);
+		}
 		
-		return null;
+		//Rueckgabe des ReportGenerators
+		return reportGenerator;
+		
 	}
 	
 	

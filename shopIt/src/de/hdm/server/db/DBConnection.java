@@ -50,7 +50,7 @@ public class DBConnection {
                 // aufbauen.
                 // Die Verbindung wird in der statischen Variable con
                   //abgespeichert und verwendet.
-                 
+                 System.out.println(url);
                 con = DriverManager.getConnection(url);
             } catch (Exception e) {
                 con = null;
