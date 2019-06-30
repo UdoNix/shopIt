@@ -9,6 +9,7 @@ import de.hdm.shared.bo.Team;
 
 import de.hdm.shared.report.AllArticlesOfShopReport;
 import de.hdm.shared.report.Report;
+import de.hdm.shared.report.ShopStatisticReport;
 import de.hdm.shared.report.TeamAndShopStatistikReport;
 import de.hdm.shared.report.TeamStatisticReport;
 
@@ -28,7 +29,7 @@ public interface ReportGeneratorAsync {
 
 	void addImprint(Report report, AsyncCallback<Void> callback);
 
-	void createAllArticlesOfShopReport(Shop shop, Team team, AsyncCallback<AllArticlesOfShopReport> callback);
+	void createAllArticlesOfShopReport(Shop shop, Team team, AsyncCallback<ShopStatisticReport> callback);
 
 	void createTeamAndShopStatistikReport(Shop s, Team t, Date firstDate, Date lastDate, AsyncCallback<TeamAndShopStatistikReport> callback);
 
