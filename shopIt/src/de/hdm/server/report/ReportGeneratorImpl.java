@@ -360,7 +360,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		 * und deren H�ndler in die Tabelle eingetragen.
 		 */
 
-		Vector<ReportObject> ro = this.admin.getItemsByTeamAndShopWithsTime(s, t, firstDate, lastDate);
+		Vector<ReportObject> ro = this.admin.getItemsByTeamAndShopWithTime(s, t, firstDate, lastDate);
 
 		for (ReportObject r : ro) {
 			// Eine leere Zeile anlegen.
@@ -380,7 +380,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 
 		// es wird zum Schluss wird der fertige Report abgegeben
 		return result;
-s
 	}
 
 }
