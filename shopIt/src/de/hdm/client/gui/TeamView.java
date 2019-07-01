@@ -33,6 +33,12 @@ public class TeamView extends VerticalPanel {
 	private Team selectedTeam = null;
 	private Person selectedPerson = null;
 
+	private final Tree tree;
+
+	public TeamView(Tree tree) {
+		this.tree = tree;
+	}
+
 	public Team getSelectedTeam() {
 		return selectedTeam;
 	}
@@ -205,7 +211,8 @@ public class TeamView extends VerticalPanel {
 		public void onSuccess(Void result) {
 			if (team != null) {
 				Window.alert("Gelöscht");
-				Window.Location.reload();
+				tree.getRootTreeNode().setChildOpen(1, false);
+				tree.getRootTreeNode().setChildOpen(1, true);
 			}
 		}
 
@@ -342,6 +349,8 @@ public class TeamView extends VerticalPanel {
 		@Override
 		public void onSuccess(Void result) {
 			Window.alert("Success");
+			tree.getRootTreeNode().setChildOpen(1, false);
+			tree.getRootTreeNode().setChildOpen(1, true);
 		}
 	}
 

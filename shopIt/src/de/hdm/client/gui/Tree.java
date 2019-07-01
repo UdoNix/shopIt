@@ -117,7 +117,7 @@ public class Tree extends CellTree {
 							ValueUpdater<Team> valueUpdater) {
 						if ("click".equals(event.getType())) {
 							
-							TeamView teamView = new TeamView();
+							TeamView teamView = new TeamView(tree);
 							teamView.setSelectedTeam(value);
 							
 							layout.setPanel(teamView);
