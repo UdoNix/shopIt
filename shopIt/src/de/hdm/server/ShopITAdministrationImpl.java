@@ -412,6 +412,12 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		this.tMapper.delete(t);
 
 	}
+	
+	public Vector<Team> getAllTeamsByPerson(Person p){
+		Vector<Team> result = new Vector<Team>();
+		result = this.tMapper.getTeamsOf(p);
+		return result;
+	}
 	/*
 	 * ***************************************************************************
 	 * ABSCHNITT, Ende: Methoden f�r Gruppe-Objekte
