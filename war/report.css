@@ -12,14 +12,30 @@ html *{
 }
 div {
 	padding: 8px;
-	background-color: light grey;
 }
 
 .button-style{
 
-font-size: 100%;
-font-weight: bold;
-color: crimson;
+
+    font-weight: bold;
+    color: white;
+//background-color: #e7e7e7;
+   border-radius: 8px;
+   background-color:rgb(255,192,203);
+
+	border:1px white; 
+
+	display: inline-block; 
+	cursor: pointer; 
+	
+	font-family: Arial;
+	font-size: 18px;
+	padding: 7px 14px; 
+	text-decoration: none; 
+	width: 120px; 
+	height: 50px;
+	margin: 20px 20px 20px 20px !important; 
+ 
 }
 
 .label-style{
@@ -29,6 +45,19 @@ color: crimson;
 	font-style: italic;
 	color: gray;
 	padding-bottom: 0.5em;
+}
+h1{
+	text-align:center;
+	font-size: 45px;
+	font-family: oxygen;
+}
+
+#links {
+    float: left;
+    width: 200px;
+    height: 190px;
+    margin-left: 20px;
+   
 }
 
 }

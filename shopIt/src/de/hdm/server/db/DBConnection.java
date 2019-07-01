@@ -24,9 +24,8 @@ public class DBConnection {
     private static Connection con = null;
 
     // Die URL, um die Datenbank anzusprechen
-     
-    private static String googleUrl = "jdbc:google:mysql://shopit-241614:europe-west1:shopit?user=demo&password=demo";
-    private static String localUrl = "jdbc:mysql://127.0.0.1:8889/shopit?characterEncoding=UTF-8&user=root&password=root";
+    private static String googleUrl = "jdbc:google:mysql://shopit-241614:europe-west1:shopit/shopit?user=test&password=";
+    private static String localUrl = "jdbc:mysql://127.0.0.1:3306/shopit?characterEncoding=UTF-8&user=root&password=";
 
    // statische Methode --> Aufrufbr durch
    // <code>DBConnection.connection()</code>. Sie stellt die
@@ -41,7 +40,7 @@ public class DBConnection {
             try {
                 if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
                     
-                    Class.forName("cmysql.jdbc.GoogleDriver");
+                    Class.forName("com.mysql.jdbc.GoogleDriver");
                     url = googleUrl;
                 } else {
                     // Local MySQL instance to use during development.

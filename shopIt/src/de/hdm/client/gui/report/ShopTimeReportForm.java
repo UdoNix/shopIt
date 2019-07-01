@@ -32,11 +32,11 @@ public class ShopTimeReportForm extends HorizontalPanel{
 		private Button startButton = new Button("Report starten");
 		private Label shopLabel = new Label("Shop: ");
 		private final ListBox listBox = new ListBox();
-		private Label startDateLabel = new Label("Startdatum");
+		private Label startDateLabel = new Label("Startdatum: ");
 		private final DateBox startDateBox = new DateBox();
-		private Label endDateLabel = new Label("Enddatum");
+		private Label endDateLabel = new Label("Enddatum: ");
 		private final DateBox endDateBox = new DateBox();
-		private Label teamLabel = new Label("Team");
+		private Label teamLabel = new Label("Team: ");
 		private final ListBox teamListBox = new ListBox();
 		private FlexTable flex = new FlexTable();
 		
@@ -65,9 +65,15 @@ public class ShopTimeReportForm extends HorizontalPanel{
 		
 			startDateBox.setFormat( new DateBox.DefaultFormat( dateTimeFormat));
 			endDateBox.setFormat( new DateBox.DefaultFormat( dateTimeFormat));
+			startButton.setStylePrimaryName("button-style");
 			startButton.addClickHandler(new StartReportClickHandler());
 			verwaltung.getAllShops(new GetAllShopsCallback());
 			verwaltung.getAllTeams(new GetAllTeamsCallback());
+			
+			startDateLabel.setStylePrimaryName("label-style");
+			endDateLabel.setStylePrimaryName("label-style");
+			shopLabel.setStylePrimaryName("label-style");
+			teamLabel.setStylePrimaryName("label-style");
 			
 			this.add(flex);
 			

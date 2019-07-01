@@ -50,5 +50,6 @@
    <welcome-file-list>
     <welcome-file>GWTTest1.html</welcome-file>
   </welcome-file-list>
+  
 
 </web-app>
