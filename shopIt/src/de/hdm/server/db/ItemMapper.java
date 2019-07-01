@@ -131,7 +131,7 @@ public Vector<Item> findByList (ShoppingList l){
 	      Statement stmt = con.createStatement();
 
 	      ResultSet rs = stmt.executeQuery(
-	      "SELECT *, article.name, unit.measure, unit.amount, person.firstName, shop.name " + 
+	      "SELECT *, article.name, unit.unit, unit.quantity, person.firstName, shop.name " + 
 "FROM item " + 
 "INNER JOIN article ON article.id = item.articleId " + 
 "INNER JOIN unit ON unit.id = item.unitId " + 
@@ -151,6 +151,10 @@ public Vector<Item> findByList (ShoppingList l){
 	        i.setListId(rs.getInt("listId"));
 	        i.setFavorit(rs.getBoolean("favorit"));
 	        i.setStatus(rs.getBoolean("status"));
+	        i.setArticleName(rs.getString("article.name"));
+	        i.setShopName(rs.getString("shop.name"));
+	        i.setUnitName(rs.getString("unit.unit"));
+	        i.setAmount(rs.getFloat("unit.quantity"));
 
 	        // Hinzufügen des neuen Objekts zum Ergebnisvektor
 	        result.add(i);
