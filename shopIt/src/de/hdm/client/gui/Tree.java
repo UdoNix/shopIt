@@ -34,6 +34,7 @@ public class Tree extends CellTree {
 	public Tree(Layout layout) {
 		super(new TreeModel(layout), null);
 		this.layout = layout;
+		((TreeModel)getTreeViewModel()).setTree(this);
 	}
 
 	public static class TreeModel implements TreeViewModel {
@@ -41,9 +42,14 @@ public class Tree extends CellTree {
 		private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
 
 		private final Layout layout;
+		private Tree tree;
 
 		public TreeModel(Layout layout) {
 			this.layout = layout;
+		}
+		
+		public void setTree(Tree tree) {
+			this.tree = tree;
 		}
 
 		@Override
@@ -69,6 +75,8 @@ public class Tree extends CellTree {
 								layout.setPanel(new ArticleForm());
 							} else if (value.equals("Shop")) {
 								layout.setPanel(new ShopView());
+							} else if (value.equals("Gruppe")) {
+								layout.setPanel(new NewTeamView(tree));
 							}
 						}
 					}
