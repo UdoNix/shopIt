@@ -21,6 +21,7 @@ import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.Membership;
 import de.hdm.shared.bo.Person;
+import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Team;
 
 public class TeamView extends VerticalPanel {
@@ -80,13 +81,41 @@ public class TeamView extends VerticalPanel {
 		saveButton.setEnabled(true);
 		teamGrid.setWidget(2, 1, saveButton);
 
+		final TextBox listNameTextBox = new TextBox();
+		teamGrid.setWidget(3, 0, new Label("Listen Name:"));
+		teamGrid.setWidget(3, 1, listNameTextBox);
+		
+		Button listButton = new Button("Liste Anlegen");
+		listButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				String name = listNameTextBox.getValue();
+				
+				listenVerwaltung.createListFor(selectedTeam, name, new AsyncCallback<ShoppingList>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Fehler");
+					}
+
+					@Override
+					public void onSuccess(ShoppingList result) {
+						// TODO update Tree
+						Window.alert("Success");
+					}
+				});
+			}
+		});
+		teamGrid.setWidget(4, 1, listButton);
+		
 		Label personTextBox = new Label("Hinzuzufügende Person (email)");
-		teamGrid.setWidget(4, 0, personTextBox);
-		teamGrid.setWidget(4, 1, emailTextBox);
+		teamGrid.setWidget(5, 0, personTextBox);
+		teamGrid.setWidget(5, 1, emailTextBox);
 
 		addButton.addClickHandler(new AddClickHandler());
 		addButton.setEnabled(true);
-		teamGrid.setWidget(5, 1, addButton);
+		teamGrid.setWidget(6, 1, addButton);
 
 		final CellTable<Person> membershipTable = new CellTable<Person>();
 		

@@ -121,7 +121,6 @@ public class Tree extends CellTree {
 							teamView.setSelectedTeam(value);
 							
 							layout.setPanel(teamView);
-							
 						}
 					}
 
