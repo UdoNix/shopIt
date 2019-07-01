@@ -131,7 +131,7 @@ public Vector<Item> findByList (ShoppingList l){
 	      Statement stmt = con.createStatement();
 
 	      ResultSet rs = stmt.executeQuery(
-	      "SELECT *, article.name, unit.measure, unit.amount, person.firstName, shop.name " + 
+	      "SELECT *, article.name, unit.unit, unit.quantity, person.firstName, shop.name " + 
 "FROM item " + 
 "INNER JOIN article ON article.id = item.articleId " + 
 "INNER JOIN unit ON unit.id = item.unitId " + 

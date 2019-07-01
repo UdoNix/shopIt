@@ -127,5 +127,7 @@ public interface ShopITAdministrationAsync {
 
 	void getItemsByTeamWithTime(Team t, Timestamp firstDate, Timestamp lastDate, AsyncCallback<Vector<ReportObject>> callback);
 	
+	void getAllTeamsByPerson(Person p, AsyncCallback<Vector<Team>> callback);
+	
 
 }

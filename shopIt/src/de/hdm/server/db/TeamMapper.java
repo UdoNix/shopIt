@@ -205,13 +205,16 @@ public Team insert(Team t) {
 		    try {
 		      Statement stmt = con.createStatement();
 
-		      ResultSet rs = stmt.executeQuery("SELECT id FROM team "
-		          + " Inner JOIN Membership ON Team.Id=Membership.TeamId" + "INNER JOIN person ON person.id=membership.personId");
+		      ResultSet rs = stmt.executeQuery("SELECT team.id as 'teamId', team.name as 'name' "
+		      		+ "FROM team "
+		      		+ "JOIN membership ON team.id = membership.teamId "
+		      		+ "WHERE membership.personId = " + p.getId() +" ");
 
 		      
 		      while (rs.next()) {
 		        Team t = new Team();
-		        t.setId(rs.getInt("id"));
+		        t.setId(rs.getInt("teamId"));
+		        t.setName(rs.getString("name"));
 		     
 		        result.addElement(t);
 		      }
