@@ -64,7 +64,7 @@ public class TeamView extends VerticalPanel {
 		// Raster angeordnet, dessen Größe sich aus dem Platzbedarf der enthaltenen
 		// Widgets bestimmt.
 
-		Grid teamGrid = new Grid(6, 3);
+		Grid teamGrid = new Grid(7, 3);
 		this.add(teamGrid);
 
 		deleteButton.addClickHandler(new DeleteClickHandler());

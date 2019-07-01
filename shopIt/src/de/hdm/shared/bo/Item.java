@@ -35,6 +35,8 @@ public class Item extends BusinessObject{
 	
 	//Fremdschlüsselbeziehung zur Gruppe.
 	private int teamId = 0;
+	
+	private String personName;
 
 	//Favorit zeigt an, ob Item Standartartikel ist bzw. favorisiert wurde.
 	private boolean favorit;
@@ -125,6 +127,14 @@ public class Item extends BusinessObject{
 		this.teamId = teamId;
 	}
 
+	public String getPersonName() {
+		return personName;
+	}
+	
+	public void setPersonName(String personName) {
+		this.personName = personName;
+	}
+	
 	//Auslesen der Anzahl von häufig eingekauften Artikel.
 	public int getCount() {
 		return count;

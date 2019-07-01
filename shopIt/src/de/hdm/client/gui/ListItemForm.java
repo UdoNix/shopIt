@@ -15,6 +15,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.i18n.client.NumberFormat;
+import com.google.gwt.i18n.shared.DateTimeFormat;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
@@ -29,6 +30,8 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.ibm.icu.text.DateFormat;
+import com.ibm.icu.text.SimpleDateFormat;
 
 import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopITAdministration;
@@ -237,6 +240,12 @@ public class ListItemForm extends VerticalPanel {
 				return "" + object.getId();
 			}
 		};
+		TextColumn<Item> personCoumn = new TextColumn<Item>() {
+			@Override
+			public String getValue(Item object) {
+				return object.getPersonName();
+			}
+		};
 		TextColumn<Item> articleNameColumn = new TextColumn<Item>() {
 			@Override
 			public String getValue(Item object) {
@@ -259,6 +268,12 @@ public class ListItemForm extends VerticalPanel {
 			@Override
 			public String getValue(Item object) {
 				return object.getShopName();
+			}
+		};
+		TextColumn<Item> dateColumn = new TextColumn<Item>() {
+			@Override
+			public String getValue(Item object) {
+				return DateTimeFormat.getFormat("yyyy-DD-mm HH:mm").format(object.getCreationDate());
 			}
 		};
 
@@ -337,10 +352,12 @@ public class ListItemForm extends VerticalPanel {
 		});
 
 		cellTable.addColumn(idColumn, "Id");
+		cellTable.addColumn(personCoumn, "Person");
 		cellTable.addColumn(articleNameColumn, "Artikel");
 		cellTable.addColumn(amountColumn, "Anzahl");
 		cellTable.addColumn(unitColumn, "Einheit");
 		cellTable.addColumn(shopColumn, "Shop");
+		cellTable.addColumn(dateColumn, "Datum");
 		cellTable.addColumn(likeColumn, "");
 		cellTable.addColumn(checkColumn, "");
 		cellTable.addColumn(previewColumn, "");

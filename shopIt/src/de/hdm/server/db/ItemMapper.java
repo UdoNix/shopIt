@@ -137,7 +137,7 @@ public Vector<Item> findByList (ShoppingList l){
 "INNER JOIN unit ON unit.id = item.unitId " + 
 "INNER JOIN responsibility ON responsibility.itemId = item.id " + 
 "INNER JOIN person ON responsibility.personId = person.id " + 
-"INNER JOIN shop ON responsibility.shopId = shop.id WHERE listId= " + listId + " ORDER BY item.id");
+"INNER JOIN shop ON responsibility.shopId = shop.id WHERE listId= " + listId + " ORDER BY item.id DESC");
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt erstellt.
 	      while (rs.next()) {
@@ -148,6 +148,7 @@ public Vector<Item> findByList (ShoppingList l){
 	        i.setUnitId(rs.getInt("unitId"));
 	        i.setArticleId(rs.getInt("articleId"));
 	        i.setTeamId(rs.getInt("teamId"));
+	        i.setPersonName(rs.getString("person.firstName") +  " " + rs.getString("person.lastName"));
 	        i.setListId(rs.getInt("listId"));
 	        i.setFavorit(rs.getBoolean("favorit"));
 	        i.setStatus(rs.getBoolean("status"));
