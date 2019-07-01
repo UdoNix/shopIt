@@ -226,6 +226,7 @@ public class ListItemForm extends VerticalPanel {
 
 			@Override
 			public void onSuccess(Vector<Item> result) {
+				cellTable.setRowCount(result.size(), true);
 				cellTable.setRowData(result);
 			}
 		};

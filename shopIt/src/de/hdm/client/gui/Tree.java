@@ -88,6 +88,7 @@ public class Tree extends CellTree {
 
 							@Override
 							public void onSuccess(Vector<Team> result) {
+								updateRowCount(result.size(), true);
 								updateRowData(0, result);
 							}
 						};
@@ -131,6 +132,7 @@ public class Tree extends CellTree {
 
 							@Override
 							public void onSuccess(Vector<ShoppingList> result) {
+								updateRowCount(result.size(), true);
 								updateRowData(0, result);
 							}
 						};
