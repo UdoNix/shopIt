@@ -56,7 +56,7 @@ public class Tree extends CellTree {
 		public <T> NodeInfo<?> getNodeInfo(T value) {
 			if (value == null) {
 				ListDataProvider<String> dataProvider = new ListDataProvider<String>(
-						Arrays.asList("Account", "Gruppe", "Artikel", "Shop"));
+						Arrays.asList("Account", "Gruppe", "Artikel", "Shop", "Report"));
 
 				Cell<String> cell = new AbstractCell<String>("click") {
 					@Override
@@ -77,6 +77,8 @@ public class Tree extends CellTree {
 								layout.setPanel(new ShopView());
 							} else if (value.equals("Gruppe")) {
 								layout.setPanel(new NewTeamView(tree));
+							} else if (value.equals("Report")) {
+								Window.Location.replace("report.html");
 							}
 						}
 					}
@@ -180,6 +182,8 @@ public class Tree extends CellTree {
 			} else if (value != null && value.equals("Artikel")) {
 				return true;
 			} else if (value != null && value.equals("Shop")) {
+				return true;
+			} else if (value != null && value.equals("Report")) {
 				return true;
 			}
 			return false;
