@@ -63,18 +63,18 @@ public class ShopView extends VerticalPanel {
 		Label name = new Label("Name:");
 		shopGrid.setWidget(1, 0, name);
 		shopGrid.setWidget(1, 1, nameTextBox);
+		
+		Label street = new Label("Strasse:");
+		shopGrid.setWidget(2, 0, street);
+		shopGrid.setWidget(2, 1, streetTextBox);
 
-		Label plz = new Label("Postleizahl:");
+		Label plz = new Label("Postleitzahl:");
 		shopGrid.setWidget(3, 0, plz);
 		shopGrid.setWidget(3, 1, postalCodeTextBox);
 
 		Label city = new Label("Stadt:");
 		shopGrid.setWidget(4, 0, city);
 		shopGrid.setWidget(4, 1, cityTextBox);
-
-		Label street = new Label("Strasse:");
-		shopGrid.setWidget(2, 0, street);
-		shopGrid.setWidget(2, 1, streetTextBox);
 
 		newButton.addClickHandler(new NewClickHandler());
 		newButton.setEnabled(true);
@@ -113,16 +113,16 @@ public class ShopView extends VerticalPanel {
 				return object.getName();
 			}
 		};
-		TextColumn<Shop> postalCodeColumn = new TextColumn<Shop>() {
-			@Override
-			public String getValue(Shop object) {
-				return object.getPostalCode();
-			}
-		};
 		TextColumn<Shop> streetColumn = new TextColumn<Shop>() {
 			@Override
 			public String getValue(Shop object) {
 				return object.getStreet();
+			}
+		};
+		TextColumn<Shop> postalCodeColumn = new TextColumn<Shop>() {
+			@Override
+			public String getValue(Shop object) {
+				return object.getPostalCode();
 			}
 		};
 		TextColumn<Shop> cityColumn = new TextColumn<Shop>() {
@@ -146,8 +146,8 @@ public class ShopView extends VerticalPanel {
 		
 		cellTable.addColumn(idColumn, "Id");
 		cellTable.addColumn(nameColumn, "Name");
-		cellTable.addColumn(postalCodeColumn, "PLZ");
 		cellTable.addColumn(streetColumn, "Straße");
+		cellTable.addColumn(postalCodeColumn, "PLZ");
 		cellTable.addColumn(cityColumn, "Stadt");
 		cellTable.addColumn(editColumn, "");
 		add(cellTable);
@@ -197,9 +197,9 @@ public class ShopView extends VerticalPanel {
 		public void onClick(ClickEvent event) {
 			if (shopToDisplay != null) {
 				shopToDisplay.setName(nameTextBox.getText());
-				shopToDisplay.setStreet(postalCodeTextBox.getText());
+				shopToDisplay.setStreet(streetTextBox.getText());
+				shopToDisplay.setPostalCode(postalCodeTextBox.getText());
 				shopToDisplay.setCity(cityTextBox.getText());
-				shopToDisplay.setPostalCode(streetTextBox.getText());
 
 				listenVerwaltung.save(shopToDisplay, new saveCallback());
 
@@ -225,11 +225,11 @@ public class ShopView extends VerticalPanel {
 
 		public void onClick(ClickEvent event) {
 			String name = nameTextBox.getText();
+			String street = streetTextBox.getText();
 			String postalCode = postalCodeTextBox.getText();
 			String city = cityTextBox.getText();
-			String street = streetTextBox.getText();
 
-			listenVerwaltung.createShop(name, postalCode, city, street, new CreateShopCallback());
+			listenVerwaltung.createShop(name, street, postalCode, city, new CreateShopCallback());
 		}
 
 		class CreateShopCallback implements AsyncCallback<Shop> {
@@ -253,14 +253,14 @@ public class ShopView extends VerticalPanel {
 			shopToDisplay = s;
 
 			nameTextBox.setText(shopToDisplay.getName());
-			postalCodeTextBox.setText(shopToDisplay.getPostalCode());
 			streetTextBox.setText(shopToDisplay.getStreet());
-			cityTextBox.setText(shopToDisplay.getStreet());
+			postalCodeTextBox.setText(shopToDisplay.getPostalCode());
+			cityTextBox.setText(shopToDisplay.getCity());
 
 		} else {
 			nameTextBox.setText("");
-			postalCodeTextBox.setText("");
 			streetTextBox.setText("");
+			postalCodeTextBox.setText("");
 			cityTextBox.setText("");
 		}
 	}
