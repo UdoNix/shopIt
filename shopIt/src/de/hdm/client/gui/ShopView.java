@@ -97,6 +97,7 @@ public class ShopView extends VerticalPanel {
 
 			@Override
 			public void onSuccess(Vector<Shop> result) {
+				cellTable.setRowCount(result.size(), true);
 				cellTable.setRowData(result);
 			}
 		};

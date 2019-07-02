@@ -10,8 +10,14 @@ public class Item extends BusinessObject{
 	//Fremdschlüsselbeziehung zum Händler.
 	private int shopId = 0;
 	
+	// Name des Shops
+	private String shopName = "";
+	
 	//Fremdschlüsselbeziehung zum Artikel.
 	private int articleId = 0;
+	
+	// Name des Artikels.
+	private String articleName = "";
 	
 	//Fremdschlüsselbeziehung zur Liste.
 	private int listId = 0;
@@ -22,8 +28,15 @@ public class Item extends BusinessObject{
 	//Fremdschlüsselbeziehung zur UnitOfMeasure.
 	private int unitId = 0;
 	
+	// Name der Einheit.
+	private String unitName = "";
+	
+	private float amount = 0;
+	
 	//Fremdschlüsselbeziehung zur Gruppe.
 	private int teamId = 0;
+	
+	private String personName;
 
 	//Favorit zeigt an, ob Item Standartartikel ist bzw. favorisiert wurde.
 	private boolean favorit;
@@ -114,6 +127,14 @@ public class Item extends BusinessObject{
 		this.teamId = teamId;
 	}
 
+	public String getPersonName() {
+		return personName;
+	}
+	
+	public void setPersonName(String personName) {
+		this.personName = personName;
+	}
+	
 	//Auslesen der Anzahl von häufig eingekauften Artikel.
 	public int getCount() {
 		return count;
@@ -124,10 +145,36 @@ public class Item extends BusinessObject{
 		this.count = count;
 	}
 
+	public String getShopName() {
+		return shopName;
+	}
 
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
 
+	public String getArticleName() {
+		return articleName;
+	}
 
+	public void setArticleName(String articleName) {
+		this.articleName = articleName;
+	}
 
+	public String getUnitName() {
+		return unitName;
+	}
+
+	public void setUnitName(String unitName) {
+		this.unitName = unitName;
+	}
 	
+	public float getAmount() {
+		return amount;
+	}
+	
+	public void setAmount(float amount) {
+		this.amount = amount;
+	}
 }
 

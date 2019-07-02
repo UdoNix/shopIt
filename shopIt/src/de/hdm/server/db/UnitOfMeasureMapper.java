@@ -124,7 +124,7 @@ public UnitOfMeasure insert(UnitOfMeasure u) {
     //Pruefen, welches der momentan höchste Primärschlüsselwert ist.
   
     ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
-        + "FROM unitOfMeasure ");
+        + "FROM unit");
 
     // Falls man etw. zurueck bekommt, ist dies nur einzeilig 
     if (rs.next()) {
@@ -135,7 +135,7 @@ public UnitOfMeasure insert(UnitOfMeasure u) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO UNITOFMEASURE(id, unit, quantity) VALUES (?, ?, ?)");
+      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO unit (id, unit, quantity) VALUES (?, ?, ?)");
       		stmt2.setInt(1, u.getId());
       		stmt2.setString(2, u.getUnit());
       		stmt2.setFloat(3, u.getQuantity());
@@ -161,7 +161,7 @@ public UnitOfMeasure insert(UnitOfMeasure u) {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE list " + "SET unit=\"" + u.getUnit()
+      stmt.executeUpdate("UPDATE unit SET unit=\"" + u.getUnit()
       + "\", " + "quantity=\"" + u.getQuantity()+"\", "+ "WHERE id= " + u.getId());
 
     }
@@ -183,7 +183,7 @@ public UnitOfMeasure insert(UnitOfMeasure u) {
      try {
        Statement stmt = con.createStatement();
 
-       stmt.executeUpdate("DELETE FROM unitOfMeasure " + "WHERE id= " + u.getId());
+       stmt.executeUpdate("DELETE FROM unit WHERE id= " + u.getId());
 
      }
      catch (SQLException e2) {

@@ -210,8 +210,8 @@ public class ListMapper {
 	    		//stmt2.setInt(1, l.getId());
 	    		//stmt2.setString(4, l.getName());
 	    		//stmt2.setInt(5, l.getId());
-	      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO list (id, creationDate, changeDate, name, teamId)+ "
-	      		+ "VALUES (?,CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?");
+	      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO list (id, creationDate, changeDate, name, teamId) "
+	      		+ "VALUES (?,CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?)");
 	      
 	      stmt2.setInt(1, l.getId());
 	      stmt2.setString(2, l.getName());

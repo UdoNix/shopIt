@@ -236,11 +236,7 @@ public class MembershipMapper {
 					.executeQuery("SELECT personId FROM membership WHERE teamid= " + teamid + " ORDER BY id");
 
 			while (rs.next()) {
-				Person p = new Person();
-				p.setId(rs.getInt("id"));
-				p.setFirstName(rs.getString("firstName"));
-				p.setLastName(rs.getString("lastName"));
-				p.setEmail(rs.getString("email"));
+				Person p = PersonMapper.personMapper().findByKey(rs.getInt("personId"));
 				// Hinzufügen des neuen Objekts zum Ergebnisvektor
 				result.addElement(p);
 			}

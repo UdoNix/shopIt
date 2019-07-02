@@ -58,6 +58,7 @@ public class ArticleForm extends VerticalPanel {
 
 			@Override
 			public void onSuccess(Vector<Article> result) {
+				cellTable.setRowCount(result.size(), true);
 				cellTable.setRowData(result);
 			}
 		};
