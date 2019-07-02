@@ -1,7 +1,6 @@
 package de.hdm.client.gui;
 
-
-
+import java.text.DecimalFormat;
 import java.util.Vector;
 
 import com.google.gwt.cell.client.ButtonCell;
@@ -16,6 +15,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.i18n.client.NumberFormat;
+import com.google.gwt.i18n.shared.DateTimeFormat;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
@@ -30,6 +30,8 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.ibm.icu.text.DateFormat;
+import com.ibm.icu.text.SimpleDateFormat;
 
 import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopITAdministration;
@@ -169,8 +171,9 @@ public class ListItemForm extends VerticalPanel {
 
 		add(contentPanel);
 
-		unitListBox.addItem("Stück", "0");
-		unitListBox.addItem("Packungen", "1");
+		unitListBox.addItem("Stück");
+		unitListBox.addItem("Packungen");
+		unitListBox.addItem("Kilo");
 
 		listenVerwaltung.getAllArticles(new AsyncCallback<Vector<Article>>() {
 
@@ -226,6 +229,7 @@ public class ListItemForm extends VerticalPanel {
 
 			@Override
 			public void onSuccess(Vector<Item> result) {
+				cellTable.setRowCount(result.size(), true);
 				cellTable.setRowData(result);
 			}
 		};
@@ -236,12 +240,49 @@ public class ListItemForm extends VerticalPanel {
 				return "" + object.getId();
 			}
 		};
-		Column<Item, String> like = new Column<Item, String>(new ButtonCell()) {
+		TextColumn<Item> personCoumn = new TextColumn<Item>() {
+			@Override
+			public String getValue(Item object) {
+				return object.getPersonName();
+			}
+		};
+		TextColumn<Item> articleNameColumn = new TextColumn<Item>() {
+			@Override
+			public String getValue(Item object) {
+				return object.getArticleName();
+			}
+		};
+		TextColumn<Item> amountColumn = new TextColumn<Item>() {
+			@Override
+			public String getValue(Item object) {
+				return NumberFormat.getFormat("###.###").format(object.getAmount());
+			}
+		};
+		TextColumn<Item> unitColumn = new TextColumn<Item>() {
+			@Override
+			public String getValue(Item object) {
+				return object.getUnitName();
+			}
+		};
+		TextColumn<Item> shopColumn = new TextColumn<Item>() {
+			@Override
+			public String getValue(Item object) {
+				return object.getShopName();
+			}
+		};
+		TextColumn<Item> dateColumn = new TextColumn<Item>() {
+			@Override
+			public String getValue(Item object) {
+				return DateTimeFormat.getFormat("yyyy-DD-mm HH:mm").format(object.getCreationDate());
+			}
+		};
+
+		Column<Item, String> likeColumn = new Column<Item, String>(new ButtonCell()) {
 			public String getValue(Item object) {
 				return object.isFavorit() ? "Unlike" : "Like";
 			}
 		};
-		like.setFieldUpdater(new FieldUpdater<Item, String>() {
+		likeColumn.setFieldUpdater(new FieldUpdater<Item, String>() {
 
 			@Override
 			public void update(int index, Item object, String value) {
@@ -261,12 +302,12 @@ public class ListItemForm extends VerticalPanel {
 
 			}
 		});
-		Column<Item, String> check = new Column<Item, String>(new ButtonCell()) {
+		Column<Item, String> checkColumn = new Column<Item, String>(new ButtonCell()) {
 			public String getValue(Item object) {
 				return object.isStatus() ? "Uncheck" : "Check";
 			}
 		};
-		check.setFieldUpdater(new FieldUpdater<Item, String>() {
+		checkColumn.setFieldUpdater(new FieldUpdater<Item, String>() {
 
 			@Override
 			public void update(int index, Item object, String value) {
@@ -286,12 +327,12 @@ public class ListItemForm extends VerticalPanel {
 
 			}
 		});
-		Column<Item, String> preview = new Column<Item, String>(new ButtonCell()) {
+		Column<Item, String> previewColumn = new Column<Item, String>(new ButtonCell()) {
 			public String getValue(Item object) {
 				return "Entfernen";
 			}
 		};
-		preview.setFieldUpdater(new FieldUpdater<Item, String>() {
+		previewColumn.setFieldUpdater(new FieldUpdater<Item, String>() {
 
 			@Override
 			public void update(int index, Item object, String value) {
@@ -311,9 +352,15 @@ public class ListItemForm extends VerticalPanel {
 		});
 
 		cellTable.addColumn(idColumn, "Id");
-		cellTable.addColumn(like, "");
-		cellTable.addColumn(check, "");
-		cellTable.addColumn(preview, "");
+		cellTable.addColumn(personCoumn, "Person");
+		cellTable.addColumn(articleNameColumn, "Artikel");
+		cellTable.addColumn(amountColumn, "Anzahl");
+		cellTable.addColumn(unitColumn, "Einheit");
+		cellTable.addColumn(shopColumn, "Shop");
+		cellTable.addColumn(dateColumn, "Datum");
+		cellTable.addColumn(likeColumn, "");
+		cellTable.addColumn(checkColumn, "");
+		cellTable.addColumn(previewColumn, "");
 
 		listenVerwaltung.getAllItemsOfList(selectedShoppingList, getAllCallback);
 
@@ -324,11 +371,12 @@ public class ListItemForm extends VerticalPanel {
 			@Override
 			public void onClick(ClickEvent event) {
 				int articleId = Integer.valueOf(articleListBox.getSelectedValue());
-				int count = Integer.valueOf(amountTextBox.getValue());
+				float count = Float.valueOf(amountTextBox.getValue());
 				int personId = Integer.valueOf(personListBox.getSelectedValue());
 				int shopId = Integer.valueOf(shopListBox.getSelectedValue());
-
-				listenVerwaltung.createItem(selectedShoppingList.getId(), count, articleId, personId, shopId,
+				String unit = unitListBox.getSelectedItemText();
+				
+				listenVerwaltung.createItem(selectedShoppingList.getId(), count, unit, articleId, personId, shopId,
 						new AsyncCallback<Item>() {
 
 							@Override

@@ -1,13 +1,18 @@
 package de.hdm.client.gui;
 
+import java.util.Vector;
+
+import com.google.gwt.cell.client.ButtonCell;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.i18n.client.NumberFormat;
+import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -16,7 +21,7 @@ import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.Membership;
 import de.hdm.shared.bo.Person;
-import de.hdm.shared.bo.Shop;
+import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Team;
 
 public class TeamView extends VerticalPanel {
@@ -25,47 +30,33 @@ public class TeamView extends VerticalPanel {
 
 	private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
 
-	public TeamListCellTreeTab getTeamModel() {
-		return teamModel;
-	}
-
-	public void setTeamModel(TeamListCellTreeTab teamModel) {
-		this.teamModel = teamModel;
-	}
-
-	private CellTreeViewModel viewModel = null;
-	private TeamListCellTreeTab teamModel = null;
-
 	private Team selectedTeam = null;
 	private Person selectedPerson = null;
 
+	private final Tree tree;
+
+	public TeamView(Tree tree) {
+		this.tree = tree;
+	}
+
 	public Team getSelectedTeam() {
 		return selectedTeam;
-	}
-
-	public CellTreeViewModel getViewModel() {
-		return viewModel;
-	}
-
-	public void setViewModel(CellTreeViewModel viewModel) {
-		this.viewModel = viewModel;
 	}
 
 	/*
 	 * Label creationTime = new Label("Creationtime:"); Label numberOfMembers = new
 	 * Label("Number of Members:");
 	 */
-	
-	//Widgets werden als Attribute angelegt.
+
+	// Widgets werden als Attribute angelegt.
 
 	// Button changeButton = new Button("Name ändern");
 	Button deleteButton = new Button("Team löschen");
-	Button leaveButton = new Button("Gruppe verlassen");
 	Button addButton = new Button("Mitglieder hinzufügen");
 	TextBox nameTextBox = new TextBox();
-	Button newButton = new Button("Als neue Gruppe speichern");
 	Button saveButton = new Button("Speichern");
 	TextBox emailTextBox = new TextBox();
+	private AsyncCallback<Vector<Person>> getAllMembershipCallback;
 
 	/*
 	 * Beim Anzeigen werden die Widgets z.T. erzeugt. Alle werden in einem Raster
@@ -75,50 +66,121 @@ public class TeamView extends VerticalPanel {
 
 	public void onLoad() {
 
-		//Beim Anzeigen werden die Widgets z.T. erzeugt. Alle werden in einem
-		 //Raster angeordnet, dessen Größe sich aus dem Platzbedarf der enthaltenen
-		 // Widgets bestimmt.
+		// Beim Anzeigen werden die Widgets z.T. erzeugt. Alle werden in einem
+		// Raster angeordnet, dessen Größe sich aus dem Platzbedarf der enthaltenen
+		// Widgets bestimmt.
 
-		Grid teamGrid = new Grid(6, 3);
+		Grid teamGrid = new Grid(7, 3);
 		this.add(teamGrid);
 
 		deleteButton.addClickHandler(new DeleteClickHandler());
-		deleteButton.setEnabled(false);
-		teamGrid.setWidget(4, 1, deleteButton);
-
-		// changeButton.addClickHandler(new ChangeButtonClickHandler());
-		// changeButton.setEnabled(true);
-		// teamGrid.setWidget(2, 1, editButton);
+		teamGrid.setWidget(2, 0, deleteButton);
 
 		Label textboxLabel = new Label("Name:");
 		teamGrid.setWidget(1, 0, textboxLabel);
 		teamGrid.setWidget(1, 1, nameTextBox);
 
-		newButton.addClickHandler(new NewClickHandler());
-		newButton.setEnabled(true);
-		teamGrid.setWidget(2, 0, newButton);
-
 		saveButton.addClickHandler(new ChangeClickHandler());
 		saveButton.setEnabled(true);
 		teamGrid.setWidget(2, 1, saveButton);
+		
+		saveButton.setEnabled(true);
+		teamGrid.setWidget(2, 1, saveButton);
 
-		leaveButton.addClickHandler(new LeaveClickHandler());
-		leaveButton.setEnabled(true);
-		teamGrid.setWidget(5, 0, leaveButton);
+		final TextBox listNameTextBox = new TextBox();
+		teamGrid.setWidget(3, 0, new Label("Listen Name:"));
+		teamGrid.setWidget(3, 1, listNameTextBox);
+		
+		Button listButton = new Button("Liste Anlegen");
+		listButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				String name = listNameTextBox.getValue();
+				
+				listenVerwaltung.createListFor(selectedTeam, name, new AsyncCallback<ShoppingList>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Fehler");
+					}
+
+					@Override
+					public void onSuccess(ShoppingList result) {
+						// TODO update Tree
+						Window.alert("Success");
+					}
+				});
+			}
+		});
+		teamGrid.setWidget(4, 1, listButton);
+		
+		Label personTextBox = new Label("Hinzuzufügende Person (email)");
+		teamGrid.setWidget(5, 0, personTextBox);
+		teamGrid.setWidget(5, 1, emailTextBox);
 
 		addButton.addClickHandler(new AddClickHandler());
 		addButton.setEnabled(true);
-		teamGrid.setWidget(5, 1, addButton);
+		teamGrid.setWidget(6, 1, addButton);
 
-		Label personTextBox = new Label("Hinzuzufügende Person (email)");
-		teamGrid.setWidget(4, 0, personTextBox);
-		teamGrid.setWidget(4, 1, emailTextBox);
+		final CellTable<Person> membershipTable = new CellTable<Person>();
+		
+		getAllMembershipCallback = new AsyncCallback<Vector<Person>>() {
+			@Override
+			public void onSuccess(Vector<Person> result) {
+				membershipTable.setRowCount(result.size(), true);
+				membershipTable.setRowData(result);
+			}
 
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Fehler");
+			}
+		};
+		
+		Column<Person, String> deleteMembershipColumn = new Column<Person, String>(new ButtonCell()) {
+			@Override
+			public String getValue(Person object) {
+				return "Entfernen";
+			}
+		};
+		deleteMembershipColumn.setFieldUpdater(new FieldUpdater<Person, String>() {
+			@Override
+			public void update(int index, Person object, String value) {
+				listenVerwaltung.delete(object.getId(), selectedTeam.getId(), new AsyncCallback<Void>() {
+
+					@Override
+					public void onSuccess(Void result) {
+						listenVerwaltung.getAllPersonsOf(selectedTeam, getAllMembershipCallback);
+					}
+
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Fehler");
+					}
+				});
+			}
+		});
+		
+		TextColumn<Person> emailColumn = new TextColumn<Person>() {
+			@Override
+			public String getValue(Person object) {
+				return object.getEmail();
+			}
+		};
+		
+		membershipTable.addColumn(emailColumn, "Email");
+		membershipTable.addColumn(deleteMembershipColumn, "");
+
+		add(membershipTable);
+
+		
+		listenVerwaltung.getAllPersonsOf(selectedTeam, getAllMembershipCallback);
 	}
 //Click handlers und abhängige AsyncCallback Klassen.
-	
-	//Clickhandler um ein Team zu löschen
-	
+
+	// Clickhandler um ein Team zu löschen
+
 	private class DeleteClickHandler implements ClickHandler {
 
 		@Override
@@ -148,8 +210,9 @@ public class TeamView extends VerticalPanel {
 		@Override
 		public void onSuccess(Void result) {
 			if (team != null) {
-				setSelectedTeam(null);
-				teamModel.removeTeam(team);
+				Window.alert("Gelöscht");
+				tree.getRootTreeNode().setChildOpen(1, false);
+				tree.getRootTreeNode().setChildOpen(1, true);
 			}
 		}
 
@@ -172,9 +235,8 @@ public class TeamView extends VerticalPanel {
 	 * propagiert. CellTreeViewModel.updateTeam(teamToDisplay); } }
 	 */
 
-	
-	//ClickHandler um ein Team zu verlassen
-	
+	// ClickHandler um ein Team zu verlassen
+
 	private class LeaveClickHandler implements ClickHandler {
 
 		@Override
@@ -225,8 +287,8 @@ public class TeamView extends VerticalPanel {
 			Window.alert("Success");
 		}
 	}
-	
-	//ClickHandler um ein neues Team zu speichern
+
+	// ClickHandler um ein neues Team zu speichern
 
 	private class NewClickHandler implements ClickHandler {
 
@@ -263,8 +325,8 @@ public class TeamView extends VerticalPanel {
 			nameTextBox.setText("");
 		}
 	}
-	
-	//ClickHandler um Team als neues Team speichern
+
+	// ClickHandler um Team als neues Team speichern
 
 	private class ChangeClickHandler implements ClickHandler {
 		@Override
@@ -287,10 +349,12 @@ public class TeamView extends VerticalPanel {
 		@Override
 		public void onSuccess(Void result) {
 			Window.alert("Success");
+			tree.getRootTreeNode().setChildOpen(1, false);
+			tree.getRootTreeNode().setChildOpen(1, true);
 		}
 	}
 
-	//ClickHandler um eine Person der Gruppe zuzuordnen
+	// ClickHandler um eine Person der Gruppe zuzuordnen
 	private class AddClickHandler implements ClickHandler {
 
 		@Override
@@ -311,7 +375,6 @@ public class TeamView extends VerticalPanel {
 		@Override
 		public void onFailure(Throwable caught) {
 			Window.alert("Fehler!");
-
 		}
 
 		@Override
@@ -332,15 +395,12 @@ public class TeamView extends VerticalPanel {
 		@Override
 		public void onFailure(Throwable caught) {
 			Window.alert("Error");
-			// ("Fehler bei der Abfrage " + caught.getMessage());
 		}
 
 		@Override
 		public void onSuccess(Membership membership) {
 			Window.alert("Success");
-//			if (membership != null && team != null) {
-////					viewModel.addMembershipOfTeam(membership, team);
-//			}
+			listenVerwaltung.getAllPersonsOf(selectedTeam, getAllMembershipCallback);
 		}
 	}
 

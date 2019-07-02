@@ -57,27 +57,26 @@ public interface ShopITAdministration extends RemoteService {
 	public Vector<Item> getAllItemsOfList(ShoppingList l) throws IllegalArgumentException;
 
 	public void update(ShoppingList l) throws IllegalArgumentException;
-
-	// Liste löschen.
-	public void delete(ShoppingList l) throws IllegalArgumentException;
-
-	// Eintrag erstellen.
-	public Item createItem(int listId, int count, int articleId, int personId, int shopId)
-			throws IllegalArgumentException;
-
-	// Zuständigkeit zum Eintrag hinzufügen
-	public Item addResponsibilityToItem(Responsibility r, Item i) throws IllegalArgumentException;
-
-	// Eintrag anhand der Id finden.
-	public Item getItemById(int id) throws IllegalArgumentException;
-
-	// alle Einträge aufzeigen.
-	public Vector<Item> getAllItems() throws IllegalArgumentException;
-
-	// Eintrag ändern.
-	public void update(Item i) throws IllegalArgumentException;
-
-	// einen Eintrag löschen.
+	
+	//Liste löschen.
+	public void delete(ShoppingList l)throws IllegalArgumentException;
+	
+	//Eintrag erstellen.
+	public Item createItem(int listId, float count, String unit, int articleId, int personId, int shopId) throws IllegalArgumentException;
+	
+	//Zuständigkeit zum Eintrag hinzufügen
+	public Item addResponsibilityToItem(Responsibility r, Item i)throws IllegalArgumentException;
+	
+	//Eintrag anhand der Id finden.
+	public Item getItemById(int id)throws IllegalArgumentException;
+	
+	//alle Einträge aufzeigen.
+	public Vector<Item> getAllItems()throws IllegalArgumentException;
+	
+	//Eintrag ändern.
+	public void update(Item i)throws IllegalArgumentException;
+	
+	//einen Eintrag löschen.
 	public void delete(Item i) throws IllegalArgumentException;
 
 	// Eine Gruppe mit Name, Person erstellen.

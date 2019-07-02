@@ -34,6 +34,7 @@ public class Tree extends CellTree {
 	public Tree(Layout layout) {
 		super(new TreeModel(layout), null);
 		this.layout = layout;
+		((TreeModel)getTreeViewModel()).setTree(this);
 	}
 
 	public static class TreeModel implements TreeViewModel {
@@ -41,16 +42,21 @@ public class Tree extends CellTree {
 		private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
 
 		private final Layout layout;
+		private Tree tree;
 
 		public TreeModel(Layout layout) {
 			this.layout = layout;
+		}
+		
+		public void setTree(Tree tree) {
+			this.tree = tree;
 		}
 
 		@Override
 		public <T> NodeInfo<?> getNodeInfo(T value) {
 			if (value == null) {
 				ListDataProvider<String> dataProvider = new ListDataProvider<String>(
-						Arrays.asList("Account", "Gruppe", "Artikel", "Shop"));
+						Arrays.asList("Account", "Gruppe", "Artikel", "Shop", "Report"));
 
 				Cell<String> cell = new AbstractCell<String>("click") {
 					@Override
@@ -69,6 +75,10 @@ public class Tree extends CellTree {
 								layout.setPanel(new ArticleForm());
 							} else if (value.equals("Shop")) {
 								layout.setPanel(new ShopView());
+							} else if (value.equals("Gruppe")) {
+								layout.setPanel(new NewTeamView(tree));
+							} else if (value.equals("Report")) {
+								Window.Location.replace("report.html");
 							}
 						}
 					}
@@ -88,6 +98,7 @@ public class Tree extends CellTree {
 
 							@Override
 							public void onSuccess(Vector<Team> result) {
+								updateRowCount(result.size(), true);
 								updateRowData(0, result);
 							}
 						};
@@ -106,11 +117,10 @@ public class Tree extends CellTree {
 							ValueUpdater<Team> valueUpdater) {
 						if ("click".equals(event.getType())) {
 							
-							TeamView teamView = new TeamView();
+							TeamView teamView = new TeamView(tree);
 							teamView.setSelectedTeam(value);
 							
 							layout.setPanel(teamView);
-							
 						}
 					}
 
@@ -131,6 +141,7 @@ public class Tree extends CellTree {
 
 							@Override
 							public void onSuccess(Vector<ShoppingList> result) {
+								updateRowCount(result.size(), true);
 								updateRowData(0, result);
 							}
 						};
@@ -170,6 +181,8 @@ public class Tree extends CellTree {
 			} else if (value != null && value.equals("Artikel")) {
 				return true;
 			} else if (value != null && value.equals("Shop")) {
+				return true;
+			} else if (value != null && value.equals("Report")) {
 				return true;
 			}
 			return false;
