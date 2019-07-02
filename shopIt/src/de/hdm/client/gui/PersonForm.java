@@ -100,7 +100,7 @@ public class PersonForm extends VerticalPanel{
 			
 			public void onSuccess(Void result){
 				if(person != null){
-					setSelected(null);
+					setSelected(ClientsideSettings.getCurrentUser());
 //					ctvm.removePerson(person);
 				}
 			}

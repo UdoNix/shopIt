@@ -1,6 +1,7 @@
 package de.hdm.client;
 
-import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -18,17 +19,18 @@ import de.hdm.shared.bo.Person;
 
 public class ShopIt implements EntryPoint {
 
+	
+	ShopITAdministrationAsync admin = ClientsideSettings.getShopItAdministration();
+	Logger logger = ClientsideSettings.getLogger();
 	private LoginInformation loginInfo = null;
 	private VerticalPanel loginPanel = new VerticalPanel();
 	private Label loginLabel = new Label("Klicken Sie hier, um sich mit ihrem Google Konto anzumelden!");
 	private Anchor signInLink = new Anchor("Einloggen");
-	private Anchor signOutLink = new Anchor("Ausloggen");
 
 	public void onModuleLoad() {
 
 		RootPanel.get("content").add(new Layout(new LoginInformation()));
 
-		ShopITAdministrationAsync admin = ClientsideSettings.getShopItAdministration();
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
 		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInformation>() {
 
@@ -36,14 +38,12 @@ public class ShopIt implements EntryPoint {
 			public void onSuccess(LoginInformation result) {
 				loginInfo = result;
 				if (loginInfo.isLoggedIn()) {
-					loadShopIt(result);
-
-					Person currentUser = new Person();
-					currentUser.setEmail(result.getEmailAddress());
-					currentUser.setFirstName("Ihr Vorname");
-					currentUser.setLastName("Ihr Nachname");
-
+					
+					Window.alert("vorher");
 					admin.getPersonByEmail(result.getEmailAddress(), new FindByMailCallback());
+					Window.alert("nachher");
+					
+					loadShopIt(result);
 
 				} else {
 					loadLogin();
@@ -51,7 +51,8 @@ public class ShopIt implements EntryPoint {
 			}
 
 			@Override
-			public void onFailure(Throwable arg0) {
+			public void onFailure(Throwable error) {
+				Window.alert(error.getMessage());
 				loadLogin();
 			}
 		});
@@ -71,20 +72,37 @@ public class ShopIt implements EntryPoint {
 		RootPanel.get("content").add(new Layout(loginInformation));
 	}
 
-	private class FindByMailCallback implements AsyncCallback<Person> {
+	class FindByMailCallback implements AsyncCallback<Person> {
 
 		@Override
-		public void onFailure(Throwable arg0) {
-			// TODO Auto-generated method stub
+		public void onFailure(Throwable error) {
+			logger.log(Level.SEVERE, error.getMessage());
+			Window.alert("Noch kein Benutzer mit dieser Email angelegt. Neuer Benutzer wurde erstellt!");
+			Window.alert("Ändern Sie Ihren Vor- und Nachnamen im Account Bereich.");
 
+			admin.createPerson("Ihr Vorname", "Ihr Nachname", loginInfo.getEmailAddress(), new CreatePersonCallback());
 		}
 
 		@Override
 		public void onSuccess(Person p) {
-			// TODO Auto-generated method stub
 
+			Window.alert(p.getEmail() + " existiert bereits und wurde aus der Datenbank geladen.");
+			ClientsideSettings.setCurrentUser(p);
 		}
 
 	}
 
+	class CreatePersonCallback implements AsyncCallback<Person> {
+
+		@Override
+		public void onFailure(Throwable error) {
+			logger.log(Level.SEVERE, error.getMessage());
+		}
+
+		@Override
+		public void onSuccess(Person p) {
+			Window.alert("geklappt!");
+			ClientsideSettings.setCurrentUser(p);
+		}
+	}
 }
