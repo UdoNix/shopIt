@@ -1,5 +1,7 @@
 package de.hdm.client;
 
+import java.util.Vector;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
@@ -11,6 +13,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.shared.LoginService;
 import de.hdm.shared.LoginServiceAsync;
+import de.hdm.shared.ShopITAdministrationAsync;
+import de.hdm.shared.bo.Person;
 
 public class ShopIt implements EntryPoint {
 
@@ -24,6 +28,7 @@ public class ShopIt implements EntryPoint {
 
 		RootPanel.get("content").add(new Layout(new LoginInformation()));
 
+		ShopITAdministrationAsync admin = ClientsideSettings.getShopItAdministration();
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
 		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInformation>() {
 
@@ -32,6 +37,14 @@ public class ShopIt implements EntryPoint {
 				loginInfo = result;
 				if (loginInfo.isLoggedIn()) {
 					loadShopIt(result);
+
+					Person currentUser = new Person();
+					currentUser.setEmail(result.getEmailAddress());
+					currentUser.setFirstName("Ihr Vorname");
+					currentUser.setLastName("Ihr Nachname");
+
+					admin.getPersonByEmail(result.getEmailAddress(), new FindByMailCallback());
+
 				} else {
 					loadLogin();
 				}
@@ -57,4 +70,21 @@ public class ShopIt implements EntryPoint {
 		RootPanel.get("content").clear();
 		RootPanel.get("content").add(new Layout(loginInformation));
 	}
+
+	private class FindByMailCallback implements AsyncCallback<Person> {
+
+		@Override
+		public void onFailure(Throwable arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onSuccess(Person p) {
+			// TODO Auto-generated method stub
+
+		}
+
+	}
+
 }
