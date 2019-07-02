@@ -13,7 +13,6 @@ import de.hdm.shared.report.Report;
 import de.hdm.shared.report.Row;
 import de.hdm.shared.report.ShopStatisticReport;
 import de.hdm.shared.report.Column;
-import de.hdm.shared.report.AllArticlesOfShopReport;
 import de.hdm.shared.report.SimpleParagraph;
 import de.hdm.shared.report.TeamAndShopStatistikReport;
 import de.hdm.shared.report.TeamStatisticReport;
