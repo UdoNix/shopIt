@@ -90,6 +90,7 @@ public class Tree extends CellTree {
 				AsyncDataProvider<Team> asyncDataProvider = new AsyncDataProvider<Team>() {
 					@Override
 					protected void onRangeChanged(HasData<Team> display) {
+						
 						AsyncCallback<Vector<Team>> callback = new AsyncCallback<Vector<Team>>() {
 							@Override
 							public void onFailure(Throwable caught) {
@@ -130,24 +131,7 @@ public class Tree extends CellTree {
 			} else if (value instanceof Team) {
 				final Team team = (Team) value;
 
-				AsyncDataProvider<ShoppingList> asyncDataProvider = new AsyncDataProvider<ShoppingList>() {
-					@Override
-					protected void onRangeChanged(HasData<ShoppingList> display) {
-						AsyncCallback<Vector<ShoppingList>> callback = new AsyncCallback<Vector<ShoppingList>>() {
-							@Override
-							public void onFailure(Throwable caught) {
-								Window.alert(caught.getMessage());
-							}
-
-							@Override
-							public void onSuccess(Vector<ShoppingList> result) {
-								updateRowCount(result.size(), true);
-								updateRowData(0, result);
-							}
-						};
-						listenVerwaltung.getAllListsOf(team, callback);
-					}
-				};
+				final ShoppingListsAsyncDataProvider asyncDataProvider = new ShoppingListsAsyncDataProvider(team);
 
 				Cell<ShoppingList> cell = new AbstractCell<ShoppingList>("click") {
 					@Override
@@ -161,7 +145,7 @@ public class Tree extends CellTree {
 						
 						if ("click".equals(event.getType())) {
 							
-							ListItemForm listItemForm = new ListItemForm(value);
+							ListItemForm listItemForm = new ListItemForm(value, asyncDataProvider);
 							
 							layout.setPanel(listItemForm);
 						}
@@ -188,6 +172,38 @@ public class Tree extends CellTree {
 			return false;
 		}
 
+	}
+	
+	public static class ShoppingListsAsyncDataProvider extends AsyncDataProvider<ShoppingList> {
+		
+		private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
+		
+		private Team team;
+		
+		public ShoppingListsAsyncDataProvider(Team team) {
+			this.team = team;
+		}
+		
+		@Override
+		public void onRangeChanged(HasData<ShoppingList> display) {
+			refresh();
+		}
+		
+		public void refresh() {
+			AsyncCallback<Vector<ShoppingList>> callback = new AsyncCallback<Vector<ShoppingList>>() {
+				@Override
+				public void onFailure(Throwable caught) {
+					Window.alert(caught.getMessage());
+				}
+
+				@Override
+				public void onSuccess(Vector<ShoppingList> result) {
+					updateRowCount(result.size(), true);
+					updateRowData(0, result);
+				}
+			};
+			listenVerwaltung.getAllListsOf(team, callback);
+		}
 	}
 
 }

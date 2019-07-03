@@ -30,10 +30,12 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.view.client.AsyncDataProvider;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.SimpleDateFormat;
 
 import de.hdm.client.ClientsideSettings;
+import de.hdm.client.gui.Tree.ShoppingListsAsyncDataProvider;
 import de.hdm.shared.ShopITAdministration;
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.Article;
@@ -98,6 +100,7 @@ public class ListItemForm extends VerticalPanel {
 	private HorizontalPanel btnPanel = new HorizontalPanel();
 	private Grid ListGrid;
 	private Button saveBtn = new Button("Speichern");
+	private Button deleteBtn = new Button("Liste löschen");
 	private Button cancelBtn = new Button("Zurueck");
 
 	private final TextBox amountTextBox = new TextBox();
@@ -122,9 +125,11 @@ public class ListItemForm extends VerticalPanel {
 
 	private Button standardizeBtn = new Button();
 	private CheckBox check = new CheckBox();
+	private final AsyncDataProvider<ShoppingList> asyncDataProvider;
 
-	public ListItemForm(final ShoppingList selectedShoppingList) {
+	public ListItemForm(final ShoppingList selectedShoppingList, final ShoppingListsAsyncDataProvider asyncDataProvider) {
 		this.selectedShoppingList = selectedShoppingList;
+		this.asyncDataProvider = asyncDataProvider;
 
 		/**
 		 * Strukturierung der Darstellung mit Hilfe von Grid
@@ -164,6 +169,7 @@ public class ListItemForm extends VerticalPanel {
 		saveBtn.setEnabled(true);
 
 		btnPanel.add(saveBtn);
+		btnPanel.add(deleteBtn);
 
 		contentPanel.add(new ShoppingListForm());
 		contentPanel.add(ListGrid);
@@ -389,6 +395,25 @@ public class ListItemForm extends VerticalPanel {
 								listenVerwaltung.getAllItemsOfList(getSelectedShoppingList(), getAllCallback);
 							}
 						});
+			}
+		});
+		deleteBtn.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				listenVerwaltung.delete(selectedShoppingList, new AsyncCallback<Void>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Fehler");
+					}
+
+					@Override
+					public void onSuccess(Void result) {
+						Window.alert("Gelöscht");
+						asyncDataProvider.refresh();
+					}
+				});
 			}
 		});
 	}
