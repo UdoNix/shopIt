@@ -19,7 +19,6 @@ import de.hdm.shared.bo.Person;
 
 public class ShopIt implements EntryPoint {
 
-	
 	ShopITAdministrationAsync admin = ClientsideSettings.getShopItAdministration();
 	Logger logger = ClientsideSettings.getLogger();
 	private LoginInformation loginInfo = null;
@@ -29,7 +28,7 @@ public class ShopIt implements EntryPoint {
 
 	public void onModuleLoad() {
 
-		RootPanel.get("content").add(new Layout(new LoginInformation()));
+		// RootPanel.get("content").add(new Layout(new LoginInformation()));
 
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
 		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInformation>() {
@@ -38,12 +37,9 @@ public class ShopIt implements EntryPoint {
 			public void onSuccess(LoginInformation result) {
 				loginInfo = result;
 				if (loginInfo.isLoggedIn()) {
-					
-					Window.alert("vorher");
-					admin.getPersonByEmail(result.getEmailAddress(), new FindByMailCallback());
-					Window.alert("nachher");
-					
-					loadShopIt(result);
+
+					Window.alert(loginInfo.getEmailAddress());
+					loadShopIt(loginInfo);
 
 				} else {
 					loadLogin();
@@ -63,13 +59,15 @@ public class ShopIt implements EntryPoint {
 		signInLink.setHref(loginInfo.getLoginURL());
 		loginPanel.add(loginLabel);
 		loginPanel.add(signInLink);
-		RootPanel.get("content").add(signInLink);
+		RootPanel.get("content").add(loginPanel);
 
 	}
 
 	private void loadShopIt(LoginInformation loginInformation) {
 		RootPanel.get("content").clear();
 		RootPanel.get("content").add(new Layout(loginInformation));
+		
+		admin.getPersonByEmail(loginInformation.getEmailAddress(), new FindByMailCallback());
 	}
 
 	class FindByMailCallback implements AsyncCallback<Person> {
@@ -78,7 +76,7 @@ public class ShopIt implements EntryPoint {
 		public void onFailure(Throwable error) {
 			logger.log(Level.SEVERE, error.getMessage());
 			Window.alert("Noch kein Benutzer mit dieser Email angelegt. Neuer Benutzer wurde erstellt!");
-			Window.alert("Ändern Sie Ihren Vor- und Nachnamen im Account Bereich.");
+			Window.alert("ï¿½ndern Sie Ihren Vor- und Nachnamen im Account Bereich.");
 
 			admin.createPerson("Ihr Vorname", "Ihr Nachname", loginInfo.getEmailAddress(), new CreatePersonCallback());
 		}
