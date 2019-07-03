@@ -35,6 +35,7 @@ public class ShopIt implements EntryPoint {
 
 			@Override
 			public void onSuccess(LoginInformation result) {
+				ClientsideSettings.setLoginInformation(result);
 				loginInfo = result;
 				if (loginInfo.isLoggedIn()) {
 

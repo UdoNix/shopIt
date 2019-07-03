@@ -121,17 +121,20 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	// }
 
 	// Auslesen eines Anwenders anhand seiner Email.
-	public Person getPersonByEmail(String email) throws Exception {
+	public Person getPersonByEmail(String email) {
 		try { 
 			return this.pMapper.findPersonByEmail(email);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			throw new IllegalStateException(e);
 		}
 	}
 
 	public Person getCurrentPerson() {
-		return this.pMapper.findPersonByEmail(getThreadLocalRequest().getSession().getAttribute("email").toString());
+		try {
+			return this.pMapper.findPersonByEmail(getThreadLocalRequest().getSession().getAttribute("email").toString());
+		} catch (SQLException e) {
+			throw new IllegalStateException(e);
+		}
 	}
 
 	// Auslesen aller Anwender.
@@ -690,8 +693,10 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	@Override
 	public void delete(Person p) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-
+		p.setFirstName("---");
+		p.setLastName("---");
+		p.setEmail("---");
+		pMapper.update(p);
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package de.hdm.client.gui;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -34,7 +35,7 @@ public class PersonForm extends VerticalPanel {
 	Label lastNameLabel = new Label("Nachname");
 	TextBox lastNameTextBox = new TextBox();
 	Label idLabel = new Label("Kundennummer: ");
-	Label creationTimeLabel = new Label("Mitglied seit: ");
+	Label creationTimeLabel = new Label("");
 	Button changeButton = new Button("Name bearbeiten");
 	Button deleteButton = new Button("Account löschen");
 
@@ -58,17 +59,16 @@ public class PersonForm extends VerticalPanel {
 		personGrid.setWidget(4, 0, personButtonsPanel);
 
 		changeButton.addClickHandler(new ChangeClickHandler());
-		changeButton.setEnabled(true);
 		personButtonsPanel.add(changeButton);
 
 		deleteButton.addClickHandler(new DeleteClickHandler());
-		deleteButton.setEnabled(false);
 		personButtonsPanel.add(deleteButton);
 
 		listenVerwaltung.getCurrentPerson(new AsyncCallback<Person>() {
 			@Override
 			public void onSuccess(Person result) {
 				setSelected(result);
+				creationTimeLabel.setText("Mitglied seit: " + DateTimeFormat.getFormat("yyyy-MM-dd").format(result.getCreationDate()));
 			}
 
 			@Override
@@ -117,7 +117,8 @@ public class PersonForm extends VerticalPanel {
 		}
 
 		public void onSuccess(Void result) {
-			Window.Location.replace(newUrl);
+			Window.alert("Account wurde gelöscht.");
+			Window.Location.replace(ClientsideSettings.getLoginInformation().getLogoutURL());
 		}
 
 	}

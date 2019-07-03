@@ -120,13 +120,22 @@ public class ClientsideSettings extends CommonSettings {
 	}
 
 	private static Person currentUser = new Person();
+	private static LoginInformation loginInformation;
 
 	public static Person getCurrentUser() {
 		return currentUser;
 	}
+	
+	public static LoginInformation getLoginInformation() {
+		return loginInformation;
+	}
 
 	public static void setCurrentUser(Person currentUser) {
 		ClientsideSettings.currentUser = currentUser;
+	}
+	
+	public static void setLoginInformation(LoginInformation loginInformation) {
+		ClientsideSettings.loginInformation = loginInformation;
 	}
 
 }

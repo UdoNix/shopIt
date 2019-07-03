@@ -186,7 +186,7 @@ public Person insert(Person p) {
      try {
        Statement stmt = con.createStatement();
 
-       stmt.executeUpdate("DELETE FROM person " + " WHERE id= " + p.getId());
+       stmt.executeUpdate("DELETE FROM person WHERE id= " + p.getId());
 
      }
      catch (SQLException e2) {
@@ -240,7 +240,7 @@ public Person insert(Person p) {
 
 			// Statement ausfüllen und als Query an die DB schicken
 			ResultSet rs = stmt.executeQuery(
-					"SELECT id, firstName, lastName FROM person " + "WHERE email=" +"'" + email + "'" );
+					"SELECT id, firstName, lastName, email, creationDate FROM person WHERE email=" +"'" + email + "'" );
 
 			if (rs.next()) {
 				// Ergebnis-Tupel in Objekt umwandeln
@@ -248,6 +248,8 @@ public Person insert(Person p) {
 				p.setId(rs.getInt("id"));
 				p.setFirstName(rs.getString("firstName"));
 				p.setLastName(rs.getString("lastName"));
+				p.setEmail(rs.getString("email"));
+				p.setCreationDate(rs.getTimestamp("creationDate"));
 
 				return p;
 			} else {

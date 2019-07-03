@@ -1,15 +1,21 @@
 package de.hdm.shared;
 
-import java.io.Serializable;
-import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Vector;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-import de.hdm.shared.bo.*;
+import de.hdm.shared.bo.Article;
+import de.hdm.shared.bo.Item;
+import de.hdm.shared.bo.Membership;
+import de.hdm.shared.bo.Person;
+import de.hdm.shared.bo.ReportObject;
+import de.hdm.shared.bo.Responsibility;
+import de.hdm.shared.bo.Shop;
+import de.hdm.shared.bo.ShoppingList;
+import de.hdm.shared.bo.Team;
+import de.hdm.shared.bo.UnitOfMeasure;
 
 /*
  * Synchrone Schnittstelle f�r eine RPC-f�hige Klasse zur Verwaltung.
