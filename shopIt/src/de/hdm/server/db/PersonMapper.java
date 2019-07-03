@@ -230,7 +230,7 @@ public Person insert(Person p) {
    
 //Person anhand seiner Email finden
    
-	public Person findPersonByEmail(String email) {
+	public Person findPersonByEmail(String email) throws SQLException {
 		//DB-Verbindung holen
 		Connection con = DBConnection.connection();
 
@@ -250,13 +250,15 @@ public Person insert(Person p) {
 				p.setLastName(rs.getString("lastName"));
 
 				return p;
+			} else {
+				
+				throw new SQLException("Email not in Database");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
+			throw e;
 		}
 
-		return null;
 	}
 			
 	public Vector<ShoppingList> getAllListsOf(Person p){
