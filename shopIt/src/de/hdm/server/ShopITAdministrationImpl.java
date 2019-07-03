@@ -124,6 +124,10 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		return this.pMapper.findPersonByEmail(email);
 	}
 
+	public Person getCurrentPerson() {
+		return this.pMapper.findPersonByEmail(getThreadLocalRequest().getSession().getAttribute("email").toString());
+	}
+
 	// Auslesen aller Anwender.
 	public Vector<Person> getAllPersons() throws IllegalArgumentException {
 		return this.pMapper.findAll();
@@ -173,7 +177,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 */
 
 	public ShoppingList createListFor(Team t, String name) throws IllegalArgumentException {
-		
+
 		ShoppingList l = new ShoppingList();
 		l.setId(1);
 		l.setName(name);
@@ -181,12 +185,13 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		l = this.lMapper.insert(l);
 
 		Vector<Item> favoriteItems = iMapper.findFavoritesByTeam(t);
-		for(Item item : favoriteItems) {
-			Responsibility responsibility = rMapper.findByKey(item.getResponsibilityId());	
+		for (Item item : favoriteItems) {
+			Responsibility responsibility = rMapper.findByKey(item.getResponsibilityId());
 			UnitOfMeasure unit = uMapper.findByKey(item.getUnitId());
-			createItem(l.getId(), t.getId(), unit.getQuantity(), unit.getUnit(), item.getArticleId(), responsibility.getPersonId(), responsibility.getShopId());
+			createItem(l.getId(), t.getId(), unit.getQuantity(), unit.getUnit(), item.getArticleId(),
+					responsibility.getPersonId(), responsibility.getShopId());
 		}
-		
+
 		return l;
 	}
 
@@ -255,8 +260,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		i.setArticleId(articleId);
 		i.setUnitId(unitOfMeasure.getId());
 		i.setTeamId(teamId);
-		i = this.iMapper.insert(i);	
-		
+		i = this.iMapper.insert(i);
+
 		System.out.println("Created item at list " + i.getListId());
 
 		Responsibility r = new Responsibility();
@@ -394,8 +399,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	public void delete(Team t) throws IllegalArgumentException {
 		/*
-		 * Zun�chst werden alle Anwender und Einkaufslisten der Gruppe aus der
-		 * Datenbank entfernt.
+		 * Zun�chst werden alle Anwender und Einkaufslisten der Gruppe aus der Datenbank
+		 * entfernt.
 		 */
 
 		Vector<Membership> membership = this.mMapper.findByTeam(t.getId());
@@ -419,8 +424,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		this.tMapper.delete(t);
 
 	}
-	
-	public Vector<Team> getAllTeamsByPerson(Person p){
+
+	public Vector<Team> getAllTeamsByPerson(Person p) {
 		Vector<Team> result = new Vector<Team>();
 		result = this.tMapper.getTeamsOf(p);
 		return result;
@@ -496,8 +501,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		s.setName(name);
 
 		/*
-		 * Setzen einer vorläufigen H�ndler-Id, welche nach Kommunikation mit DB auf
-		 * den nächsthhöheren Wert gesetzt wird.
+		 * Setzen einer vorläufigen H�ndler-Id, welche nach Kommunikation mit DB auf den
+		 * nächsthhöheren Wert gesetzt wird.
 		 *
 		 */
 		s.setId(1);
@@ -582,8 +587,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	/*
 	 * ***************************************************************************
-	 * ABSCHNITT, Beginn: Methoden f�r Zust�ndigkeits-Objekte @author
-	 * IlonaBrinkmann
+	 * ABSCHNITT, Beginn: Methoden f�r Zust�ndigkeits-Objekte @author IlonaBrinkmann
 	 * ***************************************************************************
 	 */
 

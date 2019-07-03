@@ -69,7 +69,6 @@ public class Tree extends CellTree {
 							ValueUpdater<String> valueUpdater) {
 						if ("click".equals(event.getType())) {
 							if (value.equals("Account")) {
-								// TODO aktuellen Nutzer laden
 								layout.setPanel(new PersonForm());
 							} else if (value.equals("Artikel")) {
 								layout.setPanel(new ArticleForm());

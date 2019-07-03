@@ -37,6 +37,8 @@ public interface ShopITAdministration extends RemoteService {
 
 	// Auslesen eines Anwenders anhand seiner Email.
 	public Person getPersonByEmail(String email) throws IllegalArgumentException;
+	
+	public Person getCurrentPerson();
 
 	// Auslesen aller Anwender.
 	public Vector<Person> getAllPersons() throws IllegalArgumentException;

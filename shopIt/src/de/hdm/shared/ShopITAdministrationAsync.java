@@ -88,6 +88,8 @@ public interface ShopITAdministrationAsync {
 	void getMembershipById(int id, AsyncCallback<Membership> callback);
 
 	void getPersonByEmail(String email, AsyncCallback<Person> callback);
+	
+	void getCurrentPerson(AsyncCallback<Person> callback);
 
 	void getPersonById(int id, AsyncCallback<Person> callback);
 
@@ -128,6 +130,4 @@ public interface ShopITAdministrationAsync {
 	void getItemsByTeamWithTime(Team t, Timestamp firstDate, Timestamp lastDate, AsyncCallback<Vector<ReportObject>> callback);
 	
 	void getAllTeamsByPerson(Person p, AsyncCallback<Vector<Team>> callback);
-	
-
 }
