@@ -18,6 +18,8 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.client.ClientsideSettings;
+import de.hdm.client.gui.Tree.ShoppingListsAsyncDataProvider;
+import de.hdm.client.gui.Tree.TeamsAsyncDataProvder;
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.Membership;
 import de.hdm.shared.bo.Person;
@@ -35,8 +37,11 @@ public class TeamView extends VerticalPanel {
 
 	private final Tree tree;
 
-	public TeamView(Tree tree) {
+	private final ShoppingListsAsyncDataProvider asyncDataProvider;
+
+	public TeamView(Tree tree, ShoppingListsAsyncDataProvider shoppingListsAsyncDataProvider) {
 		this.tree = tree;
+		this.asyncDataProvider = shoppingListsAsyncDataProvider;
 	}
 
 	public Team getSelectedTeam() {
@@ -83,21 +88,18 @@ public class TeamView extends VerticalPanel {
 		saveButton.addClickHandler(new ChangeClickHandler());
 		saveButton.setEnabled(true);
 		teamGrid.setWidget(2, 1, saveButton);
-		
-		saveButton.setEnabled(true);
-		teamGrid.setWidget(2, 1, saveButton);
 
 		final TextBox listNameTextBox = new TextBox();
 		teamGrid.setWidget(3, 0, new Label("Listen Name:"));
 		teamGrid.setWidget(3, 1, listNameTextBox);
-		
+
 		Button listButton = new Button("Liste Anlegen");
 		listButton.addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				String name = listNameTextBox.getValue();
-				
+
 				listenVerwaltung.createListFor(selectedTeam, name, new AsyncCallback<ShoppingList>() {
 
 					@Override
@@ -107,14 +109,16 @@ public class TeamView extends VerticalPanel {
 
 					@Override
 					public void onSuccess(ShoppingList result) {
-						// TODO update Tree
+						if (asyncDataProvider != null) {
+							asyncDataProvider.refresh();
+						}
 						Window.alert("Success");
 					}
 				});
 			}
 		});
 		teamGrid.setWidget(4, 1, listButton);
-		
+
 		Label personTextBox = new Label("Hinzuzufügende Person (email)");
 		teamGrid.setWidget(5, 0, personTextBox);
 		teamGrid.setWidget(5, 1, emailTextBox);
@@ -124,7 +128,7 @@ public class TeamView extends VerticalPanel {
 		teamGrid.setWidget(6, 1, addButton);
 
 		final CellTable<Person> membershipTable = new CellTable<Person>();
-		
+
 		getAllMembershipCallback = new AsyncCallback<Vector<Person>>() {
 			@Override
 			public void onSuccess(Vector<Person> result) {
@@ -137,7 +141,7 @@ public class TeamView extends VerticalPanel {
 				Window.alert("Fehler");
 			}
 		};
-		
+
 		Column<Person, String> deleteMembershipColumn = new Column<Person, String>(new ButtonCell()) {
 			@Override
 			public String getValue(Person object) {
@@ -161,20 +165,19 @@ public class TeamView extends VerticalPanel {
 				});
 			}
 		});
-		
+
 		TextColumn<Person> emailColumn = new TextColumn<Person>() {
 			@Override
 			public String getValue(Person object) {
 				return object.getEmail();
 			}
 		};
-		
+
 		membershipTable.addColumn(emailColumn, "Email");
 		membershipTable.addColumn(deleteMembershipColumn, "");
 
 		add(membershipTable);
 
-		
 		listenVerwaltung.getAllPersonsOf(selectedTeam, getAllMembershipCallback);
 	}
 //Click handlers und abhängige AsyncCallback Klassen.

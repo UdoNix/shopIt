@@ -1,6 +1,8 @@
 package de.hdm.client.gui;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 import com.google.gwt.cell.client.AbstractCell;
@@ -40,6 +42,7 @@ public class Tree extends CellTree {
 	public static class TreeModel implements TreeViewModel {
 
 		private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
+		private Map<Integer, ShoppingListsAsyncDataProvider> listProviderByTeamId = new HashMap<>();
 
 		private final Layout layout;
 		private Tree tree;
@@ -86,25 +89,7 @@ public class Tree extends CellTree {
 				return new DefaultNodeInfo<String>(dataProvider, cell);
 			} else if (value.equals("Gruppe")) {
 
-				AsyncDataProvider<Team> asyncDataProvider = new AsyncDataProvider<Team>() {
-					@Override
-					protected void onRangeChanged(HasData<Team> display) {
-						
-						AsyncCallback<Vector<Team>> callback = new AsyncCallback<Vector<Team>>() {
-							@Override
-							public void onFailure(Throwable caught) {
-								Window.alert(caught.getMessage());
-							}
-
-							@Override
-							public void onSuccess(Vector<Team> result) {
-								updateRowCount(result.size(), true);
-								updateRowData(0, result);
-							}
-						};
-						listenVerwaltung.getAllTeamsByPerson(callback);
-					}
-				};
+				final TeamsAsyncDataProvder asyncDataProvider = new TeamsAsyncDataProvder();
 
 				Cell<Team> cell = new AbstractCell<Team>("click") {
 					@Override
@@ -117,7 +102,7 @@ public class Tree extends CellTree {
 							ValueUpdater<Team> valueUpdater) {
 						if ("click".equals(event.getType())) {
 							
-							TeamView teamView = new TeamView(tree);
+							TeamView teamView = new TeamView(tree, listProviderByTeamId.get(value.getId()));
 							teamView.setSelectedTeam(value);
 							
 							layout.setPanel(teamView);
@@ -131,6 +116,7 @@ public class Tree extends CellTree {
 				final Team team = (Team) value;
 
 				final ShoppingListsAsyncDataProvider asyncDataProvider = new ShoppingListsAsyncDataProvider(team);
+				listProviderByTeamId.put(team.getId(), asyncDataProvider);
 
 				Cell<ShoppingList> cell = new AbstractCell<ShoppingList>("click") {
 					@Override
@@ -172,6 +158,32 @@ public class Tree extends CellTree {
 		}
 
 	}
+	
+	public static class TeamsAsyncDataProvder extends AsyncDataProvider<Team> {
+		
+		private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
+		
+		@Override
+		protected void onRangeChanged(HasData<Team> display) {
+			refresh();
+		}
+		
+		public void refresh() {
+			AsyncCallback<Vector<Team>> callback = new AsyncCallback<Vector<Team>>() {
+				@Override
+				public void onFailure(Throwable caught) {
+					Window.alert(caught.getMessage());
+				}
+
+				@Override
+				public void onSuccess(Vector<Team> result) {
+					updateRowCount(result.size(), true);
+					updateRowData(0, result);
+				}
+			};
+			listenVerwaltung.getAllTeamsByPerson(callback);
+		}
+	};
 	
 	public static class ShoppingListsAsyncDataProvider extends AsyncDataProvider<ShoppingList> {
 		
