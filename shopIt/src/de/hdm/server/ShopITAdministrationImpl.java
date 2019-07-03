@@ -302,6 +302,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 */
 	public void delete(Item i) throws IllegalArgumentException {
 		iMapper.delete(i);
+		rMapper.delete(rMapper.findByKey(i.getResponsibilityId()));
 	}
 
 	// Status des Eintrags ändern. (Eintrag abhaken bzw. den Haken entfernen)

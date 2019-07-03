@@ -187,6 +187,7 @@ public Vector<Item> findByList (ShoppingList l){
 	        i.setShopName(rs.getString("shop.name"));
 	        i.setUnitName(rs.getString("unit.unit"));
 	        i.setAmount(rs.getFloat("unit.quantity"));
+	        i.setResponsibilityId(rs.getInt("responsibility.id"));
 
 	        // Hinzufügen des neuen Objekts zum Ergebnisvektor
 	        result.add(i);
@@ -288,7 +289,7 @@ public Item insert(Item i) {
      try {
        Statement stmt = con.createStatement();
 
-       stmt.executeUpdate("DELETE FROM item " + "WHERE id= " + i.getId());
+       stmt.executeUpdate("DELETE FROM item WHERE id= " + i.getId());
 
      }
      catch (SQLException e2) {
