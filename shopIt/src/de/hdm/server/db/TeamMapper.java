@@ -136,7 +136,7 @@ public Team insert(Team t) {
 
       // Es erfolgt die tatsächliche Einfuegeoperation
       
-      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO TEAM (id, name) " + "VALUES (?, ?)");
+      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO team (id, name) " + "VALUES (?, ?)");
       stmt2.setInt(1, t.getId());
       stmt2.setString(2, t.getName());
       

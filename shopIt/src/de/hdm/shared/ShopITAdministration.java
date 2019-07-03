@@ -1,6 +1,7 @@
 package de.hdm.shared;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Vector;
@@ -36,7 +37,7 @@ public interface ShopITAdministration extends RemoteService {
 	public Vector<Person> getPersonByName(Person person) throws IllegalArgumentException;
 
 	// Auslesen eines Anwenders anhand seiner Email.
-	public Person getPersonByEmail(String email) throws IllegalArgumentException;
+	public Person getPersonByEmail(String email) throws Exception;
 	
 	public Person getCurrentPerson();
 
