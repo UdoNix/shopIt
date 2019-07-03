@@ -2,6 +2,7 @@ package de.hdm.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -120,8 +121,13 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	// }
 
 	// Auslesen eines Anwenders anhand seiner Email.
-	public Person getPersonByEmail(String email) throws IllegalArgumentException {
-		return this.pMapper.findPersonByEmail(email);
+	public Person getPersonByEmail(String email) throws Exception {
+		try { 
+			return this.pMapper.findPersonByEmail(email);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 	// Auslesen aller Anwender.

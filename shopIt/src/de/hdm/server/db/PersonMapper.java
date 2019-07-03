@@ -137,7 +137,7 @@ public Person insert(Person p) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO PERSON (id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, firstName, lastName, email) VALUES(?,?,?,?,?,?)");
+      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO PERSON (id, creationDate, changeDate, firstName, lastName, email) VALUES(?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?,?,?)");
       stmt2.setInt(1, p.getId());
       stmt2.setString(2, p.getFirstName());
       stmt2.setString(3, p.getLastName());
@@ -230,7 +230,7 @@ public Person insert(Person p) {
    
 //Person anhand seiner Email finden
    
-	public Person findPersonByEmail(String email) {
+	public Person findPersonByEmail(String email) throws SQLException {
 		//DB-Verbindung holen
 		Connection con = DBConnection.connection();
 
@@ -250,13 +250,15 @@ public Person insert(Person p) {
 				p.setLastName(rs.getString("lastName"));
 
 				return p;
+			} else {
+				
+				throw new SQLException("Email not in Database");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
+			throw e;
 		}
 
-		return null;
 	}
 			
 	public Vector<ShoppingList> getAllListsOf(Person p){
