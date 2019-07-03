@@ -376,7 +376,7 @@ public class ListItemForm extends VerticalPanel {
 				int shopId = Integer.valueOf(shopListBox.getSelectedValue());
 				String unit = unitListBox.getSelectedItemText();
 				
-				listenVerwaltung.createItem(selectedShoppingList.getId(), count, unit, articleId, personId, shopId,
+				listenVerwaltung.createItem(selectedShoppingList.getId(), selectedShoppingList.getTeamId(), count, unit, articleId, personId, shopId,
 						new AsyncCallback<Item>() {
 
 							@Override

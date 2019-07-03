@@ -11,6 +11,7 @@ import java.util.Vector;
 import de.hdm.shared.bo.Item;
 import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.ShoppingList;
+import de.hdm.shared.bo.Team;
 
 //@udo nix, emily kretzschmar
 	
@@ -119,6 +120,36 @@ public Vector<Item> findAll() {
   //Der Ergebnisvektor wird zurueckgegeben
   return result;
 }
+
+public Vector<Item> findFavoritesByTeam(Team team) {
+	Vector<Item> result = new Vector<>();
+	Connection con = DBConnection.connection();
+	try {
+		PreparedStatement stmt = con.prepareStatement("SELECT *, responsibility.* FROM item INNER JOIN responsibility ON responsibility.itemId = item.id WHERE teamId = ? AND favorit = true");
+		stmt.setInt(1, team.getId());
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next()) {
+			Item i = new Item();
+	        i.setId(rs.getInt("id"));
+	        i.setCreationDate(rs.getTimestamp("creationDate"));
+	        i.setChangeDate(rs.getTimestamp("changeDate"));
+	        i.setUnitId(rs.getInt("unitId"));
+	        i.setArticleId(rs.getInt("articleId"));
+	        i.setTeamId(rs.getInt("teamId"));
+	        i.setListId(rs.getInt("listId"));
+	        i.setFavorit(rs.getBoolean("favorit"));
+	        i.setStatus(rs.getBoolean("status"));
+	        i.setResponsibilityId(rs.getInt("responsibility.id"));
+	        
+	        result.add(i);
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	return result;
+}
+
 public Vector<Item> findByList (ShoppingList l){
 	
 	int listId = l.getId();

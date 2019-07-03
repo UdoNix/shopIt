@@ -173,17 +173,21 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 */
 
 	public ShoppingList createListFor(Team t, String name) throws IllegalArgumentException {
-
+		
 		ShoppingList l = new ShoppingList();
-
-		// creationDate + modification Date noch hinzuf�gen
-
 		l.setId(1);
 		l.setName(name);
 		l.setTeamId(t.getId());
+		l = this.lMapper.insert(l);
 
-		return this.lMapper.insert(l);
-
+		Vector<Item> favoriteItems = iMapper.findFavoritesByTeam(t);
+		for(Item item : favoriteItems) {
+			Responsibility responsibility = rMapper.findByKey(item.getResponsibilityId());	
+			UnitOfMeasure unit = uMapper.findByKey(item.getUnitId());
+			createItem(l.getId(), t.getId(), unit.getQuantity(), unit.getUnit(), item.getArticleId(), responsibility.getPersonId(), responsibility.getShopId());
+		}
+		
+		return l;
 	}
 
 	/*
@@ -239,7 +243,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * neuen Eintrag erstellen
 	 */
-	public Item createItem(int listId, float count, String unit, int articleId, int personId, int shopId)
+	public Item createItem(int listId, int teamId, float count, String unit, int articleId, int personId, int shopId)
 			throws IllegalArgumentException {
 		Item i = new Item();
 		// i.setCreationDate();//aktuelles Datum einf�gen Muss nicht gesetzt werden,
@@ -247,11 +251,13 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		// macht die DB
 
 		UnitOfMeasure unitOfMeasure = createUnitOfMeasure(count, unit);
-		
 		i.setListId(listId);
 		i.setArticleId(articleId);
 		i.setUnitId(unitOfMeasure.getId());
+		i.setTeamId(teamId);
 		i = this.iMapper.insert(i);	
+		
+		System.out.println("Created item at list " + i.getListId());
 
 		Responsibility r = new Responsibility();
 		r.setItemId(i.getId());
