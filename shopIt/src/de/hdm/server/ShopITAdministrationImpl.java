@@ -362,17 +362,15 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		// nächsthhöheren Wert gesetzt wird.
 		t.setId(1);
 
-		this.tMapper.insert(t);
-//		int personid = p.getId();
-//		int teamid = t.getId();
+		t = this.tMapper.insert(t);
 
-//		//Membership der Person muss erstellt werden
-//		Membership m = new Membership();
-//		m.setPersonId(p.getId());
-//		m.setTeamId(teamid);
-//		m.setId(1);
-//		
-//		this.mMapper.insert(m);
+		//Membership der Person muss erstellt werden
+		Membership m = new Membership();
+		m.setPersonId(getCurrentPerson().getId());
+		m.setTeamId(t.getId());
+		m.setId(1);
+		
+		this.mMapper.insert(m);
 
 		// Speichern des Gruppe-Objekts in der DB.
 		return t;
