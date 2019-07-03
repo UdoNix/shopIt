@@ -99,8 +99,9 @@ public class ShopIt implements EntryPoint {
 
 		@Override
 		public void onSuccess(Person p) {
-			Window.alert("geklappt!");
+			p.setEmail(loginInfo.getEmailAddress());
 			ClientsideSettings.setCurrentUser(p);
+			Window.alert("geklappt!");
 		}
 	}
 }

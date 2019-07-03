@@ -33,7 +33,7 @@ CREATE TABLE `article` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `name` varchar(20) NOT NULL default ''
+  `name` varchar(200) NOT NULL default ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
@@ -55,7 +55,7 @@ CREATE TABLE `team` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `name` varchar(25) NOT NULL default ''
+  `name` varchar(200) NOT NULL default ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
@@ -110,7 +110,7 @@ CREATE TABLE `list` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `name` varchar(20) NOT NULL default '',
+  `name` varchar(200) NOT NULL default '',
   `teamId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -160,9 +160,9 @@ CREATE TABLE `person` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `firstName` varchar(20) NOT NULL default '',
-  `lastName` varchar(20) NOT NULL default '',
-  `email` varchar(20) NOT NULL default ''
+  `firstName` varchar(200) NOT NULL default '',
+  `lastName` varchar(200) NOT NULL default '',
+  `email` varchar(200) NOT NULL default ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
@@ -220,10 +220,10 @@ CREATE TABLE `shop` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `name` varchar(20) NOT NULL default '',
-  `street` varchar(20) NOT NULL default '',
-  `postalCode` varchar(20) NOT NULL default '',
-  `city` varchar(20) NOT NULL default ''
+  `name` varchar(200) NOT NULL default '',
+  `street` varchar(200) NOT NULL default '',
+  `postalCode` varchar(200) NOT NULL default '',
+  `city` varchar(200) NOT NULL default ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
@@ -245,7 +245,7 @@ CREATE TABLE `unit` (
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `quantity` float(11) NOT NULL,
-  `unit` varchar(20) NOT NULL default ''
+  `unit` varchar(200) NOT NULL default ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #

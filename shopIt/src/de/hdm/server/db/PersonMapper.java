@@ -137,7 +137,7 @@ public Person insert(Person p) {
       stmt = con.createStatement();
 
       // Es erfolgt die tatsächliche Einfuegeoperation
-      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO PERSON (id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, firstName, lastName, email) VALUES(?,?,?,?,?,?)");
+      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO PERSON (id, creationDate, changeDate, firstName, lastName, email) VALUES(?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?,?,?)");
       stmt2.setInt(1, p.getId());
       stmt2.setString(2, p.getFirstName());
       stmt2.setString(3, p.getLastName());
