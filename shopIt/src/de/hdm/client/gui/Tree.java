@@ -102,7 +102,7 @@ public class Tree extends CellTree {
 								updateRowData(0, result);
 							}
 						};
-						listenVerwaltung.getAllTeams(callback);
+						listenVerwaltung.getAllTeamsByPerson(callback);
 					}
 				};
 

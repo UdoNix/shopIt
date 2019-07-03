@@ -432,9 +432,9 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	}
 
-	public Vector<Team> getAllTeamsByPerson(Person p) {
+	public Vector<Team> getAllTeamsByPerson() {
 		Vector<Team> result = new Vector<Team>();
-		result = this.tMapper.getTeamsOf(p);
+		result = this.tMapper.getTeamsOf(getCurrentPerson());
 		return result;
 	}
 	/*

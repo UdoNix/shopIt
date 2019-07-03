@@ -208,7 +208,7 @@ public Team insert(Team t) {
 		      ResultSet rs = stmt.executeQuery("SELECT team.id as 'teamId', team.name as 'name' "
 		      		+ "FROM team "
 		      		+ "JOIN membership ON team.id = membership.teamId "
-		      		+ "WHERE membership.personId = " + p.getId() +" ");
+		      		+ "WHERE membership.personId = " + p.getId());
 
 		      
 		      while (rs.next()) {

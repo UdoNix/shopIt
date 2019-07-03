@@ -190,6 +190,6 @@ public interface ShopITAdministration extends RemoteService {
 	// Auslesen aller Eintr�ge eines Teams, gefiltert nach Shop mit Zeitangabe.
 	public Vector<ReportObject> getItemsByTeamAndShopWithTime(Shop s, Team t, Timestamp firstDate, Timestamp lastDate);
 
-	public Vector<Team> getAllTeamsByPerson(Person p);
+	public Vector<Team> getAllTeamsByPerson();
 
 }
