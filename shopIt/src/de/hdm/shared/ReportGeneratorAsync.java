@@ -41,4 +41,8 @@ public interface ReportGeneratorAsync {
 
 	void setTeam(Team t, AsyncCallback<Void> callback);
 
+	void getShopITAdministration(AsyncCallback<ShopITAdministration> callback);
+	
+	
+
 }
