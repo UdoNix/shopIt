@@ -1,6 +1,7 @@
 package de.hdm.client.gui;
 
 import java.util.Arrays;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
@@ -26,6 +27,12 @@ import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Team;
 
+/**
+ * Klasse zur Realisierung einer Navigation durch die Applikation mittels CellTree
+ * @author dibasegmen
+ *
+ */
+
 public class Tree extends CellTree {
 
 	private final Layout layout;
@@ -33,6 +40,7 @@ public class Tree extends CellTree {
 	/**
 	 * @param layout Das Layout zum setzen des Inhalt Panels
 	 */
+	
 	public Tree(Layout layout) {
 		super(new TreeModel(layout), null);
 		this.layout = layout;
