@@ -12,13 +12,27 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ReportMapper {
-
+	
+	/**
+	 * Klasse ReportMapper als Singleton
+	 * Variable durch <code> static </code> nur einmal für Instanzen der Klasse vorhanden
+	 * Sie speichert eine einzige Instanz der Klasse
+	 */
 	public static ReportMapper reportMapper = null;
 
+	/**
+	 * Konstruktor geschützt
+	 * Es kann keine neue Instanz dieser Klasse mit <code>new</code> erzeugt werden
+	 */
 	protected ReportMapper() {
 
 	}
 
+	/**
+	 * Aufruf der statischen Methode durch <code>ReportMapper.reportMapper().
+	 * Singleton: es kann nur eine Instanz von ReportMapper existieren
+	 * @return reportMapper
+	 */
 	public static ReportMapper reportMapper() {
 		if (reportMapper == null) {
 			reportMapper = new ReportMapper();
@@ -26,6 +40,14 @@ public class ReportMapper {
 		return reportMapper;
 	}
 
+	/**
+	 * Mithilfe des ReportObjects werden die gewünschten Attribute für den Report ausgegeben werden
+	 * @param teamId
+	 * @param startDate
+	 * @param endDate
+	 * @param shopId
+	 * @return 
+	 */
 	public Vector<ReportObject> createTeamTimeShopReport(int teamId, Timestamp startDate, Timestamp endDate,
 			int shopId) {
 
@@ -65,6 +87,13 @@ public class ReportMapper {
 		return result;
 	}
 
+	/**
+	 * Mithilfe des ReportObjects werden die gewünschten Attribute für den Report ausgegeben werden
+	 * @param teamId
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
 	public Vector<ReportObject> createTeamTimeReport(int teamId, Timestamp startDate, Timestamp endDate) {
 
 		Connection con = DBConnection.connection();
@@ -101,6 +130,12 @@ public class ReportMapper {
 		return result;
 	}
 
+	/**
+	 * Mithilfe des ReportObjects werden die gewünschten Attribute für den Report ausgegeben werden
+	 * @param teamId
+	 * @param shopId
+	 * @return
+	 */
 	public Vector<ReportObject> createTeamShopReport(int teamId, int shopId) {
 
 		Connection con = DBConnection.connection();
