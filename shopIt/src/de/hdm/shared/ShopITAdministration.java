@@ -100,8 +100,7 @@ public interface ShopITAdministration extends RemoteService {
 	// Speichern einer Gruppe.
 	public void save(Team t) throws IllegalArgumentException;
 
-	// Auslesen aller Personen der Gruppe
-	public Vector<Person> getAllPersonsOf(Team t) throws IllegalArgumentException;
+	Vector<Person> getAllPersonsOf(int teamId);
 
 	// Auslesen aller Listen einer Gruppe.
 	public Vector<ShoppingList> getAllListsOf(Team t) throws IllegalArgumentException;

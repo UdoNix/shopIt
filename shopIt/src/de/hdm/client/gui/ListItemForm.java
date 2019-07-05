@@ -193,7 +193,7 @@ public class ListItemForm extends VerticalPanel {
 				}
 			}
 		});
-		listenVerwaltung.getAllPersons(new AsyncCallback<Vector<Person>>() {
+		listenVerwaltung.getAllPersonsOf( selectedShoppingList.getTeamId(), new AsyncCallback<Vector<Person>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {

@@ -69,7 +69,7 @@ public interface ShopITAdministrationAsync {
 
 	void getAllPersons(AsyncCallback<Vector<Person>> callback);
 
-	void getAllPersonsOf(Team t, AsyncCallback<Vector<Person>> callback);
+	void getAllPersonsOf(int teamId, AsyncCallback<Vector<Person>> callback);
 
 	void getAllShops(AsyncCallback<Vector<Shop>> callback);
 

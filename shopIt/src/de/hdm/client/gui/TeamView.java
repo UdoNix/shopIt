@@ -156,7 +156,7 @@ public class TeamView extends VerticalPanel {
 
 					@Override
 					public void onSuccess(Void result) {
-						listenVerwaltung.getAllPersonsOf(selectedTeam, getAllMembershipCallback);
+						listenVerwaltung.getAllPersonsOf(selectedTeam.getId(), getAllMembershipCallback);
 					}
 
 					@Override
@@ -179,7 +179,7 @@ public class TeamView extends VerticalPanel {
 
 		add(membershipTable);
 
-		listenVerwaltung.getAllPersonsOf(selectedTeam, getAllMembershipCallback);
+		listenVerwaltung.getAllPersonsOf(selectedTeam.getId(), getAllMembershipCallback);
 	}
 //Click handlers und abhängige AsyncCallback Klassen.
 
@@ -404,7 +404,7 @@ public class TeamView extends VerticalPanel {
 		@Override
 		public void onSuccess(Membership membership) {
 			Window.alert("Success");
-			listenVerwaltung.getAllPersonsOf(selectedTeam, getAllMembershipCallback);
+			listenVerwaltung.getAllPersonsOf(selectedTeam.getId(), getAllMembershipCallback);
 		}
 	}
 
