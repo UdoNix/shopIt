@@ -37,14 +37,16 @@ public class ReportMapper {
 			
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-			String sql = "SELECT COUNT(item.id) AS 'count', article.name AS 'name', quantity, unit.unit AS 'unit', item.changeDate AS 'changeDate', responsibility.shopId AS 'shopId', item.teamId AS 'teamId' "
-					+ "FROM item JOIN article ON item.articleId = article.id JOIN unit ON item.unitId = unit.id JOIN team ON item.teamId = team.id JOIN responsibility ON item.id = responsibility.itemId "
-					+ "WHERE item.teamId = " + teamId + " AND item.changeDate BETWEEN '" + format.format( startDate) + "' AND '"
-					+ format.format( endDate) + "' AND shopId = " + shopId + " "
-					+ "GROUP BY item.id ORDER BY COUNT(item.articleId) DESC";
-			System.out.println(sql);
-			ResultSet rs = stmt.executeQuery(
-					sql);
+			String sql = "SELECT COUNT(item.id) AS 'count', article.name AS 'name', SUM(item.quantity) AS 'quantity', unit.unit AS 'unit', MAX(item.changeDate) AS 'changeDate', responsibility.shopId AS 'shopId', item.teamId AS 'teamId' "
+					+ "FROM item "
+					+ "JOIN article ON item.articleId = article.id "
+					+ "JOIN unit ON item.unitId = unit.id "
+					+ "JOIN team ON item.teamId = team.id "
+					+ "JOIN responsibility ON item.id = responsibility.itemId "
+					+ "WHERE item.teamId = " + teamId + " AND item.changeDate BETWEEN '" + format.format( startDate) + "' AND '" + format.format( endDate) + "' AND shopId = " + shopId + " "
+					+ "GROUP BY article.id, unit.unit ORDER BY COUNT(item.articleId) DESC";
+			
+			ResultSet rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
 				ReportObject r = new ReportObject();
@@ -74,12 +76,14 @@ public class ReportMapper {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			
 			ResultSet rs = stmt.executeQuery(
-					"SELECT COUNT(item.id) AS 'count', article.name AS 'name', quantity, unit.unit AS 'unit', shop.name AS 'shopName' , item.changeDate AS 'changeDate', item.teamId AS 'teamId' "
-							+ "FROM item " + "JOIN article ON item.articleId = article.id "
-							+ "JOIN unit ON item.unitId = unit.id " + "JOIN team ON item.teamId = team.id "
+					"SELECT COUNT(item.id) AS 'count', article.name AS 'name', SUM(item.quantity) AS 'quantity', unit.unit AS 'unit', shop.name AS 'shopName', item.teamId AS 'teamId' "
+							+ "FROM item "
+							+ "JOIN article ON item.articleId = article.id "
+							+ "JOIN unit ON item.unitId = unit.id "
+							+ "JOIN team ON item.teamId = team.id "
 							+ "JOIN (responsibility JOIN shop ON responsibility.shopId = shop.id) ON item.id = responsibility.itemId "
 							+ "WHERE item.teamId = " + teamId + " AND item.changeDate BETWEEN '" + format.format( startDate) + "' AND '"
-							+ format.format(endDate) + "' " + "GROUP BY item.id ORDER BY COUNT(item.articleId) DESC");
+							+ format.format(endDate) + "' GROUP BY article.id, shop.id, unit.unit ORDER BY COUNT(item.articleId) DESC");
 
 			while (rs.next()) {
 				ReportObject r = new ReportObject();
@@ -87,7 +91,6 @@ public class ReportMapper {
 				r.setArticle(rs.getString("name"));
 				r.setQuantity(rs.getFloat("quantity"));
 				r.setUnit(rs.getString("unit"));
-				r.setChangeDate(rs.getTimestamp("changeDate"));
 				r.setShopName(rs.getString("shopName"));
 				result.add(r);
 			}
@@ -108,10 +111,14 @@ public class ReportMapper {
 			Statement stmt = con.createStatement();
 
 			ResultSet rs = stmt.executeQuery(
-					"SELECT COUNT(item.id) AS 'count', article.name AS 'name', quantity, unit.unit AS 'unit', responsibility.shopId AS 'shopId', item.teamId AS teamId "
-							+ "FROM item JOIN article ON item.articleId = article.id JOIN unit ON item.unitId = unit.id JOIN team ON item.teamId = team.id JOIN responsibility ON item.id = responsibility.itemId "
+					"SELECT COUNT(item.id) AS 'count', article.name AS 'name', SUM(item.quantity) AS 'quantity', unit.unit AS 'unit', responsibility.shopId AS 'shopId', item.teamId AS teamId "
+							+ "FROM item "
+							+ "JOIN article ON item.articleId = article.id "
+							+ "JOIN unit ON item.unitId = unit.id "
+							+ "JOIN team ON item.teamId = team.id "
+							+ "JOIN responsibility ON item.id = responsibility.itemId "
 							+ "WHERE item.teamId = " + teamId + " AND shopId = " + shopId + " "
-							+ "GROUP BY item.id ORDER BY COUNT(item.articleId) DESC");
+							+ "GROUP BY article.id, unit.unit ORDER BY COUNT(item.articleId) DESC");
 
 			while (rs.next()) {
 				ReportObject r = new ReportObject();

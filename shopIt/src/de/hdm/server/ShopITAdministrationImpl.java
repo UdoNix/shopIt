@@ -733,7 +733,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	@Override
 	public Vector<ReportObject> getItemsbyTeamAndShop(Shop s, Team t) throws IllegalArgumentException {
-		Vector<ReportObject> result = this.reportMapper.createTeamShopReport(s.getId(), t.getId());
+		Vector<ReportObject> result = this.reportMapper.createTeamShopReport(t.getId(), s.getId());
 		return result;
 	}
 
