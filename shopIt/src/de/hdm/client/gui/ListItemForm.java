@@ -31,8 +31,6 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.AsyncDataProvider;
-import com.ibm.icu.text.DateFormat;
-import com.ibm.icu.text.SimpleDateFormat;
 
 import de.hdm.client.ClientsideSettings;
 import de.hdm.client.gui.Tree.ShoppingListsAsyncDataProvider;

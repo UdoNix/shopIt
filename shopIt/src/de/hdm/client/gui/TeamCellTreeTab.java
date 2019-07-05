@@ -17,9 +17,9 @@ package de.hdm.client.gui;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Vector;
+import java.util.HashMap;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dev.util.collect.HashMap;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.resources.client.ClientBundle.Source;
 import com.google.gwt.user.cellview.client.CellList;
