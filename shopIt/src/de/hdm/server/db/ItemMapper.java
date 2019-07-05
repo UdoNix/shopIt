@@ -460,211 +460,111 @@ public Vector<Item> getItemsByTeamAndShopWithTime (int teamId, int shopId, Times
 
 	    return result;
 }
-}
+/*
+ * die Einträge einer Liste filtern nach Shop
+ */
+public Vector<Item> findByListAndShop (ShoppingList l, Shop s){
+	
+	int listId = l.getId();
+	
+	Connection con = DBConnection.connection();
+	Vector<Item> result = new Vector<Item>();
+	
 
-   
+	    try {
+	      Statement stmt = con.createStatement();
 
-	public Vector<Item> getItemsbyTeamWithTime(int TeamId, Timestamp firstDate, Timestamp lastDate) {
-		Connection con = DBConnection.connection();
-		Vector<Item> result = new Vector<Item>();
+	      ResultSet rs = stmt.executeQuery(
+	      "SELECT *, article.name, unit.unit, unit.quantity, person.firstName, shop.name " + 
+"FROM item " + 
+"INNER JOIN article ON article.id = item.articleId " + 
+"INNER JOIN unit ON unit.id = item.unitId " + 
+"INNER JOIN responsibility ON responsibility.itemId = item.id " + 
+"INNER JOIN person ON responsibility.personId = person.id " + 
+"INNER JOIN shop ON responsibility.shopId = shop.id WHERE listId= " + listId + " AND shop.id ="
+		+ s.getId() + " GROUP BY shop.name ORDER BY item.id DESC");
 
-		try {
-			Statement stmt = con.createStatement();
+	      // Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt erstellt.
+	      while (rs.next()) {
+	        Item i = new Item();
+	        i.setId(rs.getInt("id"));
+	        i.setCreationDate(rs.getTimestamp("creationDate"));
+	        i.setChangeDate(rs.getTimestamp("changeDate"));
+	        i.setUnitId(rs.getInt("unitId"));
+	        i.setArticleId(rs.getInt("articleId"));
+	        i.setTeamId(rs.getInt("teamId"));
+	        i.setPersonName(rs.getString("person.firstName") +  " " + rs.getString("person.lastName"));
+	        i.setListId(rs.getInt("listId"));
+	        i.setFavorit(rs.getBoolean("favorit"));
+	        i.setStatus(rs.getBoolean("status"));
+	        i.setArticleName(rs.getString("article.name"));
+	        i.setShopName(rs.getString("shop.name"));
+	        i.setUnitName(rs.getString("unit.unit"));
+	        i.setAmount(rs.getFloat("unit.quantity"));
+	        i.setResponsibilityId(rs.getInt("responsibility.id"));
 
-			ResultSet rs = stmt.executeQuery(
-					"SELECT item.id AS id, COUNT(articleId) AS count, team.id AS 'team.id', item.changeDate AS changeDate"
-							+ "FROM item INNER JOIN team ON item.teamId = team.id "
-							+ "WHERE teamID= TeamId AND item.changeDate BETWEEN " + firstDate + " AND " + lastDate + ""
-							+ "GROUP BY item.id ORDER BY COUNT(item.articleId) DESC"
-			// "SELECT COUNT(articleId), item.id AS id, team.id AS 'team.id',
-			// item.changeDate FROM item INNER JOIN "
-			// + "team ON item.teamId = team.id" + "WHERE teamID= TeamId ( AND
-			// item.changeDate BETWEEN "+ firstDate +" AND "+ lastDate +" )
-			// GROUP BY id" +
-			// "ORDER BY COUNT(articleId) DESC"
-			);
+	        // Hinzufügen des neuen Objekts zum Ergebnisvektor
+	        result.add(i);
+	      }
+	      System.out.println(result.size());
+	    }
+	    catch (SQLException e2) {
+	      e2.printStackTrace();
+	    }
 
-			while (rs.next()) {
-				Item i = new Item();
-				i.setId(rs.getInt("id"));
-				i.setCount(rs.getInt("count"));
-				i.setId(rs.getInt("teamId"));
-				i.setChangeDate(rs.getTimestamp("changeDate"));
+	    // Ergebnisvektor zurückgeben
+	    return result;
+	  }
+public Vector<Item> findByListAndPerson (ShoppingList l, Person p){
+	
+	int listId = l.getId();
+	
+	Connection con = DBConnection.connection();
+	Vector<Item> result = new Vector<Item>();
+	
 
-				result.addElement(i);
-			}
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-		}
+	    try {
+	      Statement stmt = con.createStatement();
 
-		return result;
-	}
+	      ResultSet rs = stmt.executeQuery(
+	      "SELECT *, article.name, unit.unit, unit.quantity, person.firstName, shop.name " + 
+"FROM item " + 
+"INNER JOIN article ON article.id = item.articleId " + 
+"INNER JOIN unit ON unit.id = item.unitId " + 
+"INNER JOIN responsibility ON responsibility.itemId = item.id " + 
+"INNER JOIN person ON responsibility.personId = person.id " + 
+"INNER JOIN shop ON responsibility.shopId = shop.id WHERE listId= " + listId + " AND person.id ="
+		+ p.getId() + " GROUP BY person.firstName ORDER BY item.id DESC");
 
-	public Vector<Item> getItemsbyTeamAndShop(int teamId, int shopId) {
-		Connection con = DBConnection.connection();
-		Vector<Item> result = new Vector<Item>();
+	      // Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt erstellt.
+	      while (rs.next()) {
+	        Item i = new Item();
+	        i.setId(rs.getInt("id"));
+	        i.setCreationDate(rs.getTimestamp("creationDate"));
+	        i.setChangeDate(rs.getTimestamp("changeDate"));
+	        i.setUnitId(rs.getInt("unitId"));
+	        i.setArticleId(rs.getInt("articleId"));
+	        i.setTeamId(rs.getInt("teamId"));
+	        i.setPersonName(rs.getString("person.firstName") +  " " + rs.getString("person.lastName"));
+	        i.setListId(rs.getInt("listId"));
+	        i.setFavorit(rs.getBoolean("favorit"));
+	        i.setStatus(rs.getBoolean("status"));
+	        i.setArticleName(rs.getString("article.name"));
+	        i.setShopName(rs.getString("shop.name"));
+	        i.setUnitName(rs.getString("unit.unit"));
+	        i.setAmount(rs.getFloat("unit.quantity"));
+	        i.setResponsibilityId(rs.getInt("responsibility.id"));
 
-		try {
-			Statement stmt = con.createStatement();
+	        // Hinzufügen des neuen Objekts zum Ergebnisvektor
+	        result.add(i);
+	      }
+	      System.out.println(result.size());
+	    }
+	    catch (SQLException e2) {
+	      e2.printStackTrace();
+	    }
 
-			ResultSet rs = stmt.executeQuery(
-					"SELECT item.id AS id,  COUNT(item.id) AS count, responsibility.shopId AS shopId, teamId FROM item INNER JOIN responsibility"
-							+ "ON item.id = responsibility.itemId" + "WHERE item.teamID= " + teamId
-							+ " AND item.shopId= " + shopId);
-
-			while (rs.next()) {
-				Item i = new Item();
-				i.setShopId(rs.getInt("id"));
-				i.setId(rs.getInt("count"));
-				i.setCount(rs.getInt("count"));
-				i.setShopId(rs.getInt("shopId"));
-				i.setTeamId(rs.getInt("teamId"));
-
-				result.addElement(i);
-			}
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-		}
-
-		return result;
-
-	}
-
-	public Vector<Item> getItemsByTeamAndShopWithTime(int teamId, int shopId, Timestamp firstDate, Timestamp lastDate) {
-		Connection con = DBConnection.connection();
-		Vector<Item> result = new Vector<Item>();
-
-		try {
-			Statement stmt = con.createStatement();
-
-			ResultSet rs = stmt.executeQuery(
-					"SELECT item.id, COUNT(item.id) AS 'count', shop.Id AS 'shopId', team.id AS 'team.id', item.changeDate"
-							+ " FROM item INNER JOIN responsibility" + "ON item.id = responsibility.itemId"
-							+ "WHERE item.teamId= " + teamId + " AND responsibility.shopId= " + shopId
-							+ "AND item.changeDate BETWEEN " + firstDate + " AND " + lastDate + ""
-							+ "GROUP BY item.id ORDER BY COUNT(item.articleId) DESC");
-
-			while (rs.next()) {
-				Item i = new Item();
-				i.setId(rs.getInt("id"));
-				i.setShopId(rs.getInt("shopId"));
-				i.setCount(rs.getInt("count"));
-				i.setTeamId(rs.getInt("itemId"));
-				i.setChangeDate(rs.getTimestamp("changeDate"));
-
-				result.addElement(i);
-			}
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-		}
-
-		return result;
-	}
-	/*
-	 * die Einträge einer Liste filtern nach Shop
-	 */
-	public Vector<Item> findByListAndShop (ShoppingList l, Shop s){
-		
-		int listId = l.getId();
-		
-		Connection con = DBConnection.connection();
-		Vector<Item> result = new Vector<Item>();
-		
-
-		    try {
-		      Statement stmt = con.createStatement();
-
-		      ResultSet rs = stmt.executeQuery(
-		      "SELECT *, article.name, unit.unit, unit.quantity, person.firstName, shop.name " + 
-	"FROM item " + 
-	"INNER JOIN article ON article.id = item.articleId " + 
-	"INNER JOIN unit ON unit.id = item.unitId " + 
-	"INNER JOIN responsibility ON responsibility.itemId = item.id " + 
-	"INNER JOIN person ON responsibility.personId = person.id " + 
-	"INNER JOIN shop ON responsibility.shopId = shop.id WHERE listId= " + listId + " AND shop.id ="
-			+ s.getId() + " GROUP BY shop.name ORDER BY item.id DESC");
-
-		      // Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt erstellt.
-		      while (rs.next()) {
-		        Item i = new Item();
-		        i.setId(rs.getInt("id"));
-		        i.setCreationDate(rs.getTimestamp("creationDate"));
-		        i.setChangeDate(rs.getTimestamp("changeDate"));
-		        i.setUnitId(rs.getInt("unitId"));
-		        i.setArticleId(rs.getInt("articleId"));
-		        i.setTeamId(rs.getInt("teamId"));
-		        i.setPersonName(rs.getString("person.firstName") +  " " + rs.getString("person.lastName"));
-		        i.setListId(rs.getInt("listId"));
-		        i.setFavorit(rs.getBoolean("favorit"));
-		        i.setStatus(rs.getBoolean("status"));
-		        i.setArticleName(rs.getString("article.name"));
-		        i.setShopName(rs.getString("shop.name"));
-		        i.setUnitName(rs.getString("unit.unit"));
-		        i.setAmount(rs.getFloat("unit.quantity"));
-		        i.setResponsibilityId(rs.getInt("responsibility.id"));
-
-		        // Hinzufügen des neuen Objekts zum Ergebnisvektor
-		        result.add(i);
-		      }
-		      System.out.println(result.size());
-		    }
-		    catch (SQLException e2) {
-		      e2.printStackTrace();
-		    }
-
-		    // Ergebnisvektor zurückgeben
-		    return result;
-		  }
-	public Vector<Item> findByListAndPerson (ShoppingList l, Person p){
-		
-		int listId = l.getId();
-		
-		Connection con = DBConnection.connection();
-		Vector<Item> result = new Vector<Item>();
-		
-
-		    try {
-		      Statement stmt = con.createStatement();
-
-		      ResultSet rs = stmt.executeQuery(
-		      "SELECT *, article.name, unit.unit, unit.quantity, person.firstName, shop.name " + 
-	"FROM item " + 
-	"INNER JOIN article ON article.id = item.articleId " + 
-	"INNER JOIN unit ON unit.id = item.unitId " + 
-	"INNER JOIN responsibility ON responsibility.itemId = item.id " + 
-	"INNER JOIN person ON responsibility.personId = person.id " + 
-	"INNER JOIN shop ON responsibility.shopId = shop.id WHERE listId= " + listId + " AND person.id ="
-			+ p.getId() + " GROUP BY person.firstName ORDER BY item.id DESC");
-
-		      // Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt erstellt.
-		      while (rs.next()) {
-		        Item i = new Item();
-		        i.setId(rs.getInt("id"));
-		        i.setCreationDate(rs.getTimestamp("creationDate"));
-		        i.setChangeDate(rs.getTimestamp("changeDate"));
-		        i.setUnitId(rs.getInt("unitId"));
-		        i.setArticleId(rs.getInt("articleId"));
-		        i.setTeamId(rs.getInt("teamId"));
-		        i.setPersonName(rs.getString("person.firstName") +  " " + rs.getString("person.lastName"));
-		        i.setListId(rs.getInt("listId"));
-		        i.setFavorit(rs.getBoolean("favorit"));
-		        i.setStatus(rs.getBoolean("status"));
-		        i.setArticleName(rs.getString("article.name"));
-		        i.setShopName(rs.getString("shop.name"));
-		        i.setUnitName(rs.getString("unit.unit"));
-		        i.setAmount(rs.getFloat("unit.quantity"));
-		        i.setResponsibilityId(rs.getInt("responsibility.id"));
-
-		        // Hinzufügen des neuen Objekts zum Ergebnisvektor
-		        result.add(i);
-		      }
-		      System.out.println(result.size());
-		    }
-		    catch (SQLException e2) {
-		      e2.printStackTrace();
-		    }
-
-		    // Ergebnisvektor zurückgeben
-		    return result;
-		  }
+	    // Ergebnisvektor zurückgeben
+	    return result;
+	  }
 }
