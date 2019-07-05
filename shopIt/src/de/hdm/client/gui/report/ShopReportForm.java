@@ -32,7 +32,7 @@ public class ShopReportForm extends VerticalPanel {
 	private Button startButton = new Button("Report starten");
 	private Label shopLabel = new Label("Shop: ");
 	private ListBox listBox = new ListBox();
-	private Label teamLabel = new Label("Team: ");
+	private Label teamLabel = new Label("Gruppe: ");
 	private ListBox listBoxTeam = new ListBox();
 	private FlexTable flex = new FlexTable();
 

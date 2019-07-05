@@ -56,7 +56,7 @@ public class TeamView extends VerticalPanel {
 	// Widgets werden als Attribute angelegt.
 
 	// Button changeButton = new Button("Name ändern");
-	Button deleteButton = new Button("Team löschen");
+	Button deleteButton = new Button("Gruppe löschen");
 	Button addButton = new Button("Mitglieder hinzufügen");
 	TextBox nameTextBox = new TextBox();
 	Button saveButton = new Button("Speichern");

@@ -36,7 +36,7 @@ public class ShopTimeReportForm extends HorizontalPanel{
 		private final DateBox startDateBox = new DateBox();
 		private Label endDateLabel = new Label("Enddatum: ");
 		private final DateBox endDateBox = new DateBox();
-		private Label teamLabel = new Label("Team: ");
+		private Label teamLabel = new Label("Gruppe: ");
 		private final ListBox teamListBox = new ListBox();
 		private FlexTable flex = new FlexTable();
 		
