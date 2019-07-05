@@ -31,8 +31,6 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.AsyncDataProvider;
-import com.ibm.icu.text.DateFormat;
-import com.ibm.icu.text.SimpleDateFormat;
 
 import de.hdm.client.ClientsideSettings;
 import de.hdm.client.gui.Tree.ShoppingListsAsyncDataProvider;
@@ -280,8 +278,8 @@ public class ListItemForm extends VerticalPanel {
 		};
 		TextColumn<Item> dateColumn = new TextColumn<Item>() {
 			@Override
-			public String getValue(Item object) {
-				return DateTimeFormat.getFormat("yyyy-DD-mm HH:mm").format(object.getCreationDate());
+			public String getValue(Item object) { 
+				return DateTimeFormat.getFormat("MM.dd.yyyy").format(object.getCreationDate());
 			}
 		};
 
@@ -374,10 +372,10 @@ public class ListItemForm extends VerticalPanel {
 		});
 
 		cellTable.addColumn(idColumn, "Id");
-		cellTable.addColumn(personCoumn, "Person");
 		cellTable.addColumn(articleNameColumn, "Artikel");
 		cellTable.addColumn(amountColumn, "Anzahl");
 		cellTable.addColumn(unitColumn, "Einheit");
+		cellTable.addColumn(personCoumn, "Person");
 		cellTable.addColumn(shopColumn, "Shop");
 		cellTable.addColumn(dateColumn, "Datum");
 		cellTable.addColumn(likeColumn, "");
