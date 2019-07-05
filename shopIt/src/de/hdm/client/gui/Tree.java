@@ -59,7 +59,7 @@ public class Tree extends CellTree {
 		public <T> NodeInfo<?> getNodeInfo(T value) {
 			if (value == null) {
 				ListDataProvider<String> dataProvider = new ListDataProvider<String>(
-						Arrays.asList("Account", "Gruppe", "Artikel", "Shop", "Report"));
+						Arrays.asList("Konto", "Gruppe", "Artikel", "Shop", "Report"));
 
 				Cell<String> cell = new AbstractCell<String>("click") {
 					@Override
@@ -71,7 +71,7 @@ public class Tree extends CellTree {
 					public void onBrowserEvent(Context context, Element parent, String value, NativeEvent event,
 							ValueUpdater<String> valueUpdater) {
 						if ("click".equals(event.getType())) {
-							if (value.equals("Account")) {
+							if (value.equals("Konto")) {
 								layout.setPanel(new PersonForm());
 							} else if (value.equals("Artikel")) {
 								layout.setPanel(new ArticleForm());
@@ -145,7 +145,7 @@ public class Tree extends CellTree {
 
 		@Override
 		public boolean isLeaf(Object value) {
-			if (value != null && value.equals("Account")) {
+			if (value != null && value.equals("Konto")) {
 				return true;
 			} else if (value != null && value.equals("Artikel")) {
 				return true;
