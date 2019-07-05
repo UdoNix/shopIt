@@ -164,8 +164,7 @@ public Responsibility insert(Responsibility r) {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE list " + "SET id=\"" + r.getId()
-      + "\" " + "," +"itemId=\"" + r.getItemId()+"\", "+ "personId=\"" + r.getPersonId()+"\", " + "shopId=\"" + r.getShopId() +"\", "+"WHERE id=" + r.getId());
+      stmt.executeUpdate("UPDATE responsibility SET id=\"" + r.getId() + "\", itemId=\"" + r.getItemId()+"\", personId=\"" + r.getPersonId() + "\", shopId=\"" + r.getShopId() + "\" WHERE id=" + r.getId());
 
     }
     catch (SQLException e2) {
@@ -194,6 +193,29 @@ public Responsibility insert(Responsibility r) {
      }
    }
    
+   public Responsibility findByItem(int itemId) {
+		Connection con = DBConnection.connection();
+
+		try {
+			Statement stmt = con.createStatement();
+
+			ResultSet rs = stmt.executeQuery("SELECT * FROM responsibility WHERE itemId=" + itemId + " ORDER BY id");
+
+			if (rs.next()) {
+				Responsibility r = new Responsibility();
+				r.setId(rs.getInt("id"));
+				r.setPersonId(rs.getInt("personId"));
+				r.setItemId(rs.getInt("itemId"));
+				r.setShopId(rs.getInt("shopId"));
+			
+				return r;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
    
    public Vector<Responsibility> findByPerson(int personId) {
 		Connection con = DBConnection.connection();
@@ -222,6 +244,5 @@ public Responsibility insert(Responsibility r) {
 		// Ergebnisvektor zurückgeben
 		return result;
 	}
-
 
 }

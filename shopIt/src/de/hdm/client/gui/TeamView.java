@@ -112,6 +112,7 @@ public class TeamView extends VerticalPanel {
 						if (asyncDataProvider != null) {
 							asyncDataProvider.refresh();
 						}
+						listNameTextBox.setValue("");
 						Window.alert("Success");
 					}
 				});
@@ -368,7 +369,7 @@ public class TeamView extends VerticalPanel {
 			} else {
 
 				listenVerwaltung.getPersonByEmail(emailTextBox.getText(), new GetPersonCallback());
-
+				emailTextBox.setValue("");
 			}
 		}
 	}

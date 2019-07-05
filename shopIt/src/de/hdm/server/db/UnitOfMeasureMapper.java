@@ -54,7 +54,6 @@ public UnitOfMeasure findByKey (int id) {
 			   UnitOfMeasure u = new UnitOfMeasure();
 		        u.setId(rs.getInt("id"));
 		        u.setUnit(rs.getString("unit"));
-		        u.setQuantity(rs.getFloat("quantity"));
 		        u.setCreationDate(rs.getTimestamp("creationDate"));
 		        u.setChangeDate(rs.getTimestamp("changeDate"));
 		        return u;
@@ -82,7 +81,7 @@ public Vector<UnitOfMeasure> findAll() {
   try {
     Statement stmt = con.createStatement();
 
-    ResultSet rs = stmt.executeQuery("SELECT * FROM unitOfMeasure "
+    ResultSet rs = stmt.executeQuery("SELECT * FROM unit "
         + " ORDER BY id");
 
     // Für jeden Eintrag im Suchergebnis wird nun ein Salesman-Objekt erstellt.
@@ -90,10 +89,8 @@ public Vector<UnitOfMeasure> findAll() {
     	UnitOfMeasure u = new UnitOfMeasure();
     	u.setId(rs.getInt("id"));
         u.setUnit(rs.getString("unit"));
-        u.setQuantity(rs.getFloat("quantity"));
         u.setCreationDate(rs.getTimestamp("creationDate"));
         u.setChangeDate(rs.getTimestamp("changeDate"));
-       
 
       // Das neue Objekts wird zum Ergebnisvektor hinzugefuegt
       result.addElement(u);
@@ -138,7 +135,6 @@ public UnitOfMeasure insert(UnitOfMeasure u) {
       PreparedStatement stmt2 = con.prepareStatement("INSERT INTO unit (id, unit, quantity) VALUES (?, ?, ?)");
       		stmt2.setInt(1, u.getId());
       		stmt2.setString(2, u.getUnit());
-      		stmt2.setFloat(3, u.getQuantity());
 //      stmt.executeUpdate("INSERT INTO UnitOfMeasure (id, unit, quantity) " + "VALUES ("
 //	          + u.getId() +"," + u.getUnit() + "," + u.getQuantity() +")");
       		
@@ -161,8 +157,7 @@ public UnitOfMeasure insert(UnitOfMeasure u) {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE unit SET unit=\"" + u.getUnit()
-      + "\", " + "quantity=\"" + u.getQuantity()+"\", "+ "WHERE id= " + u.getId());
+      stmt.executeUpdate("UPDATE unit SET unit=\"" + u.getUnit() + "\" WHERE id= " + u.getId());
 
     }
     catch (SQLException e2) {

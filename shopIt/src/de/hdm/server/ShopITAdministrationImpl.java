@@ -197,7 +197,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		for (Item item : favoriteItems) {
 			Responsibility responsibility = rMapper.findByKey(item.getResponsibilityId());
 			UnitOfMeasure unit = uMapper.findByKey(item.getUnitId());
-			createItem(l.getId(), t.getId(), unit.getQuantity(), unit.getUnit(), item.getArticleId(),
+			createItem(l.getId(), t.getId(), item.getAmount(), unit.getId(), item.getArticleId(),
 					responsibility.getPersonId(), responsibility.getShopId());
 		}
 
@@ -257,18 +257,20 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * neuen Eintrag erstellen
 	 */
-	public Item createItem(int listId, int teamId, float count, String unit, int articleId, int personId, int shopId)
+	public Item createItem(int listId, int teamId, float count, int unitId, int articleId, int personId, int shopId)
 			throws IllegalArgumentException {
+		
 		Item i = new Item();
 		// i.setCreationDate();//aktuelles Datum einf�gen Muss nicht gesetzt werden,
 		// das
 		// macht die DB
 
-		UnitOfMeasure unitOfMeasure = createUnitOfMeasure(count, unit);
+		UnitOfMeasure unitOfMeasure = uMapper.findByKey(unitId);
 		i.setListId(listId);
 		i.setArticleId(articleId);
 		i.setUnitId(unitOfMeasure.getId());
 		i.setTeamId(teamId);
+		i.setAmount(count);
 		i = this.iMapper.insert(i);
 
 		System.out.println("Created item at list " + i.getListId());
@@ -309,6 +311,10 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 */
 	public void update(Item i) throws IllegalArgumentException {
 		iMapper.update(i);
+		Responsibility r = rMapper.findByItem(i.getId());
+		r.setPersonId(i.getPersonId());
+		r.setShopId(i.getShopId());
+		rMapper.update(r);
 	}
 
 	/*
@@ -410,14 +416,6 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		 * entfernt.
 		 */
 
-		Vector<Item> item = this.iMapper.findByTeam(t);
-		
-		if (item != null) {
-			for (Item i : item) {
-				this.iMapper.delete(i);
-			}
-		}
-		
 		Vector<Membership> membership = this.mMapper.findByTeam(t.getId());
 
 		if (membership != null) {
@@ -570,9 +568,8 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * ***************************************************************************
 	 */
 
-	public UnitOfMeasure createUnitOfMeasure(float quantity, String unit) throws IllegalArgumentException {
+	public UnitOfMeasure createUnitOfMeasure(String unit) throws IllegalArgumentException {
 		UnitOfMeasure u = new UnitOfMeasure();
-		u.setQuantity(quantity);
 		u.setUnit(unit);
 
 		/*
@@ -594,6 +591,11 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		uMapper.update(u);
 	}
 
+	@Override
+	public Vector<UnitOfMeasure> getAllUnits() {
+		return uMapper.findAll();
+	}
+	
 	/*
 	 * ***************************************************************************
 	 * ABSCHNITT, Ende: Methoden f�r Ma�einheit-Objekte
@@ -627,25 +629,16 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	}
 
 	/*
-	 * alle Zust�ndigkeiten einer Person aufzeigen
-	 */
-	public Vector<Responsibility> getAllResponsibilityOfPerson(Person p) throws IllegalArgumentException {
-		return this.rMapper.findByPerson(p.getId());
-	}
-
-	/*
 	 * eine Zust�ndigkeit �ndern
 	 */
 	public void update(Responsibility r) throws IllegalArgumentException {
 		rMapper.update(r);
-
 	}
 
 	/*
 	 * eine Zust�ndigkeit l�schen
 	 */
 	public void delete(Responsibility r) throws IllegalArgumentException {
-
 		this.rMapper.delete(r);
 	}
 
@@ -740,7 +733,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	@Override
 	public Vector<ReportObject> getItemsbyTeamAndShop(Shop s, Team t) throws IllegalArgumentException {
-		Vector<ReportObject> result = this.reportMapper.createTeamShopReport(s.getId(), t.getId());
+		Vector<ReportObject> result = this.reportMapper.createTeamShopReport(t.getId(), s.getId());
 		return result;
 	}
 
