@@ -17,6 +17,7 @@ import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Shop;
 
+
 public class ShoppingListForm extends VerticalPanel {
 
 //	private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();

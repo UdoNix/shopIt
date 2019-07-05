@@ -22,13 +22,17 @@ import de.hdm.shared.report.AllArticlesOfShopReport;
 import de.hdm.shared.report.ShopStatisticReport;
 
 /**
+ * Die Klasse <code>ShopReportForm</code> dient derAuflistung aller Artikel eines Shops, die in eine Liste eingetragen wurden.
  * 
- * @author ilona
+ * @author ilonabrinkmann
+ * @author dibasegmen
  *
  */
 public class ShopReportForm extends VerticalPanel {
 
-	// Erstellung der GUI-Elemente
+	/**
+	 *  Erstellung der GUI-Elemente
+	 */
 	private Button startButton = new Button("Report starten");
 	private Label shopLabel = new Label("Shop: ");
 	private ListBox listBox = new ListBox();

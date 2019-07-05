@@ -2,6 +2,7 @@ package de.hdm.client.gui;
 
 import java.util.Vector;
 
+
 import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -22,9 +23,20 @@ import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.Shop;
 
-public class ShopView extends VerticalPanel {
-	// @emily kretzschmar
 
+/** @author Emily-Kretzschmar
+ *  @author dibasegmen
+ *  
+ * Die Klasse <code>ShopView</code> ermöglicht die Ansicht und Zugriff auf die angelegten Händler und realisiert ein Formular
+ * zum Anlegen eines neuen Händlers
+ */
+
+public class ShopView extends VerticalPanel {
+	
+	/**
+	 *  Herstellung zur Impl-Klasse im Backend über zugehöriges Interface
+	 */
+	
 	private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
 
 	private Shop selectedShop = null;
@@ -34,7 +46,10 @@ public class ShopView extends VerticalPanel {
 	}
 
 	Shop shopToDisplay = null;
-	// Widgets, deren Inhalte variable sind, werden als Attribute angelegt.
+	
+	/** 
+	 * Anlegen der Widgets
+	 */
 
 	TextBox nameTextBox = new TextBox();
 	TextBox postalCodeTextBox = new TextBox();
@@ -49,9 +64,15 @@ public class ShopView extends VerticalPanel {
 
 	public ShopView() {
 
-		// Beim Anzeigen werden die Widgets z.T. erzeugt. Alle werden in einem
-		// Raster angeordnet, dessen Größe sich aus dem Platzbedarf der enthaltenen
-		// Widgets bestimmt.
+		/**
+		 * Beim Anzeigen werden die Widgets z.T. erzeugt. Alle werden in einem
+		 * Raster angeordnet, dessen Größe sich aus dem Platzbedarf der enthaltenen
+		 * Widgets bestimmt.
+		 */
+		
+		/**
+		 * Strukturierte Darstellung des Formulars mit Hilfe von Grid
+		 */
 
 		Grid shopGrid = new Grid(7, 2);
 		this.add(shopGrid);
@@ -87,6 +108,11 @@ public class ShopView extends VerticalPanel {
 		deleteButton.addClickHandler(new DeleteClickHandler());
 		deleteButton.setEnabled(true);
 		shopGrid.setWidget(6, 1, deleteButton);
+		
+		/**
+		 *  Übernahme der Daten des Formulars und Einpflege in einer CellTable, die dem Nutzer alle bisher angelegten
+		 *  und noch hinterlegten Shops anzeigt
+		 */
 
 		final CellTable<Shop> cellTable = new CellTable<Shop>();
 		getAllCallback = new AsyncCallback<Vector<Shop>>() {
@@ -101,6 +127,11 @@ public class ShopView extends VerticalPanel {
 				cellTable.setRowData(result);
 			}
 		};
+		
+		/**
+		 *  Festlegen der Spalten der CellTable
+		 */
+		
 		TextColumn<Shop> idColumn = new TextColumn<Shop>() {
 			@Override
 			public String getValue(Shop object) {
@@ -235,7 +266,7 @@ public class ShopView extends VerticalPanel {
 		class CreateShopCallback implements AsyncCallback<Shop> {
 
 			public void onFailure(Throwable caught) {
-				Window.alert("Das Anlegen eines Shops ist fehlgeschlagen!");
+				Window.alert("Das Anlegen des Shops ist fehlgeschlagen!");
 			}
 
 			public void onSuccess(Shop shop) {

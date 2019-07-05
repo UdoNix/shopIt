@@ -24,6 +24,8 @@ import de.hdm.shared.bo.Article;
 /**
  * Die <code>ArticleForm</code> wird verwendet um alle angelegten Artikel
  * anzuzeigen
+ * 
+ * @author dibasegmen
  */
 public class ArticleForm extends VerticalPanel {
 
@@ -47,13 +49,18 @@ public class ArticleForm extends VerticalPanel {
 		grid.setWidget(0, 1, nameTextBox);
 		grid.setWidget(1, 0, button);
 		grid.setWidget(1, 1, button2);
+		
+		/**
+		 *  Übernahme der Daten des Formulars und Einpflege in einer CellTable, die dem Nutzer alle bisher angelegten
+		 *  und noch hinterlegten Artikel anzeigt
+		 */
 
 		final CellTable<Article> cellTable = new CellTable<Article>();
 		
 		final AsyncCallback<Vector<Article>> getAllCallback = new AsyncCallback<Vector<Article>>() {
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("Fehler");
+				Window.alert("Es ist ein Fehler aufgetreten!");
 			}
 
 			@Override
@@ -76,7 +83,7 @@ public class ArticleForm extends VerticalPanel {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert("Fehler");
+						Window.alert("Es ist ein Fehler aufgetreten!");
 					}
 				});
 			}
@@ -97,12 +104,17 @@ public class ArticleForm extends VerticalPanel {
 
 						@Override
 						public void onFailure(Throwable caught) {
-							Window.alert("Fehler");
+							Window.alert("Es ist ein Fehler aufgetreten!");
 						}
 					});
 				}
 			}
 		});
+		
+		/**
+		 *  Festlegen der Spalten der CellTable
+		 */
+		
 
 		TextColumn<Article> idColumn = new TextColumn<Article>() {
 			@Override

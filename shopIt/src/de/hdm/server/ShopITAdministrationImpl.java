@@ -97,20 +97,28 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		p.setLastName(lastName);
 		p.setEmail(email);
 
-		// Setzen einer vorläufigen Anwender-Id, welche nach Kommunikation mit DB auf
-		// den nächsthhöheren Wert gesetzt wird.
+		/**
+		 *  Setzen einer vorläufigen Anwender-Id, welche nach Kommunikation mit DB auf
+		 *  den nächsthhöheren Wert gesetzt wird.
+		 */
 		p.setId(1);
 
-		// Speichern des Anwender-Objekts in der DB.
+		/**
+		 *  Speichern des Anwender-Objekts in der DB.
+		 */
 		return this.pMapper.insert(p);
 	}
 
-	// Auslesen eines Anwenders anhand seiner Anwender-Id.
+	/**
+	 *  Auslesen eines Anwenders anhand seiner Anwender-Id.
+	 */
 	public Person getPersonById(int id) throws IllegalArgumentException {
 		return this.pMapper.findByKey(id);
 	}
 
-	// Auslesen eines Anwenders anhand seines Namen.
+	/**
+	 *  Auslesen eines Anwenders anhand seines Namen.
+	 */
 	public Vector<Person> getPersonByName(Person p) {
 		return this.pMapper.findByName(p);
 	}
@@ -181,7 +189,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * ***************************************************************************
 	 */
 
-	/*
+	/**
 	 * neue Liste erstellen
 	 */
 
@@ -224,14 +232,14 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		}
 	}
 
-	/*
+	/**
 	 * eine Liste �ndern
 	 */
 	public void update(ShoppingList l) throws IllegalArgumentException {
 		lMapper.update(l);
 	}
 
-	/*
+	/**
 	 * eine Liste l�schen
 	 */
 	public void delete(ShoppingList l) throws IllegalArgumentException {
@@ -290,29 +298,32 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		return i;
 	}
 
-	/*
+	/**
 	 * Zust�ndigkeit zum Eintrag hinzuf�gen
 	 */
+	
 	public Item addResponsibilityToItem(Responsibility r, Item i) {
 		i.setResponsibilityId(r.getId());
 		return i;
 	}
 
-	/*
+	/**
 	 * Eintrag anhand der Id finden
 	 */
+	
 	public Item getItemById(int id) throws IllegalArgumentException {
 		return this.iMapper.findByKey(id);
 	}
 
-	/*
+	/**
 	 * alle Eintr�ge aufzeigen
 	 */
+	
 	public Vector<Item> getAllItems() throws IllegalArgumentException {
 		return this.iMapper.findAll();
 	}
 
-	/*
+	/**
 	 * einen Eintrag �ndern
 	 */
 	public void update(Item i) throws IllegalArgumentException {
@@ -323,7 +334,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		rMapper.update(r);
 	}
 
-	/*
+	/**
 	 * einen Eintrag l�schen
 	 */
 	public void delete(Item i) throws IllegalArgumentException {
@@ -331,7 +342,11 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		rMapper.delete(rMapper.findByKey(i.getResponsibilityId()));
 	}
 
-	// Status des Eintrags ändern. (Eintrag abhaken bzw. den Haken entfernen)
+	/**
+	 * Status des Eintrags ändern. (Eintrag abhaken bzw. den Haken entfernen)
+	 * @param i
+	 * @throws IllegalArgumentException
+	 */
 	public void changeStatus(Item i) throws IllegalArgumentException {
 		if (i.isStatus() == false) {
 			i.setStatus(true);
@@ -342,7 +357,12 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		}
 	}
 
-	// Setzen/Entfernen des Favoritenstatus (Standardartikel)
+	/**
+	 *  Setzen/Entfernen des Favoritenstatus (Standardartikel)
+	 * @param i
+	 * @throws IllegalArgumentException
+	 */
+	
 	public void changeFavorit(Item i) throws IllegalArgumentException {
 		if (i.isFavorit() == false) {
 			i.setFavorit(true);
@@ -434,18 +454,12 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		tMapper.update(t);
 	}
 
-<<<<<<< HEAD
-	// Auslesen aller Personen einer Gruppe.
-	public Vector<Person> getAllPersonsOf(int teamId) throws IllegalArgumentException {
-		return this.mMapper.findByMember(teamId);
-=======
 	/**
 	 * Auslesen aller Personen einer Gruppe.
 	 */
 	
 	public Vector<Person> getAllPersonsOf(Team t) throws IllegalArgumentException {
 		return this.mMapper.findByMember(t.getId());
->>>>>>> refs/heads/Larisa
 	}
 
 	/**
