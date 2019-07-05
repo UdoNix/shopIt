@@ -23,11 +23,11 @@ div.content {
 }
 
 .header img {
-	float: right top;
+	float: right;
 	width: 180px;
 	height:160px;
-	margin-right: 0px;
-	margin-top: 110px;
+	margin-right: 140px;
+	/*margin-top: 110px;*/
 	border: 2px solid #c2c2c2;
 	border-radius: 5px 5px 5px 5px;
 }
@@ -124,8 +124,22 @@ div.content {
 }
 
 
+/* ###### Mobile Queries ###### */
 
+@media only screen and (min-width: 500px) and (max-width: 1320px) {
+	
+	.header img {
+		margin-right: 20px;
+		margin-top: 24px;
+	}
+	
+	table td {
+		float: left;
+		margin-top: 20px;
+	}
 }
+
+
 /**Styling der HTML Div-Elemente */
 
 /* #container { */
