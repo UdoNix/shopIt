@@ -32,6 +32,7 @@ public class TimeReportForm extends HorizontalPanel {
 	private final DateBox startDateBox = new DateBox();
 	private Label endDateLabel = new Label("Enddatum: ");
 	private final DateBox endDateBox = new DateBox();
+	private Label gruppeLabel = new Label("Gruppe: ");
 	private ListBox teamListBox = new ListBox();
 
 	private ReportGeneratorAsync reportVerwaltung = ClientsideSettings.getReportGenerator();
@@ -49,7 +50,8 @@ public class TimeReportForm extends HorizontalPanel {
 		timeGrid.setWidget(1, 1, startDateBox);
 		timeGrid.setWidget(2, 0, endDateLabel);
 		timeGrid.setWidget(2, 1, endDateBox);
-		timeGrid.setWidget(3, 0, teamListBox);
+		timeGrid.setWidget(3, 0, gruppeLabel);
+		timeGrid.setWidget(3, 1, teamListBox);
 		timeGrid.setWidget(4, 0, startButton);
 
 		startDateBox.setFormat(new DateBox.DefaultFormat(dateTimeFormat));
@@ -61,6 +63,7 @@ public class TimeReportForm extends HorizontalPanel {
 		
 		startDateLabel.setStylePrimaryName("label-style");
 		endDateLabel.setStylePrimaryName("label-style");
+		gruppeLabel.setStylePrimaryName("label-style");
 
 		this.add(timeGrid);
 

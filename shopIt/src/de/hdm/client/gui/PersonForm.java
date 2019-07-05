@@ -37,7 +37,7 @@ public class PersonForm extends VerticalPanel {
 	Label idLabel = new Label("Kundennummer: ");
 	Label creationTimeLabel = new Label("");
 	Button changeButton = new Button("Name bearbeiten");
-	Button deleteButton = new Button("Account löschen");
+	Button deleteButton = new Button("Konto löschen");
 
 	/**
 	 * Widgets werden in einem Raster (Grid) angeordnet, dessen Größe sich aus dem
