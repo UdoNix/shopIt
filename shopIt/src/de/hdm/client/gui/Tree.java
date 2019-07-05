@@ -153,6 +153,8 @@ public class Tree extends CellTree {
 				return true;
 			} else if (value != null && value.equals("Report")) {
 				return true;
+			} else if (value instanceof ShoppingList) {
+				return true;
 			}
 			return false;
 		}

@@ -3,20 +3,9 @@ public class UnitOfMeasure extends BusinessObject{
 
 	private static final long serialVersionUID = 1L;
 
-	//Menge/Anzahl 
-	private float quantity;
-	
 	//Einheit
 	private String unit;
 
-	//Auslesen der Menge/Anzahl eines Produkts eines Eintrags.
-	public float getQuantity() {
-		return quantity;
-	}
-	//Setzen der Menge/Anzahl eines Produkts eines Eintrags (Bsp.: 1.5)
-	public void setQuantity(float quantity) {
-		this.quantity = quantity;
-	}
 	//Auslesen der Einheit eines Produkts eines Eintrags 
 	public String getUnit() {
 		return unit;
@@ -25,7 +14,4 @@ public class UnitOfMeasure extends BusinessObject{
 	public void setUnit(String unit) {
 		this.unit = unit;
 	}
-
 }
-
-

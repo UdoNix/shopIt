@@ -71,7 +71,7 @@ public interface ShopITAdministration extends RemoteService {
 	public void delete(ShoppingList l)throws IllegalArgumentException;
 	
 	//Eintrag erstellen.
-	public Item createItem(int listId, int teamId, float count, String unit, int articleId, int personId, int shopId) throws IllegalArgumentException;
+	public Item createItem(int listId, int teamId, float count, int unitId, int articleId, int personId, int shopId) throws IllegalArgumentException;
 	
 	//Zuständigkeit zum Eintrag hinzufügen
 	public Item addResponsibilityToItem(Responsibility r, Item i)throws IllegalArgumentException;
@@ -143,7 +143,7 @@ public interface ShopITAdministration extends RemoteService {
 	public void delete(Shop s) throws IllegalArgumentException;
 
 	// Mengeneinheit erstellen.
-	public UnitOfMeasure createUnitOfMeasure(float quantity, String unit) throws IllegalArgumentException;
+	public UnitOfMeasure createUnitOfMeasure(String unit) throws IllegalArgumentException;
 
 	// Speichern einer Ma�einheit.
 	public void save(UnitOfMeasure u) throws IllegalArgumentException;
@@ -153,9 +153,6 @@ public interface ShopITAdministration extends RemoteService {
 
 	// Zust�ndigkeit anhand der Id finden.
 	public Responsibility getResponsibilityById(int id) throws IllegalArgumentException;
-
-	// alle Zust�ndigkeiten einer Person aufzeigen.
-	public Vector<Responsibility> getAllResponsibilityOfPerson(Person p) throws IllegalArgumentException;
 
 	// eine Zust�ndigkeit �ndern.
 	public void update(Responsibility r) throws IllegalArgumentException;
@@ -191,5 +188,7 @@ public interface ShopITAdministration extends RemoteService {
 	public Vector<ReportObject> getItemsByTeamAndShopWithTime(Shop s, Team t, Timestamp firstDate, Timestamp lastDate);
 
 	public Vector<Team> getAllTeamsByPerson();
+	
+	public Vector<UnitOfMeasure> getAllUnits();
 
 }

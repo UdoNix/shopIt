@@ -43,6 +43,8 @@ public class NewTeamView extends VerticalPanel {
 						tree.getRootTreeNode().setChildOpen(1, false);
 						tree.getRootTreeNode().setChildOpen(1, true);
 						
+						nameTextBox.setValue("");
+						
 						Window.alert("Success");
 					}
 					

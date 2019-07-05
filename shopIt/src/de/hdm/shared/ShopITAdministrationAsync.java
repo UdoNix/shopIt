@@ -25,7 +25,7 @@ public interface ShopITAdministrationAsync {
 
 	void createArticle(String name, AsyncCallback<Article> callback);
 
-	void createItem(int listId, int teamId, float count, String unit, int articleId, int personId, int shopId, AsyncCallback<Item> callback);
+	void createItem(int listId, int teamId, float count, int unitId, int articleId, int personId, int shopId, AsyncCallback<Item> callback);
 
 	void createListFor(Team t, String name, AsyncCallback<ShoppingList> callback);
 
@@ -39,7 +39,7 @@ public interface ShopITAdministrationAsync {
 
 	void createTeam(String name, AsyncCallback<Team> callback);
 
-	void createUnitOfMeasure(float quantity, String unit, AsyncCallback<UnitOfMeasure> callback);
+	void createUnitOfMeasure(String unit, AsyncCallback<UnitOfMeasure> callback);
 
 	void delete(Article a, AsyncCallback<Void> callback);
 
@@ -70,8 +70,6 @@ public interface ShopITAdministrationAsync {
 	void getAllPersons(AsyncCallback<Vector<Person>> callback);
 
 	void getAllPersonsOf(Team t, AsyncCallback<Vector<Person>> callback);
-
-	void getAllResponsibilityOfPerson(Person p, AsyncCallback<Vector<Responsibility>> callback);
 
 	void getAllShops(AsyncCallback<Vector<Shop>> callback);
 
@@ -130,4 +128,6 @@ public interface ShopITAdministrationAsync {
 	void getItemsByTeamWithTime(Team t, Timestamp firstDate, Timestamp lastDate, AsyncCallback<Vector<ReportObject>> callback);
 	
 	void getAllTeamsByPerson(AsyncCallback<Vector<Team>> callback);
+
+	void getAllUnits(AsyncCallback<Vector<UnitOfMeasure>> callback);
 }

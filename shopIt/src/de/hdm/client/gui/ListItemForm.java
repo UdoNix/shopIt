@@ -61,6 +61,7 @@ public class ListItemForm extends VerticalPanel {
 	private CellTreeViewModel ViewModel = null;
 
 	private final ShoppingList selectedShoppingList;
+	private Item selectedItem;
 
 	private NumberFormat decimalFormatter = NumberFormat.getDecimalFormat();
 
@@ -71,16 +72,6 @@ public class ListItemForm extends VerticalPanel {
 	public void setViewModel(CellTreeViewModel viewModel) {
 		ViewModel = viewModel;
 	}
-
-	/**
-	 * Instanziieren von den genannten Objekten, der Rest Realisierung über TextBox,
-	 * da Inhalt komplett variabel
-	 */
-
-	private Article selectedArticle = null;
-	private UnitOfMeasure selectedUnit = null;
-	private Shop selectedShop = null;
-	private Person selectedPerson = null;
 
 	/**
 	 * Verwendung eines Vectors als Datenstruktur zur Aufnahme der Artikel, Händler,
@@ -99,6 +90,7 @@ public class ListItemForm extends VerticalPanel {
 	private VerticalPanel contentPanel = new VerticalPanel(); // welches Panel??
 	private HorizontalPanel btnPanel = new HorizontalPanel();
 	private Grid ListGrid;
+	private Button anlegenBtn = new Button("Anlegen");
 	private Button saveBtn = new Button("Speichern");
 	private Button deleteBtn = new Button("Liste löschen");
 	private Button cancelBtn = new Button("Zurueck");
@@ -127,7 +119,8 @@ public class ListItemForm extends VerticalPanel {
 	private CheckBox check = new CheckBox();
 	private final AsyncDataProvider<ShoppingList> asyncDataProvider;
 
-	public ListItemForm(final ShoppingList selectedShoppingList, final ShoppingListsAsyncDataProvider asyncDataProvider) {
+	public ListItemForm(final ShoppingList selectedShoppingList,
+			final ShoppingListsAsyncDataProvider asyncDataProvider) {
 		this.selectedShoppingList = selectedShoppingList;
 		this.asyncDataProvider = asyncDataProvider;
 
@@ -152,22 +145,16 @@ public class ListItemForm extends VerticalPanel {
 		Label newUnitLabel = new Label("Mengeneinheit: ");
 		ListGrid.setWidget(3, 0, newUnitLabel);
 		ListGrid.setWidget(3, 1, unitListBox);
-//		unitListBox.addChangeHandler(new UnitListBoxChangeHandler());
 
 		Label newPersonLabel = new Label("Person: ");
 		ListGrid.setWidget(4, 0, newPersonLabel);
 		ListGrid.setWidget(4, 1, personListBox);
-//		personListBox.addChangeHandler(new PersonListBoxChangeHandler());
 
 		Label shopLabel = new Label("Haendler: ");
 		ListGrid.setWidget(5, 0, shopLabel);
 		ListGrid.setWidget(5, 1, shopListBox);
-//		shopListBox.addChangeHandler(new ShopListBoxChangeHandler());
 
-//		standardizeBtn.addClickHandler(new StandardizeClickHandler);
-
-		saveBtn.setEnabled(true);
-
+		btnPanel.add(anlegenBtn);
 		btnPanel.add(saveBtn);
 		btnPanel.add(deleteBtn);
 
@@ -177,9 +164,21 @@ public class ListItemForm extends VerticalPanel {
 
 		add(contentPanel);
 
-		unitListBox.addItem("Stück");
-		unitListBox.addItem("Packungen");
-		unitListBox.addItem("Kilo");
+		listenVerwaltung.getAllUnits(new AsyncCallback<Vector<UnitOfMeasure>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Fehler");
+			}
+
+			@Override
+			public void onSuccess(Vector<UnitOfMeasure> result) {
+				unitList = result;
+				for(UnitOfMeasure unit : result) {
+					unitListBox.addItem(unit.getUnit(), unit.getId() + "");	
+				}
+			}
+		});
 
 		listenVerwaltung.getAllArticles(new AsyncCallback<Vector<Article>>() {
 
@@ -190,6 +189,7 @@ public class ListItemForm extends VerticalPanel {
 
 			@Override
 			public void onSuccess(Vector<Article> result) {
+				articleList = result;
 				for (Article article : result) {
 					articleListBox.addItem(article.getName(), article.getId() + "");
 				}
@@ -204,6 +204,7 @@ public class ListItemForm extends VerticalPanel {
 
 			@Override
 			public void onSuccess(Vector<Person> result) {
+				personList = result;
 				for (Person person : result) {
 					personListBox.addItem(person.getFirstName() + " " + person.getLastName(), person.getId() + "");
 				}
@@ -218,6 +219,7 @@ public class ListItemForm extends VerticalPanel {
 
 			@Override
 			public void onSuccess(Vector<Shop> result) {
+				shopList = result;
 				for (Shop shop : result) {
 					shopListBox.addItem(shop.getName(), shop.getId() + "");
 				}
@@ -333,6 +335,7 @@ public class ListItemForm extends VerticalPanel {
 
 			}
 		});
+
 		Column<Item, String> previewColumn = new Column<Item, String>(new ButtonCell()) {
 			public String getValue(Item object) {
 				return "Entfernen";
@@ -357,6 +360,19 @@ public class ListItemForm extends VerticalPanel {
 			}
 		});
 
+		Column<Item, String> editColumn = new Column<Item, String>(new ButtonCell()) {
+			@Override
+			public String getValue(Item object) {
+				return "Editieren";
+			}
+		};
+		editColumn.setFieldUpdater(new FieldUpdater<Item, String>() {
+			@Override
+			public void update(int index, Item object, String value) {
+				setSelectedItem(object);
+			}
+		});
+
 		cellTable.addColumn(idColumn, "Id");
 		cellTable.addColumn(personCoumn, "Person");
 		cellTable.addColumn(articleNameColumn, "Artikel");
@@ -367,12 +383,13 @@ public class ListItemForm extends VerticalPanel {
 		cellTable.addColumn(likeColumn, "");
 		cellTable.addColumn(checkColumn, "");
 		cellTable.addColumn(previewColumn, "");
+		cellTable.addColumn(editColumn, "");
 
 		listenVerwaltung.getAllItemsOfList(selectedShoppingList, getAllCallback);
 
 		add(cellTable);
 
-		saveBtn.addClickHandler(new ClickHandler() {
+		anlegenBtn.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -380,10 +397,10 @@ public class ListItemForm extends VerticalPanel {
 				float count = Float.valueOf(amountTextBox.getValue());
 				int personId = Integer.valueOf(personListBox.getSelectedValue());
 				int shopId = Integer.valueOf(shopListBox.getSelectedValue());
-				String unit = unitListBox.getSelectedItemText();
-				
-				listenVerwaltung.createItem(selectedShoppingList.getId(), selectedShoppingList.getTeamId(), count, unit, articleId, personId, shopId,
-						new AsyncCallback<Item>() {
+				int unitId = Integer.valueOf(unitListBox.getSelectedValue());
+
+				listenVerwaltung.createItem(selectedShoppingList.getId(), selectedShoppingList.getTeamId(), count, unitId,
+						articleId, personId, shopId, new AsyncCallback<Item>() {
 
 							@Override
 							public void onFailure(Throwable caught) {
@@ -397,8 +414,42 @@ public class ListItemForm extends VerticalPanel {
 						});
 			}
 		});
+		saveBtn.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				if (selectedItem != null) {
+					int articleId = Integer.valueOf(articleListBox.getSelectedValue());
+					float count = Float.valueOf(amountTextBox.getValue());
+					int personId = Integer.valueOf(personListBox.getSelectedValue());
+					int shopId = Integer.valueOf(shopListBox.getSelectedValue());
+					int unitId = Integer.valueOf(unitListBox.getSelectedValue());
+
+					selectedItem.setArticleId(articleId);
+					selectedItem.setAmount(count);
+					selectedItem.setPersonId(personId);
+					selectedItem.setShopId(shopId);
+					selectedItem.setUnitId(unitId);
+
+					listenVerwaltung.update(selectedItem, new AsyncCallback<Void>() {
+
+						@Override
+						public void onFailure(Throwable caught) {
+							Window.alert("Fehler");
+						}
+
+						@Override
+						public void onSuccess(Void result) {
+							listenVerwaltung.getAllItemsOfList(getSelectedShoppingList(), getAllCallback);
+						}
+					});
+				} else {
+					Window.alert("Es wurde nichts ausgewählt.");
+				}
+			}
+		});
 		deleteBtn.addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				listenVerwaltung.delete(selectedShoppingList, new AsyncCallback<Void>() {
@@ -422,176 +473,38 @@ public class ListItemForm extends VerticalPanel {
 		return selectedShoppingList;
 	}
 
-	private class GetAllArticlesCallback implements AsyncCallback<Vector<Article>> {
+	public void setSelectedItem(Item item) {
+		selectedItem = item;
 
-		@Override
-		public void onFailure(Throwable caught) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void onSuccess(Vector<Article> result) {
-
-			articleList = result;
-
-			for (int i = 0; i < result.size(); i++) {
-
-				selectedArticle = result.get(0);
-			}
-
-		}
-
-		private class GetAllPersonsOfTeamCallback implements AsyncCallback<Vector<Person>> {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onSuccess(Vector<Person> result) {
-
-				personList = result;
-
-				for (int i = 0; i < result.size(); i++) {
-					personListBox.addItem(result.get(i).getFirstName());
-					selectedPerson = result.get(0);
-				}
-
-			}
-
-		}
-
-		/**
-		 * Zum Befüllen der Dropdown-Liste mit <code>Unit</code>.
-		 */
-
-		private class GetAllUnitOfMeasureCallback implements AsyncCallback<Vector<UnitOfMeasure>> {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onSuccess(Vector<UnitOfMeasure> result) {
-				unitList = result;
-				for (int i = 0; i < result.size(); i++) {
-					unitListBox.addItem(result.get(i).getUnit());
-					selectedUnit = result.get(0);
-				}
-			}
-
-		}
-
-		/**
-		 * Callback, der die Überführung von Serverdaten der Händler in die
-		 * Dropdown-Liste ermöglicht.
-		 */
-
-		private class GetAllShopsCallback implements AsyncCallback<Vector<Shop>> {
-
-			@Override
-			public void onFailure(Throwable caught) {
-
-			}
-
-			@Override
-			public void onSuccess(Vector<Shop> result) {
-				shopList = result;
-				for (int i = 0; i < result.size(); i++) {
-					shopListBox.addItem(result.get(i).getName());
-					selectedShop = result.get(0);
-				}
-
+		for (int i = 0; i < unitList.size(); i++) {
+			UnitOfMeasure unit = unitList.get(i);
+			if(unit.getId() == item.getUnitId()) {
+				unitListBox.setSelectedIndex(i);
 			}
 		}
 
-		/*
-		 * Mit Hilfe des SelectionHandlers wird ermöglicht einen vorgeschlagenen Artikel
-		 * auszuwählen
-		 */
-
-		private class ArticleSuggestBoxSelectionHandler implements SelectionHandler<Article> {
-
-			@Override
-			public void onSelection(SelectionEvent<Article> event) {
-				Article selectedItem;
-				if (event.getSelectedItem() != null)
-					selectedItem = (Article) event.getSelectedItem();
-				else
-					selectedItem = (Article) event.getSource();
-
-			}
-
-		}
-
-		/*
-		 * Mit Hilfe des ChangeHandlers wird ermöglicht einen Mengeneinheit aus der
-		 * DropDown-Liste auszuwählen
-		 */
-
-		private class UnitListBoxChangeHandler implements ChangeHandler {
-			public void onChange(ChangeEvent event) {
-
-				int item = unitListBox.getSelectedIndex();
-				selectedUnit = unitList.get(item);
-
+		for (int i = 0; i < articleList.size(); i++) {
+			Article article = articleList.get(i);
+			if (article.getId() == item.getArticleId()) {
+				articleListBox.setSelectedIndex(i);
 			}
 		}
 
-		private class StandardizeClickHandler implements ClickHandler {
-			public void onClick(ClickEvent event) {
-
+		for (int i = 0; i < personList.size(); i++) {
+			Person person = personList.get(i);
+			if (person.getId() == item.getPersonId()) {
+				personListBox.setSelectedIndex(i);
 			}
 		}
 
-		/**
-		 * Mit Hilfe des ChangeHandlers wird ermöglicht einen Person aus der
-		 * DropDown-Liste auszuwählen
-		 */
-
-		private class PersonListBoxChangeHandler implements ChangeHandler {
-			public void onChange(ChangeEvent event) {
-
-				int item = personListBox.getSelectedIndex();
-				selectedPerson = personList.get(item);
+		for (int i = 0; i < shopList.size(); i++) {
+			Shop shop = shopList.get(i);
+			if (shop.getId() == item.getShopId()) {
+				shopListBox.setSelectedIndex(i);
 			}
 		}
 
-		/**
-		 * Mit Hilfe des ChangeHandlers wird ermöglicht einen Shop aus der
-		 * DropDown-Liste auszuwählen
-		 */
-
-		private class ShopListBoxChangeHandler implements ChangeHandler {
-
-			@Override
-			public void onChange(ChangeEvent event) {
-
-				int item = shopListBox.getSelectedIndex();
-				selectedShop = shopList.get(item);
-
-			}
-
-		}
-
-		/**
-		 * Mit Hilfe des CancelClickhandlers wird ermöglicht, das Ausfüllen des Eintrags
-		 * abzubrechen
-		 */
-
-		private class CancelClickhandler implements ClickHandler {
-
-			@Override
-			public void onClick(ClickEvent event) {
-
-			}
-
-		}
-
+		amountTextBox.setValue(item.getAmount() + "");
 	}
+
 }
