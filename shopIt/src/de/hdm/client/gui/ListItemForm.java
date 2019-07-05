@@ -45,6 +45,8 @@ import de.hdm.shared.bo.UnitOfMeasure;
 
 /**
  * Die Klasse <code>ListItemForm</code> dient dem Anlegen neuer Listeneinträge
+ * 
+ * @author dibasegmen
  */
 
 public class ListItemForm extends VerticalPanel {
@@ -141,7 +143,7 @@ public class ListItemForm extends VerticalPanel {
 		ListGrid.setWidget(2, 0, newAmountLabel);
 		ListGrid.setWidget(2, 1, amountTextBox);
 
-		/*
+		/**
 		 * Hinzufügen von ClickHandlern
 		 */
 

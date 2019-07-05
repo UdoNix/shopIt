@@ -98,5 +98,11 @@ public interface ReportGenerator extends RemoteService {
 
 	public TeamAndShopStatistikReport createTeamAndShopStatistikReport(Shop s, Team t, Date firstdate, Date lastdate)
 			throws IllegalArgumentException;
+	
+	/**
+	 * Auslesen der ShopITAdministration.
+	 * 
+	 */
+	public ShopITAdministration getShopITAdministration();
 
 }

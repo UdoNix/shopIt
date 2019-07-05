@@ -3,6 +3,11 @@ package de.hdm.shared.report;
 import java.io.Serializable;
 import java.util.Vector;
 
+/**
+ * 
+ * @author Larisa
+ *
+ */
 public class CompositeParagraph extends Paragraph implements Serializable {
 	private static final long serialVersionUID = 1L;
 	/*
@@ -42,7 +47,7 @@ public class CompositeParagraph extends Paragraph implements Serializable {
 		StringBuffer result = new StringBuffer();
 	
 		/*
-		 * Schleife über alle Unterabschnitte 
+		 * Schleife ï¿½ber alle Unterabschnitte 
 		 */
 		for (int i = 0; i < this.subParagraphs.size(); i++) {
 		      SimpleParagraph p = this.subParagraphs.elementAt(i);

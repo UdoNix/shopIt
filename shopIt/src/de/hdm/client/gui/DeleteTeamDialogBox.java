@@ -18,6 +18,7 @@ import de.hdm.client.gui.CellTreeViewModel;
 import de.hdm.shared.bo.Team;
 
 	
+@Deprecated
 
 public class DeleteTeamDialogBox extends DialogBox {
 			
