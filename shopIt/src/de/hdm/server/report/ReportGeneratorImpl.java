@@ -58,9 +58,9 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	/**
 	 * Auslesen der ShopITAdministration.
 	 */
-	public ShopITAdministration getShopITAdministration() {
-		return this.admin;
-	}
+//	public ShopITAdministration getShopITAdministration() {
+//		return this.admin;
+//	}
 
 	/**
 	 * Setzen der zugeh�rigen Gruppe

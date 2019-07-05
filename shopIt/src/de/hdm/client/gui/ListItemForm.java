@@ -321,7 +321,7 @@ public class ListItemForm extends VerticalPanel {
 		TextColumn<Item> dateColumn = new TextColumn<Item>() {
 			@Override
 			public String getValue(Item object) { 
-				return DateTimeFormat.getFormat("MM.dd.yyyy").format(object.getCreationDate());
+				return DateTimeFormat.getFormat("dd.MM.yyyy").format(object.getChangeDate());
 			}
 		};
 

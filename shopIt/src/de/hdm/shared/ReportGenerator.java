@@ -103,6 +103,6 @@ public interface ReportGenerator extends RemoteService {
 	 * Auslesen der ShopITAdministration.
 	 * 
 	 */
-	public ShopITAdministration getShopITAdministration();
+	//public ShopITAdministration getShopITAdministration();
 
 }
