@@ -454,12 +454,11 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		tMapper.update(t);
 	}
 
-	/**
-	 * Auslesen aller Personen einer Gruppe.
-	 */
-	
-	public Vector<Person> getAllPersonsOf(Team t) throws IllegalArgumentException {
-		return this.mMapper.findByMember(t.getId());
+
+	// Auslesen aller Personen einer Gruppe.
+	public Vector<Person> getAllPersonsOf(int teamId) throws IllegalArgumentException {
+		return this.mMapper.findByMember(teamId);
+
 	}
 
 	/**

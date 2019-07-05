@@ -9,23 +9,32 @@ import java.util.Vector;
 
 import de.hdm.shared.bo.Shop;
 
-//@udo nix, emily kretzschmar
+/**
+ * @udo nix, emily kretzschmar
+ *
+ */
 	
 public class ShopMapper {
-	
-	// Klasse SalesmanMapper als Singleton
-	//Variable durch <code> static </code> nur einmal für Instanzen der Klassen vorhanden
-	//Sie speichert einzige Instanz der Klasse
+
+	/**
+	 * Klasse SalesmanMapper als Singleton
+	 * Variable durch <code> static </code> nur einmal für Instanzen der Klassen vorhanden
+	 * Sie speichert einzige Instanz der Klasse
+	 */
  private static ShopMapper shopMapper = null;
 
-// Konstruktor geschützt, es kann keine neue Instanz dieser Klasse mit <code>new</code> erzeugt werden
+/**
+ *  Konstruktor geschützt, es kann keine neue Instanz dieser Klasse mit <code>new</code> erzeugt werden
+ */
 
 protected ShopMapper() {
 }
-
-//Aufruf der statischen Methode durch <code>SalesmanMapper.salesmanMapper()</code>. Singleton: Es kann nur eine 
-//Instanz von <code>SalesmanMapper</code> existieren
-//@return salesmanMapper
+ 
+/**
+ * Aufruf der statischen Methode durch <code>SalesmanMapper.salesmanMapper()</code>. Singleton: Es kann nur eine
+ * Instanz von <code>SalesmanMapper</code> existieren
+ * @return salesmanMapper
+ */
 
 public static ShopMapper shopMapper() {
 	if (shopMapper == null) {
@@ -34,9 +43,12 @@ public static ShopMapper shopMapper() {
 	return shopMapper;
 }
 
-// Salesman mit der vorgegebene Id suchen, Da sie eindeutig ist, wird nur ein Objekt zurueckgegeben
-//@parameter id Primärschlüsselattribut
-//@return Salesmanobjekt des übergebenen Schlüssel, null bei nicht vorhandenem Datenbank-Tupel
+
+/**
+ * Salesman mit der vorgegebene Id suchen, Da sie eindeutig ist, wird nur ein Objekt zurueckgegeben
+ * @param id Primärschlüsselattribut
+ * @return Salesmanobjekt des übergebenen Schlüssel, null bei nicht vorhandenem Datenbank-Tupel
+ */
 
 public Shop findByKey (int id) {
 	//DB-Verbindung holen
@@ -72,10 +84,12 @@ public Shop findByKey (int id) {
 		    return null;
 		  }
 			
-// Auslesen aller Shops.
- // @return Ein Vektor mit Shop-Objekten, die sämtliche Gruppen
- //        repräsentieren. Bei Exceptions: Ein partiell gefüllter
-//        oder eben leerer Vetor wird zurückgeliefert.
+      
+/**
+ * Auslesen aller Shops.
+ * @return Ein Vektor mit Shop-Objekten, die sämtliche Gruppen repräsentieren. Bei Exceptions: Ein partiell gefüllter
+ * oder eben leerer Vetor wird zurückgeliefert.
+ */
 
 public Vector<Shop> findAll() {
   Connection con = DBConnection.connection();
@@ -114,12 +128,14 @@ public Vector<Shop> findAll() {
 }
 
 
- //Einfügen eines <code>Salesman</code>-Objekts in die Datenbank. Es wird
- // auch der Primärschlüssel des übergebenen Objekts geprüft und im gegebenen Falle
- // berichtigt.
- // @param s das zu speichernde Objekt
-//@return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
- //        <code>id</code>.
+ 
+/**
+ * Einfügen eines <code>Salesman</code>-Objekts in die Datenbank. Es wird
+ * auch der Primärschlüssel des übergebenen Objekts geprüft und im gegebenen Falle
+ * berichtigt.
+ * @param s das zu speichernde Objekt
+ * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter <code>id</code>.
+ */
 
 public Shop insert(Shop s) {
   Connection con = DBConnection.connection();
@@ -162,9 +178,11 @@ public Shop insert(Shop s) {
   return s;
   }
 
- // Schreiben eines Objekts in die Datenbank.
-  // @param s  Objekt, das in die Datenbank geschrieben werden soll
-  //@return das als Parameter übergebene Objekt
+/**
+ * Schreiben eines Objekts in die Datenbank.
+ * @param s Objekt, das in die Datenbank geschrieben werden soll
+ * @return das als Parameter übergebene Objekt
+ */
    
   public Shop update(Shop s) {
     Connection con = DBConnection.connection();
