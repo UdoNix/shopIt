@@ -162,7 +162,7 @@ public Vector<Item> findByList (ShoppingList l){
 	      Statement stmt = con.createStatement();
 
 	      ResultSet rs = stmt.executeQuery(
-	      "SELECT *, article.name, unit.unit, unit.quantity, person.firstName, shop.name " + 
+	      "SELECT *, article.name, unit.unit, person.firstName, shop.name " + 
 "FROM item " + 
 "INNER JOIN article ON article.id = item.articleId " + 
 "INNER JOIN unit ON unit.id = item.unitId " + 
@@ -235,17 +235,19 @@ public Item insert(Item i) {
       // Es erfolgt die tatsächliche Einfuegeoperation
 
 
-      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO ITEM(id, creationDate, unitId, articleId, teamId, listId, favorit, status) VALUES (?,CURRENT_TIMESTAMP,?,?,?,?,?,?)");
+      PreparedStatement stmt2 = con.prepareStatement("INSERT INTO ITEM(id, creationDate, unitId, articleId, teamId, listId, quantity, favorit, status) VALUES (?,CURRENT_TIMESTAMP,?,?,?,?,?,?,?)");
 
       stmt2.setInt(1, i.getId());
       stmt2.setInt(2, i.getUnitId());
       stmt2.setInt(3, i.getArticleId());
       stmt2.setInt(4, i.getTeamId());
       stmt2.setInt(5, i.getListId());
-      stmt2.setBoolean(6, i.isFavorit());
-      stmt2.setBoolean(7, i.isStatus());
+      stmt2.setFloat(6, i.getAmount());
+      stmt2.setBoolean(7, i.isFavorit());
+      stmt2.setBoolean(8, i.isStatus());
          
       stmt2.execute();
+      System.out.println("Executed");
 
     }
   }

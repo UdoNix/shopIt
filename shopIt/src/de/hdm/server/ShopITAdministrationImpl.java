@@ -259,6 +259,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 */
 	public Item createItem(int listId, int teamId, float count, int unitId, int articleId, int personId, int shopId)
 			throws IllegalArgumentException {
+		
 		Item i = new Item();
 		// i.setCreationDate();//aktuelles Datum einf�gen Muss nicht gesetzt werden,
 		// das
@@ -269,6 +270,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		i.setArticleId(articleId);
 		i.setUnitId(unitOfMeasure.getId());
 		i.setTeamId(teamId);
+		i.setAmount(count);
 		i = this.iMapper.insert(i);
 
 		System.out.println("Created item at list " + i.getListId());
