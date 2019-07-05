@@ -410,6 +410,14 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		 * entfernt.
 		 */
 
+		Vector<Item> item = this.iMapper.findByTeam(t);
+		
+		if (item != null) {
+			for (Item i : item) {
+				this.iMapper.delete(i);
+			}
+		}
+		
 		Vector<Membership> membership = this.mMapper.findByTeam(t.getId());
 
 		if (membership != null) {
