@@ -169,7 +169,7 @@ public Vector<Item> findByList (ShoppingList l){
 "INNER JOIN unit ON unit.id = item.unitId " + 
 "INNER JOIN responsibility ON responsibility.itemId = item.id " + 
 "INNER JOIN person ON responsibility.personId = person.id " + 
-"INNER JOIN shop ON responsibility.shopId = shop.id WHERE listId= " + listId + " ORDER BY item.id DESC");
+"INNER JOIN shop ON responsibility.shopId = shop.id WHERE listId= " + listId + " ORDER BY item.changeDate DESC");
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt erstellt.
 	      while (rs.next()) {
@@ -269,7 +269,7 @@ public Item insert(Item i) {
     
     try {
       Statement stmt = con.createStatement();
-      stmt.executeUpdate("UPDATE item SET teamId= " + i.getTeamId() + ", unitId= " + i.getUnitId() + ", articleId= " + i.getArticleId() + ", status= " + i.isStatus() + ", listid=  " + i.getListId() + ", favorit= " + i.isFavorit() + ", quantity="+i.getAmount()+"  WHERE id= " + i.getId());
+      stmt.executeUpdate("UPDATE item SET teamId= " + i.getTeamId() + ", unitId= " + i.getUnitId() + ", articleId= " + i.getArticleId() + ", status= " + i.isStatus() + ", listid=  " + i.getListId() + ", favorit= " + i.isFavorit() + ", quantity="+i.getAmount()+", changeDate=CURRENT_TIMESTAMP WHERE id= " + i.getId());
     }
     catch (SQLException e2) {
       e2.printStackTrace();
@@ -482,7 +482,7 @@ public Vector<Item> findByListAndShop (ShoppingList l, Shop s){
 "INNER JOIN responsibility ON responsibility.itemId = item.id " + 
 "INNER JOIN person ON responsibility.personId = person.id " + 
 "INNER JOIN shop ON responsibility.shopId = shop.id WHERE listId= " + listId + " AND shop.id ="
-		+ s.getId() + " GROUP BY shop.name ORDER BY item.id DESC");
+		+ s.getId() + " GROUP BY shop.name ORDER BY item.changeDate DESC");
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt erstellt.
 	      while (rs.next()) {
@@ -534,7 +534,7 @@ public Vector<Item> findByListAndPerson (ShoppingList l, Person p){
 "INNER JOIN responsibility ON responsibility.itemId = item.id " + 
 "INNER JOIN person ON responsibility.personId = person.id " + 
 "INNER JOIN shop ON responsibility.shopId = shop.id WHERE listId= " + listId + " AND person.id ="
-		+ p.getId() + " GROUP BY person.firstName ORDER BY item.id DESC");
+		+ p.getId() + " GROUP BY person.firstName ORDER BY item.changeDate DESC");
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt erstellt.
 	      while (rs.next()) {
