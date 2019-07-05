@@ -2,6 +2,7 @@ package de.hdm.client.gui.report;
 
 import java.util.Date;
 
+
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
@@ -21,6 +22,13 @@ import de.hdm.shared.report.HTMLReportWriter;
 import de.hdm.shared.report.ShopStatisticReport;
 import de.hdm.shared.report.TeamStatisticReport;
 
+/**
+ * Die Klasse <code>ShopReportCallback</code> dient dem Report Shop Ohne Zeit-Callback
+ * 
+ * @author dibasegmen
+ *
+ */
+
 public class ShopReportCallback extends VerticalPanel {
 
 	ReportGeneratorAsync reportverwaltung = ClientsideSettings.getReportGenerator();
@@ -31,7 +39,7 @@ public class ShopReportCallback extends VerticalPanel {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("Fehler");
+				Window.alert("Es ist ein Fehler aufgetreten. ");
 			}
 
 			@Override
@@ -42,7 +50,7 @@ public class ShopReportCallback extends VerticalPanel {
 
 				clear();
 				add(new HTML(reportText));
-				Window.alert("Success");
+				Window.alert("Die Operation war erfolgreich!");
 			}
 		});
 

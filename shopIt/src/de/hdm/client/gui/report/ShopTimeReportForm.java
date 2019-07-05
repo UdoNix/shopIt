@@ -1,6 +1,7 @@
 package de.hdm.client.gui.report;
 
 import java.util.Date;
+
 import java.util.Vector;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -26,9 +27,18 @@ import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.Shop;
 import de.hdm.shared.bo.Team;
 
+/**
+ * 
+ * Die Klasse <code>ShopTimeReportForm</code> dient dem Report Artikel in Abhängigkeit zu Shop und Zeit
+ * @author InesWerner
+ *
+ */
+
 public class ShopTimeReportForm extends HorizontalPanel{
 
-	//Erstellung der GUI-Elemente
+	/**
+	 * Erstellung der GUI-Elemente
+	 */
 		private Button startButton = new Button("Report starten");
 		private Label shopLabel = new Label("Shop: ");
 		private final ListBox listBox = new ListBox();

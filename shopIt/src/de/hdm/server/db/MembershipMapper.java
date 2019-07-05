@@ -14,22 +14,22 @@ import de.hdm.shared.bo.Membership;
 import de.hdm.shared.bo.Person;
 
 public class MembershipMapper {
-	// Klasse MembershipMapper als Singleton
-	// Variable durch <code> static </code> nur einmal für Instanzen der Klassen
-	// vorhanden
-	// Sie speichert einzige Instanz der Klasse
+	/** Klasse MembershipMapper als Singleton
+	 *Variable durch <code> static </code> nur einmal für Instanzen der Klassen
+	 *vorhanden
+	 *Sie speichert einzige Instanz der Klasse**/
 	private static MembershipMapper membershipMapper = null;
 
-	// Konstruktor geschützt, es kann keine neue Instanz dieser Klasse mit
-	// <code>new</code> erzeugt werden
+	/** Konstruktor geschützt, es kann keine neue Instanz dieser Klasse mit
+     <code>new</code> erzeugt werden**/
 
 	protected MembershipMapper() {
 	}
 
-	// Aufruf der statischen Methode durch
-	// <code>MembershipMapper.membershipMapper()</code>. Singleton: Es kann nur eine
-	// Instanz von <code>MembershipMapper</code> existieren
-	// @return membershipMapper
+	/** Aufruf der statischen Methode durch
+	 *<code>MembershipMapper.membershipMapper()</code>. Singleton: Es kann nur eine
+	* Instanz von <code>MembershipMapper</code> existieren
+	 *@return membershipMapper**/
 
 	public static MembershipMapper membershipMapper() {
 		if (membershipMapper == null) {
@@ -38,11 +38,11 @@ public class MembershipMapper {
 		return membershipMapper;
 	}
 
-	// Gruppe mit der vorgegebene Id suchen, Da sie eindeutig ist, wird nur ein
-	// Objekt zurueckgegeben
-	// @parameter id Primärschlüsselattribut
-	// @return Membershipobjekt des übergebenen Schlüssel, null bei nicht
-	// vorhandenem Datenbank-Tupel
+	/** Gruppe mit der vorgegebene Id suchen, Da sie eindeutig ist, wird nur ein
+    * Objekt zurueckgegeben
+	* @parameter id Primärschlüsselattribut
+	* @return Membershipobjekt des übergebenen Schlüssel, null bei nicht
+	* vorhandenem Datenbank-Tupel**/
 
 	public Membership findByKey(int id) {
 		// DB-Verbindung holen
@@ -74,10 +74,10 @@ public class MembershipMapper {
 	}
 
 
-	// Auslesen aller Memberships.
-	// @return Ein Vektor mit Membership-Objekten, die sämtliche Memberships
-	// repräsentieren. Bei Exceptions: Ein partiell gefüllter
-//	        oder eben leerer Vetor wird zurückgeliefert.
+	/** Auslesen aller Memberships.
+	* @return Ein Vektor mit Membership-Objekten, die sämtliche Memberships
+	* repräsentieren. Bei Exceptions: Ein partiell gefüllter
+	        oder eben leerer Vetor wird zurückgeliefert.**/
 
 	public Vector<Membership> findAll() {
 		Connection con = DBConnection.connection();
@@ -140,13 +140,13 @@ public class MembershipMapper {
 		return result;
 	}
 
-	// Einfügen eines <code>Membership</code>-Objekts in die Datenbank. Es wird
-	// auch der Primärschlüssel des übergebenen Objekts geprüft und im gegebenen
-	// Falle
-	// berichtigt.
-	// @param m das zu speichernde Objekt
-	// @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
-	// <code>id</code>.
+	/** Einfügen eines <code>Membership</code>-Objekts in die Datenbank. Es wird
+	* auch der Primärschlüssel des übergebenen Objekts geprüft und im gegebenen
+	* Falle
+	* berichtigt.
+	* @param m das zu speichernde Objekt
+	* @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
+	* <code>id</code>.**/
 
 	public Membership insert(Membership m) {
 		Connection con = DBConnection.connection();
@@ -183,10 +183,10 @@ public class MembershipMapper {
 		return m;
 	}
 
-	// Schreiben eines Objekts in die Datenbank.
-	// @param m Objekt, das in die Datenbank geschrieben werden soll
-	// @return das als Parameter übergebene Objekt
-	//
+	/** Schreiben eines Objekts in die Datenbank.
+	* @param m Objekt, das in die Datenbank geschrieben werden soll
+	* @return das als Parameter übergebene Objekt
+	**/
 	public Membership update(Membership m) {
 		Connection con = DBConnection.connection();
 
@@ -204,8 +204,8 @@ public class MembershipMapper {
 		return m;
 	}
 
-	// Daten eines <code>Membership</code>-Objekts aus der Datenbank loeschen.
-	// @param m das aus der DB zu loeschende "Objekt"
+	/**Daten eines <code>Membership</code>-Objekts aus der Datenbank loeschen.
+	* @param m das aus der DB zu loeschende "Objekt"**/
 
 	public void delete(int personId, int teamId) {
 		Connection con = DBConnection.connection();

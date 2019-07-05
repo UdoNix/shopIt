@@ -203,7 +203,7 @@ public class ListItemForm extends VerticalPanel {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("Fehler");
+				Window.alert("Es ist ein Fehler aufgetreten.");
 			}
 
 			@Override
@@ -344,7 +344,7 @@ public class ListItemForm extends VerticalPanel {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert("Fehler");
+						Window.alert("Es ist ein Fehler aufgetreten.");
 					}
 				});
 
@@ -369,7 +369,7 @@ public class ListItemForm extends VerticalPanel {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert("Fehler");
+						Window.alert("Es ist ein Fehler aufgetreten.");
 					}
 				});
 
@@ -389,7 +389,7 @@ public class ListItemForm extends VerticalPanel {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert("Fehler");
+						Window.alert("Es ist ein Fehler aufgetreten.");
 					}
 
 					@Override
@@ -444,7 +444,7 @@ public class ListItemForm extends VerticalPanel {
 
 							@Override
 							public void onFailure(Throwable caught) {
-								Window.alert("Fehler");
+								Window.alert("Es ist ein Fehler aufgetreten. ");
 							}
 
 							@Override
@@ -475,7 +475,7 @@ public class ListItemForm extends VerticalPanel {
 
 						@Override
 						public void onFailure(Throwable caught) {
-							Window.alert("Fehler");
+							Window.alert("Es ist ein Fehler aufgetreten.");
 						}
 
 						@Override
@@ -496,12 +496,12 @@ public class ListItemForm extends VerticalPanel {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert("Fehler");
+						Window.alert("Es ist ein Fehler aufgetreten.");
 					}
 
 					@Override
 					public void onSuccess(Void result) {
-						Window.alert("Gelöscht");
+						Window.alert(selectedShoppingList.getName() + " wurde erfolgreich gelöscht");
 						asyncDataProvider.refresh();
 					}
 				});

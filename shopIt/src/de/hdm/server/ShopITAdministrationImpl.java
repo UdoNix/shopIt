@@ -32,8 +32,10 @@ import de.hdm.shared.bo.Responsibility;
 @SuppressWarnings("serial")
 public class ShopITAdministrationImpl extends RemoteServiceServlet implements ShopITAdministration {
 
-	// Referenz auf die MapperKlassen, um die Objekte mit der Datenbank abzugleichen
-	// @autor InesWerner
+	/**
+	 *  Referenz auf die MapperKlassen, um die Objekte mit der Datenbank abzugleichen
+	 *  @autor InesWerner
+	 */
 
 	private PersonMapper pMapper = null;
 	private ArticleMapper aMapper = null;
@@ -46,10 +48,13 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	private MembershipMapper mMapper = null;
 	private ReportMapper reportMapper = null;
 
-	// Um die Klasse übersichtlicher zu gestalten, wird sie mithilfe von
-	// Abschnitten
-	// unterteilt.
-	/*
+	
+	/**
+	 * Um die Klasse übersichtlicher zu gestalten, wird sie mithilfe von
+	 * Abschnitten unterteilt.
+	 * 
+	 */
+	/**
 	 * ***************************************************************************
 	 * ABSCHNITT, Beginn: Initialisierung @autor InesWerner
 	 * ***************************************************************************
@@ -74,13 +79,13 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	}
 
-	/*
+	/**
 	 * ***************************************************************************
 	 * ABSCHNITT, Ende: Initialisierung
 	 * ***************************************************************************
 	 */
 
-	/*
+	/**
 	 * ***************************************************************************
 	 * ABSCHNITT, Beginn: Methoden für Personen/Anwender-Objekte
 	 * 
@@ -88,29 +93,45 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	 * ***************************************************************************
 	 */
 
-	// Erstellen eines neuen Anwender-Objekts mit Vorname, Nachname und
-	// Email-Adresse.
-	// Dies führt zu einem Speichern des Anwender-Objekts in der Datenbank.
+
+	/**
+	 * Erstellen eines neuen Anwender-Objekts mit Vorname, Nachname und email-Adresse.
+	 * Dies führt zu einem Speichern des Anwender-Objekts in der Datenbank.
+	 * 
+	 */
 	public Person createPerson(String firstName, String lastName, String email) throws IllegalArgumentException {
 		Person p = new Person();
 		p.setFirstName(firstName);
 		p.setLastName(lastName);
 		p.setEmail(email);
 
-		// Setzen einer vorläufigen Anwender-Id, welche nach Kommunikation mit DB auf
-		// den nächsthhöheren Wert gesetzt wird.
+		/**
+		 *  Setzen einer vorläufigen Anwender-Id, welche nach Kommunikation mit DB auf
+		 *  den nächsthhöheren Wert gesetzt wird.
+		 */
 		p.setId(1);
 
-		// Speichern des Anwender-Objekts in der DB.
+		/**
+		 *  Speichern des Anwender-Objekts in der DB.
+		 */
 		return this.pMapper.insert(p);
 	}
 
-	// Auslesen eines Anwenders anhand seiner Anwender-Id.
+	/**
+<<<<<<< HEAD
+	 *  Auslesen eines Anwenders anhand seiner Anwender-Id.(non-Javadoc)
+	 * 
+=======
+	 *  Auslesen eines Anwenders anhand seiner Anwender-Id.
+>>>>>>> branch 'master' of https://github.com/UdoNix/shopIt.git
+	 */
 	public Person getPersonById(int id) throws IllegalArgumentException {
 		return this.pMapper.findByKey(id);
 	}
 
-	// Auslesen eines Anwenders anhand seines Namen.
+	/**
+	 *  Auslesen eines Anwenders anhand seines Namen.
+	 */
 	public Vector<Person> getPersonByName(Person p) {
 		return this.pMapper.findByName(p);
 	}
@@ -120,7 +141,10 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	// return this.pMapper.findPersonByLastName(lastName);
 	// }
 
-	// Auslesen eines Anwenders anhand seiner Email.
+	/**
+	 *  Auslesen eines Anwenders anhand seiner Email.(non-Javadoc)
+	 * @see de.hdm.shared.ShopITAdministration#getPersonByEmail(java.lang.String)
+	 */
 	public Person getPersonByEmail(String email) {
 		try { 
 			return this.pMapper.findPersonByEmail(email);
@@ -137,17 +161,26 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		}
 	}
 
-	// Auslesen aller Anwender.
+	/**
+	 *  Auslesen aller Anwender.(non-Javadoc)
+	 * @see de.hdm.shared.ShopITAdministration#getAllPersons()
+	 */
 	public Vector<Person> getAllPersons() throws IllegalArgumentException {
 		return this.pMapper.findAll();
 	}
 
-	// Speichern eines Anwenders.
+	/**
+	 *  Speichern eines Anwenders.
+	 */
 	public void save(Person p) throws IllegalArgumentException {
 		pMapper.update(p);
 	}
 
-	// Löschen eines Anwenders.
+	/**
+	 *  Löschen eines Anwenders.
+	 * @param personId
+	 * @throws IllegalArgumentException
+	 */
 	public void delete(int personId) throws IllegalArgumentException {
 
 		// Löschen von Responsibilityobjekten in denen der zu löschende Anwender als
@@ -169,19 +202,19 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	}
 
-	/*
+	/**
 	 * ***************************************************************************
 	 * ABSCHNITT, Ende: Methoden für Anwender-Objekte
 	 * ***************************************************************************
 	 */
 
-	/*
+	/**
 	 * ***************************************************************************
 	 * ABSCHNITT, Beginn: Methoden f�r Liste @author IlonaBrinkmann
 	 * ***************************************************************************
 	 */
 
-	/*
+	/**
 	 * neue Liste erstellen
 	 */
 
@@ -204,14 +237,14 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		return l;
 	}
 
-	/*
+	/**
 	 * Liste anhand der Id finden
 	 */
 	public ShoppingList getListById(int id) throws IllegalArgumentException {
 		return this.lMapper.findByKey(id);
 	}
 
-	/*
+	/**
 	 * alle Eintr�ge einer Liste aufzeigen
 	 */
 	public Vector<Item> getAllItemsOfList(ShoppingList l, Person p, Shop s) throws IllegalArgumentException {
@@ -224,14 +257,14 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		}
 	}
 
-	/*
+	/**
 	 * eine Liste �ndern
 	 */
 	public void update(ShoppingList l) throws IllegalArgumentException {
 		lMapper.update(l);
 	}
 
-	/*
+	/**
 	 * eine Liste l�schen
 	 */
 	public void delete(ShoppingList l) throws IllegalArgumentException {
@@ -248,19 +281,19 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		this.lMapper.delete(l);
 	}
 
-	/*
+	/**
 	 * ***************************************************************************
 	 * ABSCHNITT, Ende: Methoden f�r Liste
 	 * ***************************************************************************
 	 */
-	/*
+	/**
 	 * ***************************************************************************
 	 * 
 	 * ABSCHNITT, Beginn: Methoden f�r Eintrag @author IlonaBrinkmann
 	 * 
 	 * ***************************************************************************
 	 */
-	/*
+	/**
 	 * neuen Eintrag erstellen
 	 */
 	public Item createItem(int listId, int teamId, float count, int unitId, int articleId, int personId, int shopId)
@@ -290,29 +323,32 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		return i;
 	}
 
-	/*
+	/**
 	 * Zust�ndigkeit zum Eintrag hinzuf�gen
 	 */
+	
 	public Item addResponsibilityToItem(Responsibility r, Item i) {
 		i.setResponsibilityId(r.getId());
 		return i;
 	}
 
-	/*
+	/**
 	 * Eintrag anhand der Id finden
 	 */
+	
 	public Item getItemById(int id) throws IllegalArgumentException {
 		return this.iMapper.findByKey(id);
 	}
 
-	/*
+	/**
 	 * alle Eintr�ge aufzeigen
 	 */
+	
 	public Vector<Item> getAllItems() throws IllegalArgumentException {
 		return this.iMapper.findAll();
 	}
 
-	/*
+	/**
 	 * einen Eintrag �ndern
 	 */
 	public void update(Item i) throws IllegalArgumentException {
@@ -323,7 +359,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		rMapper.update(r);
 	}
 
-	/*
+	/**
 	 * einen Eintrag l�schen
 	 */
 	public void delete(Item i) throws IllegalArgumentException {
@@ -331,7 +367,11 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		rMapper.delete(rMapper.findByKey(i.getResponsibilityId()));
 	}
 
-	// Status des Eintrags ändern. (Eintrag abhaken bzw. den Haken entfernen)
+	/**
+	 * Status des Eintrags ändern. (Eintrag abhaken bzw. den Haken entfernen)
+	 * @param i
+	 * @throws IllegalArgumentException
+	 */
 	public void changeStatus(Item i) throws IllegalArgumentException {
 		if (i.isStatus() == false) {
 			i.setStatus(true);
@@ -342,7 +382,11 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		}
 	}
 
-	// Setzen/Entfernen des Favoritenstatus (Standardartikel)
+	/**
+	 *  Setzen/Entfernen des Favoritenstatus (Standardartikel)
+	 * @param i
+	 * @throws IllegalArgumentException
+	 */
 	public void changeFavorit(Item i) throws IllegalArgumentException {
 		if (i.isFavorit() == false) {
 			i.setFavorit(true);
@@ -370,13 +414,13 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		}
 	
 
-	/*
+	/**
 	 * ***************************************************************************
 	 * ABSCHNITT, Ende: Methoden f�r Eintrag
 	 * ***************************************************************************
 	 */
 
-	/*
+	/**
 	 * ***************************************************************************
 	 * ABSCHNITT, Beginn: Methoden f�r Gruppe-Objekte 
 	 * 
@@ -434,7 +478,10 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		tMapper.update(t);
 	}
 
-	// Auslesen aller Personen einer Gruppe.
+
+	/**
+	* Auslesen aller Personen einer Gruppe.
+	*/
 	public Vector<Person> getAllPersonsOf(int teamId) throws IllegalArgumentException {
 		return this.mMapper.findByMember(teamId);
 
@@ -485,13 +532,13 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		result = this.tMapper.getTeamsOf(getCurrentPerson());
 		return result;
 	}
-	/*
+	/**
 	 * ***************************************************************************
 	 * ABSCHNITT, Ende: Methoden f�r Gruppe-Objekte
 	 * ***************************************************************************
 	 */
 
-	/*
+	/**
 	 * ***************************************************************************
 	 * ABSCHNITT, Beginn: Methoden f�r Arikel-Objekte 
 	 * 
@@ -556,13 +603,13 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	public void delete(Article a) throws IllegalArgumentException {
 		this.aMapper.delete(a);
 	}
-	/*
+	/**
 	 * ***************************************************************************
 	 * ABSCHNITT, Ende: Methoden f�r Artikel-Objekte
 	 * ***************************************************************************
 	 */
 
-	/*
+	/**
 	 * ***************************************************************************
 	 * ABSCHNITT, Beginn: Methoden f�r H�ndler-Objekte @Larisa
 	 * ***************************************************************************
@@ -618,13 +665,13 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	}
 
-	/*
+	/**
 	 * ***************************************************************************
 	 * ABSCHNITT, Ende: Methoden f�r H�ndler-Objekte
 	 * ***************************************************************************
 	 */
 
-	/*
+	/**
 	 * ***************************************************************************
 	 * ABSCHNITT, Beginn: Methoden f�r Ma�einheit-Objekte @Larisa
 	 * ***************************************************************************
@@ -658,19 +705,20 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		return uMapper.findAll();
 	}
 	
-	/*
+	
+	/**
 	 * ***************************************************************************
 	 * ABSCHNITT, Ende: Methoden f�r Ma�einheit-Objekte
 	 * ***************************************************************************
 	 */
 
-	/*
+	/**
 	 * ***************************************************************************
 	 * ABSCHNITT, Beginn: Methoden f�r Zust�ndigkeits-Objekte @author IlonaBrinkmann
 	 * ***************************************************************************
 	 */
 
-	/*
+	/**
 	 * Zust�ndigkeit erstellen
 	 */
 
@@ -683,7 +731,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	}
 
-	/*
+	/**
 	 * Zust�ndigkeit anhand der Id finden
 	 */
 	public Responsibility getResponsibilityById(int id) throws IllegalArgumentException {
@@ -697,34 +745,34 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		rMapper.update(r);
 	}
 
-	/*
+	/**
 	 * eine Zust�ndigkeit l�schen
 	 */
 	public void delete(Responsibility r) throws IllegalArgumentException {
 		this.rMapper.delete(r);
 	}
 
-	/*
+	/**
 	 * ***************************************************************************
 	 * ABSCHNITT, Ende: Methoden f�r Zust�ndigkeits-Objekte
 	 * ***************************************************************************
 	 */
 
-	/*
+	/**
 	 * ***************************************************************************
 	 * ABSCHNITT, Begin: Methoden f�r Gruppenmitgliedschaft-Objekte @author
 	 * IlonaBrinkmann
 	 * ***************************************************************************
 	 */
 
-	/*
+	/**
 	 * Gruppenmitgliedschaft anhand der Id finden
 	 */
 	public Membership getMembershipById(int id) throws IllegalArgumentException {
 		return this.mMapper.findByKey(id);
 	}
 
-	/*
+	/**
 	 * alle Gruppen einer Person aufzeigen
 	 */
 	public Vector<Membership> getAllMembershipOfPerson(Person p) throws IllegalArgumentException {
@@ -732,14 +780,14 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 
 	}
 
-	/*
+	/**
 	 * eine Gruppenmitgliedschaft �ndern
 	 */
 	public void update(Membership m) throws IllegalArgumentException {
 		mMapper.update(m);
 	}
 
-	/*
+	/**
 	 * ***************************************************************************
 	 * ABSCHNITT, Ende: Methoden f�r Gruppenmitgliedschaft-Objekte
 	 * ***************************************************************************
