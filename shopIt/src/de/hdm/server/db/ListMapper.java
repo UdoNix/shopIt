@@ -11,22 +11,22 @@ import java.sql.ResultSet;
 import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Person;
 
-//@udo nix, emily kretzschmar
+/**@author udo nix, emily kretzschmar**/
 
 public class ListMapper {	
-		// Klasse ListMapper als Singleton
-		//Variable durch <code> static </code> nur einmal für Instanzen der Klassen vorhanden
-		//Sie speichert einzige Instanz der Klasse
+		/** Klasse ListMapper als Singleton
+		*Variable durch <code> static </code> nur einmal für Instanzen der Klassen vorhanden
+		*Sie speichert einzige Instanz der Klasse**/
 	 private static ListMapper listMapper = null;
 
-	// Konstruktor geschützt, es kann keine neue Instanz dieser Klasse mit <code>new</code> erzeugt werden
+	/** Konstruktor geschützt, es kann keine neue Instanz dieser Klasse mit <code>new</code> erzeugt werden**/
 
 	protected ListMapper() {
 	}
 
-	//Aufruf der statischen Methode durch <code>ListMapper.teamMapper()</code>. Singleton: Es kann nur eine 
-	//Instanz von <code>ListMapper</code> existieren
-	//@return listMapper
+	/**Aufruf der statischen Methode durch <code>ListMapper.teamMapper()</code>. Singleton: Es kann nur eine 
+	*Instanz von <code>ListMapper</code> existieren
+	*@return listMapper**/
 
 	public static ListMapper listMapper() {
 		if (listMapper == null) {
@@ -35,9 +35,9 @@ public class ListMapper {
 		return listMapper;
 	}
 
-	// Liste mit der vorgegebene Id suchen, Da sie eindeutig ist, wird nur ein Objekt zurueckgegeben
-	//@parameter id Primärschlüsselattribut
-	//@return Listenobjekt des übergebenen Schlüssel, null bei nicht vorhandenem Datenbank-Tupel
+	/** Liste mit der vorgegebene Id suchen, Da sie eindeutig ist, wird nur ein Objekt zurueckgegeben
+	*@parameter id Primärschlüsselattribut
+	*@return Listenobjekt des übergebenen Schlüssel, null bei nicht vorhandenem Datenbank-Tupel**/
 
 	public ShoppingList findByKey (int id) {
 		//DB-Verbindung holen
@@ -69,10 +69,10 @@ public class ListMapper {
 			    return null;
 			  }
 				
-	// Auslesen aller Listen.
-	 // @return Ein Vektor mit List-Objekten, die sämtliche Gruppen
-	 //        repräsentieren. Bei Exceptions: Ein partiell gefüllter
-//	        oder eben leerer Vetor wird zurückgeliefert.
+	/** Auslesen aller Listen.
+	 * @return Ein Vektor mit List-Objekten, die sämtliche Gruppen
+	      *repräsentieren. Bei Exceptions: Ein partiell gefüllter
+        *oder eben leerer Vetor wird zurückgeliefert.**/
 
 	public Vector<ShoppingList> findAll() {
 	  Connection con = DBConnection.connection();
@@ -137,7 +137,7 @@ public class ListMapper {
 		    return result;
 		  }
 	
-	/*
+	/**
 	 * @author Udo Nix
 	 */
 	public Vector<ShoppingList>getAllListsOf(Person p) {
@@ -177,12 +177,12 @@ public class ListMapper {
 		
 
 
-	 //Einfügen eines <code>List</code>-Objekts in die Datenbank. Es wird
-	 // auch der Primärschlüssel des übergebenen Objekts geprüft und im gegebenen Falle
-	 // berichtigt.
-	 // @param l das zu speichernde Objekt
-	//@return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
-	 //        <code>id</code>.
+	 /**Einfügen eines <code>List</code>-Objekts in die Datenbank. Es wird
+	 *auch der Primärschlüssel des übergebenen Objekts geprüft und im gegebenen Falle
+	 *berichtigt.
+	 *@param l das zu speichernde Objekt
+	*@return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
+	       * <code>id</code>.**/
 
 	public ShoppingList insert(ShoppingList l) {
 	  Connection con = DBConnection.connection();
@@ -234,9 +234,9 @@ public class ListMapper {
 	  return l;
 	}
 
-	 // Schreiben eines Objekts in die Datenbank.
-	  // @param l  Objekt, das in die Datenbank geschrieben werden soll
-	  //@return das als Parameter übergebene Objekt
+	 /** Schreiben eines Objekts in die Datenbank.
+	  * @param l  Objekt, das in die Datenbank geschrieben werden soll
+	  *@return das als Parameter übergebene Objekt**/
 	   
 	  public ShoppingList update(ShoppingList l) {
 	    Connection con = DBConnection.connection();
@@ -257,8 +257,8 @@ public class ListMapper {
 	  }
 	   
 
-	   // Daten eines <code>List</code>-Objekts aus der Datenbank loeschen.
-	    // @param l das aus der DB zu loeschende "Objekt"
+	   /** Daten eines <code>List</code>-Objekts aus der Datenbank loeschen.
+	   * @param l das aus der DB zu loeschende "Objekt"**/
 	   
 	   public void delete(ShoppingList l) {
 	     Connection con = DBConnection.connection();

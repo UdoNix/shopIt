@@ -14,13 +14,13 @@ import de.hdm.shared.bo.Shop;
 import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Team;
 
-//@udo nix, emily kretzschmar
+/** @author udo nix, emily kretzschmar**/
 	
 public class ItemMapper {
 	
-	// Klasse ItemMapper als Singleton
-	//Variable durch <code> static </code> nur einmal für Instanzen der Klassen vorhanden
-	//Sie speichert einzige Instanz der Klasse
+	/**Klasse ItemMapper als Singleton
+	*Variable durch <code> static </code> nur einmal für Instanzen der Klassen vorhanden
+	*Sie speichert einzige Instanz der Klasse**/
  private static ItemMapper itemMapper = null;
 
 // Konstruktor geschützt, es kann keine neue Instanz dieser Klasse mit <code>new</code> erzeugt werden
@@ -28,9 +28,10 @@ public class ItemMapper {
 protected ItemMapper() {
 }
 
-//Aufruf der statischen Methode durch <code>ItemMapper.itemMapper()</code>. Singleton: Es kann nur eine 
-//Instanz von <code>ItemMapper</code> existieren
-//@return itemMapper
+/**Aufruf der statischen Methode durch <code>ItemMapper.itemMapper()</code>. Singleton: Es kann nur eine 
+*Instanz von <code>ItemMapper</code> existieren
+*@return itemMapper
+**/
 
 public static ItemMapper itemMapper() {
 	if (itemMapper == null) {
@@ -39,10 +40,10 @@ public static ItemMapper itemMapper() {
 	return itemMapper;
 }
 
-// Item mit der vorgegebene Id suchen, Da sie eindeutig ist, wird nur ein Objekt zurueckgegeben
-//@parameter id Primärschlüsselattribut
-//@return Itemobjekt des übergebenen Schlüssel, null bei nicht vorhandenem Datenbank-Tupel
-
+/**Item mit der vorgegebene Id suchen, Da sie eindeutig ist, wird nur ein Objekt zurueckgegeben
+*@parameter id Primärschlüsselattribut
+*@return Itemobjekt des übergebenen Schlüssel, null bei nicht vorhandenem Datenbank-Tupel
+**/
 public Item findByKey (int id) {
 	//DB-Verbindung holen
 	Connection con =DBConnection.connection();
@@ -79,10 +80,10 @@ public Item findByKey (int id) {
 		    return null;
 		  }
 			
-// Auslesen aller Einträge.
- // @return Ein Vektor mit Item-Objekten, die sämtliche Gruppen
- //        repräsentieren. Bei Exceptions: Ein partiell gefüllter
-//        oder eben leerer Vetor wird zurückgeliefert.
+/** Auslesen aller Einträge.
+  *@return Ein Vektor mit Item-Objekten, die sämtliche Gruppen
+       * repräsentieren. Bei Exceptions: Ein partiell gefüllter
+    * oder eben leerer Vetor wird zurückgeliefert.**/
 
 public Vector<Item> findAll() {
   Connection con = DBConnection.connection();
@@ -207,12 +208,12 @@ public Vector<Item> findByList (ShoppingList l){
 
 
 
- //Einfügen eines <code>Item</code>-Objekts in die Datenbank. Es wird
- // auch der Primärschlüssel des übergebenen Objekts geprüft und im gegebenen Falle
- // berichtigt.
- // @param i das zu speichernde Objekt
-//@return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
- //        <code>id</code>.
+ /**Einfügen eines <code>Item</code>-Objekts in die Datenbank. Es wird
+ *auch der Primärschlüssel des übergebenen Objekts geprüft und im gegebenen Falle
+ *berichtigt.
+ *@param i das zu speichernde Objekt
+ *@return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
+        *<code>id</code>.**/
 
 public Item insert(Item i) {
   Connection con = DBConnection.connection();
@@ -259,9 +260,9 @@ public Item insert(Item i) {
   return i;
 }
 
- // Schreiben eines Objekts in die Datenbank.
-  // @param i  Objekt, das in die Datenbank geschrieben werden soll
-  //@return das als Parameter übergebene Objekt
+ /** Schreiben eines Objekts in die Datenbank.
+  *@param i  Objekt, das in die Datenbank geschrieben werden soll
+  *@return das als Parameter übergebene Objekt **/
    
 // TODO correct it
   public Item update(Item i) {
@@ -283,8 +284,8 @@ public Item insert(Item i) {
   
    
 
-   // Daten eines <code>Item</code>-Objekts aus der Datenbank loeschen.
-    // @param s das aus der DB zu loeschende "Objekt"
+   /** Daten eines <code>Item</code>-Objekts aus der Datenbank loeschen.
+    *@param s das aus der DB zu loeschende "Objekt"**/
    
    public void delete(Item i) {
      Connection con = DBConnection.connection();
@@ -331,7 +332,11 @@ public Item insert(Item i) {
 	  }
 
    
-  //Methode, die alle Einträge einer Person zurüchgibt
+  /**
+   * Methode, die alle Einträge einer Person zurüchgibt
+   * @param p
+   * @return result
+   */
    public Vector<Item> getItemsOf(Person p) {
 	   Connection con = DBConnection.connection();
 	    Vector<Item> result = new Vector<Item>();
@@ -460,9 +465,9 @@ public Vector<Item> getItemsByTeamAndShopWithTime (int teamId, int shopId, Times
 
 	    return result;
 }
-/*
+/**
  * die Einträge einer Liste filtern nach Shop
- */
+ **/
 public Vector<Item> findByListAndShop (ShoppingList l, Shop s){
 	
 	int listId = l.getId();
