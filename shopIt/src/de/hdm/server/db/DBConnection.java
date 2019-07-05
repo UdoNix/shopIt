@@ -65,5 +65,11 @@ public class DBConnection {
         // Zurückgegeben der Verbindung
         return con;
     }
+    
+    @Override
+    protected void finalize() throws Throwable {
+    	super.finalize();
+    	con.close();
+    }
 
 }

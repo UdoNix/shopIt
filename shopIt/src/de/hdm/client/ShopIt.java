@@ -39,7 +39,6 @@ public class ShopIt implements EntryPoint {
 				loginInfo = result;
 				if (loginInfo.isLoggedIn()) {
 
-					Window.alert(loginInfo.getEmailAddress());
 					loadShopIt(loginInfo);
 
 				} else {
@@ -76,8 +75,8 @@ public class ShopIt implements EntryPoint {
 		@Override
 		public void onFailure(Throwable error) {
 			logger.log(Level.SEVERE, error.getMessage());
-			Window.alert("Noch kein Benutzer mit dieser Email angelegt. Neuer Benutzer wurde erstellt!");
-			Window.alert("�ndern Sie Ihren Vor- und Nachnamen im Account Bereich.");
+			Window.alert("Noch kein Benutzer mit dieser Email angelegt. Neuer Benutzer wurde erstellt!\n"
+					+ "Ändern Sie Ihren Vor- und Nachnamen im Account Bereich.");
 
 			admin.createPerson("Ihr Vorname", "Ihr Nachname", loginInfo.getEmailAddress(), new CreatePersonCallback());
 		}
