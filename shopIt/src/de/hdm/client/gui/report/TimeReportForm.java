@@ -1,6 +1,7 @@
 package de.hdm.client.gui.report;
 
 import java.util.Date;
+
 import java.util.Vector;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -24,7 +25,11 @@ import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ReportGeneratorAsync;
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.Team;
-
+/**
+ * Die Klasse <code>TimeReportForm</code> dient dem Report Artikel in Zeitraum
+ * @author Diba
+ *
+ */
 public class TimeReportForm extends HorizontalPanel {
 
 	private Button startButton = new Button("Report starten");

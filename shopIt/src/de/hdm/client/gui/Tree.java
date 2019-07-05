@@ -29,6 +29,7 @@ import de.hdm.shared.bo.Team;
 
 /**
  * Klasse zur Realisierung einer Navigation durch die Applikation mittels CellTree
+ * 
  * @author dibasegmen
  *
  */
@@ -173,6 +174,10 @@ public class Tree extends CellTree {
 		
 		private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
 		
+		/**
+		 *  Wenn sich im Knoten Gruppe Änderungen ergeben, wird der Baum entsprechend aktualisiert 
+		 */
+		
 		@Override
 		protected void onRangeChanged(HasData<Team> display) {
 			refresh();
@@ -204,6 +209,11 @@ public class Tree extends CellTree {
 		public ShoppingListsAsyncDataProvider(Team team) {
 			this.team = team;
 		}
+		
+		/**
+		 * Wenn sich im Knoten Liste Änderungen ergeben, wird der Baum entsprechend aktualisiert
+		 * 
+		 */
 		
 		@Override
 		public void onRangeChanged(HasData<ShoppingList> display) {

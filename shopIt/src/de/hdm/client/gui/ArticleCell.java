@@ -1,6 +1,7 @@
 package de.hdm.client.gui;
 
 import com.google.gwt.cell.client.AbstractCell;
+
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 
 import de.hdm.shared.bo.Article;

@@ -105,17 +105,25 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		p.setLastName(lastName);
 		p.setEmail(email);
 
-		// Setzen einer vorläufigen Anwender-Id, welche nach Kommunikation mit DB auf
-		// den nächsthhöheren Wert gesetzt wird.
+		/**
+		 *  Setzen einer vorläufigen Anwender-Id, welche nach Kommunikation mit DB auf
+		 *  den nächsthhöheren Wert gesetzt wird.
+		 */
 		p.setId(1);
 
-		// Speichern des Anwender-Objekts in der DB.
+		/**
+		 *  Speichern des Anwender-Objekts in der DB.
+		 */
 		return this.pMapper.insert(p);
 	}
 
 	/**
+<<<<<<< HEAD
 	 *  Auslesen eines Anwenders anhand seiner Anwender-Id.(non-Javadoc)
 	 * 
+=======
+	 *  Auslesen eines Anwenders anhand seiner Anwender-Id.
+>>>>>>> branch 'master' of https://github.com/UdoNix/shopIt.git
 	 */
 	public Person getPersonById(int id) throws IllegalArgumentException {
 		return this.pMapper.findByKey(id);
@@ -318,6 +326,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/**
 	 * Zust�ndigkeit zum Eintrag hinzuf�gen
 	 */
+	
 	public Item addResponsibilityToItem(Responsibility r, Item i) {
 		i.setResponsibilityId(r.getId());
 		return i;
@@ -326,6 +335,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/**
 	 * Eintrag anhand der Id finden
 	 */
+	
 	public Item getItemById(int id) throws IllegalArgumentException {
 		return this.iMapper.findByKey(id);
 	}
@@ -333,6 +343,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/**
 	 * alle Eintr�ge aufzeigen
 	 */
+	
 	public Vector<Item> getAllItems() throws IllegalArgumentException {
 		return this.iMapper.findAll();
 	}
@@ -356,7 +367,11 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		rMapper.delete(rMapper.findByKey(i.getResponsibilityId()));
 	}
 
-	// Status des Eintrags ändern. (Eintrag abhaken bzw. den Haken entfernen)
+	/**
+	 * Status des Eintrags ändern. (Eintrag abhaken bzw. den Haken entfernen)
+	 * @param i
+	 * @throws IllegalArgumentException
+	 */
 	public void changeStatus(Item i) throws IllegalArgumentException {
 		if (i.isStatus() == false) {
 			i.setStatus(true);
@@ -462,6 +477,7 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	public void save(Team t) throws IllegalArgumentException {
 		tMapper.update(t);
 	}
+
 
 	/**
 	* Auslesen aller Personen einer Gruppe.
