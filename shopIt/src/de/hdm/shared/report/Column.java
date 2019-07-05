@@ -5,15 +5,18 @@ import java.io.Serializable;
 public class Column implements Serializable {
 public static final long serialVersionUID = 1L;
 	
-	/*
+	/**
 	 * Value ist der Wert eines Spaltenobjekts und entspricht dem Zelleneintrag einer Tabelle.
 	 * Es handelt sich um einen textuellen Wert.
+	 * 
+	 * @author Larisa
 	 */
+
 	public String value = "";
 	
-	/*
+	/**
 	 * Serialisierbare Klassen,die mittels GWT-RPC transportiert werden sollen, 
-	 * müssen einen No-Argument-Konstruktor besitzen. Hier wird diesen Konstruktor
+	 * mï¿½ssen einen No-Argument-Konstruktor besitzen. Hier wird diesen Konstruktor
 	 * expliziert implementiert.
 	 */
 	
@@ -21,8 +24,8 @@ public static final long serialVersionUID = 1L;
 		
 	}
 	
-	/*
-	 * Konstruktor für die Wertangabe. 
+	/**
+	 * Konstruktor fï¿½r die Wertangabe. 
 	 */
 	
 	public Column(String s) {
