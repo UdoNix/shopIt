@@ -1,9 +1,8 @@
 package de.hdm.server.db;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
-
-import com.ibm.icu.text.SimpleDateFormat;
 
 import de.hdm.shared.bo.ReportObject;
 

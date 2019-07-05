@@ -81,6 +81,7 @@ CREATE TABLE `item` (
   `articleId` int(11) NOT NULL,
   `teamId` int(11) NOT NULL,
   `listId` int(11) NOT NULL,
+  `quantity` float(11) NOT NULL,
   `favorit` boolean,
   `status` boolean
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -89,15 +90,15 @@ CREATE TABLE `item` (
 # Daten für Tabelle item
 #
 
-INSERT INTO item VALUES (1, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 1, 1, 1, 1, false, true);
-INSERT INTO item VALUES (2, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 2, 2, 1, 1, true, true);
-INSERT INTO item VALUES (3, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 3, 3, 1, 1, true, false);
-INSERT INTO item VALUES (4, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 1, 1, 2, 2, false, true);
-INSERT INTO item VALUES (5, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 2, 2, 2, 2, true, true);
-INSERT INTO item VALUES (6, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 3, 3, 2, 2, true, false);
-INSERT INTO item VALUES (7, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 1, 1, 3, 3, false, true);
-INSERT INTO item VALUES (8, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 2, 2, 3, 3, true, true);
-INSERT INTO item VALUES (9, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 3, 3, 3, 3, true, false);
+INSERT INTO item VALUES (1, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 1, 1, 1, 1, '3.4', false, true);
+INSERT INTO item VALUES (2, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 2, 2, 1, 1, '5.8', true, true);
+INSERT INTO item VALUES (3, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 3, 3, 1, 1, '2.9', true, false);
+INSERT INTO item VALUES (4, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 1, 1, 2, 2, '3.4', false, true);
+INSERT INTO item VALUES (5, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 2, 2, 2, 2, '5.8', true, true);
+INSERT INTO item VALUES (6, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 3, 3, 2, 2, '2.9', true, false);
+INSERT INTO item VALUES (7, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 1, 1, 3, 3, '3.4', false, true);
+INSERT INTO item VALUES (8, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 2, 2, 3, 3, '5.8', true, true);
+INSERT INTO item VALUES (9, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 3, 3, 3, 3, '2.9', true, false);
 
 -- --------------------------------------------------------
 
@@ -244,7 +245,6 @@ CREATE TABLE `unit` (
   `id` int(11) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `changeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `quantity` float(11) NOT NULL,
   `unit` varchar(200) NOT NULL default ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -252,9 +252,9 @@ CREATE TABLE `unit` (
 # Daten für Tabelle unit
 #
 
-INSERT INTO unit VALUES (1, '2019-01-02 00:00:00', '2019-01-01 00:00:00', '3.4', 'Kilo');
-INSERT INTO unit VALUES (2, '2019-01-02 00:00:00', '2019-01-02 00:00:00', '5.8', 'Stück');
-INSERT INTO unit VALUES (3, '2019-01-02 00:00:00', '2019-01-03 00:00:00', '2.9', 'Packungen');
+INSERT INTO unit VALUES (1, '2019-01-02 00:00:00', '2019-01-01 00:00:00', 'Kilo');
+INSERT INTO unit VALUES (2, '2019-01-02 00:00:00', '2019-01-02 00:00:00', 'Stück');
+INSERT INTO unit VALUES (3, '2019-01-02 00:00:00', '2019-01-03 00:00:00', 'Packungen');
 
 -- --------------------------------------------------------
 
