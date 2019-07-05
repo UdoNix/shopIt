@@ -11,23 +11,32 @@ import java.util.Vector;
 import de.hdm.shared.bo.Team;
 import de.hdm.shared.bo.Person;
 
-//@udo nix, emily kretzschmar
+/**
+ * @udo nix, emily kretzschmar
+ *
+ */
 
 public class TeamMapper {
-	
-	// Klasse TeamMapper als Singleton
-	//Variable durch <code> static </code> nur einmal für Instanzen der Klassen vorhanden
-	//Sie speichert einzige Instanz der Klasse
+		
+/**
+ * Klasse TeamMapper als Singleton
+ * Variable durch <code> static </code> nur einmal für Instanzen der Klassen vorhanden
+ * Sie speichert einzige Instanz der Klasse
+ */
  private static TeamMapper teamMapper = null;
 
-// Konstruktor geschützt, es kann keine neue Instanz dieser Klasse mit <code>new</code> erzeugt werden
+/**
+ *  Konstruktor geschützt, es kann keine neue Instanz dieser Klasse mit <code>new</code> erzeugt werden
+ */
 
 protected TeamMapper() {
 }
 
-//Aufruf der statischen Methode durch <code>TeamMapper.TeamMapper()</code>. Singleton: Es kann nur eine 
-//Instanz von <code>TeamMapper</code> existieren
-//@return TeamMapper
+/**
+ * Aufruf der statischen Methode durch <code>TeamMapper.TeamMapper()</code>. Singleton: Es kann nur eine 
+ * Instanz von <code>TeamMapper</code> existieren
+ * @return TeamMapper
+ */
 
 public static TeamMapper teamMapper() {
 	if (teamMapper == null) {
@@ -36,9 +45,11 @@ public static TeamMapper teamMapper() {
 	return teamMapper;
 }
 
-// Gruppe mit der vorgegebene Id suchen, Da sie eindeutig ist, wird nur ein Objekt zurueckgegeben
-//@parameter id Primärschlüsselattribut
-//@return Gruppenobjekt des übergebenen Schlüssel, null bei nicht vorhandenem Datenbank-Tupel
+/**
+ * Gruppe mit der vorgegebene Id suchen, Da sie eindeutig ist, wird nur ein Objekt zurueckgegeben
+ * @param id Primärschlüsselattribut
+ * @return Gruppenobjekt des übergebenen Schlüssel, null bei nicht vorhandenem Datenbank-Tupel
+ */
 
 public Team findByKey (int id) {
 	//DB-Verbindung holen
@@ -70,10 +81,12 @@ public Team findByKey (int id) {
 		    return null;
 		  }
 			
-// Auslesen aller Teams.
- // @return Ein Vektor mit Team-Objekten, die sämtliche Gruppen
- //        repräsentieren. Bei Exceptions: Ein partiell gefüllter
-//        oder eben leerer Vetor wird zurückgeliefert.
+/**
+ * Auslesen aller Teams.
+ * @return Ein Vektor mit Team-Objekten, die sämtliche Gruppen
+ * repräsentieren. Bei Exceptions: Ein partiell gefüllter
+ * oder eben leerer Vetor wird zurückgeliefert.
+ */
 
 public Vector<Team> findAll() {
   Connection con = DBConnection.connection();
@@ -107,13 +120,14 @@ public Vector<Team> findAll() {
   return result;
 }
 
-
- //Einfügen eines <code>Team</code>-Objekts in die Datenbank. Es wird
- // auch der Primärschlüssel des übergebenen Objekts geprüft und im gegebenen Falle
- // berichtigt.
- // @param g das zu speichernde Objekt
-//@return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
- //        <code>id</code>.
+/**
+ * Einfügen eines <code>Team</code>-Objekts in die Datenbank. Es wird
+ * auch der Primärschlüssel des übergebenen Objekts geprüft und im gegebenen Falle
+ * berichtigt.
+ * 
+ * @param g das zu speichernde Objekt
+ * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierteR <code>id</code>
+ */
 
 public Team insert(Team t) {
   Connection con = DBConnection.connection();
@@ -152,9 +166,12 @@ public Team insert(Team t) {
   return t;
 }
 
- // Schreiben eines Objekts in die Datenbank.
-  // @param g  Objekt, das in die Datenbank geschrieben werden soll
-  //@return das als Parameter übergebene Objekt
+
+/**
+ * Schreiben eines Objekts in die Datenbank.
+ * @param t Objekt, das in die Datenbank geschrieben werden soll
+ * @return das als Parameter übergebene Objekt
+ */
   
   public Team update(Team t) {
     Connection con = DBConnection.connection();
@@ -175,8 +192,11 @@ public Team insert(Team t) {
   }
    
 
-   // Daten eines <code>Team</code>-Objekts aus der Datenbank loeschen.
-    // @param g das aus der DB zu loeschende "Objekt"
+  
+  /**
+   * Daten eines <code>Team</code>-Objekts aus der Datenbank loeschen.
+   * @param t das aus der DB zu loeschende "Objekt"
+   */
    
    public void delete(Team t) {
      Connection con = DBConnection.connection();

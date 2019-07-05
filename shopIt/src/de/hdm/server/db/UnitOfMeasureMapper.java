@@ -8,23 +8,33 @@ import java.sql.ResultSet;
 	import java.util.Vector;
 
 import de.hdm.shared.bo.UnitOfMeasure;
-//@udo nix, emily kretzschmar
+/**
+ * @udo nix, emily kretzschmar
+ *
+ */
 
 public class UnitOfMeasureMapper {
 	
-	// Klasse UnitOfMeasureMapper als Singleton
-	//Variable durch <code> static </code> nur einmal für Instanzen der Klassen vorhanden
-	//Sie speichert einzige Instanz der Klasse
+	/**
+	 *  Klasse UnitOfMeasureMapper als Singleton
+	 *  Variable durch <code> static </code> nur einmal für Instanzen der Klassen vorhanden
+	 *  Sie speichert einzige Instanz der Klasse
+	 */
+
  private static UnitOfMeasureMapper unitOfMeasureMapper = null;
 
-// Konstruktor geschützt, es kann keine neue Instanz dieser Klasse mit <code>new</code> erzeugt werden
+/**
+ *  Konstruktor geschützt, es kann keine neue Instanz dieser Klasse mit <code>new</code> erzeugt werden
+ */
 
 protected UnitOfMeasureMapper() {
 }
+/**
+ * Aufruf der statischen Methode durch <code>UnitOfMeasureMapper.unitOfMeasureMapper()</code>. Singleton: Es kann nur eine 
+ *Instanz von <code>UnitOfMeasureMapper</code> existieren
+ *@return unitOfMeasureMapper
+ */
 
-//Aufruf der statischen Methode durch <code>UnitOfMeasureMapper.unitOfMeasureMapper()</code>. Singleton: Es kann nur eine 
-//Instanz von <code>UnitOfMeasureMapper</code> existieren
-//@return unitOfMeasureMapper
 
 public static UnitOfMeasureMapper unitOfMeasureMapper() {
 	if (unitOfMeasureMapper == null) {
@@ -33,9 +43,12 @@ public static UnitOfMeasureMapper unitOfMeasureMapper() {
 	return unitOfMeasureMapper;
 }
 
-// UnitOfMeasure mit der vorgegebene Id suchen, Da sie eindeutig ist, wird nur ein Objekt zurueckgegeben
-//@parameter id Primärschlüsselattribut
-//@return UnitOfMeasureobjekt des übergebenen Schlüssel, null bei nicht vorhandenem Datenbank-Tupel
+/**
+ * UnitOfMeasure mit der vorgegebene Id suchen, Da sie eindeutig ist, wird nur ein Objekt zurueckgegeben
+ * @param id Primärschlüsselattribut
+ * @return UnitOfMeasureobjekt des übergebenen Schlüssel, null bei nicht vorhandenem Datenbank-Tupel
+ */
+
 
 public UnitOfMeasure findByKey (int id) {
 	//DB-Verbindung holen
@@ -68,10 +81,14 @@ public UnitOfMeasure findByKey (int id) {
 		    return null;
 		  }
 			
-// Auslesen aller Maßeinheiten.
- // @return Ein Vektor mit UnitOfMeasure-Objekten, die sämtliche Maßeinheiten
- //        repräsentieren. Bei Exceptions: Ein partiell gefüllter
-//        oder eben leerer Vetor wird zurückgeliefert.
+ 
+
+/**
+ * Auslesen aller Maßeinheiten.
+  @return Ein Vektor mit UnitOfMeasure-Objekten, die sämtliche Maßeinheiten
+         repräsentieren. Bei Exceptions: Ein partiell gefüllter
+        oder eben leerer Vetor wird zurückgeliefert.
+ */
 
 public Vector<UnitOfMeasure> findAll() {
   Connection con = DBConnection.connection();
@@ -108,13 +125,13 @@ public Vector<UnitOfMeasure> findAll() {
 }
 
 
- //Einfügen eines <code>UnitOfMeasure</code>-Objekts in die Datenbank. Es wird
- // auch der Primärschlüssel des übergebenen Objekts geprüft und im gegebenen Falle
- // berichtigt.
- // @param u das zu speichernde Objekt
-//@return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
- //        <code>id</code>.
-
+/**
+ * Einfügen eines <code>UnitOfMeasure</code>-Objekts in die Datenbank. Es wird
+  auch der Primärschlüssel des übergebenen Objekts geprüft und im gegebenen Falle
+  berichtigt.
+ * @param u das zu speichernde Objekt
+ * @returndas bereits übergebene Objekt, jedoch mit ggf. korrigierter<code>id</code>.
+ */
 public UnitOfMeasure insert(UnitOfMeasure u) {
   Connection con = DBConnection.connection();
 
@@ -151,10 +168,12 @@ public UnitOfMeasure insert(UnitOfMeasure u) {
   }
   return u;
 }
- // Schreiben eines Objekts in die Datenbank.
-  // @param u  Objekt, das in die Datenbank geschrieben werden soll
-  //@return das als Parameter übergebene Objekt
-   
+  
+/**
+ * Schreiben eines Objekts in die Datenbank.
+ * @param u  Objekt, das in die Datenbank geschrieben werden soll
+ * @return das als Parameter übergebene Objekt
+ */
   public UnitOfMeasure update(UnitOfMeasure u) {
     Connection con = DBConnection.connection();
 
@@ -173,10 +192,10 @@ public UnitOfMeasure insert(UnitOfMeasure u) {
     return u;
   }
    
-
-   // Daten eines <code>UnitOfMeasure</code>-Objekts aus der Datenbank loeschen.
-    // @param u das aus der DB zu loeschende "Objekt"
-   
+   /**
+    * Daten eines <code>UnitOfMeasure</code>-Objekts aus der Datenbank loeschen.
+    * @param u das aus der DB zu loeschende "Objekt"
+    */
    public void delete(UnitOfMeasure u) {
      Connection con = DBConnection.connection();
 
