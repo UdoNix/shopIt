@@ -63,7 +63,7 @@ public interface ShopITAdministration extends RemoteService {
 	public ShoppingList getListById(int id) throws IllegalArgumentException;
 
 	// Einträge einer Liste aufzeigen.
-	public Vector<Item> getAllItemsOfList(ShoppingList l) throws IllegalArgumentException;
+	public Vector<Item> getAllItemsOfList(ShoppingList l, Person p, Shop s) throws IllegalArgumentException;
 
 	public void update(ShoppingList l) throws IllegalArgumentException;
 	

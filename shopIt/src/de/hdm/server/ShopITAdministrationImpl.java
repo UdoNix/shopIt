@@ -214,8 +214,14 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 	/*
 	 * alle Eintr�ge einer Liste aufzeigen
 	 */
-	public Vector<Item> getAllItemsOfList(ShoppingList l) throws IllegalArgumentException {
-		return this.iMapper.findByList(l);
+	public Vector<Item> getAllItemsOfList(ShoppingList l, Person p, Shop s) throws IllegalArgumentException {
+		if(p != null) {
+			return this.iMapper.findByListAndPerson(l, p);
+		} else if (s != null) {
+			return this.iMapper.findByListAndShop(l, s);
+		} else {
+			return this.iMapper.findByList(l);
+		}
 	}
 
 	/*

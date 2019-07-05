@@ -108,6 +108,9 @@ public class ListItemForm extends VerticalPanel {
 	private final ListBox unitListBox = new ListBox();
 	private final ListBox personListBox = new ListBox();
 	private final ListBox shopListBox = new ListBox();
+	
+	private final ListBox personFilterListBox = new ListBox();
+	private final ListBox shopFilterListBox = new ListBox();
 
 	/**
 	 * Anlegen eines Favorisieren-Buttons und einer Abhaken-CheckBox
@@ -116,6 +119,8 @@ public class ListItemForm extends VerticalPanel {
 	private Button standardizeBtn = new Button();
 	private CheckBox check = new CheckBox();
 	private final AsyncDataProvider<ShoppingList> asyncDataProvider;
+
+	private AsyncCallback<Vector<Item>> getAllCallback;
 
 	public ListItemForm(final ShoppingList selectedShoppingList,
 			final ShoppingListsAsyncDataProvider asyncDataProvider) {
@@ -155,10 +160,40 @@ public class ListItemForm extends VerticalPanel {
 		btnPanel.add(anlegenBtn);
 		btnPanel.add(saveBtn);
 		btnPanel.add(deleteBtn);
+		
+		personFilterListBox.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				for(Person person: personList) {
+					if(person.getId() + "" == personFilterListBox.getSelectedValue()) {
+						loadItems(null, person);
+						personFilterListBox.setSelectedIndex(0);
+					}
+				}
+			}
+		});
+		shopFilterListBox.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				for(Shop shop: shopList) {
+					if(shop.getId() + "" == shopFilterListBox.getSelectedValue()) {
+						loadItems(shop, null);
+						shopFilterListBox.setSelectedIndex(0);
+					}
+				}
+			}
+		});
+		
+		HorizontalPanel filterPanel = new HorizontalPanel();
+		filterPanel.add(new Label("Person-Filter: "));
+		filterPanel.add(personFilterListBox);
+		filterPanel.add(new Label(" Shop-Filter: "));
+		filterPanel.add(shopFilterListBox);
 
 		contentPanel.add(new ShoppingListForm());
 		contentPanel.add(ListGrid);
 		contentPanel.add(btnPanel);
+		contentPanel.add(filterPanel);
 
 		add(contentPanel);
 
@@ -203,9 +238,12 @@ public class ListItemForm extends VerticalPanel {
 			@Override
 			public void onSuccess(Vector<Person> result) {
 				personList = result;
+				personFilterListBox.addItem("");
 				for (Person person : result) {
 					personListBox.addItem(person.getFirstName() + " " + person.getLastName(), person.getId() + "");
+					personFilterListBox.addItem(person.getFirstName() + " " + person.getLastName(), person.getId() + "");
 				}
+				
 			}
 		});
 		listenVerwaltung.getAllShops(new AsyncCallback<Vector<Shop>>() {
@@ -218,15 +256,17 @@ public class ListItemForm extends VerticalPanel {
 			@Override
 			public void onSuccess(Vector<Shop> result) {
 				shopList = result;
+				shopFilterListBox.addItem("");
 				for (Shop shop : result) {
 					shopListBox.addItem(shop.getName(), shop.getId() + "");
+					shopFilterListBox.addItem(shop.getName(), shop.getId() + "");
 				}
 			}
 		});
 
 		final CellTable<Item> cellTable = new CellTable<Item>();
 
-		final AsyncCallback<Vector<Item>> getAllCallback = new AsyncCallback<Vector<Item>>() {
+		getAllCallback = new AsyncCallback<Vector<Item>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -352,7 +392,7 @@ public class ListItemForm extends VerticalPanel {
 
 					@Override
 					public void onSuccess(Void result) {
-						listenVerwaltung.getAllItemsOfList(getSelectedShoppingList(), getAllCallback);
+						loadItems(null, null);
 					}
 				});
 			}
@@ -383,7 +423,7 @@ public class ListItemForm extends VerticalPanel {
 		cellTable.addColumn(previewColumn, "");
 		cellTable.addColumn(editColumn, "");
 
-		listenVerwaltung.getAllItemsOfList(selectedShoppingList, getAllCallback);
+		
 
 		add(cellTable);
 
@@ -407,7 +447,7 @@ public class ListItemForm extends VerticalPanel {
 
 							@Override
 							public void onSuccess(Item result) {
-								listenVerwaltung.getAllItemsOfList(getSelectedShoppingList(), getAllCallback);
+								loadItems(null, null);
 							}
 						});
 			}
@@ -438,7 +478,7 @@ public class ListItemForm extends VerticalPanel {
 
 						@Override
 						public void onSuccess(Void result) {
-							listenVerwaltung.getAllItemsOfList(getSelectedShoppingList(), getAllCallback);
+							loadItems(null, null);
 						}
 					});
 				} else {
@@ -465,6 +505,12 @@ public class ListItemForm extends VerticalPanel {
 				});
 			}
 		});
+		
+		loadItems(null, null);
+	}
+	
+	public void loadItems(Shop shop, Person person) {
+		listenVerwaltung.getAllItemsOfList(selectedShoppingList, person, shop, getAllCallback);
 	}
 
 	public ShoppingList getSelectedShoppingList() {

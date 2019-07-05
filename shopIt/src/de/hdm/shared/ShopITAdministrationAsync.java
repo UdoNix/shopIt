@@ -61,7 +61,7 @@ public interface ShopITAdministrationAsync {
 
 	void getAllItems(AsyncCallback<Vector<Item>> callback);
 
-	void getAllItemsOfList(ShoppingList l, AsyncCallback<Vector<Item>> callback);
+	void getAllItemsOfList(ShoppingList l, Person p, Shop s, AsyncCallback<Vector<Item>> callback);
 
 	void getAllListsOf(Team t, AsyncCallback<Vector<ShoppingList>> callback);
 
