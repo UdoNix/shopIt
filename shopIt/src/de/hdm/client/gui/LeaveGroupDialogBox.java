@@ -1,6 +1,7 @@
 package de.hdm.client.gui;
 
 import com.google.gwt.event.dom.client.ClickEvent;
+
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
@@ -13,11 +14,11 @@ import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.Team;
 
-/*
+@Deprecated
+/**
  * Die Klasse <code>LeaveGroupDialogBox</code> dient der Darstellung einer Dialogbox, die
  * dem Nutzer das Verlassen einer Gruppe ermöglicht
  * 
- * @author dibasegmen
  *
 */
 
