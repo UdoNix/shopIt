@@ -39,7 +39,8 @@ public class ShopIt implements EntryPoint {
 				loginInfo = result;
 				if (loginInfo.isLoggedIn()) {
 
-					Window.alert(loginInfo.getEmailAddress());
+					loginInfo = new LoginInformation();
+					loginInfo.setEmailAddress("ulrike@mustermann.org");
 					loadShopIt(loginInfo);
 
 				} else {
@@ -66,6 +67,7 @@ public class ShopIt implements EntryPoint {
 
 	private void loadShopIt(LoginInformation loginInformation) {
 		RootPanel.get("content").clear();
+		RootPanel.get("login").add(new LoginHeader(loginInformation));
 		RootPanel.get("content").add(new Layout(loginInformation));
 		
 		admin.getPersonByEmail(loginInformation.getEmailAddress(), new FindByMailCallback());
@@ -76,8 +78,8 @@ public class ShopIt implements EntryPoint {
 		@Override
 		public void onFailure(Throwable error) {
 			logger.log(Level.SEVERE, error.getMessage());
-			Window.alert("Noch kein Benutzer mit dieser Email angelegt. Neuer Benutzer wurde erstellt!");
-			Window.alert("Ändern Sie Ihren Vor- und Nachnamen im Account Bereich.");
+			Window.alert("Noch kein Benutzer mit dieser Email angelegt. Neuer Benutzer wurde erstellt!\n"
+					+ "Ändern Sie Ihren Vor- und Nachnamen im Account Bereich.");
 
 			admin.createPerson("Ihr Vorname", "Ihr Nachname", loginInfo.getEmailAddress(), new CreatePersonCallback());
 		}
@@ -85,7 +87,6 @@ public class ShopIt implements EntryPoint {
 		@Override
 		public void onSuccess(Person p) {
 
-			Window.alert(p.getEmail() + " existiert bereits und wurde aus der Datenbank geladen.");
 			ClientsideSettings.setCurrentUser(p);
 		}
 
@@ -102,7 +103,6 @@ public class ShopIt implements EntryPoint {
 		public void onSuccess(Person p) {
 			p.setEmail(loginInfo.getEmailAddress());
 			ClientsideSettings.setCurrentUser(p);
-			//Window.alert("geklappt!");
 		}
 	}
 }

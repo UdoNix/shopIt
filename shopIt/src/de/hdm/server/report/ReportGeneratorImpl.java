@@ -88,8 +88,8 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	}
 
 	/**
-	 * Diese Methode soll eine Statistik �ber h�ufig einkaufte Artikel von einem
-	 * H�ndler anzeigen.
+	 * Diese Methode soll eine Statistik Über häufig einkaufte Artikel von einem
+	 * Händler anzeigen.
 	 * 
 	 * @Larisa in Anlehnung Thies
 	 */
@@ -159,7 +159,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		headline.addColumn(new Column("Anzahl"));
 		headline.addColumn(new Column("Artikelname"));
 		headline.addColumn(new Column("Menge"));
-		headline.addColumn(new Column("Ma�einheit"));
+		headline.addColumn(new Column("Maßeinheit"));
 
 		/**
 		 *  Hinzuf�gen der Kopfzeile.
@@ -287,7 +287,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		// Zweite Headline Spalte: Artikel Id
 		headline.addColumn(new Column("Artikel"));
 		headline.addColumn(new Column("Menge"));
-		headline.addColumn(new Column("Ma�einheit"));
+		headline.addColumn(new Column("Maßeinheit"));
 		headline.addColumn(new Column("Name des Shops"));
 
 		/**
@@ -423,8 +423,8 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		headline.addColumn(new Column("Anzahl"));
 		headline.addColumn(new Column("Artikel"));
 		headline.addColumn(new Column("Menge"));
-		headline.addColumn(new Column("Ma�einheit"));
-		headline.addColumn(new Column("Zuletzt Ge�ndert"));
+		headline.addColumn(new Column("Maßeinheit"));
+		headline.addColumn(new Column("Zuletzt Geändert"));
 
 		/**
 		 *  Hinzuf�gen der Kopfzeile
