@@ -397,22 +397,6 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		}
 	}
 	
-	/**
-	 * Liste nach Person filtern. @Larisa 
-	 */
-	
-	public void sortByPerson(ShoppingList l, Person p) {
-		 
-		Vector<Item> item = this.iMapper.findAll(); 
-		
-		if (item != null) {
-			for (Item i: item) {
-				this.iMapper.findByListAndPerson(l, p); 
-			}
-		}
-			
-		}
-	
 
 	/**
 	 * ***************************************************************************
