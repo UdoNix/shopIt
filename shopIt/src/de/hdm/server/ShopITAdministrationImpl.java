@@ -478,23 +478,12 @@ public class ShopITAdministrationImpl extends RemoteServiceServlet implements Sh
 		tMapper.update(t);
 	}
 
-<<<<<<< Upstream, based on branch 'master' of https://github.com/UdoNix/shopIt.git
 
 	/**
 	* Auslesen aller Personen einer Gruppe.
 	*/
-=======
-	// Auslesen aller Personen einer Gruppe.
->>>>>>> efabd1c Anpassung
 	public Vector<Person> getAllPersonsOf(int teamId) throws IllegalArgumentException {
 		return this.mMapper.findByMember(teamId);
-<<<<<<< Upstream, based on branch 'master' of https://github.com/UdoNix/shopIt.git
-=======
-	}
-	
-	public Vector<Person> getAllPersonsOf(Team t) throws IllegalArgumentException {
-		return this.mMapper.findByMember(t.getId());
->>>>>>> efabd1c Anpassung
 
 	}
 
