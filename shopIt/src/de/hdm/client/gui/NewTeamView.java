@@ -24,7 +24,7 @@ public class NewTeamView extends VerticalPanel {
 
 		Grid grid = new Grid(2, 2);
 
-		grid.setWidget(0, 0, new Label("Name"));
+		grid.setWidget(0, 0, new Label("Name: "));
 		grid.setWidget(0, 1, nameTextBox);
 
 		Button button = new Button("Anlegen");
