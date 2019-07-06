@@ -91,8 +91,10 @@ public class TeamView extends VerticalPanel {
 
 		deleteButton.addClickHandler(new DeleteClickHandler());
 		teamGrid.setWidget(2, 0, deleteButton);
-
+		
+		Label titelLabel = new Label("Hier können Sie Ihre Gruppe verwalten");
 		Label textboxLabel = new Label("Name:");
+		teamGrid.setWidget(0, 0, titelLabel);
 		teamGrid.setWidget(1, 0, textboxLabel);
 		teamGrid.setWidget(1, 1, nameTextBox);
 
@@ -131,7 +133,7 @@ public class TeamView extends VerticalPanel {
 		});
 		teamGrid.setWidget(4, 1, listButton);
 
-		Label personTextBox = new Label("Hinzuzufügende Person (email)");
+		Label personTextBox = new Label("Hinzuzufügende Person (email): ");
 		teamGrid.setWidget(5, 0, personTextBox);
 		teamGrid.setWidget(5, 1, emailTextBox);
 

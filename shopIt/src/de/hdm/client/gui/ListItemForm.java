@@ -134,14 +134,16 @@ public class ListItemForm extends VerticalPanel {
 		 */
 
 		ListGrid = new Grid(7, 2);
-
+		
+		Label titleLabel = new Label("Hier können Sie einen Eintrag anlegen");
 		Label newArticleLabel = new Label("Artikel: ");
-		ListGrid.setWidget(1, 0, newArticleLabel);
-		ListGrid.setWidget(1, 1, articleListBox);
+		ListGrid.setWidget(0, 0, titleLabel);
+		ListGrid.setWidget(2, 0, newArticleLabel);
+		ListGrid.setWidget(2, 1, articleListBox);
 
 		Label newAmountLabel = new Label("Anzahl: ");
-		ListGrid.setWidget(2, 0, newAmountLabel);
-		ListGrid.setWidget(2, 1, amountTextBox);
+		ListGrid.setWidget(3, 0, newAmountLabel);
+		ListGrid.setWidget(3, 1, amountTextBox);
 
 		/**
 		 * Hinzufügen von ClickHandlern
@@ -158,10 +160,17 @@ public class ListItemForm extends VerticalPanel {
 		Label shopLabel = new Label("Haendler: ");
 		ListGrid.setWidget(5, 0, shopLabel);
 		ListGrid.setWidget(5, 1, shopListBox);
-
+//		Label listLabel = new Label("Hier können Sie Ihre Liste sehen"); 
+//		ListGrid.setWidget(8, 0, listLabel);
+		
 		btnPanel.add(anlegenBtn);
 		btnPanel.add(saveBtn);
 		btnPanel.add(deleteBtn);
+		
+		
+		
+//		Label listLabel = new Label("Hier können Sie Ihre Liste sehen"); 
+//		ListGrid.setWidget(8, 0, listLabel);
 		
 		personFilterListBox.addChangeHandler(new ChangeHandler() {
 			@Override
@@ -186,7 +195,10 @@ public class ListItemForm extends VerticalPanel {
 			}
 		});
 		
+		HorizontalPanel titelPanel = new HorizontalPanel(); 
 		HorizontalPanel filterPanel = new HorizontalPanel();
+		//Label listLabel = new Label();
+		titelPanel.add(new Label("Hier können Sie Ihre Liste sehen: "));
 		filterPanel.add(new Label("Person-Filter: "));
 		filterPanel.add(personFilterListBox);
 		filterPanel.add(new Label(" Shop-Filter: "));
@@ -195,6 +207,8 @@ public class ListItemForm extends VerticalPanel {
 		contentPanel.add(new ShoppingListForm());
 		contentPanel.add(ListGrid);
 		contentPanel.add(btnPanel);
+		contentPanel.add(titelPanel);
+		
 		contentPanel.add(filterPanel);
 
 		add(contentPanel);
