@@ -219,7 +219,7 @@ public class ListItemForm extends VerticalPanel {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("Fehler");
+				Window.alert("Es ist ein Fehler aufgetreten.");
 			}
 
 			@Override
@@ -234,7 +234,7 @@ public class ListItemForm extends VerticalPanel {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("Fehler");
+				Window.alert("Es ist ein Fehler aufgetreten.");
 			}
 
 			@Override
@@ -252,7 +252,7 @@ public class ListItemForm extends VerticalPanel {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("Fehler");
+				Window.alert("Es ist ein Fehler aufgetreten.");
 			}
 
 			@Override
@@ -265,23 +265,39 @@ public class ListItemForm extends VerticalPanel {
 				}
 			}
 		});
+		
+		/**
+		 * Instanziieren einer CellTable, die Item-Objekte repräsentieren soll
+		 */
 
 		final CellTable<Item> cellTable = new CellTable<Item>();
+		
+		/**
+		 *  Übernahme aller Elemente eines Item-Objekts
+		 */
 
 		getAllCallback = new AsyncCallback<Vector<Item>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("Fehler");
+				Window.alert("Es ist ein Fehler aufgetreten.");
 			}
-
+			
+			/**
+			 * Generieren von Zeilen und Zelleninhalt gemäß der Vektorlänge
+			 */
+			
 			@Override
 			public void onSuccess(Vector<Item> result) {
 				cellTable.setRowCount(result.size(), true);
 				cellTable.setRowData(result);
 			}
 		};
-
+		
+		/**
+		 * Anlegen der Spalten der CellTable gemäß der Eintragsattribute
+		 */
+		
 		TextColumn<Item> idColumn = new TextColumn<Item>() {
 			@Override
 			public String getValue(Item object) {
@@ -412,6 +428,10 @@ public class ListItemForm extends VerticalPanel {
 				setSelectedItem(object);
 			}
 		});
+		
+		/**
+		 * Festlegen der Spaltenfolge
+		 */
 
 		cellTable.addColumn(idColumn, "Id");
 		cellTable.addColumn(articleNameColumn, "Artikel");
@@ -425,9 +445,15 @@ public class ListItemForm extends VerticalPanel {
 		cellTable.addColumn(previewColumn, "");
 		cellTable.addColumn(editColumn, "");
 
-		
+		/**
+		 * Einfügen der erstellten CellTable in die Gesamtansicht
+		 */
 
 		add(cellTable);
+		
+		/**
+		 *  ClickHandler für die gewünschte Reaktion nach jeweiligem Ereignis
+		 */
 
 		anlegenBtn.addClickHandler(new ClickHandler() {
 

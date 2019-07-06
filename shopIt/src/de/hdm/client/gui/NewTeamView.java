@@ -49,12 +49,12 @@ public class NewTeamView extends VerticalPanel {
 
 							nameTextBox.setValue("");
 
-							Window.alert("Success");
+							Window.alert("Die Liste wurde erfolgreich angelegt.");
 						}
 
 						@Override
 						public void onFailure(Throwable caught) {
-							Window.alert("Fehler");
+							Window.alert(" Es ist ein Fehler aufgetreten. ");
 						}
 					});
 				}
