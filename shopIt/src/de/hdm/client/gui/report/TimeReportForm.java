@@ -66,9 +66,9 @@ public class TimeReportForm extends HorizontalPanel {
 		startButton.addClickHandler(new StartReportClickHandler());
 		verwaltung.getAllTeams(new GetAllTeamsCallback());
 		
-		startDateLabel.setStylePrimaryName("label-style");
-		endDateLabel.setStylePrimaryName("label-style");
-		gruppeLabel.setStylePrimaryName("label-style");
+//		startDateLabel.setStylePrimaryName("label-style");
+//		endDateLabel.setStylePrimaryName("label-style");
+//		gruppeLabel.setStylePrimaryName("label-style");
 
 		this.add(timeGrid);
 

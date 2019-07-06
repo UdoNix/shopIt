@@ -56,9 +56,9 @@ public class ShopReportForm extends VerticalPanel {
 		flex.setWidget(1, 1, listBoxTeam);
 		flex.setWidget(2, 1, startButton);
 
-		shopLabel.setStylePrimaryName("label-style");
-		teamLabel.setStylePrimaryName("label-style");
-		startButton.setStylePrimaryName("button-style");
+		//shopLabel.setStylePrimaryName("label-style");
+		//teamLabel.setStylePrimaryName("label-style");
+		//startButton.setStylePrimaryName("button-style");
 		startButton.addClickHandler(new StartReportClickHandler());
 		verwaltung.getAllShops(new GetAllShopsCallback());
 		verwaltung.getAllTeams(new GetAllTeamsCallback());

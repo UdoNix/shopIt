@@ -40,6 +40,27 @@ div {
  
 }
 
+.gwt-Button {
+	/*background: #aedff7!important; */
+	border: 1px solid white; 
+	display: inline-block; 
+	cursor: pointer; 
+	color: black; 
+	font-family:"Arial", Helvetica, sans-serif;
+	font-size: small !important;
+	font-weight: bold; 
+	padding: 7px 14px; 
+	text-decoration: none; 
+	width: 130px; 
+	height: 40px;
+	margin: 20px 20px 20px 20px !important;  
+	border-radius: 5px;
+	border: 1px solid #c2c2c2 !important;
+    border-bottom: 1px solid white !important;
+    background: rgb(255,192,203) !important;
+    align: center;
+}
+
 .label-style{
 
     font-size: 120%;

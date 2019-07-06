@@ -31,7 +31,7 @@ public class SelectMenu extends VerticalPanel {
 	public SelectMenu(ReportLayout reportLayout) {
 
 		this.reportLayout = reportLayout;
-		beitragLabel.setStylePrimaryName("label-style");
+		//beitragLabel.setStylePrimaryName("label-style");
 		shopButton.setStylePrimaryName("button-style");
 		shopButton.addClickHandler(new ShopReportClickHandler());
 		timeButton.setStylePrimaryName("button-style");

@@ -80,10 +80,10 @@ public class ShopTimeReportForm extends HorizontalPanel{
 			verwaltung.getAllShops(new GetAllShopsCallback());
 			verwaltung.getAllTeams(new GetAllTeamsCallback());
 			
-			startDateLabel.setStylePrimaryName("label-style");
-			endDateLabel.setStylePrimaryName("label-style");
-			shopLabel.setStylePrimaryName("label-style");
-			teamLabel.setStylePrimaryName("label-style");
+//			startDateLabel.setStylePrimaryName("label-style");
+//			endDateLabel.setStylePrimaryName("label-style");
+//			shopLabel.setStylePrimaryName("label-style");
+//			teamLabel.setStylePrimaryName("label-style");
 			
 			this.add(flex);
 			
