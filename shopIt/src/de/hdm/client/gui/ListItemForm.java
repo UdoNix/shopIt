@@ -90,8 +90,8 @@ public class ListItemForm extends VerticalPanel {
 	private VerticalPanel contentPanel = new VerticalPanel(); // welches Panel??
 	private HorizontalPanel btnPanel = new HorizontalPanel();
 	private Grid ListGrid;
-	private Button anlegenBtn = new Button("Anlegen");
-	private Button saveBtn = new Button("Speichern");
+	private Button anlegenBtn = new Button("Eintrag anlegen");
+	private Button saveBtn = new Button("Änderung speichern");
 	private Button deleteBtn = new Button("Liste löschen");
 	private Button cancelBtn = new Button("Zurueck");
 
@@ -157,7 +157,7 @@ public class ListItemForm extends VerticalPanel {
 		ListGrid.setWidget(4, 0, newPersonLabel);
 		ListGrid.setWidget(4, 1, personListBox);
 
-		Label shopLabel = new Label("Haendler: ");
+		Label shopLabel = new Label("Händler: ");
 		ListGrid.setWidget(5, 0, shopLabel);
 		ListGrid.setWidget(5, 1, shopListBox);
 //		Label listLabel = new Label("Hier können Sie Ihre Liste sehen"); 
@@ -201,7 +201,7 @@ public class ListItemForm extends VerticalPanel {
 		titelPanel.add(new Label("Hier können Sie Ihre Liste sehen: "));
 		filterPanel.add(new Label("Person-Filter: "));
 		filterPanel.add(personFilterListBox);
-		filterPanel.add(new Label(" Shop-Filter: "));
+		filterPanel.add(new Label("   Shop-Filter: "));
 		filterPanel.add(shopFilterListBox);
 
 		contentPanel.add(new ShoppingListForm());
