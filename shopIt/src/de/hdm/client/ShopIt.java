@@ -40,7 +40,6 @@ public class ShopIt implements EntryPoint {
 				if (loginInfo.isLoggedIn()) {
 
 					loginInfo = new LoginInformation();
-					loginInfo.setEmailAddress("ulrike@mustermann.org");
 					loadShopIt(loginInfo);
 
 				} else {
