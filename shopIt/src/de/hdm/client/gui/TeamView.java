@@ -66,9 +66,9 @@ public class TeamView extends VerticalPanel {
 
 	// Button changeButton = new Button("Name ändern");
 	Button deleteButton = new Button("Gruppe löschen");
-	Button addButton = new Button("Mitglieder hinzufügen");
+	Button addButton = new Button("Mitglied hinzufügen");
 	TextBox nameTextBox = new TextBox();
-	Button saveButton = new Button("Speichern");
+	Button saveButton = new Button("Änderung speichern");
 	TextBox emailTextBox = new TextBox();
 	private AsyncCallback<Vector<Person>> getAllMembershipCallback;
 
@@ -104,7 +104,7 @@ public class TeamView extends VerticalPanel {
 		teamGrid.setWidget(3, 0, new Label("Listen Name:"));
 		teamGrid.setWidget(3, 1, listNameTextBox);
 
-		Button listButton = new Button("Liste Anlegen");
+		Button listButton = new Button("Liste anlegen");
 		listButton.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -210,7 +210,7 @@ public class TeamView extends VerticalPanel {
 		@Override
 		public void onClick(ClickEvent event) {
 			if (selectedTeam == null) {
-				Window.alert("kein Team ausgewählt");
+				Window.alert("Kein Team ausgewählt");
 			} else {
 				listenVerwaltung.delete(selectedTeam, new deleteTeamCallback(selectedTeam));
 			}
@@ -308,7 +308,7 @@ public class TeamView extends VerticalPanel {
 
 		@Override
 		public void onSuccess(Void result) {
-			Window.alert("Mitgliedschaft wurde erfolgreich gelöscht. ");
+			Window.alert("Die Mitgliedschaft wurde erfolgreich gelöscht. ");
 		}
 	}
 

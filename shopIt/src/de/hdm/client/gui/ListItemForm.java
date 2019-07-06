@@ -90,8 +90,8 @@ public class ListItemForm extends VerticalPanel {
 	private VerticalPanel contentPanel = new VerticalPanel(); // welches Panel??
 	private HorizontalPanel btnPanel = new HorizontalPanel();
 	private Grid ListGrid;
-	private Button anlegenBtn = new Button("Anlegen");
-	private Button saveBtn = new Button("Speichern");
+	private Button anlegenBtn = new Button("Eintrag anlegen");
+	private Button saveBtn = new Button("Änderung speichern");
 	private Button deleteBtn = new Button("Liste löschen");
 	private Button cancelBtn = new Button("Zurueck");
 

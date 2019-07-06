@@ -57,8 +57,8 @@ public class ShopView extends VerticalPanel {
 	TextBox streetTextBox = new TextBox();
 
 	Button deleteButton = new Button("Shop löschen");
-	Button newButton = new Button("Als neuen Shop speichern");
-	Button saveButton = new Button("Speichern");
+	Button newButton = new Button("Shop anlegen");
+	Button saveButton = new Button("Änderung speichern");
 
 	private final  AsyncCallback<Vector<Shop>> getAllCallback;
 

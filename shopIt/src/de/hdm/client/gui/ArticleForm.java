@@ -42,8 +42,8 @@ public class ArticleForm extends VerticalPanel {
 		add(grid);
 
 		nameTextBox = new TextBox();
-		Button button2 = new Button("Speichern");
-		Button button = new Button("Anlegen");
+		Button button2 = new Button("Änderung speichern");
+		Button button = new Button("Artikel anlegen");
 
 		grid.setWidget(0, 0, new Label("Name"));
 		grid.setWidget(0, 1, nameTextBox);
@@ -145,7 +145,7 @@ public class ArticleForm extends VerticalPanel {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert("Fehler");
+						Window.alert("Es ist ein Fehler aufgetreten");
 					}
 				});
 			}
