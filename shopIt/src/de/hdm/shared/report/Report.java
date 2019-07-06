@@ -3,7 +3,7 @@ package de.hdm.shared.report;
 import java.io.Serializable;
 import java.util.Date;
 
-/*
+/**
  * Basisklasse aller Reports. Der Zugriff auf Reports erfolgt also nach deren Bereitstellung lokal auf dem
  * Client. Ein Report besitzt eine Reihe von Standardelementen. Sie werden mittels
  * Attributen modelliert und dort dokumentiert.

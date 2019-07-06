@@ -1,6 +1,7 @@
 package de.hdm.client.gui;
 
 import java.util.Arrays;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
@@ -26,6 +27,13 @@ import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Team;
 
+/**
+ * Klasse zur Realisierung einer Navigation durch die Applikation mittels CellTree
+ * 
+ * @author dibasegmen
+ *
+ */
+
 public class Tree extends CellTree {
 
 	private final Layout layout;
@@ -33,6 +41,7 @@ public class Tree extends CellTree {
 	/**
 	 * @param layout Das Layout zum setzen des Inhalt Panels
 	 */
+	
 	public Tree(Layout layout) {
 		super(new TreeModel(layout), null);
 		this.layout = layout;
@@ -59,7 +68,7 @@ public class Tree extends CellTree {
 		public <T> NodeInfo<?> getNodeInfo(T value) {
 			if (value == null) {
 				ListDataProvider<String> dataProvider = new ListDataProvider<String>(
-						Arrays.asList("Account", "Gruppe", "Artikel", "Shop", "Report"));
+						Arrays.asList("Konto", "Gruppe", "Artikel", "Shop", "Report"));
 
 				Cell<String> cell = new AbstractCell<String>("click") {
 					@Override
@@ -71,7 +80,7 @@ public class Tree extends CellTree {
 					public void onBrowserEvent(Context context, Element parent, String value, NativeEvent event,
 							ValueUpdater<String> valueUpdater) {
 						if ("click".equals(event.getType())) {
-							if (value.equals("Account")) {
+							if (value.equals("Konto")) {
 								layout.setPanel(new PersonForm());
 							} else if (value.equals("Artikel")) {
 								layout.setPanel(new ArticleForm());
@@ -145,13 +154,15 @@ public class Tree extends CellTree {
 
 		@Override
 		public boolean isLeaf(Object value) {
-			if (value != null && value.equals("Account")) {
+			if (value != null && value.equals("Konto")) {
 				return true;
 			} else if (value != null && value.equals("Artikel")) {
 				return true;
 			} else if (value != null && value.equals("Shop")) {
 				return true;
 			} else if (value != null && value.equals("Report")) {
+				return true;
+			} else if (value instanceof ShoppingList) {
 				return true;
 			}
 			return false;
@@ -162,6 +173,10 @@ public class Tree extends CellTree {
 	public static class TeamsAsyncDataProvder extends AsyncDataProvider<Team> {
 		
 		private ShopITAdministrationAsync listenVerwaltung = ClientsideSettings.getShopItAdministration();
+		
+		/**
+		 *  Wenn sich im Knoten Gruppe Änderungen ergeben, wird der Baum entsprechend aktualisiert 
+		 */
 		
 		@Override
 		protected void onRangeChanged(HasData<Team> display) {
@@ -194,6 +209,11 @@ public class Tree extends CellTree {
 		public ShoppingListsAsyncDataProvider(Team team) {
 			this.team = team;
 		}
+		
+		/**
+		 * Wenn sich im Knoten Liste Änderungen ergeben, wird der Baum entsprechend aktualisiert
+		 * 
+		 */
 		
 		@Override
 		public void onRangeChanged(HasData<ShoppingList> display) {

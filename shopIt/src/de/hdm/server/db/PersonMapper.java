@@ -10,22 +10,24 @@ import java.util.Vector;
 import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Person;
 
-//@udo nix, emily kretzschmar
+/**@author udo nix, emily kretzschmar**/
 
 public class PersonMapper {	
-	// Klasse PersonMapper als Singleton
-	//Variable durch <code> static </code> nur einmal für Instanzen der Klassen vorhanden
-	//Sie speichert einzige Instanz der Klasse
+	/** Klasse PersonMapper als Singleton
+	*Variable durch <code> static </code> nur einmal für Instanzen der Klassen vorhanden
+	*Sie speichert einzige Instanz der Klasse**/
  private static PersonMapper personMapper = null;
 
-// Konstruktor geschützt, es kann keine neue Instanz dieser Klasse mit <code>new</code> erzeugt werden
+/** Konstruktor geschützt, es kann keine neue Instanz dieser Klasse mit <code>new</code> erzeugt werden **/
 
 protected PersonMapper() {
 }
 
-//Aufruf der statischen Methode durch <code>GroupMapper.groupMapper()</code>. Singleton: Es kann nur eine 
-//Instanz von <code>PersonMapper</code> existieren
-//@return personMapper
+/**Aufruf der statischen Methode durch <code>GroupMapper.groupMapper()</code>. Singleton: Es kann nur eine 
+*Instanz von <code>PersonMapper</code> existieren
+*@return personMapper
+
+ */
 
 public static PersonMapper personMapper() {
 	if (personMapper == null) {
@@ -34,9 +36,11 @@ public static PersonMapper personMapper() {
 	return personMapper;
 }
 
-// Liste mit der vorgegebene Id suchen, Da sie eindeutig ist, wird nur ein Objekt zurueckgegeben
-//@parameter id Primärschlüsselattribut
-//@return Listenobjekt des übergebenen Schlüssel, null bei nicht vorhandenem Datenbank-Tupel
+/**
+ * Liste mit der vorgegebene Id suchen, Da sie eindeutig ist, wird nur ein Objekt zurueckgegeben
+
+ * @parameter id Primärschlüsselattribut
+@return Listenobjekt des übergebenen Schlüssel, null bei nicht vorhandenem Datenbank-Tupel */
 
 public Person findByKey (int id) {
 	//DB-Verbindung holen
@@ -71,10 +75,10 @@ public Person findByKey (int id) {
 		    return null;
 		  }
 			
-// Auslesen aller Listen.
- // @return Ein Vektor mit Person-Objekten, die sämtliche Personen
- //        repräsentieren. Bei Exceptions: Ein partiell gefüllter
-//        oder eben leerer Vetor wird zurückgeliefert.
+/** Auslesen aller Listen.
+  *@return Ein Vektor mit Person-Objekten, die sämtliche Personen
+       *repräsentieren. Bei Exceptions: Ein partiell gefüllter
+       *oder eben leerer Vetor wird zurückgeliefert.**/
 
 public Vector<Person> findAll() {
   Connection con = DBConnection.connection();
@@ -110,12 +114,14 @@ public Vector<Person> findAll() {
 }
 
 
- //Einfügen eines <code>Person</code>-Objekts in die Datenbank. Es wird
- // auch der Primärschlüssel des übergebenen Objekts geprüft und im gegebenen Falle
- // berichtigt.
- // @param p das zu speichernde Objekt
-//@return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
- //        <code>id</code>.
+ /**
+  *Einfügen eines <code>Person</code>-Objekts in die Datenbank. Es wird
+  *auch der Primärschlüssel des übergebenen Objekts geprüft und im gegebenen Falle
+  *berichtigt.
+   *@param p das zu speichernde Objekt
+   *@return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
+        <code>id</code>.
+        */
 
 public Person insert(Person p) {
   Connection con = DBConnection.connection();
@@ -153,9 +159,9 @@ public Person insert(Person p) {
   return p;
 }
 
- // Schreiben eines Objekts in die Datenbank.
-  // @param p  Objekt, das in die Datenbank geschrieben werden soll
-  //@return das als Parameter übergebene Objekt
+ /** Schreiben eines Objekts in die Datenbank.
+  * @param p  Objekt, das in die Datenbank geschrieben werden soll
+ *@return das als Parameter übergebene Objekt **/
    
   public Person update(Person p) {
     Connection con = DBConnection.connection();
@@ -177,8 +183,9 @@ public Person insert(Person p) {
   }
    
 
-   // Daten eines <code>Person</code>-Objekts aus der Datenbank loeschen.
-    // @param p das aus der DB zu loeschende "Objekt"
+   /**
+    *Daten eines <code>Person</code>-Objekts aus der Datenbank loeschen.
+     @param p das aus der DB zu loeschende "Objekt"*/
    
    public void delete(Person p) {
      Connection con = DBConnection.connection();
@@ -228,7 +235,7 @@ public Person insert(Person p) {
 			return result;
 		}
    
-//Person anhand seiner Email finden
+/**Person anhand seiner Email finden*/
    
 	public Person findPersonByEmail(String email) throws SQLException {
 		//DB-Verbindung holen

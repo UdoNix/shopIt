@@ -15,6 +15,7 @@ import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ShopITAdministrationAsync;
 import de.hdm.shared.bo.ShoppingList;
 import de.hdm.shared.bo.Team;
+@Deprecated
 
 public class DeleteListDialogBox extends DialogBox {
 

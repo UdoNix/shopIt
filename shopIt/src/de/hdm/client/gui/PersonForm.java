@@ -37,7 +37,7 @@ public class PersonForm extends VerticalPanel {
 	Label idLabel = new Label("Kundennummer: ");
 	Label creationTimeLabel = new Label("");
 	Button changeButton = new Button("Name bearbeiten");
-	Button deleteButton = new Button("Account löschen");
+	Button deleteButton = new Button("Konto löschen");
 
 	/**
 	 * Widgets werden in einem Raster (Grid) angeordnet, dessen Größe sich aus dem
@@ -103,7 +103,7 @@ public class PersonForm extends VerticalPanel {
 
 		public void onClick(ClickEvent event) {
 			if (personToDisplay == null) {
-				Window.alert("Fehlgeschlagen");
+				Window.alert("\"Es ist ein Fehler aufgetreten.");
 			} else {
 				listenVerwaltung.delete(personToDisplay, new DeletePersonCallback());
 			}
@@ -141,9 +141,12 @@ public class PersonForm extends VerticalPanel {
 			Window.alert("Leider hat die Namensänderung nicht funktioniert");
 		}
 
-		// Die Namensänderung wird zum Personenbaum weitergeleitet.
+		/**
+		 *  Die Namensänderung wird zum Personenbaum weitergeleitet.
+		 */
+		
 		public void onSuccess(Void result) {
-			Window.alert("Juhu");
+			Window.alert("Ihr Name wurde erfolgreich geändert.");
 		}
 	}
 

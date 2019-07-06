@@ -14,6 +14,10 @@ import de.hdm.shared.bo.Team;
 import de.hdm.shared.report.HTMLReportWriter;
 import de.hdm.shared.report.TeamAndShopStatistikReport;
 
+/** Die Klasse <code>ShopTimeReportCallback</code> dient dem Report Shop mit Zeit-Callback
+* 
+* @author dibasegmen
+*/
 
 public class ShopTimeReportCallback extends VerticalPanel  {
 	ReportGeneratorAsync reportverwaltung = ClientsideSettings.getReportGenerator(); 
@@ -27,7 +31,7 @@ public class ShopTimeReportCallback extends VerticalPanel  {
 	public class TeamAndShopStatistikReportCallback implements AsyncCallback<TeamAndShopStatistikReport> {
 		
 		public void onFailure(Throwable caught) {
-			Window.alert("Fehler");
+			Window.alert("Es ist ein Fehler aufgetreten.");
 		}
 		
 		public void onSuccess(TeamAndShopStatistikReport result) {
@@ -37,7 +41,7 @@ public class ShopTimeReportCallback extends VerticalPanel  {
 
 			clear();
 			add(new HTML(reportText));
-			Window.alert("Success");
+			Window.alert("Die Operation war erfolgreich");
 		}
 
 

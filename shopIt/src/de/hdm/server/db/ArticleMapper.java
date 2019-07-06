@@ -9,24 +9,26 @@ import java.util.Vector;
 
 import de.hdm.shared.bo.Article;
 
-//@author udo nix, emily kretzschmar
+/**@author udo nix, emily kretzschmar **/
 
 public class ArticleMapper {
 
-	// Klasse ArticleMapper als Singleton
-	// Variable durch <code> static </code> nur einmal für Instanzen der Klassen
-	// vorhanden
-	// Sie speichert einzige Instanz der Klasse
+	/**Klasse ArticleMapper als Singleton
+	 *Variable durch <code> static </code> nur einmal fï¿½r Instanzen der Klassen
+	 *vorhanden
+	 *Sie speichert einzige Instanz der Klasse **/
 	private static ArticleMapper articleMapper = null;
 
-// Konstruktor geschützt, es kann keine neue Instanz dieser Klasse mit <code>new</code> erzeugt werden
+/** Konstruktor geschï¿½tzt, es kann keine neue Instanz dieser Klasse mit <code>new</code> erzeugt werden**/
 
 	protected ArticleMapper() {
 	}
 
-//Aufruf der statischen Methode durch <code>ArticleMapper.articleMapper()</code>. Singleton: Es kann nur eine 
-//Instanz von <code>ArticleMapper</code> existieren
-//@return articleMapper
+/**Aufruf der statischen Methode durch <code>ArticleMapper.articleMapper()</code>. Singleton: Es kann nur eine 
+ *Instanz von <code>ArticleMapper</code> existieren
+ * @return articleMapper
+ * 
+ */
 
 	public static ArticleMapper articleMapper() {
 		if (articleMapper == null) {
@@ -35,9 +37,10 @@ public class ArticleMapper {
 		return articleMapper;
 	}
 
-// Gruppe mit der vorgegebene Id suchen, Da sie eindeutig ist, wird nur ein Objekt zurueckgegeben
-//@parameter id Primärschlüsselattribut
-//@return Articleobjekt des übergebenen Schlüssel, null bei nicht vorhandenem Datenbank-Tupel
+/**
+ *  Gruppe mit der vorgegebene Id suchen, Da sie eindeutig ist, wird nur ein Objekt zurueckgegeben
+ * @param id
+ * @return Articleobjekt des ï¿½bergebenen Schlï¿½ssel, null bei nicht vorhandenem Datenbank-Tupel **/
 
 	public Article findByKey(int id) {
 		// DB-Verbindung holen
@@ -46,10 +49,10 @@ public class ArticleMapper {
 		try {
 			// Anlegen einen leeren SQL-Statement
 			Statement stmt = con.createStatement();
-			// Ausfüllen des Statements, als Query an die DB schicken
+			// Ausfï¿½llen des Statements, als Query an die DB schicken
 			ResultSet rs = stmt.executeQuery("SELECT * from article WHERE article.id= " + id);
 
-			// Da id Primärschlüssel ist, kann nur ein Tupel zurueckgeg werden.
+			// Da id Primï¿½rschlï¿½ssel ist, kann nur ein Tupel zurueckgeg werden.
 			// Es wird geprueft, ob ein Ergebnis vorliegt.
 			if (rs.next()) {
 				// Ergebnis-Tupel in Objekt umwandeln
@@ -68,10 +71,10 @@ public class ArticleMapper {
 		return null;
 	}
 
-// Auslesen aller Artikel.
-	// @return Ein Vektor mit Article-Objekten, die sämtliche Gruppen
-	// repräsentieren. Bei Exceptions: Ein partiell gefüllter
-//        oder eben leerer Vetor wird zurückgeliefert.
+/** Auslesen aller Artikel.
+	*Ein Vektor mit Article-Objekten, die sï¿½mtliche Gruppen
+	*reprï¿½sentieren. Bei Exceptions: Ein partiell gefï¿½llter
+       *oder eben leerer Vetor wird zurï¿½ckgeliefert.**/
 
 	public Vector<Article> findAll() {
 		Connection con = DBConnection.connection();
@@ -84,7 +87,7 @@ public class ArticleMapper {
 
 			ResultSet rs = stmt.executeQuery("SELECT * FROM article ORDER BY id");
 
-			// Für jeden Eintrag im Suchergebnis wird nun ein Group-Objekt erstellt.
+			// Fï¿½r jeden Eintrag im Suchergebnis wird nun ein Group-Objekt erstellt.
 			while (rs.next()) {
 				Article a = new Article();
 				a.setId(rs.getInt("id"));
@@ -103,13 +106,15 @@ public class ArticleMapper {
 		return result;
 	}
 
-	// Einfügen eines <code>Article</code>-Objekts in die Datenbank. Es wird
-	// auch der Primärschlüssel des übergebenen Objekts geprüft und im gegebenen
-	// Falle
-	// berichtigt.
-	// @param a das zu speichernde Objekt
-//@return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
-	// <code>id</code>.
+	/** Einfï¿½gen eines <code>Article</code>-Objekts in die Datenbank. Es wird
+	* auch der Primï¿½rschlï¿½ssel des ï¿½bergebenen Objekts geprï¿½ft und im gegebenen
+	*Falle
+	*berichtigt.
+	* @param a das zu speichernde Objekt
+    *@return das bereits ï¿½bergebene Objekt, jedoch mit ggf. korrigierter
+	* <code>id</code>.
+	
+	 */
 
 	public Article insert(Article a) {
 		Connection con = DBConnection.connection();
@@ -117,13 +122,13 @@ public class ArticleMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			// Pruefen, welches der momentan höchste Primärschlüsselwert ist.
+			// Pruefen, welches der momentan hï¿½chste Primï¿½rschlï¿½sselwert ist.
 
 			ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid " + "FROM article ");
 
 			// Falls man etw. zurueck bekommt, ist dies nur einzeilig
 			if (rs.next()) {
-				// a erhält den bisher maximalen, nun um 1 inkrementierten Primärschlüssel.
+				// a erhï¿½lt den bisher maximalen, nun um 1 inkrementierten Primï¿½rschlï¿½ssel.
 
 				a.setId(rs.getInt("maxid") + 1);
 
@@ -132,7 +137,7 @@ public class ArticleMapper {
 				// stmt2.setInt(1, a.getId());
 				// stmt2.setString(4, a.getName());
 
-				// Es erfolgt die tatsächliche Einfuegeoperation
+				// Es erfolgt die tatsï¿½chliche Einfuegeoperation
 				PreparedStatement stmt2 = con
 						.prepareStatement("INSERT INTO article (id, creationDate, changeDate, name) "
 								+ "VALUES (?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?)");
@@ -148,9 +153,14 @@ public class ArticleMapper {
 		return a;
 	}
 
-	// Schreiben eines Objekts in die Datenbank.
-	// @param a Objekt, das in die Datenbank geschrieben werden soll
-	// @return das als Parameter übergebene Objekt
+	/**
+	 *  Schreiben eines Objekts in die Datenbank.
+	 * @param a Objekt, das in die Datenbank geschrieben werden soll
+	// 
+	 * @return das als Parameter ï¿½bergebene Objekt
+	 */
+	
+	
 
 	public Article update(Article a) {
 		Connection con = DBConnection.connection();
@@ -171,8 +181,11 @@ public class ArticleMapper {
 		return a;
 	}
 
-	// Daten eines <code>Article</code>-Objekts aus der Datenbank loeschen.
-	// @param a das aus der DB zu loeschende "Objekt"
+	/**
+	 *  Daten eines <code>Article</code>-Objekts aus der Datenbank loeschen.
+	 * @param a das aus der DB zu loeschende "Objekt"
+	 */
+
 
 	public void delete(Article a) {
 		Connection con = DBConnection.connection();

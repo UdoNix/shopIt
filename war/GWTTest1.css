@@ -1,5 +1,5 @@
 /** Add css rules here for your application. */
-/**@author Larisa */
+/**@author Larisa, Ilona */
 
 
 body {
@@ -34,7 +34,7 @@ div.content {
 
 .header h1 {
   font-size: 40px;
-  font-weight: bold;
+  font-weight: italic !important;
   color: #b70000;
   margin: 30px 150px 70px 0px;
   padding-top: 10px !important;
@@ -44,7 +44,7 @@ div.content {
   position: relative; 
   top: 18px;
   left: 10px; 
-  font-style: italic;
+/*   font-style: italic; */
   border: 2px solid #c2c2c2;
   border-radius: 5px 5px 5px 5px;
   background-color: rgb(255,192,203) !important;
@@ -68,13 +68,14 @@ div.content {
 	border: 1px solid white; 
 	display: inline-block; 
 	cursor: pointer; 
-	color: white; 
-	font-family: Arial;
-	font-size: 18px;
+	color: black; 
+	font-family:"Arial", Helvetica, sans-serif;
+	font-size: small !important;
+	font-weight: bold; 
 	padding: 7px 14px; 
 	text-decoration: none; 
-	width: 120px; 
-	height: 50px;
+	width: 130px; 
+	height: 40px;
 	margin: 20px 20px 20px 20px !important;  
 	border-radius: 5px;
 	border: 1px solid #c2c2c2 !important;
@@ -83,6 +84,7 @@ div.content {
     align: center;
 }
 
+
 .gwt-TextBox {
   border-radius: 4px;
   border: 1px solid #c2c2c2 !important;
@@ -90,16 +92,14 @@ div.content {
 }
 
 .com-google-gwt-user-cellview-client-CellTree-Style-cellTreeItemValue {
-/* 	border: 1px solid #c2c2c2 !important; */
 	border-radius: 5px;
-	/*background-color: #aedff7!important; */
 	background-color: rgb(255,192,203) !important;
 	width: 90px;
-	height: 40px;
+/* 	height: 40px; */
 	display: inline-block;
 	font-family: Arial;
 	font-size: 18px;
-	color: white;
+	color: black;
 	padding: 7px 14px; 
 	padding-left: -10px !important;
 
