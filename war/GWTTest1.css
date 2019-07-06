@@ -123,6 +123,16 @@ div.content {
   
 }
 
+#login {
+	height: 30px;
+	margin-bottom: 30px;
+	width: 80%;
+	padding-left: 2%;
+}
+
+#login .gwt-Label, #login .gwt-Anchor {
+	float: left;
+}
 
 /* ###### Mobile Queries ###### */
 
