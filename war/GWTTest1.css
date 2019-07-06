@@ -1,23 +1,21 @@
 /** Add css rules here for your application. */
 /**@author Larisa, Ilona */
-
-
 body {
 	background-color: white;
 	font-familiy: "Arial", Helvetica, sans-serif;
 	overflow: scroll;
 }
 
-html *{
-	font-family: "Arial", Helvetica, sans-serif; 
+html * {
+	font-family: "Arial", Helvetica, sans-serif;
 	font-size: 18px;
-	font-weight: light; 
+	font-weight: light;
 }
 
 div.content {
 	padding: 120px;
-	background-color:white !important;  
-	top: 170px; 
+	background-color: white !important;
+	top: 170px;
 	margin: 10px 10px 10px 10px !important;
 	background-position: calc(100% - 40px) calc(100% - 34px);
 }
@@ -25,7 +23,7 @@ div.content {
 .header img {
 	float: right;
 	width: 180px;
-	height:160px;
+	height: 160px;
 	margin-right: 140px;
 	/*margin-top: 110px;*/
 	border: 2px solid #c2c2c2;
@@ -33,94 +31,87 @@ div.content {
 }
 
 .header h1 {
-  font-size: 40px;
-  font-weight: italic !important;
-  color: #b70000;
-  margin: 30px 150px 70px 0px;
-  padding-top: 10px !important;
-  padding-bottom: 10px !important;
-  text-align: center;
-  background-color: white !important;
-  position: relative; 
-  top: 18px;
-  left: 10px; 
-/*   font-style: italic; */
-  border: 2px solid #c2c2c2;
-  border-radius: 5px 5px 5px 5px;
-  background-color: rgb(255,192,203) !important;
+	font-size: 40px;
+	font-weight: italic !important;
+	color: #b70000;
+	margin: 30px 150px 70px 0px;
+	padding-top: 10px !important;
+	padding-bottom: 10px !important;
+	text-align: center;
+	background-color: white !important;
+	position: relative;
+	top: 18px;
+	left: 10px;
+	/*   font-style: italic; */
+	border: 2px solid #c2c2c2;
+	border-radius: 5px 5px 5px 5px;
+	background-color: rgb(255, 192, 203) !important;
 }
 
 .gwt-Anchor {
-  border: 2px solid #c2c2c2;
-  border-radius: 5px 5px 5px 5px;
-  background-color: rgb(255,192,203) !important;
-  text-color: white !important;
-  padding: 5px 10px 5px 10px;
-  text-decoration: none !important;
-  link: black !important;
-  visited: black !important;
-  margin-left: 150px !important;
+	border: 2px solid #c2c2c2;
+	border-radius: 5px 5px 5px 5px;
+	background-color: rgb(255, 192, 203) !important;
+	text-color: white !important;
+	padding: 5px 10px 5px 10px;
+	text-decoration: none !important;
+	link: black !important;
+	visited: black !important;
+	margin-left: 150px !important;
 }
-
 
 .gwt-Button {
 	/*background: #aedff7!important; */
-	border: 1px solid white; 
-	display: inline-block; 
-	cursor: pointer; 
-	color: black; 
-	font-family:"Arial", Helvetica, sans-serif;
+	border: 1px solid white;
+	display: inline-block;
+	cursor: pointer;
+	color: black;
+	font-family: "Arial", Helvetica, sans-serif;
 	font-size: small !important;
-	font-weight: bold; 
-	padding: 7px 14px; 
-	text-decoration: none; 
-	width: 130px; 
+	font-weight: bold;
+	padding: 7px 14px;
+	text-decoration: none;
+	width: 130px;
 	height: 40px;
-	margin: 20px 20px 20px 20px !important;  
+	margin: 20px 20px 20px 20px !important;
 	border-radius: 5px;
 	border: 1px solid #c2c2c2 !important;
-    border-bottom: 1px solid white !important;
-    background: rgb(255,192,203) !important;
-    align: center;
+	border-bottom: 1px solid white !important;
+	background: rgb(255, 192, 203) !important;
+	align: center;
 }
 
-
 .gwt-TextBox {
-  border-radius: 4px;
-  border: 1px solid #c2c2c2 !important;
-  border-top: 1px solid #999 !important; 
+	border-radius: 4px;
+	border: 1px solid #c2c2c2 !important;
+	border-top: 1px solid #999 !important;
 }
 
 .com-google-gwt-user-cellview-client-CellTree-Style-cellTreeItemValue {
 	border-radius: 5px;
-	background-color: rgb(255,192,203) !important;
+	background-color: rgb(255, 192, 203) !important;
 	width: 90px;
-/* 	height: 40px; */
+	/* 	height: 40px; */
 	display: inline-block;
 	font-family: Arial;
 	font-size: 18px;
 	color: black;
-	padding: 7px 14px; 
+	padding: 7px 14px;
 	padding-left: -10px !important;
-
-	
-	
-	
 }
 
 .com-google-gwt-user-cellview-client-CellTree-Style-cellTreeTopItem {
-    font-weight: bold;
-    background-color: rgb(255,192,203) !important;
-    color: #4b4a4a;
-    border: 2px solid #c2c2c2 !important;
+	font-weight: bold;
+	background-color: rgb(255, 192, 203) !important;
+	color: #4b4a4a;
+	border: 2px solid #c2c2c2 !important;
 	border-radius: 5px 5px 5px 5px;
 	padding: 3px 10px 3px 0px !important;
-    margin: 5px 100px 20px 50px !important;
-}	
+	margin: 5px 100px 20px 50px !important;
+}
 
 .com-google-gwt-user-cellview-client-CellTree-Style-cellTreeItem {
 	margin-left: 5px !important;
-  
 }
 
 #login {
@@ -135,23 +126,51 @@ div.content {
 }
 
 /* ###### Mobile Queries ###### */
-
-@media only screen and (min-width: 500px) and (max-width: 1320px) {
-	
+@media only screen and (min-width: 320px) {
 	.header img {
 		margin-right: 20px;
 		margin-top: 24px;
+		height: 20px;
+		width: auto;
 	}
-	
+}
+
+@media only screen and (min-width: 480px) {
+	.header img {
+		margin-right: 12px;
+		margin-top: 18px;
+		height: 50px;
+		width: auto;
+	}
+	table td {
+		float: left;
+		margin-top: 13px;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	.header img {
+		margin-right: 20px;
+		margin-top: 24px;
+		height: 100%;
+		width: auto;
+	}
 	table td {
 		float: left;
 		margin-top: 20px;
 	}
 }
 
+@media only screen and (min-width: 1280px) {
+	.header img {
+		margin-right: 20px;
+		margin-top: 24px;
+		height: 120%;
+		width: auto;
+	}
+}
 
 /**Styling der HTML Div-Elemente */
-
 /* #container { */
 /* 	float: none; */
 /* 	height: 100%; */
@@ -159,7 +178,6 @@ div.content {
 /* 	width: 100%; */
 /* 	background-color: light grey;  */
 /* 	border-radius: 20px;  */
-
 /* #Header { */
 /* 	background-color: #abd0d6; */
 /* 	border-radius: 10px; */
@@ -168,7 +186,6 @@ div.content {
 /* 	border-style: inset;  */
 /* 	margin-bottom: 10px; */
 /* } */
-
 /* #trailer { */
 /* 	clear: both; */
 /* 	padding: 10px; */
@@ -180,7 +197,6 @@ div.content {
 /* 	boarder-radius: 10px; */
 /* 	boarder-style: inset;  */
 /* } */
-
 /* #Content { */
 /* 	float: left; */
 /* 	margin-left: 10px; */
@@ -190,20 +206,15 @@ div.content {
 /* 	border-left: 2px solid #93a3a3;  */
 /* 	margin-bottom: 10px;  */
 /* } */
-
 /** Styling von Button Elementen */
-
-
 /* .gwt-TextBox { */
 /* 	height: 20px; */
 /* 	width: 400px; */
 /* } */
-
 /* .reportButton { */
 /* 	width: 80%;  */
 /* 	height: 60%;  */
 /* } */
-
 /* .shopIT-headline { */
 /* 	font-size: 12pt;  */
 /* 	font-weight: bold;  */
@@ -213,13 +224,11 @@ div.content {
 /* 	margin-bottom: 10px; */
 /* 	text-align: left;  */
 /* } */
-
 /* .shopIT-simpletext { */
 /* 	font-size: 100%; */
 /* 	font-weight: normal;  */
 /* 	padding: 3px; */
 /* } */
-
 /* .shopIT-label { */
 /* 	font-size: 120% */
 /* 	font-weight: bold; */
@@ -227,66 +236,55 @@ div.content {
 /* 	color: light grey;  */
 /* 	padding-bottom: 0.5em;  */
 /* } */
-
 /* .shopIT-textfield { */
 /* 	font-size: 100%; */
 /* 	font-weight: normal; */
 /* 	padding: 3px;  */
 /* 	width: 15em;  */
 /* } */
-
 /* .shopIT-menubutton { */
 /* 	font-size: 100%; */
 /* 	font-weight: bold; */
 /* 	width: 15em; */
 /* 	margin-bottom: 1em; */
 /* } */
-
 /* .shopIT-button { */
 /* 	font-size: 100% */
 /* 	font-weight: bold;  */
 /* } */
-
-/* /**Stylen des Reports */ */
-
-/* #header { */
-/* 	border-radius: 10px; */
-/* 	background-color: #abd0d6;  */
-/* } */
-
-/* .social-simpletext { */
-	
-/* } */
-
-/* .dialogVPanel { */
-/* 	margin: 5px; */
-/* } */
-
-/* .serverResponseLabelError { */
-/* 	color: #abd0d6;  */
-/* } */
-
-
-/* /**Stylen des Reports */ */
+/* /**Stylen des Reports */
+*
+/
 
 /* #header { */
 /* 	border-radius: 10px; */
 /* 	background-color: #abd0d6;  */
 /* } */
-
 /* .social-simpletext { */
-	
 /* } */
-
 /* .dialogVPanel { */
 /* 	margin: 5px; */
 /* } */
-
 /* .serverResponseLabelError { */
 /* 	color: #abd0d6;  */
 /* } */
+/* /**Stylen des Reports */
+ 
+*
+/
 
-
+/* #header { */
+/* 	border-radius: 10px; */
+/* 	background-color: #abd0d6;  */
+/* } */
+/* .social-simpletext { */
+/* } */
+/* .dialogVPanel { */
+/* 	margin: 5px; */
+/* } */
+/* .serverResponseLabelError { */
+/* 	color: #abd0d6;  */
+/* } */
 /** Example rules used by the template application (remove for your app) */
 /* h1 { */
 /*   font-size: 2em; */
@@ -295,26 +293,27 @@ div.content {
 /*   margin: 40px 0px 70px; */
 /*   text-align: center; */
 /* } */
-
 /* .sendButton { */
 /*   display: block; */
 /*   font-size: 16pt; */
 /* } */
-
-/* /** Most GWT widgets already have a style name defined */ */
+/* /** Most GWT widgets already have a style name defined */
+ 
+*
+/
 /* .gwt-DialogBox { */
 /*   width: 400px; */
 /* } */
-
 /* .dialogVPanel { */
 /*   margin: 5px; */
 /* } */
-
 /* .serverResponseLabelError { */
 /*   color: red; */
 /* } */
-
-/* /** Set ids using widget.getElement().setId("idOfElement") */ */
+/* /** Set ids using widget.getElement().setId("idOfElement") */
+ 
+*
+/
 /* #closeButton { */
 /*   margin: 15px 6px 6px; */
 /* } */
