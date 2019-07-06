@@ -114,6 +114,12 @@ div.content {
 	margin-left: 5px !important;
 }
 
+.com-google-gwt-user-cellview-client-CellTable-Style-cellTableWidget {
+	width: 100%;
+	overflow-y: auto;
+	margin: 0 0 1em;
+}
+
 #login {
 	height: 30px;
 	margin-bottom: 30px;
@@ -125,13 +131,18 @@ div.content {
 	float: left;
 }
 
+
 /* ###### Mobile Queries ###### */
 @media only screen and (min-width: 320px) {
 	.header img {
 		margin-right: 20px;
 		margin-top: 24px;
-		height: 20px;
+		height: 50px;
 		width: auto;
+	}
+	table td {
+		float: left;
+		margin-top: 13px;
 	}
 }
 
@@ -146,6 +157,13 @@ div.content {
 		float: left;
 		margin-top: 13px;
 	}
+	.com-google-gwt-user-cellview-client-CellTable-Style-cellTableWidget {
+	width: 50px;
+	height:100px;
+	overflow-y: auto;
+	margin: 0 0 1em;
+}
+
 }
 
 @media only screen and (min-width: 768px) {
@@ -159,6 +177,11 @@ div.content {
 		float: left;
 		margin-top: 20px;
 	}
+	.com-google-gwt-user-cellview-client-CellTable-Style-cellTableWidget {
+	width: 100%;
+	overflow-y: auto;
+	margin: 0 0 1em;
+}
 }
 
 @media only screen and (min-width: 1280px) {
@@ -167,6 +190,10 @@ div.content {
 		margin-top: 24px;
 		height: 120%;
 		width: auto;
+	}
+	table td {
+		float: left;
+		margin-top: 13px;
 	}
 }
 
@@ -269,7 +296,13 @@ div.content {
 /* 	color: #abd0d6;  */
 /* } */
 /* /**Stylen des Reports */
+
+
+
  
+
+
+
 *
 /
 
@@ -298,7 +331,13 @@ div.content {
 /*   font-size: 16pt; */
 /* } */
 /* /** Most GWT widgets already have a style name defined */
+
+
+
  
+
+
+
 *
 /
 /* .gwt-DialogBox { */
@@ -311,7 +350,13 @@ div.content {
 /*   color: red; */
 /* } */
 /* /** Set ids using widget.getElement().setId("idOfElement") */
+
+
+
  
+
+
+
 *
 /
 /* #closeButton { */
