@@ -92,7 +92,7 @@ public class TeamView extends VerticalPanel {
 		deleteButton.addClickHandler(new DeleteClickHandler());
 		teamGrid.setWidget(2, 0, deleteButton);
 
-		Label textboxLabel = new Label("Name:");
+		Label textboxLabel = new Label("Name: ");
 		teamGrid.setWidget(1, 0, textboxLabel);
 		teamGrid.setWidget(1, 1, nameTextBox);
 
@@ -101,7 +101,7 @@ public class TeamView extends VerticalPanel {
 		teamGrid.setWidget(2, 1, saveButton);
 
 		final TextBox listNameTextBox = new TextBox();
-		teamGrid.setWidget(3, 0, new Label("Listen Name:"));
+		teamGrid.setWidget(3, 0, new Label("Listen Name: "));
 		teamGrid.setWidget(3, 1, listNameTextBox);
 
 		Button listButton = new Button("Liste anlegen");
@@ -131,7 +131,7 @@ public class TeamView extends VerticalPanel {
 		});
 		teamGrid.setWidget(4, 1, listButton);
 
-		Label personTextBox = new Label("Hinzuzufügende Person (email)");
+		Label personTextBox = new Label("Hinzuzufügende Person (email): ");
 		teamGrid.setWidget(5, 0, personTextBox);
 		teamGrid.setWidget(5, 1, emailTextBox);
 

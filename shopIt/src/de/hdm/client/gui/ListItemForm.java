@@ -155,7 +155,7 @@ public class ListItemForm extends VerticalPanel {
 		ListGrid.setWidget(4, 0, newPersonLabel);
 		ListGrid.setWidget(4, 1, personListBox);
 
-		Label shopLabel = new Label("Haendler: ");
+		Label shopLabel = new Label("Händler: ");
 		ListGrid.setWidget(5, 0, shopLabel);
 		ListGrid.setWidget(5, 1, shopListBox);
 
@@ -189,7 +189,7 @@ public class ListItemForm extends VerticalPanel {
 		HorizontalPanel filterPanel = new HorizontalPanel();
 		filterPanel.add(new Label("Person-Filter: "));
 		filterPanel.add(personFilterListBox);
-		filterPanel.add(new Label(" Shop-Filter: "));
+		filterPanel.add(new Label("   Shop-Filter: "));
 		filterPanel.add(shopFilterListBox);
 
 		contentPanel.add(new ShoppingListForm());

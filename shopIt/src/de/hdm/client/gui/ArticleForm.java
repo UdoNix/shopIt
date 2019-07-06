@@ -31,7 +31,7 @@ public class ArticleForm extends VerticalPanel {
 
 	ShopITAdministrationAsync articleVerwaltung = ClientsideSettings.getShopItAdministration();
 
-	private Grid grid = new Grid(2, 2);
+	private Grid grid = new Grid(5, 2);
 
 	private Article article;
 
@@ -40,15 +40,21 @@ public class ArticleForm extends VerticalPanel {
 	public ArticleForm() {
 
 		add(grid);
-
+		
+		Label textLabel = new Label("Artikel anlegen");
 		nameTextBox = new TextBox();
 		Button button2 = new Button("Änderung speichern");
 		Button button = new Button("Artikel anlegen");
-
-		grid.setWidget(0, 0, new Label("Name"));
-		grid.setWidget(0, 1, nameTextBox);
-		grid.setWidget(1, 0, button);
-		grid.setWidget(1, 1, button2);
+		Label tabelleLabel = new Label("Hier können Sie alle Artikel sehen:");
+		
+		grid.setWidget(0, 0, textLabel);
+		grid.setWidget(2, 0, new Label("Name: "));
+		grid.setWidget(2, 1, nameTextBox);
+		grid.setWidget(3, 0, button);
+		grid.setWidget(3, 1, button2);
+		grid.setWidget(4, 0, tabelleLabel);
+		
+		
 		
 		/**
 		 *  Übernahme der Daten des Formulars und Einpflege in einer CellTable, die dem Nutzer alle bisher angelegten

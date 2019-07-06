@@ -59,6 +59,7 @@ public class ShopView extends VerticalPanel {
 	Button deleteButton = new Button("Shop löschen");
 	Button newButton = new Button("Shop anlegen");
 	Button saveButton = new Button("Änderung speichern");
+	Label shopLabel = new Label("Hier können Sie alle Shops sehen:");
 
 	private final  AsyncCallback<Vector<Shop>> getAllCallback;
 
@@ -77,37 +78,42 @@ public class ShopView extends VerticalPanel {
 		Grid shopGrid = new Grid(7, 2);
 		this.add(shopGrid);
 
-		deleteButton.addClickHandler(new DeleteClickHandler());
-		deleteButton.setEnabled(false);
-		shopGrid.setWidget(4, 1, deleteButton);
+		//deleteButton.addClickHandler(new DeleteClickHandler());
+		//deleteButton.setEnabled(false);
+		//shopGrid.setWidget(4, 1, deleteButton);
 
-		Label name = new Label("Name:");
-		shopGrid.setWidget(1, 0, name);
-		shopGrid.setWidget(1, 1, nameTextBox);
+		Label textLabel = new Label("Shop anlegen");
+		shopGrid.setWidget(0, 0, textLabel);
 		
-		Label street = new Label("Strasse:");
-		shopGrid.setWidget(2, 0, street);
-		shopGrid.setWidget(2, 1, streetTextBox);
+		Label name = new Label("Name: ");
+		shopGrid.setWidget(2, 0, name);
+		shopGrid.setWidget(2, 1, nameTextBox);
+		
+		Label street = new Label("Strasse: ");
+		shopGrid.setWidget(3, 0, street);
+		shopGrid.setWidget(3, 1, streetTextBox);
 
-		Label plz = new Label("Postleitzahl:");
-		shopGrid.setWidget(3, 0, plz);
-		shopGrid.setWidget(3, 1, postalCodeTextBox);
+		Label plz = new Label("Postleitzahl: ");
+		shopGrid.setWidget(4, 0, plz);
+		shopGrid.setWidget(4, 1, postalCodeTextBox);
 
-		Label city = new Label("Stadt:");
-		shopGrid.setWidget(4, 0, city);
-		shopGrid.setWidget(4, 1, cityTextBox);
+		Label city = new Label("Stadt: ");
+		shopGrid.setWidget(5, 0, city);
+		shopGrid.setWidget(5, 1, cityTextBox);
 
 		newButton.addClickHandler(new NewClickHandler());
 		newButton.setEnabled(true);
-		shopGrid.setWidget(5, 0, newButton);
+		shopGrid.setWidget(6, 0, newButton);
 
 		saveButton.addClickHandler(new ChangeClickHandler());
 		saveButton.setEnabled(true);
-		shopGrid.setWidget(5, 1, saveButton);
-
+		shopGrid.setWidget(6, 1, saveButton);
+		
 		deleteButton.addClickHandler(new DeleteClickHandler());
 		deleteButton.setEnabled(true);
-		shopGrid.setWidget(6, 1, deleteButton);
+		shopGrid.setWidget(7, 1, deleteButton);
+		
+		shopGrid.setWidget(8, 0, shopLabel);
 		
 		/**
 		 *  Übernahme der Daten des Formulars und Einpflege in einer CellTable, die dem Nutzer alle bisher angelegten
