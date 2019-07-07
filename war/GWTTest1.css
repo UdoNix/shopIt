@@ -90,11 +90,15 @@ div.content {
   border-top: 1px solid #999 !important; 
 }
 
+.GPBYFDEOC {
+	padding: 1px 1px !important;
+}
+
 .com-google-gwt-user-cellview-client-CellTree-Style-cellTreeItemValue, .GPBYFDENF {
 	border-radius: 5px;
 	background-color: rgb(255,192,203) !important;
-	/*width: 90px;*/
-/* 	height: 40px; */
+	width: 60%;
+	height: 35px;
 	display: inline-block;
 	font-family: Arial;
 	font-size: 18px;
