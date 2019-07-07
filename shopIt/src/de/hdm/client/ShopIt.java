@@ -30,29 +30,31 @@ public class ShopIt implements EntryPoint {
 
 		// RootPanel.get("content").add(new Layout(new LoginInformation()));
 
-		LoginServiceAsync loginService = GWT.create(LoginService.class);
-		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInformation>() {
-
-			@Override
-			public void onSuccess(LoginInformation result) {
-				ClientsideSettings.setLoginInformation(result);
-				loginInfo = result;
-				if (loginInfo.isLoggedIn()) {
-
-					Window.alert(loginInfo.getEmailAddress());
+//		LoginServiceAsync loginService = GWT.create(LoginService.class);
+//		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInformation>() {
+//
+//			@Override
+//			public void onSuccess(LoginInformation result) {
+//				ClientsideSettings.setLoginInformation(result);
+//				loginInfo = result;
+//				if (loginInfo.isLoggedIn()) {
+					
+					loginInfo = new LoginInformation();
+					loginInfo.setEmailAddress("123@456.org");
 					loadShopIt(loginInfo);
-
-				} else {
-					loadLogin();
-				}
-			}
-
-			@Override
-			public void onFailure(Throwable error) {
-				Window.alert(error.getMessage());
-				loadLogin();
-			}
-		});
+//
+//				} else {
+					
+				//	loadLogin();
+//				}
+//			}
+//
+//			@Override
+//			public void onFailure(Throwable error) {
+//				Window.alert(error.getMessage());
+//				loadLogin();
+//			}
+//		});
 	}
 
 	private void loadLogin() {
@@ -66,6 +68,7 @@ public class ShopIt implements EntryPoint {
 
 	private void loadShopIt(LoginInformation loginInformation) {
 		RootPanel.get("content").clear();
+		RootPanel.get("login").add(new LoginHeader(loginInformation));
 		RootPanel.get("content").add(new Layout(loginInformation));
 		
 		admin.getPersonByEmail(loginInformation.getEmailAddress(), new FindByMailCallback());
@@ -76,16 +79,13 @@ public class ShopIt implements EntryPoint {
 		@Override
 		public void onFailure(Throwable error) {
 			logger.log(Level.SEVERE, error.getMessage());
-			Window.alert("Noch kein Benutzer mit dieser Email angelegt. Neuer Benutzer wurde erstellt!");
-			Window.alert("�ndern Sie Ihren Vor- und Nachnamen im Account Bereich.");
+			Window.alert("Noch kein Benutzer mit dieser Email angelegt. Neuer Benutzer wurde erstellt!\n Ändern Sie Ihren Vor- und Nachnamen im Account Bereich.");
 
 			admin.createPerson("Ihr Vorname", "Ihr Nachname", loginInfo.getEmailAddress(), new CreatePersonCallback());
 		}
 
 		@Override
 		public void onSuccess(Person p) {
-
-			Window.alert(p.getEmail() + " existiert bereits und wurde aus der Datenbank geladen.");
 			ClientsideSettings.setCurrentUser(p);
 		}
 
@@ -102,7 +102,6 @@ public class ShopIt implements EntryPoint {
 		public void onSuccess(Person p) {
 			p.setEmail(loginInfo.getEmailAddress());
 			ClientsideSettings.setCurrentUser(p);
-			Window.alert("geklappt!");
 		}
 	}
 }

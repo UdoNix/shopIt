@@ -15,16 +15,13 @@ public class Layout extends HorizontalPanel {
 	private Label currentUserLabel = new Label();
 
 	public Layout(LoginInformation loginInformation) {
+		
 		this.loginInformation = loginInformation;
 		add(new Tree(this));
-		add(contentPanel);
-
-		currentUserLabel.setText("Eingeloggt als " + loginInformation.getEmailAddress());
-		add(currentUserLabel);
 		
-		Anchor signOutLink = new Anchor("Ausloggen");
-		signOutLink.setHref(loginInformation.getLogoutURL());
-		add(signOutLink);
+		//contentPanel.addStyleName("contantPanel");
+		add(contentPanel);
+		
 	}
 
 	/**

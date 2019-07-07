@@ -56,11 +56,19 @@ h1{
 
 #links {
     float: left;
-    width: 200px;
-    height: 190px;
-    margin-left: 20px;
+  	width: 9%;
+    height: 9%;
+	margin-right: 140px;
+	/*margin-top: 110px;*/
+	border: 2px solid #c2c2c2;
+	border-radius: 5px 5px 5px 5px;
    
 }
 
+#content table tr {
+	display:table;
 }
 
+#content table td {
+	float: left;
+}
