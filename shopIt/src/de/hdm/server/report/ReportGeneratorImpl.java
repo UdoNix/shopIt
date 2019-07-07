@@ -289,6 +289,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		headline.addColumn(new Column("Menge"));
 		headline.addColumn(new Column("Maßeinheit"));
 		headline.addColumn(new Column("Name des Shops"));
+		headline.addColumn(new Column("Zuletzt Geändert"));
 
 		/**
 		 *  Hinzuf�gen der Kopfzeile
@@ -322,6 +323,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			itemRow.addColumn(new Column(String.valueOf(r.getQuantity())));
 			itemRow.addColumn(new Column(String.valueOf(r.getUnit())));
 			itemRow.addColumn(new Column(r.getShopName()));
+			itemRow.addColumn(new Column(String.valueOf(r.getChangeDate())));
 
 			/**
 			 *  Schliesslich die Zeile dem Report hinzuf�gen
@@ -424,7 +426,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		headline.addColumn(new Column("Artikel"));
 		headline.addColumn(new Column("Menge"));
 		headline.addColumn(new Column("Maßeinheit"));
-		headline.addColumn(new Column("Zuletzt Ge�ndert"));
+		headline.addColumn(new Column("Zuletzt Geändert"));
 
 		/**
 		 *  Hinzuf�gen der Kopfzeile

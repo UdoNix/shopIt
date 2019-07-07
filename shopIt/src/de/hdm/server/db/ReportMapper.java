@@ -104,17 +104,8 @@ public class ReportMapper {
 
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			
-			System.out.println("SELECT COUNT(item.id) AS 'count', article.name AS 'name', SUM(item.quantity) AS 'quantity', unit.unit AS 'unit', shop.name AS 'shopName', item.teamId AS 'teamId' "
-							+ "FROM item "
-							+ "JOIN article ON item.articleId = article.id "
-							+ "JOIN unit ON item.unitId = unit.id "
-							+ "JOIN team ON item.teamId = team.id "
-							+ "JOIN (responsibility JOIN shop ON responsibility.shopId = shop.id) ON item.id = responsibility.itemId "
-							+ "WHERE item.teamId = " + teamId + " AND item.changeDate BETWEEN '" + format.format( startDate) + "' AND '"
-							+ format.format(endDate) + "' GROUP BY article.id, shop.id, unit.unit ORDER BY COUNT(item.articleId) DESC");
-			
 			ResultSet rs = stmt.executeQuery(
-					"SELECT COUNT(item.id) AS 'count', article.name AS 'name', SUM(item.quantity) AS 'quantity', unit.unit AS 'unit', shop.name AS 'shopName', item.teamId AS 'teamId' "
+					"SELECT COUNT(item.id) AS 'count', article.name AS 'name', SUM(item.quantity) AS 'quantity', unit.unit AS 'unit', MAX(item.changeDate) AS 'changeDate', shop.name AS 'shopName', item.teamId AS 'teamId' "
 							+ "FROM item "
 							+ "JOIN article ON item.articleId = article.id "
 							+ "JOIN unit ON item.unitId = unit.id "
@@ -130,6 +121,7 @@ public class ReportMapper {
 				r.setQuantity(rs.getFloat("quantity"));
 				r.setUnit(rs.getString("unit"));
 				r.setShopName(rs.getString("shopName"));
+				r.setChangeDate(rs.getTimestamp("changeDate"));
 				result.add(r);
 			}
 
