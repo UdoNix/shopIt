@@ -90,10 +90,10 @@ div.content {
   border-top: 1px solid #999 !important; 
 }
 
-.com-google-gwt-user-cellview-client-CellTree-Style-cellTreeItemValue, .GPBYFDEIF {
+.com-google-gwt-user-cellview-client-CellTree-Style-cellTreeItemValue, .GPBYFDENF {
 	border-radius: 5px;
 	background-color: rgb(255,192,203) !important;
-	width: 90px;
+	/*width: 90px;*/
 /* 	height: 40px; */
 	display: inline-block;
 	font-family: Arial;
@@ -107,7 +107,7 @@ div.content {
 	
 }
 
-.com-google-gwt-user-cellview-client-CellTree-Style-cellTreeTopItem, .GPBYFDEFF {
+.com-google-gwt-user-cellview-client-CellTree-Style-cellTreeTopItem, .GPBYFDENF {
     font-weight: bold;
     background-color: rgb(255,192,203) !important;
     color: #4b4a4a;
@@ -117,7 +117,7 @@ div.content {
     margin: 5px 100px 20px 50px !important;
 }	
 
-.com-google-gwt-user-cellview-client-CellTree-Style-cellTreeItem, .GPBYFDEHF {
+.com-google-gwt-user-cellview-client-CellTree-Style-cellTreeItem, .GPBYFDENF {
 	margin-left: 5px !important;
   
 }
@@ -145,6 +145,7 @@ div.content {
 
 .com-google-gwt-user-cellview-client-CellTable-Style-cellTableHeader, .GPBYFDEFD {
 	min-width: 100px;
+	padding: 3px 3px !important;
 }
 
 #content table td {
