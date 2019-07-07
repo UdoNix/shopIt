@@ -86,7 +86,7 @@ public class Tree extends CellTree {
 								layout.setPanel(new ArticleForm());
 							} else if (value.equals("Shop")) {
 								layout.setPanel(new ShopView());
-							} else if (value.equals("Gruppe")) {
+							} else if (value.equals("Gruppen")) {
 								layout.setPanel(new NewTeamView(tree));
 							} else if (value.equals("Report")) {
 								Window.Location.replace("report.html");
@@ -96,7 +96,7 @@ public class Tree extends CellTree {
 				};
 
 				return new DefaultNodeInfo<String>(dataProvider, cell);
-			} else if (value.equals("Gruppe")) {
+			} else if (value.equals("Gruppen")) {
 
 				final TeamsAsyncDataProvder asyncDataProvider = new TeamsAsyncDataProvder();
 
