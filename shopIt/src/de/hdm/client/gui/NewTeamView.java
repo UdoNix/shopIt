@@ -22,7 +22,7 @@ public class NewTeamView extends VerticalPanel {
 
 		final TextBox nameTextBox = new TextBox();
 
-		Grid grid = new Grid(3, 2);
+		Grid grid = new Grid(4, 2);
 
 		Label textLabel = new Label("Neue Gruppe anlegen");
 		grid.setWidget(0, 0, textLabel);
@@ -30,7 +30,7 @@ public class NewTeamView extends VerticalPanel {
 		grid.setWidget(2, 1, nameTextBox);
 
 		Button button = new Button("Gruppe anlegen");
-		grid.setWidget(2, 1, button);
+		grid.setWidget(3, 1, button);
 
 		add(grid);
 
