@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -16,6 +17,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.client.ClientsideSettings;
 import de.hdm.shared.ReportGeneratorAsync;
 import de.hdm.shared.ShopITAdministrationAsync;
+import de.hdm.shared.bo.Person;
 import de.hdm.shared.bo.Shop;
 import de.hdm.shared.bo.Team;
 import de.hdm.shared.report.AllArticlesOfShopReport;
@@ -43,12 +45,25 @@ public class ShopReportForm extends VerticalPanel {
 	private ReportGeneratorAsync reportVerwaltung = ClientsideSettings.getReportGenerator();
 	private ShopITAdministrationAsync verwaltung = ClientsideSettings.getShopItAdministration();
 
+//	private Person current;
 	private Vector<Shop> shops;
 	private Vector<Team> teams;
 	private ReportLayout reportLayout;
 
 	public ShopReportForm(ReportLayout reportLayout) {
 
+//		verwaltung.getCurrentPerson(new AsyncCallback<Person>() {
+//			@Override
+//			public void onSuccess(Person result) {
+//				current = result;
+//			}
+//
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				Window.alert("Fehler");
+//			}
+//		});
+		
 		this.reportLayout = reportLayout;
 		flex.setWidget(0, 0, shopLabel);
 		flex.setWidget(0, 1, listBox);
@@ -61,7 +76,7 @@ public class ShopReportForm extends VerticalPanel {
 		startButton.setStylePrimaryName("button-style");
 		startButton.addClickHandler(new StartReportClickHandler());
 		verwaltung.getAllShops(new GetAllShopsCallback());
-		verwaltung.getAllTeams(new GetAllTeamsCallback());
+		verwaltung.getAllTeamsByPerson(new GetAllTeamsCallback());
 
 		this.add(flex);
 
