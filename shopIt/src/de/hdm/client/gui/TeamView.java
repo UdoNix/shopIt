@@ -66,9 +66,9 @@ public class TeamView extends VerticalPanel {
 
 	// Button changeButton = new Button("Name ändern");
 	Button deleteButton = new Button("Gruppe löschen");
-	Button addButton = new Button("Mitglieder hinzufügen");
+	Button addButton = new Button("Mitglied hinzufügen");
 	TextBox nameTextBox = new TextBox();
-	Button saveButton = new Button("Speichern");
+	Button saveButton = new Button("Änderung speichern");
 	TextBox emailTextBox = new TextBox();
 	private AsyncCallback<Vector<Person>> getAllMembershipCallback;
 
@@ -91,8 +91,11 @@ public class TeamView extends VerticalPanel {
 
 		deleteButton.addClickHandler(new DeleteClickHandler());
 		teamGrid.setWidget(2, 0, deleteButton);
+		
+		Label textLabel = new Label("Gruppenadministration");
+		teamGrid.setWidget(0, 0, textLabel);
 
-		Label textboxLabel = new Label("Name:");
+		Label textboxLabel = new Label("Name: ");
 		teamGrid.setWidget(1, 0, textboxLabel);
 		teamGrid.setWidget(1, 1, nameTextBox);
 
@@ -101,10 +104,10 @@ public class TeamView extends VerticalPanel {
 		teamGrid.setWidget(2, 1, saveButton);
 
 		final TextBox listNameTextBox = new TextBox();
-		teamGrid.setWidget(3, 0, new Label("Listen Name:"));
+		teamGrid.setWidget(3, 0, new Label("Listen Name: "));
 		teamGrid.setWidget(3, 1, listNameTextBox);
 
-		Button listButton = new Button("Liste Anlegen");
+		Button listButton = new Button("Liste anlegen");
 		listButton.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -131,7 +134,7 @@ public class TeamView extends VerticalPanel {
 		});
 		teamGrid.setWidget(4, 1, listButton);
 
-		Label personTextBox = new Label("Hinzuzufügende Person (email)");
+		Label personTextBox = new Label("Hinzuzufügende Person (email): ");
 		teamGrid.setWidget(5, 0, personTextBox);
 		teamGrid.setWidget(5, 1, emailTextBox);
 
