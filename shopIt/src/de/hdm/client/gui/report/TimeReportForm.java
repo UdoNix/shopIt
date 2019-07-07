@@ -64,7 +64,7 @@ public class TimeReportForm extends HorizontalPanel {
 
 		startButton.setStylePrimaryName("button-style");
 		startButton.addClickHandler(new StartReportClickHandler());
-		verwaltung.getAllTeams(new GetAllTeamsCallback());
+		verwaltung.getAllTeamsByPerson(new GetAllTeamsCallback());
 		
 		startDateLabel.setStylePrimaryName("label-style");
 		endDateLabel.setStylePrimaryName("label-style");

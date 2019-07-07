@@ -78,7 +78,7 @@ public class ShopTimeReportForm extends HorizontalPanel{
 			startButton.setStylePrimaryName("button-style");
 			startButton.addClickHandler(new StartReportClickHandler());
 			verwaltung.getAllShops(new GetAllShopsCallback());
-			verwaltung.getAllTeams(new GetAllTeamsCallback());
+			verwaltung.getAllTeamsByPerson(new GetAllTeamsCallback());
 			
 			startDateLabel.setStylePrimaryName("label-style");
 			endDateLabel.setStylePrimaryName("label-style");
