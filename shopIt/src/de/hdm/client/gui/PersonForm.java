@@ -30,9 +30,10 @@ public class PersonForm extends VerticalPanel {
 	/**
 	 * Widgets mit variablen Inhalten werden als Attribut festgelegt
 	 */
-	Label firstNameLabel = new Label("Vorname");
+	Label textLabel = new Label("Mein Konto");
+	Label firstNameLabel = new Label("Vorname: ");
 	TextBox firstNameTextBox = new TextBox();
-	Label lastNameLabel = new Label("Nachname");
+	Label lastNameLabel = new Label("Nachname: ");
 	TextBox lastNameTextBox = new TextBox();
 	Label idLabel = new Label("Kundennummer: ");
 	Label creationTimeLabel = new Label("");
@@ -45,18 +46,19 @@ public class PersonForm extends VerticalPanel {
 	 */
 	public void onLoad() {
 
-		Grid personGrid = new Grid(5, 2);
+		Grid personGrid = new Grid(6, 2);
 		this.add(personGrid);
 
-		personGrid.setWidget(0, 0, idLabel);
-		personGrid.setWidget(1, 0, creationTimeLabel);
-		personGrid.setWidget(2, 0, firstNameLabel);
-		personGrid.setWidget(2, 1, firstNameTextBox);
-		personGrid.setWidget(3, 0, lastNameLabel);
-		personGrid.setWidget(3, 1, lastNameTextBox);
+		personGrid.setWidget(0, 0, textLabel);
+		personGrid.setWidget(1, 0, idLabel);
+		personGrid.setWidget(2, 0, creationTimeLabel);
+		personGrid.setWidget(3, 0, firstNameLabel);
+		personGrid.setWidget(3, 1, firstNameTextBox);
+		personGrid.setWidget(4, 0, lastNameLabel);
+		personGrid.setWidget(4, 1, lastNameTextBox);
 
 		HorizontalPanel personButtonsPanel = new HorizontalPanel();
-		personGrid.setWidget(4, 0, personButtonsPanel);
+		personGrid.setWidget(5, 0, personButtonsPanel);
 
 		changeButton.addClickHandler(new ChangeClickHandler());
 		personButtonsPanel.add(changeButton);

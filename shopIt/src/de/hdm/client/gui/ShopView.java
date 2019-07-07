@@ -51,14 +51,16 @@ public class ShopView extends VerticalPanel {
 	 * Anlegen der Widgets
 	 */
 
+	Label textLabel = new Label("Shopadministration");
 	TextBox nameTextBox = new TextBox();
 	TextBox postalCodeTextBox = new TextBox();
 	TextBox cityTextBox = new TextBox();
 	TextBox streetTextBox = new TextBox();
 
 	Button deleteButton = new Button("Shop löschen");
-	Button newButton = new Button("Als neuen Shop speichern");
-	Button saveButton = new Button("Speichern");
+	Button newButton = new Button("Shop anlegen");
+	Button saveButton = new Button("Änderung speichern");
+	Label tabelleLabel = new Label("Hier können Sie alle angelegten Shops sehen:");
 
 	private final  AsyncCallback<Vector<Shop>> getAllCallback;
 
@@ -74,26 +76,28 @@ public class ShopView extends VerticalPanel {
 		 * Strukturierte Darstellung des Formulars mit Hilfe von Grid
 		 */
 
-		Grid shopGrid = new Grid(7, 2);
+		Grid shopGrid = new Grid(8, 2);
 		this.add(shopGrid);
 
-		deleteButton.addClickHandler(new DeleteClickHandler());
-		deleteButton.setEnabled(false);
-		shopGrid.setWidget(4, 1, deleteButton);
+		shopGrid.setWidget(0, 0, textLabel);
+		
+//		deleteButton.addClickHandler(new DeleteClickHandler());
+//		deleteButton.setEnabled(false);
+//		shopGrid.setWidget(4, 1, deleteButton);
 
-		Label name = new Label("Name:");
+		Label name = new Label("Name: ");
 		shopGrid.setWidget(1, 0, name);
 		shopGrid.setWidget(1, 1, nameTextBox);
 		
-		Label street = new Label("Strasse:");
+		Label street = new Label("Strasse: ");
 		shopGrid.setWidget(2, 0, street);
 		shopGrid.setWidget(2, 1, streetTextBox);
 
-		Label plz = new Label("Postleitzahl:");
+		Label plz = new Label("Postleitzahl: ");
 		shopGrid.setWidget(3, 0, plz);
 		shopGrid.setWidget(3, 1, postalCodeTextBox);
 
-		Label city = new Label("Stadt:");
+		Label city = new Label("Stadt: ");
 		shopGrid.setWidget(4, 0, city);
 		shopGrid.setWidget(4, 1, cityTextBox);
 
@@ -108,6 +112,8 @@ public class ShopView extends VerticalPanel {
 		deleteButton.addClickHandler(new DeleteClickHandler());
 		deleteButton.setEnabled(true);
 		shopGrid.setWidget(6, 1, deleteButton);
+		
+		shopGrid.setWidget(7, 0, tabelleLabel);
 		
 		/**
 		 *  Übernahme der Daten des Formulars und Einpflege in einer CellTable, die dem Nutzer alle bisher angelegten
