@@ -71,4 +71,5 @@ h1{
 
 #content table td {
 	float: left;
+	min-width: 95px;
 }
