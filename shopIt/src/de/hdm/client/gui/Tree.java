@@ -68,7 +68,7 @@ public class Tree extends CellTree {
 		public <T> NodeInfo<?> getNodeInfo(T value) {
 			if (value == null) {
 				ListDataProvider<String> dataProvider = new ListDataProvider<String>(
-						Arrays.asList("Konto", "Gruppe", "Artikel", "Shop", "Report"));
+						Arrays.asList("Konto", "Gruppen", "Artikel", "Shop", "Report"));
 
 				Cell<String> cell = new AbstractCell<String>("click") {
 					@Override
